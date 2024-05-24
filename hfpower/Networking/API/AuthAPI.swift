@@ -57,18 +57,18 @@ extension AuthAPI:APIType{
     var task: Task {
         switch self {
         case .sendSMSCode(let phoneNumber):
-            var params = ["body": ["phone_number": phoneNumber], "head": appHeader] as [String : Any]
+            let params = ["body": ["phone_number": phoneNumber], "head": appHeader] as [String : Any]
 
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .login(let username, let password):
-            var params = ["body": ["username": username, "password": password], "head": appHeader] as [String : Any]
+            let params = ["body": ["username": username, "password": password], "head": appHeader] as [String : Any]
 
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .loginWithSMS(let phoneNumber, let code):
-            var params = ["body": ["phone_number": phoneNumber, "code": code], "head": appHeader] as [String : Any]
+            let params = ["body": ["phone_number": phoneNumber, "code": code], "head": appHeader] as [String : Any]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .register(let phoneNumber, let inviteCode, let code):
-            var params = ["body": ["phone_number": phoneNumber, "invite_code": inviteCode, "code": code], "head": appHeader] as [String : Any]
+            let params = ["body": ["phone_number": phoneNumber, "invite_code": inviteCode, "code": code], "head": appHeader] as [String : Any]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .logout:
             return .requestCompositeParameters(bodyParameters: [:], bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
