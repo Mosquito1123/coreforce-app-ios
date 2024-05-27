@@ -31,6 +31,7 @@ class LoginViewController:UIViewController, UITextViewDelegate {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "unselected"), for: .normal)
         button.setImage(UIImage(named: "selected"), for: .selected)
+        button.addTarget(self, action: #selector(toggle(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
         
@@ -96,7 +97,13 @@ class LoginViewController:UIViewController, UITextViewDelegate {
 
         return textView
     }()
-  
+    lazy var closeButton:UIButton = {
+        let button = UIButton(type:.custom)
+        button.setImage(UIImage(named: "close")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
+        button.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,22 +122,16 @@ class LoginViewController:UIViewController, UITextViewDelegate {
     @objc func updateButtonState() {
         self.loginButton.isEnabled = !(self.accountInputView.phoneNumberTextField.text?.isEmpty ?? true) && !(self.passwordInputView.passwordTextField.text?.isEmpty ?? true)
     }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//
+//        
+//    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.tintColor = UIColor(named: "333333")
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        // 去掉文字只保留返回图标
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .done, target: self, action: nil)
-        // 给图标设置颜色
-//        navigationItem.backBarButtonItem?.tintColor = UIColor.clear
-//        navigationController?.navigationBar.backIndicatorImage =   UIImage(named: "back_arrow")
-//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back_arrow")
-
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
     }
    
 }
@@ -161,6 +162,9 @@ private extension LoginViewController {
         
         // 添加textView到视图
         view.addSubview(privacyPolicyAndUserAgreementTextView)
+        // 关闭按钮
+        view.addSubview(closeButton)
+
     }
     // 创建并返回NSMutableAttributedString
     func createAttributedString() -> NSMutableAttributedString {
@@ -185,6 +189,8 @@ private extension LoginViewController {
        
         
         NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
+            closeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             //背景图布局
             loginBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             loginBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -192,7 +198,7 @@ private extension LoginViewController {
             loginBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 116),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 80),
             logoImageView.heightAnchor.constraint(equalToConstant: 90),
@@ -229,13 +235,13 @@ private extension LoginViewController {
             // 隐私政策标签约束
             privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 40),
             privacyPolicyAndUserAgreementTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            privacyPolicyAndUserAgreementTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            privacyPolicyAndUserAgreementTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 65),
             privacyPolicyAndUserAgreementTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor),
-            toggleButton.topAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.firstBaselineAnchor , constant: 4),
-            toggleButton.heightAnchor.constraint(equalToConstant: 20),
-            toggleButton.widthAnchor.constraint(equalToConstant: 20),
+            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor,constant: -8),
+            toggleButton.topAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.topAnchor , constant: 3),
+            toggleButton.heightAnchor.constraint(equalToConstant: 25),
+            toggleButton.widthAnchor.constraint(equalToConstant: 25),
             // 用户服务协议标签约束
             
         ])
@@ -254,6 +260,13 @@ private extension LoginViewController {
 
 // MARK: - Action
 @objc private extension LoginViewController {
+    @objc func toggle(_ sender:UIButton){
+        sender.isSelected = !sender.isSelected
+
+    }
+    @objc func close(_ sender:UIButton){
+        self.dismiss(animated: true)
+    }
     @objc func openPhoneLogin(_ sender:UIButton){
         
     }
@@ -288,5 +301,13 @@ private extension LoginViewController {
         }
         
         return image
+    }
+}
+extension UIImage {
+    func resized(toSize newSize: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(newSize, false, UIScreen.main.scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: newSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }

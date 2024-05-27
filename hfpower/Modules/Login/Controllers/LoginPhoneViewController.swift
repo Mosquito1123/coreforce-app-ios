@@ -31,6 +31,8 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "unselected"), for: .normal)
         button.setImage(UIImage(named: "selected"), for: .selected)
+        button.addTarget(self, action: #selector(toggle(_:)), for: .touchUpInside)
+
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
         
@@ -48,11 +50,17 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    lazy var passwordInputView:LoginPasswordInputView = {
-        let view = LoginPasswordInputView()
+    lazy var vCodeInputView:LoginVCodeInputView = {
+        let view = LoginVCodeInputView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    lazy var inviteCodeInputView:LoginInviteCodeInputView = {
+        let view = LoginInviteCodeInputView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     lazy var loginButton : UIButton = {
         let button = UIButton(type: .system)
         // 登录按钮
@@ -104,24 +112,26 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
         setupSubviews()
         setupLayout()
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonState), name: UITextField.textDidChangeNotification, object: self.accountInputView.phoneNumberTextField)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonState), name: UITextField.textDidChangeNotification, object: self.passwordInputView.passwordTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonState), name: UITextField.textDidChangeNotification, object: self.vCodeInputView.vCodeTextField)
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
     @objc func updateButtonState() {
-        self.loginButton.isEnabled = !(self.accountInputView.phoneNumberTextField.text?.isEmpty ?? true) && !(self.passwordInputView.passwordTextField.text?.isEmpty ?? true)
+        self.loginButton.isEnabled = !(self.accountInputView.phoneNumberTextField.text?.isEmpty ?? true) && !(self.vCodeInputView.vCodeTextField.text?.isEmpty ?? true)
     }
     
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//
+//        
+//    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
     }
 }
 
@@ -139,7 +149,8 @@ private extension LoginPhoneViewController {
         view.addSubview(logoImageView)
         view.addSubview(markImageView)
         view.addSubview(accountInputView)
-        view.addSubview(passwordInputView)
+        view.addSubview(vCodeInputView)
+        view.addSubview(inviteCodeInputView)
         view.addSubview(loginButton)
         view.addSubview(verificationCodeButton)
         view.addSubview(toggleButton)
@@ -180,7 +191,7 @@ private extension LoginPhoneViewController {
             loginBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 116),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 80),
             logoImageView.heightAnchor.constraint(equalToConstant: 90),
@@ -196,14 +207,18 @@ private extension LoginPhoneViewController {
             accountInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             accountInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             accountInputView.heightAnchor.constraint(equalToConstant: 50),
-            // 密码输入框约束
-            passwordInputView.topAnchor.constraint(equalTo: accountInputView.bottomAnchor, constant: 10),
-            passwordInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            passwordInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            passwordInputView.heightAnchor.constraint(equalToConstant: 50),
+            // 验证码输入框约束
+            vCodeInputView.topAnchor.constraint(equalTo: accountInputView.bottomAnchor, constant: 10),
+            vCodeInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            vCodeInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            vCodeInputView.heightAnchor.constraint(equalToConstant: 50),
+            inviteCodeInputView.topAnchor.constraint(equalTo: vCodeInputView.bottomAnchor, constant: 10),
+            inviteCodeInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            inviteCodeInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            inviteCodeInputView.heightAnchor.constraint(equalToConstant: 50),
 
             // 登录按钮约束
-            loginButton.topAnchor.constraint(equalTo: passwordInputView.bottomAnchor, constant: 105),
+            loginButton.topAnchor.constraint(equalTo: inviteCodeInputView.bottomAnchor, constant: 45.5),
             loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
@@ -217,13 +232,13 @@ private extension LoginPhoneViewController {
             // 隐私政策标签约束
             privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 40),
             privacyPolicyAndUserAgreementTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            privacyPolicyAndUserAgreementTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            privacyPolicyAndUserAgreementTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 65),
             privacyPolicyAndUserAgreementTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor),
-            toggleButton.topAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.firstBaselineAnchor , constant: 4),
-            toggleButton.heightAnchor.constraint(equalToConstant: 20),
-            toggleButton.widthAnchor.constraint(equalToConstant: 20),
+            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor ,constant: -8),
+            toggleButton.topAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.topAnchor , constant: 3),
+            toggleButton.heightAnchor.constraint(equalToConstant: 25),
+            toggleButton.widthAnchor.constraint(equalToConstant: 25),
             // 用户服务协议标签约束
             
         ])
@@ -242,6 +257,9 @@ private extension LoginPhoneViewController {
 
 // MARK: - Action
 @objc private extension LoginPhoneViewController {
+    @objc func toggle(_ sender:UIButton){
+        sender.isSelected = !sender.isSelected
+    }
     @objc func goBackToCommonLogin(_ sender:UIButton){
         self.navigationController?.popViewController(animated: true)
       

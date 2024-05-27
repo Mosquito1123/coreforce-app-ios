@@ -28,13 +28,15 @@ class LoginInviteCodeInputView: UIView {
         textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"333333") ?? UIColor.black]
         textField.attributedPlaceholder = NSAttributedString(string: "请输入邀请码（选填）", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"A0A0A0") ?? UIColor.black])
         textField.returnKeyType = .done
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.backgroundColor = UIColor(named: "F5F7FB")
+        self.layer.cornerRadius = 25
         setupSubviews()
         setupLayout()
     }
@@ -59,8 +61,8 @@ private extension LoginInviteCodeInputView {
             logoView.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             logoView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             logoView.trailingAnchor.constraint(equalTo: inviteCodeTextField.leadingAnchor, constant: -14),
-            logoView.widthAnchor.constraint(equalToConstant: 20),
-            logoView.heightAnchor.constraint(equalToConstant: 20),
+            logoView.widthAnchor.constraint(equalToConstant: 18),
+            logoView.heightAnchor.constraint(equalToConstant: 18),
             inviteCodeTextField.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             inviteCodeTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
             

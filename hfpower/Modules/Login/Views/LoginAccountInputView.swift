@@ -59,8 +59,8 @@ private extension LoginAccountInputView {
             logoView.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             logoView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             logoView.trailingAnchor.constraint(equalTo: phoneNumberTextField.leadingAnchor, constant: -14),
-            logoView.widthAnchor.constraint(equalToConstant: 20),
-            logoView.heightAnchor.constraint(equalToConstant: 20),
+            logoView.widthAnchor.constraint(equalToConstant: 18),
+            logoView.heightAnchor.constraint(equalToConstant: 18),
             phoneNumberTextField.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             phoneNumberTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -20),
             

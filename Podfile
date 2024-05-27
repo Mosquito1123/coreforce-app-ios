@@ -13,7 +13,7 @@ target 'hfpower' do
 #  分栏 https://github.com/pujiaxin33/JXSegmentedView
   pod 'JXSegmentedView'
 #  TabBar https://github.com/ChenYilong/CYLTabBarController
-  pod 'CYLTabBarController', '~> 1.29.0'
+  pod 'CYLTabBarController', '~> 1.29.2'
 #  网络 https://github.com/Alamofire/Alamofire
   pod 'Alamofire'
 #  网络 https://github.com/Moya/Moya.git
@@ -30,4 +30,5 @@ target 'hfpower' do
   pod 'SwiftyUserDefaults'
 #  列表下拉刷新、上拉加载（OC） https://github.com/CoderMJLee/MJRefresh
   pod 'MJRefresh'
+  pod "ESTabBarController-swift"
 end

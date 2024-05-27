@@ -74,8 +74,8 @@ private extension LoginPasswordInputView {
             logoView.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             logoView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             logoView.trailingAnchor.constraint(equalTo: passwordTextField.leadingAnchor, constant: -14),
-            logoView.widthAnchor.constraint(equalToConstant: 20),
-            logoView.heightAnchor.constraint(equalToConstant: 20),
+            logoView.widthAnchor.constraint(equalToConstant: 18),
+            logoView.heightAnchor.constraint(equalToConstant: 18),
 
             passwordTextField.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: toggleButton.leadingAnchor,constant: -20),

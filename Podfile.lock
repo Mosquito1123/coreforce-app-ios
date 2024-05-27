@@ -3,6 +3,7 @@ PODS:
   - CYLTabBarController (1.29.2):
     - CYLTabBarController/Core (= 1.29.2)
   - CYLTabBarController/Core (1.29.2)
+  - ESTabBarController-swift (2.8.0)
   - IQKeyboardManagerSwift (7.0.2)
   - JXSegmentedView (1.3.1)
   - KakaJSON (1.1.2)
@@ -23,7 +24,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - CYLTabBarController (~> 1.29.0)
+  - CYLTabBarController (~> 1.29.2)
+  - ESTabBarController-swift
   - IQKeyboardManagerSwift
   - JXSegmentedView
   - KakaJSON (~> 1.1.2)
@@ -39,6 +41,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - CYLTabBarController
+    - ESTabBarController-swift
     - IQKeyboardManagerSwift
     - JXSegmentedView
     - KakaJSON
@@ -53,6 +56,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   CYLTabBarController: db44b5901a28693a8a4279e4721b3aafdd36c178
+  ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   IQKeyboardManagerSwift: d338c11a896e9f29603443700c4567e32f830c22
   JXSegmentedView: 4b0e5506a9883da26472c9c0857d782c13cef05a
   KakaJSON: cc5ff50a8c1cfbb09413db8496cb709a209e6137
@@ -64,6 +68,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 63f80248cf5bfb3458825d9a78f2eb7e1293a040
   ZLPhotoBrowser: 4d859a9d6462ba055d817b2235278a7b74e69eff
 
-PODFILE CHECKSUM: e683d8c6d94ef711601dc2d86178413954a9210f
+PODFILE CHECKSUM: 1a0eb923f20b59b024ea359eff3a72181d4b146e
 
 COCOAPODS: 1.15.2

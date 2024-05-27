@@ -25,9 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 设置窗口的根视图控制器，这里假设你有一个名为MainViewController的视图控制器
         let mainViewController = LoginViewController() // 确保你有这个视图控制器
         navigationController = UINavigationController(rootViewController: mainViewController)
+        // 程序主界面
+        
+        let mainTabBarController = MainTabBarController()
+        mainTabBarController.viewControllers = MainTabBarController.viewControllers()
         self.window = window
         // 将窗口的根视图控制器设置为导航控制器
-        self.window?.rootViewController = navigationController
+        self.window?.rootViewController = mainTabBarController
         self.window?.makeKeyAndVisible()
     }
 
