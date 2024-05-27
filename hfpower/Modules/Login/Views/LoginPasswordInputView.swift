@@ -22,7 +22,7 @@ class LoginPasswordInputView: UIView {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "eye_hide"), for: .normal)
         button.setImage(UIImage(named: "eye_show"), for: .selected)
-        button.addTarget(self, action: #selector(eyeToggle), for: .touchUpInside)
+        button.addTarget(self, action: #selector(eyeToggle(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -37,6 +37,8 @@ class LoginPasswordInputView: UIView {
         textField.isSecureTextEntry = true
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.delegate = self
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"333333") ?? UIColor.black]
+        textField.attributedPlaceholder = NSAttributedString(string: "请输入密码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"A0A0A0") ?? UIColor.black])
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

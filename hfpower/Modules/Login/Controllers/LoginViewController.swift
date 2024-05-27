@@ -80,6 +80,7 @@ class LoginViewController:UIViewController, UITextViewDelegate {
         button.setTitle("切换验证码登录", for: .normal)
         button.setTitleColor(UIColor(named: "797979"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        button.addTarget(self, action: #selector(goToPhoneLogin(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
@@ -116,8 +117,16 @@ class LoginViewController:UIViewController, UITextViewDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "333333")
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        // 去掉文字只保留返回图标
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: " ", style: .done, target: self, action: nil)
+        // 给图标设置颜色
+//        navigationItem.backBarButtonItem?.tintColor = UIColor.clear
+//        navigationController?.navigationBar.backIndicatorImage =   UIImage(named: "back_arrow")
+//        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back_arrow")
+
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -256,6 +265,10 @@ private extension LoginViewController {
     @objc func openUserAgreement() {
         // 打开用户服务协议的链接
         print("打开用户服务协议")
+    }
+    @objc func goToPhoneLogin(_ sender:UIButton){
+        let vc = LoginPhoneViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

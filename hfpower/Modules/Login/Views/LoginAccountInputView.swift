@@ -21,11 +21,12 @@ class LoginAccountInputView: UIView {
     lazy var phoneNumberTextField :UITextField = {
         let textField = UITextField()
         // 手机号码输入框
-        textField.placeholder = "请输入您的手机号码"
         textField.borderStyle = .none
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .done
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"333333") ?? UIColor.black]
+        textField.attributedPlaceholder = NSAttributedString(string: "请输入您的手机号码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"A0A0A0") ?? UIColor.black])
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField

@@ -21,10 +21,11 @@ class LoginVCodeInputView: UIView {
     lazy var vCodeTextField :UITextField = {
         let textField = UITextField()
         // 手机号码输入框
-        textField.placeholder = "请输入验证码"
         textField.borderStyle = .none
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.enablesReturnKeyAutomatically = true
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"333333") ?? UIColor.black]
+        textField.attributedPlaceholder = NSAttributedString(string: "请输入验证码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"A0A0A0") ?? UIColor.black])
         textField.returnKeyType = .done
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
