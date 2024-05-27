@@ -22,6 +22,7 @@ class LoginPasswordInputView: UIView {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "eye_hide"), for: .normal)
         button.setImage(UIImage(named: "eye_show"), for: .selected)
+        button.addTarget(self, action: #selector(eyeToggle), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -35,6 +36,7 @@ class LoginPasswordInputView: UIView {
         textField.returnKeyType = .done
         textField.isSecureTextEntry = true
         textField.font = UIFont.systemFont(ofSize: 16)
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -88,16 +90,31 @@ private extension LoginPasswordInputView {
 }
 
 // MARK: - Public
-extension LoginPasswordInputView {
-    
+extension LoginPasswordInputView:UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.layer.borderColor = UIColor(named: "3171EF")?.cgColor
+        self.layer.borderWidth = 1.5
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.borderWidth = 0
+
+    }
 }
 
 // MARK: - Action
 @objc private extension LoginPasswordInputView {
-    
+    @objc func eyeToggle(_ sender:UIButton){
+        sender.isSelected = !sender.isSelected
+        passwordTextField.isSecureTextEntry = !sender.isSelected
+    }
 }
 
 // MARK: - Private
-private extension LoginPasswordInputView {
+private extension LoginPasswordInputView{
     
 }

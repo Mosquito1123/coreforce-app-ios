@@ -26,6 +26,7 @@ class LoginAccountInputView: UIView {
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .done
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -68,8 +69,20 @@ private extension LoginAccountInputView {
 }
 
 // MARK: - Public
-extension LoginAccountInputView {
-    
+extension LoginAccountInputView:UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.layer.borderColor = UIColor(named: "3171EF")?.cgColor
+        self.layer.borderWidth = 1.5
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.borderWidth = 0
+
+    }
 }
 
 // MARK: - Action

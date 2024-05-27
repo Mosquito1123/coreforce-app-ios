@@ -68,8 +68,20 @@ private extension LoginInviteCodeInputView {
 }
 
 // MARK: - Public
-extension LoginInviteCodeInputView {
-    
+extension LoginInviteCodeInputView:UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.layer.borderColor = UIColor(named: "3171EF")?.cgColor
+        self.layer.borderWidth = 1.5
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.borderWidth = 0
+
+    }
 }
 
 // MARK: - Action
