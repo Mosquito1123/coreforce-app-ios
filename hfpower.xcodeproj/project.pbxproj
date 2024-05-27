@@ -26,6 +26,8 @@
 		04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE3B2C0468A000939B46 /* MainTabBarController.swift */; };
 		04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE3D2C046FDF00939B46 /* HomeViewController.swift */; };
 		04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE3F2C04700600939B46 /* PersonalViewController.swift */; };
+		04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE412C04A04600939B46 /* LocationChooseView.swift */; };
+		04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE432C04A0CD00939B46 /* SearchView.swift */; };
 		331C90BE2BC6C60000BB534F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C90BD2BC6C60000BB534F /* AppDelegate.swift */; };
 		331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C90BF2BC6C60000BB534F /* SceneDelegate.swift */; };
 		331C90C22BC6C60000BB534F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C90C12BC6C60000BB534F /* ViewController.swift */; };
@@ -55,6 +57,8 @@
 		04FFEE3B2C0468A000939B46 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		04FFEE3D2C046FDF00939B46 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		04FFEE3F2C04700600939B46 /* PersonalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewController.swift; sourceTree = "<group>"; };
+		04FFEE412C04A04600939B46 /* LocationChooseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationChooseView.swift; sourceTree = "<group>"; };
+		04FFEE432C04A0CD00939B46 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		331C90BA2BC6C60000BB534F /* hfpower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hfpower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		331C90BD2BC6C60000BB534F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		331C90BF2BC6C60000BB534F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -230,6 +234,8 @@
 		0415AF282BC917B100E9290D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04FFEE412C04A04600939B46 /* LocationChooseView.swift */,
+				04FFEE432C04A0CD00939B46 /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -467,11 +473,13 @@
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
+				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
+				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */,
 				331C90C22BC6C60000BB534F /* ViewController.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,

@@ -12,7 +12,16 @@ class HomeViewController: UIViewController {
     // MARK: - Accessor
     
     // MARK: - Subviews
-
+    lazy var locationChooseView:LocationChooseView = {
+       let view = LocationChooseView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    lazy var searchView:SearchView = {
+       let view = SearchView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     lazy var needLoginButton:UIButton = {
         let button = UIButton(type: .custom)
         button .setTitle("立即登录", for: .normal)
@@ -24,6 +33,8 @@ class HomeViewController: UIViewController {
     }()
     lazy var mapView:MKMapView = {
         let map = MKMapView()
+        map.showsUserLocation = true
+        map.userTrackingMode = .followWithHeading
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
@@ -60,10 +71,12 @@ private extension HomeViewController {
    
     private func setupSubviews() {
         // 设置地图的初始位置和显示范围
-
+       
         self.view.addSubview(mapView)
         self.view.addSubview(needLoginButton)
-        let initialLocation = CLLocation(latitude: 37.7749, longitude: -122.4194) // 旧金山的经纬度
+        self.view.addSubview(locationChooseView)
+        self.view.addSubview(searchView)
+        let initialLocation = CLLocation(latitude: 36.094406, longitude: 120.369557) // 旧金山的经纬度
         let regionRadius: CLLocationDistance = 1000 // 设置显示范围的半径（米）
         let coordinateRegion = MKCoordinateRegion(center: initialLocation.coordinate,
                                                   latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
@@ -72,8 +85,8 @@ private extension HomeViewController {
         // 添加一个标注
         let annotation = MKPointAnnotation()
         annotation.coordinate = initialLocation.coordinate
-        annotation.title = "San Francisco"
-        annotation.subtitle = "California"
+        annotation.title = "青岛市"
+        annotation.subtitle = "山东省"
         mapView.addAnnotation(annotation)
     }
     
@@ -86,7 +99,20 @@ private extension HomeViewController {
 
             needLoginButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             needLoginButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            
+            
+           
+           
+            locationChooseView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
+            locationChooseView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            locationChooseView.heightAnchor.constraint(equalToConstant: 44),
 
+            searchView.leadingAnchor.constraint(equalTo: locationChooseView.trailingAnchor,constant: 12),
+            searchView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            searchView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
+            searchView.heightAnchor.constraint(equalToConstant: 44),
+
+            
         ])
         
     }
