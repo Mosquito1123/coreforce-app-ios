@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C392C05C603000A040F /* NotificationViewController.swift */; };
+		04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C3B2C05DBF6000A040F /* MainScanItemView.swift */; };
+		04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C3D2C05DD5E000A040F /* UIColor+Extension.swift */; };
+		04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C3F2C05E1EC000A040F /* Button+Extension.swift */; };
+		04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C412C060827000A040F /* CenterAnnotationView.swift */; };
+		04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C432C06092B000A040F /* CenterAnnotation.swift */; };
 		0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF2F2BC91AB500E9290D /* AuthAPI.swift */; };
 		0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF312BC92A3700E9290D /* Date+Extension.swift */; };
 		0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF332BC92BCE00E9290D /* Int+Extension.swift */; };
@@ -41,6 +47,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04001C392C05C603000A040F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		04001C3B2C05DBF6000A040F /* MainScanItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScanItemView.swift; sourceTree = "<group>"; };
+		04001C3D2C05DD5E000A040F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		04001C3F2C05E1EC000A040F /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
+		04001C412C060827000A040F /* CenterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterAnnotationView.swift; sourceTree = "<group>"; };
+		04001C432C06092B000A040F /* CenterAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterAnnotation.swift; sourceTree = "<group>"; };
 		0415AF2F2BC91AB500E9290D /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		0415AF312BC92A3700E9290D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0415AF332BC92BCE00E9290D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -105,6 +117,8 @@
 			children = (
 				0415AF312BC92A3700E9290D /* Date+Extension.swift */,
 				0415AF332BC92BCE00E9290D /* Int+Extension.swift */,
+				04001C3D2C05DD5E000A040F /* UIColor+Extension.swift */,
+				04001C3F2C05E1EC000A040F /* Button+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -183,6 +197,7 @@
 		0415AF202BC9175400E9290D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04001C3B2C05DBF6000A040F /* MainScanItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,6 +250,7 @@
 		0415AF272BC917AB00E9290D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				04001C432C06092B000A040F /* CenterAnnotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -246,6 +262,7 @@
 				04FFEE432C04A0CD00939B46 /* SearchView.swift */,
 				04FFEE4B2C05AA1400939B46 /* NeedLoginView.swift */,
 				04FFEE4D2C05AA2900939B46 /* NeedAuthView.swift */,
+				04001C412C060827000A040F /* CenterAnnotationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -356,6 +373,7 @@
 		04FFEE502C05AED900939B46 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				04001C392C05C603000A040F /* NotificationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -549,11 +567,16 @@
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
+				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
+				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
+				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
+				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
+				04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */,
 				04FFEE4E2C05AA2900939B46 /* NeedAuthView.swift in Sources */,
 				04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */,
 				331C90C22BC6C60000BB534F /* ViewController.swift in Sources */,
@@ -562,6 +585,7 @@
 				0415AF3F2BCCD97400E9290D /* BatteryDepositAPI.swift in Sources */,
 				04FFEE392C0097CE00939B46 /* LoginInviteCodeInputView.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
+				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
 				04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */,
 				04FFEE4C2C05AA1400939B46 /* NeedLoginView.swift in Sources */,
 				331C90BE2BC6C60000BB534F /* AppDelegate.swift in Sources */,

@@ -27,12 +27,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController = UINavigationController(rootViewController: mainViewController)
         // 程序主界面
         
-        let mainTabBarController = MainTabBarController()
-        mainTabBarController.viewControllers = MainTabBarController.viewControllers()
+        let mainController = MainTabBarController.defaultMainController()
+        
         self.window = window
         // 将窗口的根视图控制器设置为导航控制器
-        self.window?.rootViewController = mainTabBarController
+        self.window?.rootViewController = mainController
         self.window?.makeKeyAndVisible()
+        self.window?.backgroundColor = .white
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

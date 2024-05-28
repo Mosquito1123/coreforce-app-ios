@@ -7,10 +7,11 @@
 
 import UIKit
 import MapKit
-class HomeViewController: UIViewController, CLLocationManagerDelegate {
+class HomeViewController: UIViewController, CLLocationManagerDelegate,MKMapViewDelegate {
     
     // MARK: - Accessor
     let manager = CLLocationManager()
+
     // MARK: - Subviews
     lazy var headerView:UIView = {
         let view = UIView()
@@ -35,7 +36,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
     lazy var mapView:MKMapView = {
         let map = MKMapView()
         map.showsUserLocation = true
+        map.showsCompass = false
         map.userTrackingMode = .followWithHeading
+        map.register(CenterAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CenterAnnotationView.self))
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
@@ -54,6 +57,46 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate {
         mapView.layer.addSublayer(gradientLayer)
         
        
+        // 设置地图的代理
+        mapView.delegate = self
+        // 添加一个初始标记
+        var centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
+
+        mapView.addAnnotation(centerAnnotation)
+
+    }
+    
+    // 监听地图区域变化
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        // 更新标记位置为地图中心
+
+        var centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
+        var oldCenterAnnotation = mapView.annotations.first { a in
+            return a is CenterAnnotation
+        }
+        if let p = oldCenterAnnotation {
+            
+            mapView.removeAnnotation(p)
+
+        }
+        mapView.addAnnotation(centerAnnotation)
+
+        
+       
+    }
+    
+    // 自定义标记外观
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is CenterAnnotation else {
+            return nil
+        }
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CenterAnnotationView.self))
+        
+        // 设置自定义图标
+        annotationView?.canShowCallout = true
+        
+        return annotationView
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -99,6 +142,12 @@ private extension HomeViewController {
         }
         self.view.addSubview(locationChooseView)
         self.view.addSubview(searchView)
+        searchView.goToNotificationBlock = { (sender) -> Void in
+            let notificationVC = NotificationViewController()
+            notificationVC.hidesBottomBarWhenPushed = true
+            
+            self.navigationController?.pushViewController(notificationVC, animated: true)
+        }
        
     }
     

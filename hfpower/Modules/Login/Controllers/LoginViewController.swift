@@ -61,8 +61,8 @@ class LoginViewController:UIViewController, UITextViewDelegate {
         button.setTitle("立即登录", for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
-        let imageEnabled = image(from: UIColor(named: "447AFE") ?? .blue)
-        let imageDisabled = image(from: UIColor(named: "447AFE 20") ?? .blue)
+        let imageEnabled = UIColor(named: "447AFE")?.toImage()
+        let imageDisabled =  UIColor(named: "447AFE 20")?.toImage()
         button.setBackgroundImage(imageEnabled, for: .normal)
         button.setBackgroundImage(imageDisabled, for: .disabled)
 
@@ -287,21 +287,7 @@ private extension LoginViewController {
 
 // MARK: - Private
 private extension LoginViewController {
-    func image(from color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
-        // 创建一个图形上下文
-        let renderer = UIGraphicsImageRenderer(size: size)
-        
-        // 使用图形上下文渲染图像
-        let image = renderer.image { context in
-            // 设置绘图颜色
-            context.cgContext.setFillColor(color.cgColor)
-            
-            // 绘制一个矩形填充整个图形上下文
-            context.cgContext.fill(CGRect(origin: .zero, size: size))
-        }
-        
-        return image
-    }
+    
 }
 extension UIImage {
     func resized(toSize newSize: CGSize) -> UIImage? {

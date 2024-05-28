@@ -48,7 +48,9 @@ class NeedAuthView: UIView {
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.backgroundColor = UIColor.white
+        self.layer.cornerRadius = 8
+        self.layer.masksToBounds = true
         setupSubviews()
         setupLayout()
     }

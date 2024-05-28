@@ -6,11 +6,11 @@
 //
 
 import UIKit
-
+typealias GoToNotificationBlock = (_ sender:UIButton)->Void
 class SearchView: UIView,UITextFieldDelegate {
 
     // MARK: - Accessor
-    
+    var goToNotificationBlock:GoToNotificationBlock?
     // MARK: - Subviews
     lazy var leftIconView:UIImageView = {
         let imageView = UIImageView()
@@ -92,7 +92,7 @@ extension SearchView {
 // MARK: - Action
 @objc private extension SearchView {
     @objc func goToNotificationsView(_ sender:UIButton){
-        
+        self.goToNotificationBlock?(sender)
     }
 }
 
