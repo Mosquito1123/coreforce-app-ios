@@ -54,7 +54,7 @@ private extension MainTabBarController {
 extension MainTabBarController {
     class func viewControllers() -> [UINavigationController] {
         let home = UINavigationController(rootViewController: HomeViewController())
-        home.tabBarItem = ESTabBarItem.init(title: "首页", image: UIImage(named: "home"), selectedImage: UIImage(named: "home_1"))
+        home.tabBarItem = ESTabBarItem.init(title: "首页", image: UIImage(named: "home"), selectedImage: UIImage(named: "home"))
 //        let connection = UINavigationController(rootViewController: ConnectionViewController())
 //        let message = UINavigationController(rootViewController: MessageViewController())
         let personal = UINavigationController(rootViewController: PersonalViewController())
