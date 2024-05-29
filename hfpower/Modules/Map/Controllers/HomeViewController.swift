@@ -33,8 +33,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate,MKMapViewD
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    lazy var mapView:MKMapView = {
-        let map = MKMapView()
+    lazy var mapView:HFMapView = {
+        let map = HFMapView()
         map.showsUserLocation = true
         map.showsCompass = false
         map.userTrackingMode = .followWithHeading
@@ -60,7 +60,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate,MKMapViewD
         // 设置地图的代理
         mapView.delegate = self
         // 添加一个初始标记
-        var centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
+        let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
 
         mapView.addAnnotation(centerAnnotation)
 
@@ -70,21 +70,37 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate,MKMapViewD
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         // 更新标记位置为地图中心
 
-        var centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
-        var oldCenterAnnotation = mapView.annotations.first { a in
+        let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
+        
+        mapView.addAnnotation(centerAnnotation)
+        
+       
+        if let imageView = mapView.subviews.first(where: { v in
+            return v is UIImageView
+        }){
+           imageView.removeFromSuperview()
+       }
+        
+       
+    }
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        let oldCenterAnnotation = mapView.annotations.first(where: { a in
             return a is CenterAnnotation
-        }
+        })
         if let p = oldCenterAnnotation {
             
             mapView.removeAnnotation(p)
 
         }
-        mapView.addAnnotation(centerAnnotation)
-
-        
-       
+        if let imageView = mapView.subviews.first(where: { v in
+            return v is UIImageView
+        }){
+           imageView.removeFromSuperview()
+       }
+        let imageView = UIImageView(image: UIImage(named: "center_point"))
+        mapView.addSubview(imageView)
+        imageView.center =  CGPoint(x: mapView.center.x, y: mapView.center.y - imageView.frame.midY + 2.5)
     }
-    
     // 自定义标记外观
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is CenterAnnotation else {
@@ -209,6 +225,34 @@ private extension HomeViewController {
 @objc private extension HomeViewController {
     @objc func needLogin(_ sender:UIButton){
         
+    }
+    @objc func panG(_ sender:UIPanGestureRecognizer){
+        if sender.state == .changed{
+            // 获取地图当前可见区域的中心坐标
+            let centerCoordinate = mapView.centerCoordinate
+            
+            // 将地理坐标转换为地图视图上的点
+            let centerPoint = mapView.convert(centerCoordinate, toPointTo: mapView)
+            
+            // 更新自定义标记的位置为地图视图上的点，并以动画方式进行
+            if let oldCenterAnnotation = mapView.annotations.first(where: { a in
+                return a is CenterAnnotation
+            }),let customAnnotationView = mapView.view(for: oldCenterAnnotation) {
+                CATransaction.begin()
+                
+                // 设置动画持续时间
+                CATransaction.setAnimationDuration(0.3)
+                
+                // 设置动画类型和曲线
+                CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: .easeInEaseOut))
+                
+                // 设置标记视图的新位置
+                customAnnotationView.layer.position = centerPoint
+                
+                // 提交CATransaction事务
+                CATransaction.commit()
+            }
+        }
     }
 }
 
