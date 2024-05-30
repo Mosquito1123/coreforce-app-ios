@@ -55,7 +55,10 @@ class SearchView: UIView,UITextFieldDelegate {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
         self.layer.cornerRadius = 22
-        self.layer.masksToBounds = true
+        self.layer.shadowColor = UIColor(red: 0.39, green: 0.47, blue: 0.67, alpha: 0.06).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 10)
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 20
         setupSubviews()
         setupLayout()
     }

@@ -1,17 +1,18 @@
 //
-//  NeedLoginView.swift
+//  NeedAuthView.swift
 //  hfpower
 //
 //  Created by EDY on 2024/5/28.
 //
 
 import UIKit
-typealias LoginAction = (_ sender:UIButton) -> Void
+typealias AuthAction = (_ sender:UIButton) -> Void
 
-class NeedLoginView: UIView {
+class NeedAuthView: UIView {
 
     // MARK: - Accessor
-    var loginAction:LoginAction?
+    var authAction:AuthAction?
+
     // MARK: - Subviews
     lazy var iconView: UIImageView = {
         let iconView = UIImageView()
@@ -21,7 +22,7 @@ class NeedLoginView: UIView {
     }()
     lazy var titleLabel:UILabel={
         let label = UILabel()
-        label.text = "登录后，开启换电之旅"
+        label.text = "实名认证体验更多服务"
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = UIColor(named: "333333")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,20 +30,20 @@ class NeedLoginView: UIView {
     }()
     lazy var actionButton:UIButton = {
         let actionButton = UIButton(type:.custom)
-        actionButton.setTitle("立即登录", for: .normal)
-        actionButton.setTitle("立即登录", for: .highlighted)
+        actionButton.setTitle("立即实名", for: .normal)
+        actionButton.setTitle("立即实名", for: .highlighted)
      
         actionButton.setTitleColor(UIColor.white, for: .normal)
         actionButton.setTitleColor(UIColor.white, for: .highlighted)
-        let imageEnabled = UIColor(named: "447AFE")?.toImage()
-        let imageDisabled = UIColor(named: "447AFE 20")?.toImage()
+        let imageEnabled = image(from: UIColor(named: "447AFE") ?? .blue)
+        let imageDisabled = image(from: UIColor(named: "447AFE 20") ?? .blue)
         actionButton.setBackgroundImage(imageEnabled, for: .normal)
         actionButton.setBackgroundImage(imageDisabled, for: .disabled)
 
         actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         actionButton.layer.cornerRadius = 15
         actionButton.layer.masksToBounds = true
-        actionButton.addTarget(self, action: #selector(loginAction(_:)), for: .touchUpInside)
+        actionButton.addTarget(self, action: #selector(authAction(_:)), for: .touchUpInside)
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         return actionButton
     }()
@@ -51,7 +52,11 @@ class NeedLoginView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
         self.layer.cornerRadius = 10
-        self.layer.masksToBounds = true
+        // shadowCode
+        self.layer.shadowColor = UIColor(red: 0.39, green: 0.47, blue: 0.67, alpha: 0.3).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 5)
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 10
         setupSubviews()
         setupLayout()
     }
@@ -63,7 +68,7 @@ class NeedLoginView: UIView {
 }
 
 // MARK: - Setup
-private extension NeedLoginView {
+private extension NeedAuthView {
     
     private func setupSubviews() {
         addSubview(iconView)
@@ -88,27 +93,40 @@ private extension NeedLoginView {
             actionButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             actionButton.heightAnchor.constraint(equalToConstant: 30),
             actionButton.widthAnchor.constraint(equalToConstant: 100),
+
             self.heightAnchor.constraint(equalToConstant: 44)
-
-
         ])
     }
     
 }
 
 // MARK: - Public
-extension NeedLoginView {
+extension NeedAuthView {
     
 }
 
 // MARK: - Action
-@objc private extension NeedLoginView {
-    @objc func loginAction(_ sender:UIButton){
-        self.loginAction?(sender)
+@objc private extension NeedAuthView {
+    @objc func authAction(_ sender:UIButton){
+        self.authAction?(sender)
     }
 }
 
 // MARK: - Private
-private extension NeedLoginView {
-    
+private extension NeedAuthView {
+    func image(from color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
+        // 创建一个图形上下文
+        let renderer = UIGraphicsImageRenderer(size: size)
+        
+        // 使用图形上下文渲染图像
+        let image = renderer.image { context in
+            // 设置绘图颜色
+            context.cgContext.setFillColor(color.cgColor)
+            
+            // 绘制一个矩形填充整个图形上下文
+            context.cgContext.fill(CGRect(origin: .zero, size: size))
+        }
+        
+        return image
+    }
 }

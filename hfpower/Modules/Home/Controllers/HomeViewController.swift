@@ -82,14 +82,14 @@ private extension HomeViewController {
     private func setupNavbar() {
         
     }
-   
+    
     private func setupSubviews() {
         // 设置地图的初始位置和显示范围
-       
+        
         
         self.view.addSubview(headerStackView)
         self.view.addSubview(footerStackView)
-
+        
         needLoginView.loginAction = { (sender) -> Void in
             let loginVC = LoginViewController()
             
@@ -112,14 +112,21 @@ private extension HomeViewController {
             
             self.navigationController?.pushViewController(customerVC, animated: true)
         }
-        headerStackView.addArrangedSubview(needLoginView)
-        headerStackView.addArrangedSubview(needAuthView)
+//        headerStackView.addArrangedSubview(needLoginView)
+//        headerStackView.addArrangedSubview(needAuthView)
+        let creditDepositFreeView = CreditDepositFreeView()
+        headerStackView.addArrangedSubview(creditDepositFreeView)
+        let expirationView = ExpirationView()
+        headerStackView.addArrangedSubview(expirationView)
+        let batteryOfflineView = BatteryOfflineView()
+        headerStackView.addArrangedSubview(batteryOfflineView)
         headerStackView.addArrangedSubview(packageCardView)
+
         let mapBatteryView = MapBatteryView()
         footerStackView.addArrangedSubview(mapBatteryView)
         footerStackView.addArrangedSubview(inviteView)
-      
-
+        
+        
         let listView = MapFeatureView(.list) { sender, mapFeatureType in
             
         }
@@ -136,28 +143,28 @@ private extension HomeViewController {
             
         }
         footerStackView.addArrangedSubview(filterView)
-
+        
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
             
-
             
             
             
-           
-           
+            
+            
+            
             locationChooseView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             locationChooseView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             locationChooseView.heightAnchor.constraint(equalToConstant: 44),
-
+            
             searchView.leadingAnchor.constraint(equalTo: locationChooseView.trailingAnchor,constant: 12),
             searchView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             searchView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             searchView.heightAnchor.constraint(equalToConstant: 44),
             searchView.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
-
+            
             headerStackView.topAnchor.constraint(equalTo: self.locationChooseView.bottomAnchor,constant: 10),
             headerStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             headerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
@@ -165,9 +172,9 @@ private extension HomeViewController {
             footerStackView.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14-38-14),
             footerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             
-
-
-
+            
+            
+            
         ])
         
     }

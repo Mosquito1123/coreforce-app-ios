@@ -70,7 +70,7 @@ private extension MainTabBarController {
 extension MainTabBarController {
     class func defaultMainController() -> UIViewController {
         let home = HomeViewController()
-        home.tabBarItem = ESTabBarItem(title: "首页", image: UIImage(named: "home"), selectedImage: UIImage(named: "home"))
+        home.tabBarItem = UITabBarItem(title: "地图", image: UIImage(named: "map"), selectedImage: UIImage(named: "map"))
         let center = UIViewController()
         let mainScanItemView = MainScanItemView()
         mainScanItemView.mainScanItemType = .battery_rent
@@ -79,7 +79,7 @@ extension MainTabBarController {
         //        let connection = UINavigationController(rootViewController: ConnectionViewController())
         //        let message = UINavigationController(rootViewController: MessageViewController())
         let personal = PersonalViewController()
-        personal.tabBarItem = ESTabBarItem(title: "我的", image: UIImage(named: "my"), selectedImage: UIImage(named: "my"))
+        personal.tabBarItem = UITabBarItem(title: "我的", image: UIImage(named: "my"), selectedImage: UIImage(named: "my"))
         let viewControllers = [home,center, /*connection, message,*/ personal]
         let mainTabBarController = MainTabBarController()
         mainTabBarController.shouldHijackHandler = {

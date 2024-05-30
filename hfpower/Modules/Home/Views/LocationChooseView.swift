@@ -16,7 +16,7 @@ class LocationChooseView: UIView {
         let button = UIButton(type: .custom)
         button.setTitle("青岛市", for: .normal)
         button.setTitleColor(UIColor(named: "333333"), for: .normal)
-        button.titleLabel?.font = UIFont(name: "Semibold", size: 15)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -32,7 +32,11 @@ class LocationChooseView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
         self.layer.cornerRadius = 22
-        self.layer.masksToBounds = true
+        // shadowCode
+        self.layer.shadowColor = UIColor(red: 0.39, green: 0.47, blue: 0.67, alpha: 0.06).cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 10)
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 20
         
         setupSubviews()
         setupLayout()

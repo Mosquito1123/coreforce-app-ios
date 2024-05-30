@@ -31,6 +31,9 @@
 		043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC782C074889003FD6AD /* MapInviteView.swift */; };
 		043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC7A2C081833003FD6AD /* MapBatteryView.swift */; };
 		043DEC7D2C085253003FD6AD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC7C2C085253003FD6AD /* MapViewController.swift */; };
+		043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC822C085A53003FD6AD /* CreditDepositFreeView.swift */; };
+		043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC842C085B79003FD6AD /* ExpirationView.swift */; };
+		043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -79,6 +82,9 @@
 		043DEC782C074889003FD6AD /* MapInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInviteView.swift; sourceTree = "<group>"; };
 		043DEC7A2C081833003FD6AD /* MapBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBatteryView.swift; sourceTree = "<group>"; };
 		043DEC7C2C085253003FD6AD /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		043DEC822C085A53003FD6AD /* CreditDepositFreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditDepositFreeView.swift; sourceTree = "<group>"; };
+		043DEC842C085B79003FD6AD /* ExpirationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationView.swift; sourceTree = "<group>"; };
+		043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryOfflineView.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				043DEC7E2C085468003FD6AD /* Home */,
 				04001C472C071FB9000A040F /* CustomerService */,
 				04FFEE4F2C05AECD00939B46 /* Notification */,
 				04FFEE452C05A6EE00939B46 /* Message */,
@@ -291,7 +298,6 @@
 		0415AF262BC917A300E9290D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				04FFEE3D2C046FDF00939B46 /* HomeViewController.swift */,
 				043DEC7C2C085253003FD6AD /* MapViewController.swift */,
 			);
 			path = Controllers;
@@ -308,17 +314,8 @@
 		0415AF282BC917B100E9290D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				04FFEE412C04A04600939B46 /* LocationChooseView.swift */,
-				04FFEE432C04A0CD00939B46 /* SearchView.swift */,
-				04FFEE4B2C05AA1400939B46 /* NeedLoginView.swift */,
-				04FFEE4D2C05AA2900939B46 /* NeedAuthView.swift */,
 				04001C412C060827000A040F /* CenterAnnotationView.swift */,
 				04001C452C06D33A000A040F /* HFMapView.swift */,
-				04001C4D2C073103000A040F /* HFStackView.swift */,
-				04001C4F2C073420000A040F /* MapFeatureView.swift */,
-				043DEC762C074850003FD6AD /* MapPackageCardView.swift */,
-				043DEC782C074889003FD6AD /* MapInviteView.swift */,
-				043DEC7A2C081833003FD6AD /* MapBatteryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -382,6 +379,50 @@
 				0415AF422BCCDCFE00E9290D /* MemberAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		043DEC7E2C085468003FD6AD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				043DEC812C08547B003FD6AD /* Controllers */,
+				043DEC802C085474003FD6AD /* Models */,
+				043DEC7F2C08546F003FD6AD /* Views */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		043DEC7F2C08546F003FD6AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				04FFEE412C04A04600939B46 /* LocationChooseView.swift */,
+				04FFEE432C04A0CD00939B46 /* SearchView.swift */,
+				04FFEE4B2C05AA1400939B46 /* NeedLoginView.swift */,
+				04FFEE4D2C05AA2900939B46 /* NeedAuthView.swift */,
+				04001C4D2C073103000A040F /* HFStackView.swift */,
+				04001C4F2C073420000A040F /* MapFeatureView.swift */,
+				043DEC762C074850003FD6AD /* MapPackageCardView.swift */,
+				043DEC782C074889003FD6AD /* MapInviteView.swift */,
+				043DEC7A2C081833003FD6AD /* MapBatteryView.swift */,
+				043DEC822C085A53003FD6AD /* CreditDepositFreeView.swift */,
+				043DEC842C085B79003FD6AD /* ExpirationView.swift */,
+				043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		043DEC802C085474003FD6AD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		043DEC812C08547B003FD6AD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04FFEE3D2C046FDF00939B46 /* HomeViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		04FFEE452C05A6EE00939B46 /* Message */ = {
@@ -631,7 +672,9 @@
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
 				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
+				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
+				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */,
@@ -646,6 +689,7 @@
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
+				043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */,
 				04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */,
 				04FFEE4C2C05AA1400939B46 /* NeedLoginView.swift in Sources */,
 				043DEC7D2C085253003FD6AD /* MapViewController.swift in Sources */,

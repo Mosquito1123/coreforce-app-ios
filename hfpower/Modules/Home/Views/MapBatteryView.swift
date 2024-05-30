@@ -207,9 +207,9 @@ class MapBatteryContentView: UIView {
         let attrString = NSMutableAttributedString(string: percentageString)
         let attr: [NSAttributedString.Key : Any]
         if(status == 0){
-            attr = [.font: UIFont.systemFont(ofSize: 12,weight: .medium),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: UIColor(red: 1,green: 0.23,blue: 0.19,alpha: 1), .strokeWidth: -2]
+            attr = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: UIColor(red: 1,green: 0.23,blue: 0.19,alpha: 1), .strokeWidth: -2]
         }else{
-            attr = [.font: UIFont.systemFont(ofSize: 12,weight: .medium),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1)]
+            attr = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1)]
         }
         
         attrString.addAttributes(attr, range: NSRange(location: 0, length: attrString.length))
