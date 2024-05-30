@@ -7,7 +7,11 @@
 
 import UIKit
 
-class NotificationViewController: UIViewController {
+class NotificationViewController: UIViewController,UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
     
     // MARK: - Accessor
     
@@ -33,6 +37,15 @@ private extension NotificationViewController {
     
     private func setupNavbar() {
         self.title = "消息通知"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "测试", style: .plain, target: self, action: #selector(searchTapped(_:)))
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
    
     private func setupSubviews() {
@@ -56,7 +69,9 @@ private extension NotificationViewController {
 
 // MARK: - Action
 @objc private extension NotificationViewController {
-    
+    @objc func searchTapped(_ sender:UIBarButtonItem){
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - Private

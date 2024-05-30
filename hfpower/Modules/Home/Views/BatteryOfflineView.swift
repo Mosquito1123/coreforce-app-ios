@@ -38,6 +38,18 @@ class BatteryOfflineView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = self.bounds
+      
+        self.addSubview(blurView)
+        self.sendSubviewToBack(blurView)
+        blurView.layer.cornerRadius = 8
+        blurView.layer.masksToBounds = true
+        
+    }
 
 }
 

@@ -48,12 +48,21 @@ class ExpirationView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         actionButton.setImagePosition(type: .imageRight, Space: 5)
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = self.bounds
+        self.addSubview(blurView)
+        self.sendSubviewToBack(blurView)
+        blurView.layer.cornerRadius = 10
+        blurView.layer.masksToBounds = true
+
     }
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
         self.layer.cornerRadius = 10
+
         // shadowCode
         self.layer.shadowColor = UIColor(red: 0.39, green: 0.47, blue: 0.67, alpha: 0.3).cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 5)

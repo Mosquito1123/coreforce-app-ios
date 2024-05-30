@@ -59,6 +59,13 @@ class CreditDepositFreeView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         actionButton.setImagePosition(type: .imageRight, Space: 5)
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = self.bounds
+        self.addSubview(blurView)
+        self.sendSubviewToBack(blurView)
+        blurView.layer.cornerRadius = 10
+        blurView.layer.masksToBounds = true
     }
 
 }

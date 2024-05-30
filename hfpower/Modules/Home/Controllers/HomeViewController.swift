@@ -99,7 +99,14 @@ private extension HomeViewController {
             self.present(nav, animated: true)
         }
         self.view.addSubview(locationChooseView)
+        
         self.view.addSubview(searchView)
+        searchView.goToSearchServiceBlock = { textField in
+            let cabinetListVC = SearchCabinetListViewController()
+            cabinetListVC.hidesBottomBarWhenPushed = true
+            
+            self.navigationController?.pushViewController(cabinetListVC, animated: true)
+        }
         searchView.goToNotificationBlock = { (sender) -> Void in
             let notificationVC = NotificationViewController()
             notificationVC.hidesBottomBarWhenPushed = true
@@ -132,7 +139,7 @@ private extension HomeViewController {
         }
         footerStackView.addArrangedSubview(listView)
         let locateView = MapFeatureView(.locate) { sender, mapFeatureType in
-            
+            self.manager.startUpdatingLocation()
         }
         footerStackView.addArrangedSubview(locateView)
         let refreshView = MapFeatureView(.refresh) { sender, mapFeatureType in

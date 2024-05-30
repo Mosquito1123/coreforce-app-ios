@@ -44,7 +44,6 @@ class MainTabBarController: ESTabBarController {
         shapeLayer.addSublayer(barRightArc)
 
         tabBar.layer.insertSublayer(shapeLayer, at: 0)
-        tabBar.barTintColor = UIColor.white
     }
     
 }

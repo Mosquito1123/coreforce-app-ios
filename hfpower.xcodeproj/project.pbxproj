@@ -34,6 +34,8 @@
 		043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC822C085A53003FD6AD /* CreditDepositFreeView.swift */; };
 		043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC842C085B79003FD6AD /* ExpirationView.swift */; };
 		043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */; };
+		043DEC892C089930003FD6AD /* SearchCabinetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC882C089930003FD6AD /* SearchCabinetListViewController.swift */; };
+		043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC8A2C08B421003FD6AD /* SearchCabinetListHeaderView.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -85,6 +87,8 @@
 		043DEC822C085A53003FD6AD /* CreditDepositFreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditDepositFreeView.swift; sourceTree = "<group>"; };
 		043DEC842C085B79003FD6AD /* ExpirationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpirationView.swift; sourceTree = "<group>"; };
 		043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryOfflineView.swift; sourceTree = "<group>"; };
+		043DEC882C089930003FD6AD /* SearchCabinetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCabinetListViewController.swift; sourceTree = "<group>"; };
+		043DEC8A2C08B421003FD6AD /* SearchCabinetListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCabinetListHeaderView.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -406,6 +410,7 @@
 				043DEC822C085A53003FD6AD /* CreditDepositFreeView.swift */,
 				043DEC842C085B79003FD6AD /* ExpirationView.swift */,
 				043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */,
+				043DEC8A2C08B421003FD6AD /* SearchCabinetListHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -421,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				04FFEE3D2C046FDF00939B46 /* HomeViewController.swift */,
+				043DEC882C089930003FD6AD /* SearchCabinetListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -689,6 +695,8 @@
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
+				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
+				043DEC892C089930003FD6AD /* SearchCabinetListViewController.swift in Sources */,
 				043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */,
 				04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */,
 				04FFEE4C2C05AA1400939B46 /* NeedLoginView.swift in Sources */,

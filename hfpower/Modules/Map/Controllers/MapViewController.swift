@@ -32,7 +32,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
 
         
     }

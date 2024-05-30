@@ -8,10 +8,23 @@
 import UIKit
 typealias GoToNotificationBlock = (_ sender:UIButton)->Void
 typealias GoToCustomerServiceBlock = (_ sender:UIButton)->Void
-
-class SearchView: UIView,UITextFieldDelegate {
+typealias GoToSearchServiceBlock = (_ sender:UITextField)->Void
+class SearchView: UIView {
 
     // MARK: - Accessor
+    var searchIconImage:UIImage?{
+        didSet{
+            leftIconView.image = searchIconImage
+        }
+    }
+    var showRightView:Bool?{
+        didSet{
+            rightIconButton.isHidden = showRightView == false
+            customerServiceIconButton.isHidden = showRightView == false
+        }
+    }
+   
+    var goToSearchServiceBlock:GoToSearchServiceBlock?
     var goToNotificationBlock:GoToNotificationBlock?
     var goToCustomerServiceBlock:GoToCustomerServiceBlock?
     // MARK: - Subviews
@@ -30,7 +43,7 @@ class SearchView: UIView,UITextFieldDelegate {
         textField.returnKeyType = .done
         textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"333333") ?? UIColor.black]
         textField.attributedPlaceholder = NSAttributedString(string: "搜索词", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"A0A0A0") ?? UIColor.black])
-        
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -105,8 +118,12 @@ private extension SearchView {
 }
 
 // MARK: - Public
-extension SearchView {
-    
+extension SearchView:UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let goToSearchServiceBlock = self.goToSearchServiceBlock else {return true}
+        goToSearchServiceBlock(textField)
+        return false
+    }
 }
 
 // MARK: - Action
