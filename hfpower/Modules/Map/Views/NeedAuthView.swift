@@ -22,14 +22,16 @@ class NeedAuthView: UIView {
     }()
     lazy var titleLabel:UILabel={
         let label = UILabel()
-        label.text = "登录后，开启换电之旅"
+        label.text = "实名认证体验更多服务"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = UIColor(named: "333333")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     lazy var actionButton:UIButton = {
         let actionButton = UIButton(type:.custom)
-        actionButton.setTitle("立即登录", for: .normal)
-        actionButton.setTitle("立即登录", for: .highlighted)
+        actionButton.setTitle("立即实名", for: .normal)
+        actionButton.setTitle("立即实名", for: .highlighted)
      
         actionButton.setTitleColor(UIColor.white, for: .normal)
         actionButton.setTitleColor(UIColor.white, for: .highlighted)
@@ -49,7 +51,7 @@ class NeedAuthView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
-        self.layer.cornerRadius = 8
+        self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
         setupSubviews()
         setupLayout()
@@ -88,7 +90,7 @@ private extension NeedAuthView {
             actionButton.heightAnchor.constraint(equalToConstant: 30),
             actionButton.widthAnchor.constraint(equalToConstant: 100),
 
-
+            self.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     

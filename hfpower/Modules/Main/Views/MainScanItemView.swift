@@ -7,11 +7,47 @@
 
 import UIKit
 import ESTabBarController_swift
-
+enum MainScanItemType {
+    case battery_rent
+    case battery_change
+    case battery_release
+    
+}
+extension MainScanItemType {
+    func getValue() -> String {
+        switch self {
+        case .battery_rent:
+            return "扫码租电"
+        case .battery_change:
+            return "扫码换电"
+        case .battery_release:
+            return "解除寄存"
+       
+        }
+    }
+    func getColorValue() -> String {
+        switch self {
+        case .battery_rent:
+            return "22C788"
+        case .battery_change:
+            return "447AFE"
+        case .battery_release:
+            return "FF8842"
+       
+        }
+    }
+}
 class MainScanItemView: ESTabBarItemContentView {
 
     // MARK: - Accessor
-    
+    var mainScanItemType:MainScanItemType? = .battery_rent{
+        didSet{
+            scanButton.setTitle(mainScanItemType?.getValue(), for: .normal)
+            scanButton.setTitle(mainScanItemType?.getValue(), for: .highlighted)
+            scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.toImage(), for: .normal)
+        }
+        
+    }
     // MARK: - Subviews
     lazy var mainView:UIView = {
         let view = UIView()

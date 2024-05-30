@@ -72,7 +72,9 @@ extension MainTabBarController {
         let home = HomeViewController()
         home.tabBarItem = ESTabBarItem(title: "首页", image: UIImage(named: "home"), selectedImage: UIImage(named: "home"))
         let center = UIViewController()
-        center.tabBarItem = ESTabBarItem(MainScanItemView())
+        let mainScanItemView = MainScanItemView()
+        mainScanItemView.mainScanItemType = .battery_rent
+        center.tabBarItem = ESTabBarItem(mainScanItemView)
         
         //        let connection = UINavigationController(rootViewController: ConnectionViewController())
         //        let message = UINavigationController(rootViewController: MessageViewController())

@@ -22,6 +22,8 @@ class NeedLoginView: UIView {
     lazy var titleLabel:UILabel={
         let label = UILabel()
         label.text = "登录后，开启换电之旅"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = UIColor(named: "333333")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -48,7 +50,7 @@ class NeedLoginView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
-        self.layer.cornerRadius = 8
+        self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
         setupSubviews()
         setupLayout()
@@ -86,6 +88,7 @@ private extension NeedLoginView {
             actionButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             actionButton.heightAnchor.constraint(equalToConstant: 30),
             actionButton.widthAnchor.constraint(equalToConstant: 100),
+            self.heightAnchor.constraint(equalToConstant: 44)
 
 
         ])

@@ -75,7 +75,7 @@ extension AuthAPI:APIType{
         case .logoff:
             return .requestCompositeParameters(bodyParameters: [:], bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         case .refreshToken(let refreshToken):
-            var params = ["body": ["refreshToken": refreshToken], "head": appHeader] as [String : Any]
+            let params = ["body": ["refreshToken": refreshToken], "head": appHeader] as [String : Any]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }
     }

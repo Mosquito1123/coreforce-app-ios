@@ -13,11 +13,32 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate,MKMapViewD
     let manager = CLLocationManager()
 
     // MARK: - Subviews
-    lazy var headerView:UIView = {
-        let view = UIView()
+    lazy var inviteView:MapInviteView = {
+        let view = MapInviteView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    lazy var packageCardView:MapPackageCardView = {
+        let view = MapPackageCardView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    lazy var headerStackView:HFStackView = {
+        let stackView = HFStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    lazy var footerStackView:HFStackView = {
+        let stackView = HFStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        stackView.alignment = .trailing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
     lazy var locationChooseView:LocationChooseView = {
        let view = LocationChooseView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,8 +54,14 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate,MKMapViewD
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    lazy var needAuthView:NeedAuthView = {
+        let view = NeedAuthView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     lazy var mapView:HFMapView = {
         let map = HFMapView()
+        map.overrideUserInterfaceStyle = .light
         map.showsUserLocation = true
         map.showsCompass = false
         map.userTrackingMode = .followWithHeading
@@ -147,7 +174,9 @@ private extension HomeViewController {
         // 设置地图的初始位置和显示范围
        
         self.view.addSubview(mapView)
-        self.view.addSubview(needLoginView)
+        self.view.addSubview(headerStackView)
+        self.view.addSubview(footerStackView)
+
         needLoginView.loginAction = { (sender) -> Void in
             let loginVC = LoginViewController()
             
@@ -164,7 +193,37 @@ private extension HomeViewController {
             
             self.navigationController?.pushViewController(notificationVC, animated: true)
         }
-       
+        searchView.goToCustomerServiceBlock = { (sender) -> Void in
+            let customerVC = CustomerServiceViewController()
+            customerVC.hidesBottomBarWhenPushed = true
+            
+            self.navigationController?.pushViewController(customerVC, animated: true)
+        }
+        headerStackView.addArrangedSubview(needLoginView)
+        headerStackView.addArrangedSubview(needAuthView)
+        headerStackView.addArrangedSubview(packageCardView)
+        let mapBatteryView = MapBatteryView()
+        footerStackView.addArrangedSubview(mapBatteryView)
+        footerStackView.addArrangedSubview(inviteView)
+      
+
+        let listView = MapFeatureView(.list) { sender, mapFeatureType in
+            
+        }
+        footerStackView.addArrangedSubview(listView)
+        let locateView = MapFeatureView(.locate) { sender, mapFeatureType in
+            
+        }
+        footerStackView.addArrangedSubview(locateView)
+        let refreshView = MapFeatureView(.refresh) { sender, mapFeatureType in
+            
+        }
+        footerStackView.addArrangedSubview(refreshView)
+        let filterView = MapFeatureView(.filter) { sender, mapFeatureType in
+            
+        }
+        footerStackView.addArrangedSubview(filterView)
+
     }
     
     private func setupLayout() {
@@ -189,10 +248,14 @@ private extension HomeViewController {
             searchView.heightAnchor.constraint(equalToConstant: 44),
             searchView.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
 
-            needLoginView.topAnchor.constraint(equalTo: self.locationChooseView.bottomAnchor,constant: 10),
-            needLoginView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
-            needLoginView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
-            needLoginView.heightAnchor.constraint(equalToConstant:44),
+            headerStackView.topAnchor.constraint(equalTo: self.locationChooseView.bottomAnchor,constant: 10),
+            headerStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
+            headerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
+            footerStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -26),
+            footerStackView.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14-38-14),
+            footerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
+            
+
 
 
         ])

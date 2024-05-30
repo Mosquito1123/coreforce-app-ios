@@ -7,10 +7,13 @@
 
 import UIKit
 typealias GoToNotificationBlock = (_ sender:UIButton)->Void
+typealias GoToCustomerServiceBlock = (_ sender:UIButton)->Void
+
 class SearchView: UIView,UITextFieldDelegate {
 
     // MARK: - Accessor
     var goToNotificationBlock:GoToNotificationBlock?
+    var goToCustomerServiceBlock:GoToCustomerServiceBlock?
     // MARK: - Subviews
     lazy var leftIconView:UIImageView = {
         let imageView = UIImageView()
@@ -31,10 +34,18 @@ class SearchView: UIView,UITextFieldDelegate {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    lazy var customerServiceIconButton:UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "customer_service")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
+        button.setImage(UIImage(named: "customer_service")?.resized(toSize: CGSize(width: 20, height: 20)), for: .highlighted)
+        button.addTarget(self, action: #selector(goToCustomerServiceView(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     lazy var rightIconButton:UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(UIImage(named: "notification"), for: .normal)
-        button.setImage(UIImage(named: "notification"), for: .highlighted)
+        button.setImage(UIImage(named: "notification")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
+        button.setImage(UIImage(named: "notification")?.resized(toSize: CGSize(width: 20, height: 20)), for: .highlighted)
         button.addTarget(self, action: #selector(goToNotificationsView(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -61,6 +72,7 @@ private extension SearchView {
     private func setupSubviews() {
         addSubview(leftIconView)
         addSubview(textField)
+        addSubview(customerServiceIconButton)
         addSubview(rightIconButton)
 
     }
@@ -73,9 +85,14 @@ private extension SearchView {
             leftIconView.heightAnchor.constraint(equalToConstant: 15),
             leftIconView.trailingAnchor.constraint(equalTo: textField.leadingAnchor,constant: -7.5),
             textField.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            textField.trailingAnchor.constraint(equalTo: rightIconButton.leadingAnchor,constant: -7.5),
-            rightIconButton.widthAnchor.constraint(equalToConstant: 17),
-            rightIconButton.heightAnchor.constraint(equalToConstant: 17),
+            textField.trailingAnchor.constraint(equalTo: customerServiceIconButton.leadingAnchor,constant: -7.5),
+            customerServiceIconButton.widthAnchor.constraint(equalToConstant: 20),
+            customerServiceIconButton.heightAnchor.constraint(equalToConstant: 20),
+            customerServiceIconButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            customerServiceIconButton.trailingAnchor.constraint(equalTo: self.rightIconButton.leadingAnchor,constant: -22.5),
+
+            rightIconButton.widthAnchor.constraint(equalToConstant: 20),
+            rightIconButton.heightAnchor.constraint(equalToConstant: 20),
             rightIconButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
 
             rightIconButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -17.5),
@@ -93,6 +110,9 @@ extension SearchView {
 @objc private extension SearchView {
     @objc func goToNotificationsView(_ sender:UIButton){
         self.goToNotificationBlock?(sender)
+    }
+    @objc func goToCustomerServiceView(_ sender:UIButton){
+        self.goToCustomerServiceBlock?(sender)
     }
 }
 

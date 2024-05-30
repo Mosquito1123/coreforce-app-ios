@@ -1,13 +1,13 @@
 //
-//  NotificationViewController.swift
+//  CustomerServiceViewController.swift
 //  hfpower
 //
-//  Created by EDY on 2024/5/28.
+//  Created by EDY on 2024/5/29.
 //
 
 import UIKit
 
-class NotificationViewController: UIViewController {
+class CustomerServiceViewController: UIViewController {
     
     // MARK: - Accessor
     
@@ -29,10 +29,10 @@ class NotificationViewController: UIViewController {
 }
 
 // MARK: - Setup
-private extension NotificationViewController {
+private extension CustomerServiceViewController {
     
     private func setupNavbar() {
-        self.title = "消息通知"
+        self.title = "客服"
     }
    
     private func setupSubviews() {
@@ -45,21 +45,21 @@ private extension NotificationViewController {
 }
 
 // MARK: - Public
-extension NotificationViewController {
+extension CustomerServiceViewController {
     
 }
 
 // MARK: - Request
-private extension NotificationViewController {
+private extension CustomerServiceViewController {
     
 }
 
 // MARK: - Action
-@objc private extension NotificationViewController {
+@objc private extension CustomerServiceViewController {
     
 }
 
 // MARK: - Private
-private extension NotificationViewController {
+private extension CustomerServiceViewController {
     
 }
