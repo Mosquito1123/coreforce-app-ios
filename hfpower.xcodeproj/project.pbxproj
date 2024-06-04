@@ -27,6 +27,9 @@
 		0415AF3F2BCCD97400E9290D /* BatteryDepositAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF3E2BCCD97300E9290D /* BatteryDepositAPI.swift */; };
 		0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF402BCCDC6300E9290D /* PackageCardAPI.swift */; };
 		0415AF432BCCDCFE00E9290D /* MemberAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF422BCCDCFE00E9290D /* MemberAPI.swift */; };
+		04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA42C09A6F50087066F /* CabinetStatisticView.swift */; };
+		04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA62C09BCFA0087066F /* CabinetLocationView.swift */; };
+		04224DA92C09D37A0087066F /* CabinetStatisticBatteryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */; };
 		043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC762C074850003FD6AD /* MapPackageCardView.swift */; };
 		043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC782C074889003FD6AD /* MapInviteView.swift */; };
 		043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC7A2C081833003FD6AD /* MapBatteryView.swift */; };
@@ -36,6 +39,9 @@
 		043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */; };
 		043DEC892C089930003FD6AD /* SearchCabinetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC882C089930003FD6AD /* SearchCabinetListViewController.swift */; };
 		043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC8A2C08B421003FD6AD /* SearchCabinetListHeaderView.swift */; };
+		043DEC912C0971F9003FD6AD /* CabinetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC902C0971F9003FD6AD /* CabinetListViewCell.swift */; };
+		0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9DA2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift */; };
+		0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9E02C0EB97600834069 /* SummaryTableView.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -80,6 +86,9 @@
 		0415AF3E2BCCD97300E9290D /* BatteryDepositAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDepositAPI.swift; sourceTree = "<group>"; };
 		0415AF402BCCDC6300E9290D /* PackageCardAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCardAPI.swift; sourceTree = "<group>"; };
 		0415AF422BCCDCFE00E9290D /* MemberAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberAPI.swift; sourceTree = "<group>"; };
+		04224DA42C09A6F50087066F /* CabinetStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticView.swift; sourceTree = "<group>"; };
+		04224DA62C09BCFA0087066F /* CabinetLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetLocationView.swift; sourceTree = "<group>"; };
+		04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticBatteryListView.swift; sourceTree = "<group>"; };
 		043DEC762C074850003FD6AD /* MapPackageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPackageCardView.swift; sourceTree = "<group>"; };
 		043DEC782C074889003FD6AD /* MapInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInviteView.swift; sourceTree = "<group>"; };
 		043DEC7A2C081833003FD6AD /* MapBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBatteryView.swift; sourceTree = "<group>"; };
@@ -89,6 +98,9 @@
 		043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryOfflineView.swift; sourceTree = "<group>"; };
 		043DEC882C089930003FD6AD /* SearchCabinetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCabinetListViewController.swift; sourceTree = "<group>"; };
 		043DEC8A2C08B421003FD6AD /* SearchCabinetListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCabinetListHeaderView.swift; sourceTree = "<group>"; };
+		043DEC902C0971F9003FD6AD /* CabinetListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetListViewCell.swift; sourceTree = "<group>"; };
+		0443B9DA2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticBatteryItemView.swift; sourceTree = "<group>"; };
+		0443B9E02C0EB97600834069 /* SummaryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableView.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +203,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				043DEC8C2C096762003FD6AD /* Cabinet */,
 				043DEC7E2C085468003FD6AD /* Home */,
 				04001C472C071FB9000A040F /* CustomerService */,
 				04FFEE4F2C05AECD00939B46 /* Notification */,
@@ -410,7 +423,6 @@
 				043DEC822C085A53003FD6AD /* CreditDepositFreeView.swift */,
 				043DEC842C085B79003FD6AD /* ExpirationView.swift */,
 				043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */,
-				043DEC8A2C08B421003FD6AD /* SearchCabinetListHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -426,9 +438,47 @@
 			isa = PBXGroup;
 			children = (
 				04FFEE3D2C046FDF00939B46 /* HomeViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		043DEC8C2C096762003FD6AD /* Cabinet */ = {
+			isa = PBXGroup;
+			children = (
+				043DEC8F2C096793003FD6AD /* Models */,
+				043DEC8E2C09678B003FD6AD /* Views */,
+				043DEC8D2C096782003FD6AD /* Controllers */,
+			);
+			path = Cabinet;
+			sourceTree = "<group>";
+		};
+		043DEC8D2C096782003FD6AD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				043DEC882C089930003FD6AD /* SearchCabinetListViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		043DEC8E2C09678B003FD6AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				043DEC8A2C08B421003FD6AD /* SearchCabinetListHeaderView.swift */,
+				043DEC902C0971F9003FD6AD /* CabinetListViewCell.swift */,
+				04224DA42C09A6F50087066F /* CabinetStatisticView.swift */,
+				04224DA62C09BCFA0087066F /* CabinetLocationView.swift */,
+				04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */,
+				0443B9DA2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift */,
+				0443B9E02C0EB97600834069 /* SummaryTableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		043DEC8F2C096793003FD6AD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		04FFEE452C05A6EE00939B46 /* Message */ = {
@@ -669,6 +719,7 @@
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
+				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
 				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
@@ -677,10 +728,12 @@
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
+				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
 				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
 				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
 				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
+				0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */,
@@ -688,9 +741,11 @@
 				04FFEE4E2C05AA2900939B46 /* NeedAuthView.swift in Sources */,
 				04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */,
 				331C90C22BC6C60000BB534F /* ViewController.swift in Sources */,
+				043DEC912C0971F9003FD6AD /* CabinetListViewCell.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
 				04FFEE372C00975B00939B46 /* LoginVCodeInputView.swift in Sources */,
 				0415AF3F2BCCD97400E9290D /* BatteryDepositAPI.swift in Sources */,
+				04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */,
 				04FFEE392C0097CE00939B46 /* LoginInviteCodeInputView.swift in Sources */,
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
@@ -698,6 +753,7 @@
 				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
 				043DEC892C089930003FD6AD /* SearchCabinetListViewController.swift in Sources */,
 				043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */,
+				04224DA92C09D37A0087066F /* CabinetStatisticBatteryListView.swift in Sources */,
 				04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */,
 				04FFEE4C2C05AA1400939B46 /* NeedLoginView.swift in Sources */,
 				043DEC7D2C085253003FD6AD /* MapViewController.swift in Sources */,

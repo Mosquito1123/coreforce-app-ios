@@ -12,10 +12,10 @@ target 'hfpower' do
   pod 'LookinServer', :configurations => ['Debug']
 #  分栏 https://github.com/pujiaxin33/JXSegmentedView
   pod 'JXSegmentedView'
-#  TabBar https://github.com/ChenYilong/CYLTabBarController
-  pod 'CYLTabBarController', '~> 1.29.2'
 #  网络 https://github.com/Alamofire/Alamofire
   pod 'Alamofire'
+ # 筛选视图 https://github.com/younatics/YNDropDownMenu.git
+  pod 'YNDropDownMenu'
 #  网络 https://github.com/Moya/Moya.git
   pod 'Moya'
 #  JSON解析 https://github.com/kakaopensource/KakaJSON.git
