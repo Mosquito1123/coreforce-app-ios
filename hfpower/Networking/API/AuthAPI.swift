@@ -14,8 +14,8 @@ enum AuthAPI {
     case logoff
     case sendSMSCode(phoneNumber: String)
     case login(username: String, password: String,type:String)
-    case loginWithSMS(phoneNumber: String, code: String)
-    case register(phoneNumber: String, inviteCode: String, code: String)
+    case loginWithSMS(phoneNumber: String, code: String,inviteCode:String? = nil,type:String)
+    case register(phoneNumber: String, inviteCode: String? = nil, code: String,type:String)
 }
 extension AuthAPI:APIType{
     var authorizationType: HFAuthorizationType? {
@@ -32,7 +32,7 @@ extension AuthAPI:APIType{
         
         case .sendSMSCode:
             return "pin/send"
-        case .login, .loginWithSMS:
+        case .login,.loginWithSMS:
             return "login"
         case .register:
             return "reg"
@@ -65,11 +65,17 @@ extension AuthAPI:APIType{
             let params = ["body": ["account": username, "password": password.md5,"type":type], "head": appHeader] as [String : Any]
 
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
-        case .loginWithSMS(let phoneNumber, let code):
-            let params = ["body": ["phone_number": phoneNumber, "code": code], "head": appHeader] as [String : Any]
+        case .loginWithSMS(let phoneNumber, let code,let inviteCode,let type):
+            var params = ["body": ["account": phoneNumber, "password": code,"type":type], "head": appHeader] as [String : Any]
+            if let x = inviteCode{
+                params["inviteCode"] = inviteCode
+            }
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
-        case .register(let phoneNumber, let inviteCode, let code):
-            let params = ["body": ["phone_number": phoneNumber, "invite_code": inviteCode, "code": code], "head": appHeader] as [String : Any]
+        case .register(let phoneNumber, let inviteCode, let code,let type):
+            var params = ["body": ["account": phoneNumber, "password": code,"type":type], "head": appHeader] as [String : Any]
+            if let x = inviteCode{
+                params["inviteCode"] = inviteCode
+            }
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .logout:
             return .requestCompositeParameters(bodyParameters: [:], bodyEncoding: JSONEncoding.default, urlParameters: appHeader)

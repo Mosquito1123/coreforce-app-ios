@@ -10,13 +10,14 @@ import UIKit
 class LocationChooseView: UIView {
 
     // MARK: - Accessor
-    
+    var chooseCityAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var currentLocationButton:UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("青岛市", for: .normal)
         button.setTitleColor(UIColor(named: "333333"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        button.addTarget(self, action: #selector(goToCityChoose(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -24,6 +25,7 @@ class LocationChooseView: UIView {
         let button = UIButton(type: .custom)
         button.setImage(TriangleDrawer.drawDownwardTriangle(width: 7.9, height: 4.64,color: UIColor(named: "333333") ?? UIColor.black), for: .normal)
         button.setImage(TriangleDrawer.drawUpwardTriangle(width: 7.9, height: 4.64,color: UIColor(named: "333333") ?? UIColor.black), for: .selected)
+        button.addTarget(self, action: #selector(goToCityChoose(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -77,7 +79,9 @@ extension LocationChooseView {
 
 // MARK: - Action
 @objc private extension LocationChooseView {
-    
+    @objc func goToCityChoose(_ sender:UIButton){
+        self.chooseCityAction?(sender)
+    }
 }
 
 // MARK: - Private

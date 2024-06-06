@@ -29,6 +29,7 @@ class LoginInviteCodeInputView: UIView {
         textField.attributedPlaceholder = NSAttributedString(string: "请输入邀请码（选填）", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"A0A0A0") ?? UIColor.black])
         textField.returnKeyType = .done
         textField.delegate = self
+        textField.keyboardType = .asciiCapableNumberPad
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

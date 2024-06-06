@@ -32,4 +32,5 @@ target 'hfpower' do
   pod 'MJRefresh'
   pod "ESTabBarController-swift"
   pod 'SVProgressHUD'
+  pod 'SDCAlertView'
 end

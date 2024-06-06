@@ -131,6 +131,7 @@ class LoginViewController:UIViewController, UITextViewDelegate {
 //    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        toggleButton.isSelected = LoginModel.shared.agreement
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
     }
@@ -261,19 +262,39 @@ private extension LoginViewController {
 
 // MARK: - Action
 @objc private extension LoginViewController {
-    @objc func toggle(_ sender:UIButton){
-        sender.isSelected = !sender.isSelected
-
-    }
-    @objc func login(_ sender:UIButton){
-        NetworkService<AuthAPI>().request(.login(username: accountInputView.phoneNumberTextField.text ?? "", password: passwordInputView.passwordTextField.text ?? "", type: "pw"), model:CommonResponse<TokenResponse>.self) { result in
+    private func loginBehavior(){
+        NetworkService<AuthAPI>().request(.login(username: accountInputView.phoneNumberTextField.text ?? "", password: passwordInputView.passwordTextField.text ?? "", type: "pw"), model:TokenResponse.self) { result in
             switch result{
             case .success(let response):
-                    debugPrint(response)
+                TokenManager.shared.accessToken = response?.accessToken
+                TokenManager.shared.accessTokenExpiration = response?.accessTokenExpiration
+                TokenManager.shared.refreshToken = response?.refreshToken
+                TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
+                self.navigationController?.dismiss(animated: true)
 
             case .failure(let error):
                 debugPrint(error)
             }
+        }
+    }
+    @objc func toggle(_ sender:UIButton){
+        sender.isSelected = !sender.isSelected
+        LoginModel.shared.agreement = sender.isSelected
+
+    }
+    @objc func login(_ sender:UIButton){
+        if LoginModel.shared.agreement == true {
+            
+            loginBehavior()
+        }else{
+            self.showPrivacyAlertController { alertAction in
+                
+            } sureBlock: { alertAction in
+                LoginModel.shared.agreement = true
+                self.toggleButton.isSelected = true
+                self.loginBehavior()
+            }
+
         }
         
     }

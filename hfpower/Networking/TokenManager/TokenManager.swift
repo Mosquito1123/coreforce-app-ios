@@ -7,11 +7,13 @@
 
 import Foundation
 
-class TokenManager {
+class TokenManager:NSObject {
     static let shared = TokenManager()
-    private init() {}
+    private override init() {
+        super.init()
+    }
 
-    var accessToken: String? {
+    @objc dynamic var accessToken: String? {
         get {
             return UserDefaults.standard.string(forKey: "accessToken")
         }
@@ -20,7 +22,7 @@ class TokenManager {
         }
     }
 
-    var refreshToken: String? {
+    @objc dynamic var refreshToken: String? {
         get {
             return UserDefaults.standard.string(forKey: "refreshToken")
         }
@@ -29,7 +31,7 @@ class TokenManager {
         }
     }
 
-    var accessTokenExpiration: String? {
+    @objc dynamic var accessTokenExpiration: String? {
         get {
             return UserDefaults.standard.string(forKey: "accessTokenExpiration")
         }
@@ -38,7 +40,7 @@ class TokenManager {
         }
     }
 
-    var refreshTokenExpiration: String? {
+    @objc dynamic var refreshTokenExpiration: String? {
         get {
             return UserDefaults.standard.string(forKey: "refreshTokenExpiration")
         }

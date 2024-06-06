@@ -10,6 +10,7 @@ import MapKit
 class MapViewController: UIViewController,MKMapViewDelegate {
     
     // MARK: - Accessor
+    var cityCallBack:((String?)->Void)?
     let manager = CLLocationManager()
     // MARK: - Subviews
     lazy var mapView:HFMapView = {
@@ -25,7 +26,10 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -43,10 +47,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.delegate = self
-        manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
+        
+        
         
     }
 }
@@ -91,7 +93,44 @@ extension MapViewController:CLLocationManagerDelegate{
         if let location = locations.first {
             manager.stopUpdatingLocation()
             render(location)
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                if let _ = error{
+                    
+                }else{
+                    CityCodeManager.shared.placemark = placemarks?.first
+                    CityCodeManager.shared.cityName = placemarks?.first?.locality
+
+                   let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
+                    self.cityCallBack?(placemarks?.first?.locality)
+                    CityCodeManager.shared.cityCode = code
+                }
+            }
         }
+    }
+    func moveMap(){
+        let cityName = CityCodeManager.shared.cityName
+        if let placemark = CityCodeManager.shared.placemark,placemark.locality == cityName,let location = placemark.location{
+            self.render(location)
+            return
+        }
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(cityName ?? "") { placemarks, error in
+            if let _ = error {
+                    } else if let placemarks = placemarks, let placemark = placemarks.first {
+                        if let location = placemark.location{
+                            self.render(location)
+                        }
+                        
+                    } else {
+                      
+                    }
+        }
+    }
+    func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance = 10000) {
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
     }
     func render(_ location: CLLocation) {
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)

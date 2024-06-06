@@ -9,8 +9,8 @@ import UIKit
 class HomeViewController: MapViewController{
     
     // MARK: - Accessor
-    
-
+    var accessTokenObservation:NSKeyValueObservation?
+    var cityCodeObservation:NSKeyValueObservation?
     // MARK: - Subviews
     lazy var inviteView:MapInviteView = {
         let view = MapInviteView()
@@ -67,11 +67,35 @@ class HomeViewController: MapViewController{
         setupNavbar()
         setupSubviews()
         setupLayout()
-        
 
+        accessTokenObservation = TokenManager.shared.observe(\.accessToken,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
+            if let newName = change.newValue,let x = newName {
+//                print("Name changed to \(x)")
+                self.headerStackView.removeArrangedSubview(self.needLoginView)
+                self.needLoginView.removeFromSuperview()
+            }else{
+                self.headerStackView.insertArrangedSubview(self.needLoginView, at: 0)
+
+            }
+        })
+        cityCodeObservation = CityCodeManager.shared.observe(\.cityCode,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
+            if let newCode = change.newValue,let x = newCode {
+            
+            }
+        })
+        cityCodeObservation = CityCodeManager.shared.observe(\.cityName,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
+            if let newName = change.newValue,let x = newName {
+                self.locationChooseView.currentLocationButton.setTitle(x, for: .normal)
+                self.moveMap()
+            }
+        })
+       
     }
     
-    
+    deinit {
+        accessTokenObservation?.invalidate()
+        cityCodeObservation?.invalidate()
+    }
     
     
 }
@@ -99,7 +123,14 @@ private extension HomeViewController {
             self.present(nav, animated: true)
         }
         self.view.addSubview(locationChooseView)
-        
+        locationChooseView.chooseCityAction = { (sender) -> Void in
+            let cityChooseVC = CityChooseViewController()
+            
+            let nav = UINavigationController(rootViewController: cityChooseVC)
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .coverVertical
+            self.present(nav, animated: true)
+        }
         self.view.addSubview(searchView)
         searchView.goToSearchServiceBlock = { textField in
             let cabinetListVC = SearchCabinetListViewController()
@@ -119,14 +150,14 @@ private extension HomeViewController {
             
             self.navigationController?.pushViewController(customerVC, animated: true)
         }
-        headerStackView.addArrangedSubview(needLoginView)
+//        headerStackView.addArrangedSubview(needLoginView)
 //        headerStackView.addArrangedSubview(needAuthView)
-        let creditDepositFreeView = CreditDepositFreeView()
-        headerStackView.addArrangedSubview(creditDepositFreeView)
-        let expirationView = ExpirationView()
-        headerStackView.addArrangedSubview(expirationView)
-        let batteryOfflineView = BatteryOfflineView()
-        headerStackView.addArrangedSubview(batteryOfflineView)
+//        let creditDepositFreeView = CreditDepositFreeView()
+//        headerStackView.addArrangedSubview(creditDepositFreeView)
+//        let expirationView = ExpirationView()
+//        headerStackView.addArrangedSubview(expirationView)
+//        let batteryOfflineView = BatteryOfflineView()
+//        headerStackView.addArrangedSubview(batteryOfflineView)
         headerStackView.addArrangedSubview(packageCardView)
 
         let mapBatteryView = MapBatteryView()

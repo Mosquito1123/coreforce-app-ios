@@ -12,15 +12,22 @@ class NetworkService<R:APIType> {
     let refreshProvider: MoyaProvider<AuthAPI> = NetworkingClient(apiKey: "").authentication
 
     let provider: MoyaProvider<R>? = NetworkingClient(apiKey: "").provider()
-    func request<T: Convertible>(_ target: R, model: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
+    func request<T: Convertible>(_ target: R, model: T.Type, completion: @escaping (Result<T?, Error>) -> Void) {
         provider?.request(target) { result in
             switch result {
             case .success(let response):
                 do {
                     // 尝试将响应数据解析为指定的模型类型
-                    if let model = try response.mapString().kj.model(T.self) {
-                        // 解析成功，调用成功的 completion 回调
-                        completion(.success(model))
+                    if let model = try response.mapString().kj.model(CommonResponse<T>.self) {
+                        if model.head?.retFlag == "00000"{
+                            // 解析成功，调用成功的 completion 回调
+                            completion(.success(model.body))
+                           
+                        }else{
+                            let moyaError = MoyaError.underlying(NSError(domain: target.baseURL.absoluteString, code: Int(model.head?.retFlag ?? "-1") ?? 0, userInfo: [NSLocalizedDescriptionKey:model.head?.retMsg ?? "",NSLocalizedFailureReasonErrorKey:model.head?.retMsg ?? "",NSLocalizedRecoverySuggestionErrorKey:model.head?.retMsg ?? "","body":model.body as Any]), response)
+                            completion(.failure(moyaError))
+                        }
+                        
                     } else {
                         // 解析失败，抛出 JSON 解析错误
                         throw MoyaError.jsonMapping(response)

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SVProgressHUD
 class LoginPhoneViewController: UIViewController,UITextViewDelegate {
     
     // MARK: - Accessor
@@ -72,7 +72,7 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
         let imageDisabled = image(from: UIColor(named: "447AFE 20") ?? .blue)
         button.setBackgroundImage(imageEnabled, for: .normal)
         button.setBackgroundImage(imageDisabled, for: .disabled)
-
+        button.addTarget(self, action: #selector(phoneLogin(_:)), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
@@ -126,6 +126,7 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        toggleButton.isSelected = LoginModel.shared.agreement
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
     }
@@ -253,12 +254,73 @@ private extension LoginPhoneViewController {
 
 // MARK: - Action
 @objc private extension LoginPhoneViewController {
+    private func loginWithSMSBehavior(){
+        let phoneNum = self.accountInputView.phoneNumberTextField.text
+        let vCode = self.vCodeInputView.vCodeTextField.text
+        let inviteCode = self.inviteCodeInputView.inviteCodeTextField.text
+        if self.isValidPhoneNumber(phoneNum ?? "") == false{
+            SVProgressHUD.showInfo(withStatus: "请输入正确的手机号")
+            return
+        }
+        if self.isValidVerificationCode(vCode ?? "") == false{
+            SVProgressHUD.showInfo(withStatus: "请输入正确的验证码")
+            return
+            
+        }
+
+        NetworkService<AuthAPI>().request(.loginWithSMS(phoneNumber: phoneNum ?? "", code:vCode ?? "",inviteCode: inviteCode,type: "pin"), model: TokenResponse.self) { result in
+            switch result {
+            case .success(let response):
+                TokenManager.shared.accessToken = response?.accessToken
+                TokenManager.shared.accessTokenExpiration = response?.accessTokenExpiration
+                TokenManager.shared.refreshToken = response?.refreshToken
+                TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
+                self.navigationController?.dismiss(animated: true)
+            case .failure(let error):
+                debugPrint(error)
+            }
+        }
+    }
+    func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
+        let phoneNumberPattern = "^1[3-9]\\d{9}$"
+        let regex = try? NSRegularExpression(pattern: phoneNumberPattern)
+        let matches = regex?.matches(in: phoneNumber, range: NSRange(location: 0, length: phoneNumber.count))
+        return matches?.count ?? 0 > 0
+    }
+    func isValidInvitedCode(_ code: String) -> Bool {
+        let codePattern = "^\\d{8}$"
+        let regex = try? NSRegularExpression(pattern: codePattern)
+        let matches = regex?.matches(in: code, range: NSRange(location: 0, length: code.count))
+        return matches?.count ?? 0 > 0
+    }
+    func isValidVerificationCode(_ code: String) -> Bool {
+        let codePattern = "^\\d{6}$"
+        let regex = try? NSRegularExpression(pattern: codePattern)
+        let matches = regex?.matches(in: code, range: NSRange(location: 0, length: code.count))
+        return matches?.count ?? 0 > 0
+    }
     @objc func toggle(_ sender:UIButton){
         sender.isSelected = !sender.isSelected
+        LoginModel.shared.agreement = sender.isSelected
     }
     @objc func goBackToCommonLogin(_ sender:UIButton){
         self.navigationController?.popViewController(animated: true)
       
+    }
+    @objc func phoneLogin(_ sender:UIButton){
+        if LoginModel.shared.agreement == true {
+            loginWithSMSBehavior()
+            
+        }else{
+            self.showPrivacyAlertController { alertAction in
+                
+            } sureBlock: { alertAction in
+                self.toggleButton.isSelected = true
+                LoginModel.shared.agreement = true
+                self.loginWithSMSBehavior()
+            }
+
+        }
     }
 }
 
