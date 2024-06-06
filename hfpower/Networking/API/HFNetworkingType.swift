@@ -11,7 +11,7 @@ public protocol APIType: TargetType, HFAccessTokenAuthorizable,LoadingPluginDele
 
 public extension APIType {
 
-    var baseURL: URL { return URL(string: "http://www.coreforce.cn/app/api/")! }
+    var baseURL: URL { return URL(string: "https://www.coreforce.cn/app/api/") ?? URL(fileURLWithPath: "") }
 
     var headers: [String: String]? { return nil }
 

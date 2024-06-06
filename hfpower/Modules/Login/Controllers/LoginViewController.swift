@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController:UIViewController, UITextViewDelegate {
-    
+    let networkingClient = NetworkingClient(apiKey: "")
     // MARK: - Accessor
     
     // MARK: - Subviews
@@ -70,6 +70,7 @@ class LoginViewController:UIViewController, UITextViewDelegate {
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         button.isEnabled = false
+        button.addTarget(self, action: #selector(login(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
@@ -263,6 +264,18 @@ private extension LoginViewController {
     @objc func toggle(_ sender:UIButton){
         sender.isSelected = !sender.isSelected
 
+    }
+    @objc func login(_ sender:UIButton){
+        NetworkService<AuthAPI>().request(.login(username: accountInputView.phoneNumberTextField.text ?? "", password: passwordInputView.passwordTextField.text ?? "", type: "pw"), model:CommonResponse<TokenResponse>.self) { result in
+            switch result{
+            case .success(let response):
+                    debugPrint(response)
+
+            case .failure(let error):
+                debugPrint(error)
+            }
+        }
+        
     }
     @objc func close(_ sender:UIButton){
         self.dismiss(animated: true)

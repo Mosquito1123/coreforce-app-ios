@@ -6,10 +6,15 @@
 //
 
 import Moya
+import KakaJSON
 
 final class NetworkingClient {
     public lazy var authentication: MoyaProvider<AuthAPI> = createProvider(forTarget: AuthAPI.self)
-    
+    public lazy var business: MoyaProvider<BusinessAPI> = createProvider(forTarget: BusinessAPI.self)
+    public lazy var member: MoyaProvider<MemberAPI> = createProvider(forTarget: MemberAPI.self)
+    public lazy var packageCard: MoyaProvider<PackageCardAPI> = createProvider(forTarget: PackageCardAPI.self)
+    public lazy var batteryDeposit: MoyaProvider<BatteryDepositAPI> = createProvider(forTarget: BatteryDepositAPI.self)
+
     private let apiKey: String
     
 
@@ -17,26 +22,29 @@ final class NetworkingClient {
     init(apiKey: String) {
         self.apiKey = apiKey
     }
-    
-    public var hasValidToken: Bool {
-        guard let lastTokenDateString = UserDefaults.standard.string(forKey: "accessTokenExpiration") else {return false}
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-         
-        guard let tokenDate = dateFormatter.date(from: lastTokenDateString) else { return false }
-        
-        let diff = Date().timeIntervalSince1970 - tokenDate.timeIntervalSince1970
-        
-        // If last token is > 23 hours, we should refresh the token
-        return diff < 82800
+    // 根据泛型类型返回相应的 MoyaProvider
+    func provider<T>() -> MoyaProvider<T>? {
+        if T.self == AuthAPI.self {
+            return authentication as? MoyaProvider<T>
+        } else if T.self == BusinessAPI.self {
+            return business as? MoyaProvider<T>
+        } else if T.self == MemberAPI.self {
+            return member as? MoyaProvider<T>
+        } else if T.self == PackageCardAPI.self {
+            return packageCard as? MoyaProvider<T>
+        } else if T.self == BatteryDepositAPI.self {
+            return batteryDeposit as? MoyaProvider<T>
+        }
+        return nil
     }
+   
     
     func createProvider<T: APIType>(forTarget target: T.Type) -> MoyaProvider<T> {
         let endpointClosure = createEndpointClosure(for: target)
         let requestClosure = createRequestClosure(for: target)
         
         let accessTokenPlugin = HFAccessTokenPlugin.init(tokenClosure: { _ in
-            UserDefaults.standard.string(forKey: "accessToken") ?? ""
+            TokenManager.shared.accessToken ?? ""
         })
         let loadingPlugin = LoadingPlugin()
                 
@@ -61,8 +69,7 @@ final class NetworkingClient {
     private func createEndpointClosure<T: APIType>(for target: T.Type) -> MoyaProvider<T>.EndpointClosure {
         let endpointClosure = { (target: T) -> Endpoint in
             let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-            let headers = ["Content-type": "application/json",
-                           "Accept": "application/vnd.thetvdb.v2.1.2"]
+            let headers = ["Content-type": "application/json"]
             return endpoint.adding(newHTTPHeaderFields: headers)
         }
         
@@ -76,7 +83,7 @@ final class NetworkingClient {
         }
         
         
-        if hasValidToken {
+        if TokenManager.shared.hasValidToken {
             done(.success(request)) // We have a valid token, so just let the request proceed
         } else {
             refreshToken(target, request, endpoint, done) // We have a invalid token, we should refresh the token
@@ -88,7 +95,11 @@ final class NetworkingClient {
                                                    _ request: URLRequest,
                                                    _ endpoint: Endpoint,
                                                    _ done: @escaping MoyaProvider<T>.RequestResultClosure) {
-        self.authentication.request(.refreshToken(refreshToken: UserDefaults.standard.string(forKey: "refreshToken") ?? "")) { result in
+        guard let refreshToken = TokenManager.shared.refreshToken else {
+            TokenManager.shared.clearTokens()
+            return
+        }
+        self.authentication.request(.refreshToken(refreshToken: refreshToken)) { result in
             switch result {
             case .success(let response):
                 let jsonResponse: Any
@@ -108,10 +119,11 @@ final class NetworkingClient {
                     done(.failure(MoyaError.jsonMapping(response)))
                     return
                 }
-                UserDefaults.standard.set(jsonBody["accessToken"], forKey: "accessToken")
-                UserDefaults.standard.set(jsonBody["accessTokenExpiration"], forKey: "accessTokenExpiration")
-                UserDefaults.standard.set(jsonBody["refreshToken"], forKey: "refreshToken")
-                UserDefaults.standard.set(jsonBody["refreshTokenExpiration"], forKey: "refreshTokenExpiration")
+                TokenManager.shared.accessToken = jsonBody["accessToken"] as? String
+                TokenManager.shared.accessTokenExpiration = jsonBody["accessTokenExpiration"] as? String
+                TokenManager.shared.refreshToken = jsonBody["refreshToken"] as? String
+                TokenManager.shared.refreshTokenExpiration = jsonBody["refreshTokenExpiration"] as? String
+              
 
                 done(.success(request)) // Token refresh success! So we proceed with the original request
             case .failure(let error):

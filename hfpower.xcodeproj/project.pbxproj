@@ -42,6 +42,12 @@
 		043DEC912C0971F9003FD6AD /* CabinetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC902C0971F9003FD6AD /* CabinetListViewCell.swift */; };
 		0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9DA2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift */; };
 		0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9E02C0EB97600834069 /* SummaryTableView.swift */; };
+		0443B9E72C10173100834069 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9E62C10173100834069 /* String+Extension.swift */; };
+		0443B9EA2C10414100834069 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9E92C10414100834069 /* TokenManager.swift */; };
+		0443B9ED2C10486500834069 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9EC2C10486500834069 /* NetworkService.swift */; };
+		0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F12C1068BF00834069 /* BlankResponse.swift */; };
+		0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F32C10691C00834069 /* TokenResponse.swift */; };
+		0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F52C10694D00834069 /* BaseResponse.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -101,6 +107,12 @@
 		043DEC902C0971F9003FD6AD /* CabinetListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetListViewCell.swift; sourceTree = "<group>"; };
 		0443B9DA2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticBatteryItemView.swift; sourceTree = "<group>"; };
 		0443B9E02C0EB97600834069 /* SummaryTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableView.swift; sourceTree = "<group>"; };
+		0443B9E62C10173100834069 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		0443B9E92C10414100834069 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		0443B9EC2C10486500834069 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		0443B9F12C1068BF00834069 /* BlankResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankResponse.swift; sourceTree = "<group>"; };
+		0443B9F32C10691C00834069 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
+		0443B9F52C10694D00834069 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -175,9 +187,12 @@
 		0415AF172BC8E50300E9290D /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				0443B9F02C1068A500834069 /* Response */,
+				0443B9EB2C10485200834069 /* Service */,
+				0443B9E82C10407900834069 /* TokenManager */,
+				0443B9E52C100C9200834069 /* Client */,
+				0443B9E42C100C8500834069 /* Plugin */,
 				0415AF3D2BCCD2F700E9290D /* API */,
-				0415AF352BC935F000E9290D /* CustomPlugin.swift */,
-				0415AF372BC94A5100E9290D /* NetworkingClient.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -189,6 +204,7 @@
 				0415AF332BC92BCE00E9290D /* Int+Extension.swift */,
 				04001C3D2C05DD5E000A040F /* UIColor+Extension.swift */,
 				04001C3F2C05E1EC000A040F /* Button+Extension.swift */,
+				0443B9E62C10173100834069 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -481,6 +497,48 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		0443B9E42C100C8500834069 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				0415AF352BC935F000E9290D /* CustomPlugin.swift */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
+		0443B9E52C100C9200834069 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				0415AF372BC94A5100E9290D /* NetworkingClient.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		0443B9E82C10407900834069 /* TokenManager */ = {
+			isa = PBXGroup;
+			children = (
+				0443B9E92C10414100834069 /* TokenManager.swift */,
+			);
+			path = TokenManager;
+			sourceTree = "<group>";
+		};
+		0443B9EB2C10485200834069 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0443B9EC2C10486500834069 /* NetworkService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		0443B9F02C1068A500834069 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				0443B9F12C1068BF00834069 /* BlankResponse.swift */,
+				0443B9F32C10691C00834069 /* TokenResponse.swift */,
+				0443B9F52C10694D00834069 /* BaseResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		04FFEE452C05A6EE00939B46 /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,9 +778,11 @@
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
+				0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
 				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
+				0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */,
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
@@ -732,12 +792,15 @@
 				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
 				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
+				0443B9EA2C10414100834069 /* TokenManager.swift in Sources */,
 				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
 				0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
+				0443B9E72C10173100834069 /* String+Extension.swift in Sources */,
 				04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */,
 				043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */,
+				0443B9ED2C10486500834069 /* NetworkService.swift in Sources */,
 				04FFEE4E2C05AA2900939B46 /* NeedAuthView.swift in Sources */,
 				04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */,
 				331C90C22BC6C60000BB534F /* ViewController.swift in Sources */,
@@ -763,6 +826,7 @@
 				04001C4C2C071FF6000A040F /* CustomerServiceViewController.swift in Sources */,
 				04001C502C073420000A040F /* MapFeatureView.swift in Sources */,
 				04FFEE352C008CC500939B46 /* LoginPasswordInputView.swift in Sources */,
+				0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
 			);
@@ -842,7 +906,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -899,7 +963,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

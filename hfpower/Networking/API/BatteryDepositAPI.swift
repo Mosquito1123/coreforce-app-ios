@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-enum API {
+enum BatteryDepositAPI {
     // Define your endpoints here
     case batteryStorageInitiate
     case batteryTempOrderInfo
@@ -20,7 +20,7 @@ enum API {
     case batteryScanReliefConfirm
 }
 
-extension API: APIType {
+extension BatteryDepositAPI: APIType {
     var authorizationType: HFAuthorizationType? {
         return .bearer
     }

@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class LoginVCodeInputView: UIView {
 
     // MARK: - Accessor
-    
+    var phoneNum:String?
+    var sendCodeAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var logoView :UIImageView = {
         let imageView = UIImageView()
@@ -107,9 +109,35 @@ extension LoginVCodeInputView :UITextFieldDelegate{
 
 // MARK: - Action
 @objc private extension LoginVCodeInputView {
+    func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
+        let pattern = "^[1]([3-9])[0-9]{9}$"
+        let regex = try? NSRegularExpression(pattern: pattern)
+        let range = NSRange(location: 0, length: phoneNumber.utf16.count)
+        if let match = regex?.firstMatch(in: phoneNumber, options: [], range: range) {
+            return match.range.location != NSNotFound
+        }
+        return false
+    }
     @objc func sendVCode(_ sender:UIButton){
-        startTimer()
-        sender.isEnabled = false // Disable the button when tapped
+        if self.isValidPhoneNumber(phoneNum ?? ""){
+            NetworkService<AuthAPI>().request(.sendSMSCode(phoneNumber: phoneNum ?? ""), model: CommonResponse<BlankResponse>.self) { result in
+                switch result{
+                case .success(_):
+                    self.sendCodeAction?(sender)
+                    self.startTimer()
+                    sender.isEnabled = false
+                case .failure(let error):
+                    debugPrint(error)
+                }
+            }
+        }else{
+            SVProgressHUD.setDefaultStyle(.dark)
+            SVProgressHUD.setMinimumDismissTimeInterval(1.5)
+            SVProgressHUD.showInfo(withStatus: "请输入正确的手机号")
+            
+        }
+        
+       // Disable the button when tapped
     }
     
     func startTimer() {

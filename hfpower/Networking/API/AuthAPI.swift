@@ -13,7 +13,7 @@ enum AuthAPI {
     case logout
     case logoff
     case sendSMSCode(phoneNumber: String)
-    case login(username: String, password: String)
+    case login(username: String, password: String,type:String)
     case loginWithSMS(phoneNumber: String, code: String)
     case register(phoneNumber: String, inviteCode: String, code: String)
 }
@@ -57,11 +57,12 @@ extension AuthAPI:APIType{
     var task: Task {
         switch self {
         case .sendSMSCode(let phoneNumber):
-            let params = ["body": ["phone_number": phoneNumber], "head": appHeader] as [String : Any]
+            let params = ["body": ["phoneNum": phoneNumber], "head": appHeader] as [String : Any]
 
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
-        case .login(let username, let password):
-            let params = ["body": ["username": username, "password": password], "head": appHeader] as [String : Any]
+        case .login(let username, let password,let type):
+            
+            let params = ["body": ["account": username, "password": password.md5,"type":type], "head": appHeader] as [String : Any]
 
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .loginWithSMS(let phoneNumber, let code):

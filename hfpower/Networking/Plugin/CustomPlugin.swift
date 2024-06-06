@@ -7,48 +7,8 @@
 
 import Moya
 import UIKit
+import SVProgressHUD
 
-class Toast {
-    static let shared = Toast()
-    private var toastLabel: UILabel?
-
-    func show(message: String) {
-        DispatchQueue.main.async {
-            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-            
-            // 如果已经存在 toastLabel，则先移除
-            self.hide()
-            
-            let label = UILabel()
-            label.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-            label.textColor = UIColor.white
-            label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: 14)
-            label.text = message
-            label.alpha = 1.0
-            label.layer.cornerRadius = 10
-            label.clipsToBounds = true
-            let widthPadding: CGFloat = 20
-            let heightPadding: CGFloat = 10
-            let labelWidth = label.intrinsicContentSize.width + widthPadding
-            let labelHeight = label.intrinsicContentSize.height + heightPadding
-            label.frame = CGRect(x: window.frame.size.width/2 - labelWidth/2, y: window.frame.size.height-100, width: labelWidth, height: labelHeight)
-            
-            window.addSubview(label)
-            
-            // 保存 label 引用
-            self.toastLabel = label
-        }
-    }
-    
-    func hide() {
-        DispatchQueue.main.async {
-            // 如果存在 toastLabel，则移除
-            self.toastLabel?.removeFromSuperview()
-            self.toastLabel = nil
-        }
-    }
-}
 
 public protocol LoadingPluginDelegate{
 
@@ -66,7 +26,8 @@ public struct LoadingPlugin: PluginType {
             else { return }
         if shouldShowLoadingView {
             DispatchQueue.main.async {
-                Toast.shared.show(message: "Loading...")
+                SVProgressHUD.show()
+
             }
         }
     }
@@ -74,7 +35,7 @@ public struct LoadingPlugin: PluginType {
     // 请求完成时调用
     public func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
         DispatchQueue.main.async {
-            Toast.shared.hide() // 请求完成时隐藏 Toast
+            SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
         }
     }
 }
@@ -167,7 +128,7 @@ public struct HFAccessTokenPlugin: PluginType {
     public func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
 
         guard let authorizable = target as? HFAccessTokenAuthorizable,
-            let authorizationType = authorizable.authorizationType
+              let _ = authorizable.authorizationType
             else { return request }
 
         var request = request

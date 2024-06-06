@@ -119,15 +119,11 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
     }
     
     @objc func updateButtonState() {
+        self.vCodeInputView.phoneNum = self.accountInputView.phoneNumberTextField.text
         self.loginButton.isEnabled = !(self.accountInputView.phoneNumberTextField.text?.isEmpty ?? true) && !(self.vCodeInputView.vCodeTextField.text?.isEmpty ?? true)
     }
     
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: false)
-//
-//        
-//    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)

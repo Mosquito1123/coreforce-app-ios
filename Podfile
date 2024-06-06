@@ -31,4 +31,5 @@ target 'hfpower' do
 #  列表下拉刷新、上拉加载（OC） https://github.com/CoderMJLee/MJRefresh
   pod 'MJRefresh'
   pod "ESTabBarController-swift"
+  pod 'SVProgressHUD'
 end

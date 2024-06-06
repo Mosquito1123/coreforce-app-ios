@@ -119,7 +119,7 @@ private extension HomeViewController {
             
             self.navigationController?.pushViewController(customerVC, animated: true)
         }
-//        headerStackView.addArrangedSubview(needLoginView)
+        headerStackView.addArrangedSubview(needLoginView)
 //        headerStackView.addArrangedSubview(needAuthView)
         let creditDepositFreeView = CreditDepositFreeView()
         headerStackView.addArrangedSubview(creditDepositFreeView)
