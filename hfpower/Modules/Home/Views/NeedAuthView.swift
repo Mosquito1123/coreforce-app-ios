@@ -82,8 +82,8 @@ private extension NeedAuthView {
             iconView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 14),
             iconView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
 
-            iconView.widthAnchor.constraint(equalToConstant: 15),
-            iconView.heightAnchor.constraint(equalToConstant: 15),
+            iconView.widthAnchor.constraint(equalToConstant: 0),
+            iconView.heightAnchor.constraint(equalToConstant: 0),
 
             titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor,constant: 8),
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),

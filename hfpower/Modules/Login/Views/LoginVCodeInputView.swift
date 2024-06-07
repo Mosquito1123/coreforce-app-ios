@@ -127,7 +127,8 @@ extension LoginVCodeInputView :UITextFieldDelegate{
                     self.startTimer()
                     sender.isEnabled = false
                 case .failure(let error):
-                    debugPrint(error)
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
+
                 }
             }
         }else{

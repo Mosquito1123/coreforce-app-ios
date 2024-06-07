@@ -25,10 +25,10 @@ class AccountManager:NSObject{
     }
     @objc dynamic var phoneNum:String?{
         get {
-            return UserDefaults.standard.string(forKey: "phoneNum_\(TokenManager.shared.accessToken ?? "")")
+            return UserDefaults.standard.string(forKey: "phoneNum")
         }
         set {
-            UserDefaults.standard.setValue(newValue, forKey: "phoneNum_\(TokenManager.shared.accessToken ?? "")")
+            UserDefaults.standard.setValue(newValue, forKey: "phoneNum")
         }
     }
     @objc dynamic var nickName:String?{

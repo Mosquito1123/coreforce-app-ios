@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SVProgressHUD
 class HomeViewController: MapViewController{
     
     // MARK: - Accessor
     var accountObservation:NSKeyValueObservation?
+    var accountIsAuthObservation:NSKeyValueObservation?
     var cityCodeObservation:NSKeyValueObservation?
     // MARK: - Subviews
     lazy var inviteView:MapInviteView = {
@@ -67,7 +69,7 @@ class HomeViewController: MapViewController{
         setupNavbar()
         setupSubviews()
         setupLayout()
-
+        loadData()
         accountObservation = AccountManager.shared.observe(\.phoneNum,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newName = change.newValue,let x = newName {
 //                print("Name changed to \(x)")
@@ -92,9 +94,22 @@ class HomeViewController: MapViewController{
         })
        
     }
-    
+    func loadData(){
+        NetworkService<MemberAPI>().request(.member, model: MemberResponse.self) { result in
+            switch result {
+            case.success(let response):
+                
+                AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
+                
+            case .failure(let error):
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                
+            }
+        }
+    }
     deinit {
         accountObservation?.invalidate()
+        accountIsAuthObservation?.invalidate()
         cityCodeObservation?.invalidate()
     }
     

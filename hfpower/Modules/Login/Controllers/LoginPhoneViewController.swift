@@ -278,7 +278,8 @@ private extension LoginPhoneViewController {
                 AccountManager.shared.phoneNum = phoneNum
                 self.navigationController?.dismiss(animated: true)
             case .failure(let error):
-                debugPrint(error)
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+
             }
         }
     }

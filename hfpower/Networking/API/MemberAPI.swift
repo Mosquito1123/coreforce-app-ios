@@ -62,12 +62,22 @@ extension MemberAPI:APIType{
 
     var task: Task {
         // Define task for each endpoint if needed (e.g., parameters, headers)
-        return .requestPlain
+        switch self {
+        case .member:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        default:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+            
+        }
     }
     
     var authorizationType: HFAuthorizationType? {
         return .bearer
     }
-    
+
+    var appHeader:[String:String]{
+        return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
+
+    }
     
 }

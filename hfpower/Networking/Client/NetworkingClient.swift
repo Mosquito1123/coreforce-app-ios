@@ -59,8 +59,9 @@ final class NetworkingClient {
         
         // We are hitting another endpoint, so we should check and refresh the token if necessary.
         // We can't use the default request mapping
-        let requestClosure = { [weak self] (endpoint: Endpoint, done: @escaping MoyaProvider.RequestResultClosure) -> Void in
-            self?.checkToken(target: target, endpoint: endpoint, done: done)
+        let requestClosure = { (endpoint: Endpoint, done: @escaping MoyaProvider.RequestResultClosure) -> Void in
+            
+            self.checkToken(target: target, endpoint: endpoint, done: done)
         }
         
         return requestClosure
@@ -69,7 +70,7 @@ final class NetworkingClient {
     private func createEndpointClosure<T: APIType>(for target: T.Type) -> MoyaProvider<T>.EndpointClosure {
         let endpointClosure = { (target: T) -> Endpoint in
             let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-            let headers = ["Content-type": "application/json"]
+            let headers = ["Content-Type": "application/json"]
             return endpoint.adding(newHTTPHeaderFields: headers)
         }
         

@@ -68,19 +68,21 @@ extension AuthAPI:APIType{
         case .loginWithSMS(let phoneNumber, let code,let inviteCode,let type):
             var params = ["body": ["account": phoneNumber, "password": code,"type":type], "head": appHeader] as [String : Any]
             if let x = inviteCode{
-                params["inviteCode"] = inviteCode
+                params["inviteCode"] = x
             }
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .register(let phoneNumber, let inviteCode, let code,let type):
             var params = ["body": ["account": phoneNumber, "password": code,"type":type], "head": appHeader] as [String : Any]
             if let x = inviteCode{
-                params["inviteCode"] = inviteCode
+                params["inviteCode"] = x
             }
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .logout:
-            return .requestCompositeParameters(bodyParameters: [:], bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+            let params = ["head": appHeader,"body":[:]] as [String : Any]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         case .logoff:
-            return .requestCompositeParameters(bodyParameters: [:], bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+            let params = ["head": appHeader,"body":[:]] as [String : Any]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         case .refreshToken(let refreshToken):
             let params = ["body": ["refreshToken": refreshToken], "head": appHeader] as [String : Any]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
@@ -91,7 +93,7 @@ extension AuthAPI:APIType{
         return ["Content-Type": "application/json"]
     }
     var appHeader:[String:String]{
-        return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":UserDefaults.standard.string(forKey: "access_token") ?? ""]
+        return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
 
     }
     

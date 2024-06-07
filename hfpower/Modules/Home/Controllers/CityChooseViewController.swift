@@ -157,9 +157,7 @@ extension CityChooseViewController:UITableViewDelegate,UITableViewDataSource {
         //转换成成带音 调的拼音
         CFStringTransform(preString, nil, kCFStringTransformToLatin, false)
         //去掉音调
-        CFStringTransform(preString, nil, kCFStringTransformStripDiacritics, false)
-        
-        NSLog("cityMutableString = %@", cityMutableString);
+        CFStringTransform(preString, nil, kCFStringTransformStripDiacritics, false)        
         
         if cityMutableString.substring(to: 1).compare("长") == ComparisonResult.orderedSame{
             preString.replaceCharacters(in: NSRange(location: 0,length: 5), with: "chang")
