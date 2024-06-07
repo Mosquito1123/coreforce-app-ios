@@ -49,6 +49,7 @@
 		0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F32C10691C00834069 /* TokenResponse.swift */; };
 		0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F52C10694D00834069 /* BaseResponse.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
+		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42982C118813002B78EA /* UIViewController+Extension.swift */; };
 		04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429A2C118F0F002B78EA /* LoginModel.swift */; };
 		04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */; };
@@ -129,6 +130,7 @@
 		0443B9F32C10691C00834069 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		0443B9F52C10694D00834069 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
+		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		04BE42982C118813002B78EA /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		04BE429A2C118F0F002B78EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCodeManager.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				04FFEE3F2C04700600939B46 /* PersonalViewController.swift */,
+				0496C94B2C12EFC300B7884B /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
+				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
 				04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */,
 				04BE42AA2C11D1EA002B78EA /* CityChooseViewCell.swift in Sources */,
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
