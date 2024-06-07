@@ -275,6 +275,7 @@ private extension LoginPhoneViewController {
                 TokenManager.shared.accessTokenExpiration = response?.accessTokenExpiration
                 TokenManager.shared.refreshToken = response?.refreshToken
                 TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
+                AccountManager.shared.phoneNum = phoneNum
                 self.navigationController?.dismiss(animated: true)
             case .failure(let error):
                 debugPrint(error)

@@ -9,7 +9,7 @@ import UIKit
 class HomeViewController: MapViewController{
     
     // MARK: - Accessor
-    var accessTokenObservation:NSKeyValueObservation?
+    var accountObservation:NSKeyValueObservation?
     var cityCodeObservation:NSKeyValueObservation?
     // MARK: - Subviews
     lazy var inviteView:MapInviteView = {
@@ -68,9 +68,10 @@ class HomeViewController: MapViewController{
         setupSubviews()
         setupLayout()
 
-        accessTokenObservation = TokenManager.shared.observe(\.accessToken,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
+        accountObservation = AccountManager.shared.observe(\.phoneNum,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newName = change.newValue,let x = newName {
 //                print("Name changed to \(x)")
+                debugPrint(x)
                 self.headerStackView.removeArrangedSubview(self.needLoginView)
                 self.needLoginView.removeFromSuperview()
             }else{
@@ -80,7 +81,7 @@ class HomeViewController: MapViewController{
         })
         cityCodeObservation = CityCodeManager.shared.observe(\.cityCode,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newCode = change.newValue,let x = newCode {
-            
+            debugPrint(x)
             }
         })
         cityCodeObservation = CityCodeManager.shared.observe(\.cityName,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
@@ -93,7 +94,7 @@ class HomeViewController: MapViewController{
     }
     
     deinit {
-        accessTokenObservation?.invalidate()
+        accountObservation?.invalidate()
         cityCodeObservation?.invalidate()
     }
     

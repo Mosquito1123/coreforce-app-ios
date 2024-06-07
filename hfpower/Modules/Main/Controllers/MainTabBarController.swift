@@ -11,12 +11,17 @@ import ESTabBarController_swift
 class MainTabBarController: ESTabBarController {
     
     // MARK: - Accessor
+    var accountObservation:NSKeyValueObservation?
     // MARK: - Subviews
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        accountObservation = AccountManager.shared.observe(\.phoneNum, options: [.initial,.old,.new], changeHandler: { accountManager, change in
+            if let newName = change.newValue,let x = newName {
+                debugPrint(x)
+            }
+        })
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -44,6 +49,9 @@ class MainTabBarController: ESTabBarController {
         shapeLayer.addSublayer(barRightArc)
 
         tabBar.layer.insertSublayer(shapeLayer, at: 0)
+    }
+    deinit {
+        accountObservation?.invalidate()
     }
     
 }

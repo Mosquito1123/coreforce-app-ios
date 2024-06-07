@@ -30,7 +30,13 @@ typealias MapFeatureAction = (_ sender:UIButton,_ mapFeatureType:MapFeatureType?
 class MapFeatureView: UIView {
 
     // MARK: - Accessor
-    var mapFeatureType:MapFeatureType?
+    var mapFeatureType:MapFeatureType?{
+        didSet{
+            guard let type = mapFeatureType else { return  }
+            featureButton.setImage(UIImage(named: type.getValue()), for:.normal )
+            featureButton.setImage(UIImage(named: type.getValue())?.colorized(with: .white.withAlphaComponent(0.5)), for:.highlighted )
+        }
+    }
     var mapFeatureAction:MapFeatureAction?
     // MARK: - Subviews
     lazy var featureButton: UIButton = {
@@ -67,7 +73,7 @@ class MapFeatureView: UIView {
         super.layoutSubviews()
         guard let type = mapFeatureType else { return  }
         featureButton.setImage(UIImage(named: type.getValue()), for:.normal )
-        featureButton.setImage(UIImage(named: type.getValue()), for:.highlighted )
+        featureButton.setImage(UIImage(named: type.getValue())?.colorized(with: .white.withAlphaComponent(0.8)), for:.highlighted)
     }
 }
 
@@ -82,8 +88,8 @@ private extension MapFeatureView {
         NSLayoutConstraint.activate([
             self.widthAnchor.constraint(equalToConstant: 38),
             self.heightAnchor.constraint(equalToConstant: 38),
-            featureButton.widthAnchor.constraint(equalToConstant: 21),
-            featureButton.heightAnchor.constraint(equalToConstant: 21),
+            featureButton.widthAnchor.constraint(equalToConstant: 25),
+            featureButton.heightAnchor.constraint(equalToConstant: 25),
             featureButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             featureButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])

@@ -30,4 +30,9 @@ class CityCodeManager:NSObject {
         }
     }
     @objc dynamic var placemark:CLPlacemark?
+    func clearCityCode() {
+        cityCode = nil
+        cityName = nil
+        placemark = nil
+    }
 }
