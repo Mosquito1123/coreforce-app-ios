@@ -44,7 +44,9 @@ extension PackageCardAPI: APIType {
         // Define sample data for testing purposes if needed
         return Data()
     }
-
+    var validationType: ValidationType{
+        return .successAndRedirectCodes
+    }
     var headers: [String: String]? {
         // Define headers for each endpoint if needed
         return nil

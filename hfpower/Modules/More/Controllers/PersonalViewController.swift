@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SVProgressHUD
+
 class PersonalViewController: UIViewController {
     
     // MARK: - Accessor
@@ -41,7 +41,7 @@ class PersonalViewController: UIViewController {
                 debugPrint(x)
             }
         })
-        self.items = ["退出登录"]
+        self.items = ["设置"]
         self.tableView.reloadData()
     }
     deinit {
@@ -84,20 +84,11 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        NetworkService<AuthAPI>().request(.logout, model: BlankResponse.self) { result in
-            switch result {
-            case.success(let response):
-                TokenManager.shared.clearTokens()
-                AccountManager.shared.clearAccount()
-                self.tabBarController?.selectedIndex = 0
-                
-            case .failure(let error):
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
-
-                
-            }
-        }
+        
+        let settings = SettingsViewController()
+        settings.title = self.items[indexPath.row]
+        self.navigationController?.pushViewController(settings, animated: true)
+        
     }
     
 }

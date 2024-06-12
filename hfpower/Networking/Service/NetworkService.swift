@@ -32,7 +32,7 @@ class NetworkService<R:APIType> {
                         // 解析失败，抛出 JSON 解析错误
                         throw MoyaError.jsonMapping(response)
                     }
-                } catch {
+                } catch let error {
                     // 如果响应状态码是 401，则尝试刷新令牌
                     if response.statusCode == 401 {
                         self.refresh {
@@ -46,7 +46,16 @@ class NetworkService<R:APIType> {
                 }
             case .failure(let error):
                 // 请求失败，调用失败的 completion 回调
-                completion(.failure(error))
+                if error.response?.statusCode == 401 {
+                    TokenManager.shared.clearTokens()
+                    AccountManager.shared.clearAccount()
+
+                    completion(.failure(error))
+
+                }else{
+                    completion(.failure(error))
+
+                }
             }
         }
     }
@@ -55,6 +64,7 @@ class NetworkService<R:APIType> {
         guard let token = TokenManager.shared.refreshToken else {
             // 如果没有刷新令牌或刷新令牌无效，清除所有令牌并返回
             TokenManager.shared.clearTokens()
+            AccountManager.shared.phoneNum = nil
             return
         }
 
@@ -70,6 +80,8 @@ class NetworkService<R:APIType> {
             case .failure:
                 // 请求刷新令牌失败，清除所有令牌
                 TokenManager.shared.clearTokens()
+                AccountManager.shared.phoneNum = nil
+
             }
         }
         func configResponse(_ response:Moya.Response){
@@ -80,6 +92,8 @@ class NetworkService<R:APIType> {
                 // 更新访问令牌和其过期时间
                 TokenManager.shared.accessToken = commonResponse.body?.accessToken
                 TokenManager.shared.accessTokenExpiration = commonResponse.body?.accessTokenExpiration
+                TokenManager.shared.refreshToken = commonResponse.body?.refreshToken
+                TokenManager.shared.refreshTokenExpiration = commonResponse.body?.refreshTokenExpiration
             } catch _ {
                 // 解析错误，清除所有令牌
                 TokenManager.shared.clearTokens()

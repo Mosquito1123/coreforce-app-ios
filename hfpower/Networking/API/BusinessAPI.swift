@@ -15,7 +15,7 @@ enum BusinessAPI {
     case cabinetScanReturn
     case replaceConfirm
     case cabinet
-    case cabinetList
+    case cabinetList(tempStorageSw:NSNumber?,cityCode:String?,lon:Double?,lat:Double?)
     case cabinetScanRent
     case batteryLock
     case batteryUnlock
@@ -122,7 +122,33 @@ extension BusinessAPI:APIType{
     
     var task: Task {
         // Define task for each endpoint if needed (e.g., parameters, headers)
-        return .requestPlain
+        switch self {
+        case .cabinetList(tempStorageSw: let tempStorageSw, cityCode: let cityCode, lon: let lon, lat: let lat):
+            var params = [String:Any]()
+            if let t = tempStorageSw{
+                params["tempStorageSw"] = t
+            }
+            if let c = cityCode{
+                params["cityCode"] = c
+            }
+            if let lon = lon{
+                params["lon"] = lon
+            }
+            if let lat = lat{
+                params["lat"] = lat
+            }
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .batteryList:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        case .locomotiveList:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        default:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+            
+        }
     }
     
     var sampleData: Data {
@@ -138,6 +164,12 @@ extension BusinessAPI:APIType{
     var authorizationType: HFAuthorizationType? {
         return .bearer
     }
-    
+    var validationType: ValidationType{
+        return .successAndRedirectCodes
+    }
+    var appHeader:[String:String]{
+        return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
+
+    }
     
 }

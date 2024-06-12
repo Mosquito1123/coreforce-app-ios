@@ -84,13 +84,16 @@ extension AuthAPI:APIType{
             let params = ["head": appHeader,"body":[:]] as [String : Any]
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         case .refreshToken(let refreshToken):
-            let params = ["body": ["refreshToken": refreshToken], "head": appHeader] as [String : Any]
+            let params = ["refresh_token": refreshToken]
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }
     }
     
     var headers: [String : String]? {
         return ["Content-Type": "application/json"]
+    }
+    var validationType: ValidationType{
+        return .successAndRedirectCodes
     }
     var appHeader:[String:String]{
         return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]

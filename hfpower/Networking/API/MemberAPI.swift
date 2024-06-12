@@ -65,6 +65,8 @@ extension MemberAPI:APIType{
         switch self {
         case .member:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        case .activityList:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             
@@ -74,7 +76,9 @@ extension MemberAPI:APIType{
     var authorizationType: HFAuthorizationType? {
         return .bearer
     }
-
+    var validationType: ValidationType{
+        return .successAndRedirectCodes
+    }
     var appHeader:[String:String]{
         return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
 

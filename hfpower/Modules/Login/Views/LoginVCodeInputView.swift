@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SVProgressHUD
+
 
 class LoginVCodeInputView: UIView {
 
@@ -127,14 +127,12 @@ extension LoginVCodeInputView :UITextFieldDelegate{
                     self.startTimer()
                     sender.isEnabled = false
                 case .failure(let error):
-                    SVProgressHUD.showError(withStatus: error.localizedDescription)
+                    self.showError(withStatus: error.localizedDescription)
 
                 }
             }
         }else{
-            SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.setMinimumDismissTimeInterval(1.5)
-            SVProgressHUD.showInfo(withStatus: "请输入正确的手机号")
+            self.showInfo(withStatus: "请输入正确的手机号")
             
         }
         

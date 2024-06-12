@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import SVProgressHUD
-class SettingsViewController: UIViewController {
+
+class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Accessor
     var items = [String]()
@@ -30,10 +30,13 @@ class SettingsViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor.white
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         setupNavbar()
         setupSubviews()
         setupLayout()
+        self.items = ["退出登录"]
+        self.tableView.reloadData()
     }
     
 }
@@ -76,13 +79,13 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         NetworkService<AuthAPI>().request(.logout, model: BlankResponse.self) { result in
             switch result {
-            case.success(let response):
+            case.success:
                 TokenManager.shared.clearTokens()
                 AccountManager.shared.clearAccount()
                 self.tabBarController?.selectedIndex = 0
                 
             case .failure(let error):
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                self.showError(withStatus: error.localizedDescription)
 
                 
             }

@@ -20,6 +20,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         map.showsCompass = false
         map.userTrackingMode = .followWithHeading
         map.register(CenterAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CenterAnnotationView.self))
+        map.register(CabinetAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CabinetAnnotationView.self))
+
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
@@ -154,6 +156,7 @@ extension MapViewController {
         }){
            imageView.removeFromSuperview()
        }
+        self.mapView.regionCallBack?(mapView.region)
         
        
     }
@@ -177,16 +180,25 @@ extension MapViewController {
     }
     // 自定义标记外观
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is CenterAnnotation else {
+        if annotation is CenterAnnotation {
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CenterAnnotationView.self))
+            
+            // 设置自定义图标
+            annotationView?.canShowCallout = true
+            
+            return annotationView
+        }else if annotation is CabinetAnnotation{
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CabinetAnnotationView.self))
+            annotationView?.annotation = annotation
+            // 设置自定义图标
+            annotationView?.canShowCallout = true
+            
+            return annotationView
+        }else{
             return nil
         }
         
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CenterAnnotationView.self))
         
-        // 设置自定义图标
-        annotationView?.canShowCallout = true
-        
-        return annotationView
     }
 }
 

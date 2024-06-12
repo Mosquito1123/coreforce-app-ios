@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SVProgressHUD
+
 class LoginViewController:UIViewController, UITextViewDelegate {
     let networkingClient = NetworkingClient(apiKey: "")
     // MARK: - Accessor
@@ -274,7 +274,7 @@ private extension LoginViewController {
                 self.navigationController?.dismiss(animated: true)
 
             case .failure(let error):
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                self.showError(withStatus: error.localizedDescription)
 
             }
         }

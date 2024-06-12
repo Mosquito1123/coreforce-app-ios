@@ -55,7 +55,13 @@ extension BatteryDepositAPI: APIType {
     
     var task: Task {
         // Define task for each endpoint if needed (e.g., parameters, headers)
-        return .requestPlain
+        switch self {
+        case .batteryTempOrderInfo:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        default:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+            
+        }
     }
     
     var sampleData: Data {
@@ -66,5 +72,12 @@ extension BatteryDepositAPI: APIType {
     var headers: [String: String]? {
         // Define headers for each endpoint if needed
         return nil
+    }
+    var validationType: ValidationType{
+        return .successAndRedirectCodes
+    }
+    var appHeader:[String:String]{
+        return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
+
     }
 }

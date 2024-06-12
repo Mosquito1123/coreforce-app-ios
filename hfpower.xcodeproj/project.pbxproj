@@ -30,6 +30,7 @@
 		04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA42C09A6F50087066F /* CabinetStatisticView.swift */; };
 		04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA62C09BCFA0087066F /* CabinetLocationView.swift */; };
 		04224DA92C09D37A0087066F /* CabinetStatisticBatteryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */; };
+		042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */; };
 		043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC762C074850003FD6AD /* MapPackageCardView.swift */; };
 		043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC782C074889003FD6AD /* MapInviteView.swift */; };
 		043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC7A2C081833003FD6AD /* MapBatteryView.swift */; };
@@ -50,6 +51,7 @@
 		0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F52C10694D00834069 /* BaseResponse.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
+		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
 		04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42982C118813002B78EA /* UIViewController+Extension.swift */; };
 		04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429A2C118F0F002B78EA /* LoginModel.swift */; };
 		04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */; };
@@ -64,6 +66,16 @@
 		04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */; };
 		04BE42B42C12A198002B78EA /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B32C12A198002B78EA /* AccountManager.swift */; };
 		04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B52C12BC42002B78EA /* MemberResponse.swift */; };
+		04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */; };
+		04EBBAFA2C18202F00AFD14B /* BatteryListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAF92C18202F00AFD14B /* BatteryListResponse.swift */; };
+		04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAFB2C18543200AFD14B /* BatteryDepositResponse.swift */; };
+		04EBBAFE2C1858B700AFD14B /* ActivityListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAFD2C1858B700AFD14B /* ActivityListResponse.swift */; };
+		04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAFF2C185B5400AFD14B /* BatteryListManager.swift */; };
+		04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB012C185BC500AFD14B /* BikeListManager.swift */; };
+		04EBBB042C185D1300AFD14B /* BatteryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB032C185D1300AFD14B /* BatteryDetail.swift */; };
+		04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB052C1861DF00AFD14B /* BikeDetail.swift */; };
+		04EBBB082C186F8900AFD14B /* CabinetListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */; };
+		04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -111,6 +123,7 @@
 		04224DA42C09A6F50087066F /* CabinetStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticView.swift; sourceTree = "<group>"; };
 		04224DA62C09BCFA0087066F /* CabinetLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetLocationView.swift; sourceTree = "<group>"; };
 		04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticBatteryListView.swift; sourceTree = "<group>"; };
+		042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotationView.swift; sourceTree = "<group>"; };
 		043DEC762C074850003FD6AD /* MapPackageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPackageCardView.swift; sourceTree = "<group>"; };
 		043DEC782C074889003FD6AD /* MapInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInviteView.swift; sourceTree = "<group>"; };
 		043DEC7A2C081833003FD6AD /* MapBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBatteryView.swift; sourceTree = "<group>"; };
@@ -131,6 +144,7 @@
 		0443B9F52C10694D00834069 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 		04BE42982C118813002B78EA /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		04BE429A2C118F0F002B78EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCodeManager.swift; sourceTree = "<group>"; };
@@ -145,6 +159,16 @@
 		04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		04BE42B32C12A198002B78EA /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		04BE42B52C12BC42002B78EA /* MemberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberResponse.swift; sourceTree = "<group>"; };
+		04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocomotiveListResponse.swift; sourceTree = "<group>"; };
+		04EBBAF92C18202F00AFD14B /* BatteryListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryListResponse.swift; sourceTree = "<group>"; };
+		04EBBAFB2C18543200AFD14B /* BatteryDepositResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDepositResponse.swift; sourceTree = "<group>"; };
+		04EBBAFD2C1858B700AFD14B /* ActivityListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListResponse.swift; sourceTree = "<group>"; };
+		04EBBAFF2C185B5400AFD14B /* BatteryListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryListManager.swift; sourceTree = "<group>"; };
+		04EBBB012C185BC500AFD14B /* BikeListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeListManager.swift; sourceTree = "<group>"; };
+		04EBBB032C185D1300AFD14B /* BatteryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDetail.swift; sourceTree = "<group>"; };
+		04EBBB052C1861DF00AFD14B /* BikeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetail.swift; sourceTree = "<group>"; };
+		04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetListResponse.swift; sourceTree = "<group>"; };
+		04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotation.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +263,7 @@
 				0443B9E62C10173100834069 /* String+Extension.swift */,
 				04BE42982C118813002B78EA /* UIViewController+Extension.swift */,
 				04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */,
+				0496C94D2C13094500B7884B /* UIResponder+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -481,6 +506,7 @@
 				043DEC842C085B79003FD6AD /* ExpirationView.swift */,
 				043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */,
 				04BE42A92C11D1EA002B78EA /* CityChooseViewCell.swift */,
+				042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -489,6 +515,11 @@
 			isa = PBXGroup;
 			children = (
 				04BE42B32C12A198002B78EA /* AccountManager.swift */,
+				04EBBAFF2C185B5400AFD14B /* BatteryListManager.swift */,
+				04EBBB012C185BC500AFD14B /* BikeListManager.swift */,
+				04EBBB032C185D1300AFD14B /* BatteryDetail.swift */,
+				04EBBB052C1861DF00AFD14B /* BikeDetail.swift */,
+				04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -580,6 +611,11 @@
 				0443B9F32C10691C00834069 /* TokenResponse.swift */,
 				0443B9F52C10694D00834069 /* BaseResponse.swift */,
 				04BE42B52C12BC42002B78EA /* MemberResponse.swift */,
+				04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */,
+				04EBBAF92C18202F00AFD14B /* BatteryListResponse.swift */,
+				04EBBAFB2C18543200AFD14B /* BatteryDepositResponse.swift */,
+				04EBBAFD2C1858B700AFD14B /* ActivityListResponse.swift */,
+				04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -830,11 +866,14 @@
 			files = (
 				0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */,
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
+				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */,
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
+				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
+				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
@@ -848,23 +887,30 @@
 				04BE429F2C11C4BC002B78EA /* CityCodeHelper.swift in Sources */,
 				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
 				0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */,
+				04EBBAFE2C1858B700AFD14B /* ActivityListResponse.swift in Sources */,
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
+				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
+				0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */,
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
 				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
 				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
 				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
+				04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */,
 				0443B9EA2C10414100834069 /* TokenManager.swift in Sources */,
 				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
+				04EBBAFA2C18202F00AFD14B /* BatteryListResponse.swift in Sources */,
+				04EBBB082C186F8900AFD14B /* CabinetListResponse.swift in Sources */,
 				0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */,
 				04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				0443B9E72C10173100834069 /* String+Extension.swift in Sources */,
+				04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */,
 				04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */,
 				043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */,
 				04BE42AB2C11D57C002B78EA /* SectionIndexView.swift in Sources */,
@@ -881,7 +927,9 @@
 				04FFEE392C0097CE00939B46 /* LoginInviteCodeInputView.swift in Sources */,
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
+				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
+				04EBBB042C185D1300AFD14B /* BatteryDetail.swift in Sources */,
 				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
 				043DEC892C089930003FD6AD /* SearchCabinetListViewController.swift in Sources */,
 				043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */,

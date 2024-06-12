@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SVProgressHUD
+
 class LoginPhoneViewController: UIViewController,UITextViewDelegate {
     
     // MARK: - Accessor
@@ -259,11 +259,11 @@ private extension LoginPhoneViewController {
         let vCode = self.vCodeInputView.vCodeTextField.text
         let inviteCode = self.inviteCodeInputView.inviteCodeTextField.text
         if self.isValidPhoneNumber(phoneNum ?? "") == false{
-            SVProgressHUD.showInfo(withStatus: "请输入正确的手机号")
+            self.showInfo(withStatus: "请输入正确的手机号")
             return
         }
         if self.isValidVerificationCode(vCode ?? "") == false{
-            SVProgressHUD.showInfo(withStatus: "请输入正确的验证码")
+            self.showInfo(withStatus: "请输入正确的验证码")
             return
             
         }
@@ -278,7 +278,7 @@ private extension LoginPhoneViewController {
                 AccountManager.shared.phoneNum = phoneNum
                 self.navigationController?.dismiss(animated: true)
             case .failure(let error):
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                self.showError(withStatus: error.localizedDescription)
 
             }
         }

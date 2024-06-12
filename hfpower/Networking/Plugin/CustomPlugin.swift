@@ -26,6 +26,8 @@ public struct LoadingPlugin: PluginType {
             else { return }
         if shouldShowLoadingView {
             DispatchQueue.main.async {
+                SVProgressHUD.setDefaultStyle(.dark)
+                SVProgressHUD.setMinimumDismissTimeInterval(2)
                 SVProgressHUD.show()
 
             }
@@ -36,6 +38,42 @@ public struct LoadingPlugin: PluginType {
     public func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
         DispatchQueue.main.async {
             SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
+            switch result{
+            case.success(let response):
+                businessHUD(response)
+            case .failure(let error):
+                if let statusCode = error.response?.statusCode,statusCode == 401{
+                    
+                    SVProgressHUD.showError(withStatus: "请重新登录~~")
+
+                }else{
+                    SVProgressHUD.showError(withStatus: error.errorDescription)
+
+                }
+            }
+        }
+        
+    }
+    func businessHUD(_  response:Response){
+        if let json = try? response.mapJSON() as? [String:[String:Any]]{
+            if let retFlag = json["head"]?["retFlag"] as? String{
+                if retFlag == "00000"{
+//                    let retMsg = json["head"]?["retMsg"] as? String
+//                    SVProgressHUD.showSuccess(withStatus: retMsg)
+                }else{
+                    let retMsg = json["head"]?["retMsg"] as? String
+                    SVProgressHUD.showError(withStatus: retMsg)
+
+                }
+            }
+            
+        }else if let json = try? response.mapJSON() as? [String:String]{
+            SVProgressHUD.showError(withStatus: json["error_description"])
+        }else if let mapString = try? response.mapString(){
+            SVProgressHUD.showError(withStatus: mapString)
+
+        }else{
+            SVProgressHUD.showError(withStatus: response.description)
         }
     }
 }

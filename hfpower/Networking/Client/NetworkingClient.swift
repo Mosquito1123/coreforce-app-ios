@@ -6,6 +6,7 @@
 //
 
 import Moya
+import Alamofire
 import KakaJSON
 
 final class NetworkingClient {
@@ -38,7 +39,23 @@ final class NetworkingClient {
         return nil
     }
    
-    
+    class RetryPolicy: RequestInterceptor {
+        let retryLimit = 3 // 最大重试次数
+        let retryDelay: TimeInterval = 2 // 重试延迟时间
+        
+        func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+            let response = request.task?.response as? HTTPURLResponse
+            
+            // 仅在服务器错误 (5xx) 或网络错误时重试
+            if let response = response, (500...599).contains(response.statusCode), request.retryCount < retryLimit {
+                completion(.retryWithDelay(retryDelay))
+            } else {
+                completion(.doNotRetry)
+            }
+        }
+    }
+
+   
     func createProvider<T: APIType>(forTarget target: T.Type) -> MoyaProvider<T> {
         let endpointClosure = createEndpointClosure(for: target)
         let requestClosure = createRequestClosure(for: target)
@@ -47,9 +64,16 @@ final class NetworkingClient {
             TokenManager.shared.accessToken ?? ""
         })
         let loadingPlugin = LoadingPlugin()
-                
+        // 创建自定义的 URLSessionConfiguration
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 20 // 请求超时时间
+        configuration.timeoutIntervalForResource = 60 // 资源超时时间
+        // 创建带重试机制的 Session
+        let retrier = RetryPolicy()
+        let sessionWithRetry = Session(configuration: configuration, interceptor: retrier)
         return MoyaProvider<T>(endpointClosure: endpointClosure,
                                requestClosure: requestClosure,
+                               session: sessionWithRetry,
                                plugins: [accessTokenPlugin,loadingPlugin])
     }
     
@@ -96,10 +120,7 @@ final class NetworkingClient {
                                                    _ request: URLRequest,
                                                    _ endpoint: Endpoint,
                                                    _ done: @escaping MoyaProvider<T>.RequestResultClosure) {
-        guard let refreshToken = TokenManager.shared.refreshToken else {
-            TokenManager.shared.clearTokens()
-            return
-        }
+        let refreshToken = TokenManager.shared.refreshToken  ?? ""
         self.authentication.request(.refreshToken(refreshToken: refreshToken)) { result in
             switch result {
             case .success(let response):

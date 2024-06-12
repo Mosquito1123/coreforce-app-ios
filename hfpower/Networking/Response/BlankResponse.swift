@@ -8,5 +8,5 @@
 import Foundation
 import KakaJSON
 struct BlankResponse:Convertible {
-    
+    var some:String?
 }
