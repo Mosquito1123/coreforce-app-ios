@@ -49,9 +49,13 @@
 		0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F12C1068BF00834069 /* BlankResponse.swift */; };
 		0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F32C10691C00834069 /* TokenResponse.swift */; };
 		0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F52C10694D00834069 /* BaseResponse.swift */; };
+		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
+		049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE32C19981A00C46D6D /* HomeManager.swift */; };
+		049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */; };
+		049BDFE82C199FAD00C46D6D /* MainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE72C199FAD00C46D6D /* MainManager.swift */; };
 		04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42982C118813002B78EA /* UIViewController+Extension.swift */; };
 		04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429A2C118F0F002B78EA /* LoginModel.swift */; };
 		04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */; };
@@ -142,9 +146,13 @@
 		0443B9F12C1068BF00834069 /* BlankResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankResponse.swift; sourceTree = "<group>"; };
 		0443B9F32C10691C00834069 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		0443B9F52C10694D00834069 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
+		049BDFE32C19981A00C46D6D /* HomeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeManager.swift; sourceTree = "<group>"; };
+		049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDepositInfo.swift; sourceTree = "<group>"; };
+		049BDFE72C199FAD00C46D6D /* MainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManager.swift; sourceTree = "<group>"; };
 		04BE42982C118813002B78EA /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		04BE429A2C118F0F002B78EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCodeManager.swift; sourceTree = "<group>"; };
@@ -279,6 +287,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				04777D722C19B96F0025ACEC /* Guide */,
 				043DEC8C2C096762003FD6AD /* Cabinet */,
 				043DEC7E2C085468003FD6AD /* Home */,
 				04001C472C071FB9000A040F /* CustomerService */,
@@ -354,6 +363,7 @@
 		0415AF212BC9176A00E9290D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				049BDFE72C199FAD00C46D6D /* MainManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -378,6 +388,7 @@
 		0415AF242BC9179400E9290D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -411,6 +422,7 @@
 		0415AF282BC917B100E9290D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */,
 				04001C412C060827000A040F /* CenterAnnotationView.swift */,
 				04001C452C06D33A000A040F /* HFMapView.swift */,
 			);
@@ -506,7 +518,6 @@
 				043DEC842C085B79003FD6AD /* ExpirationView.swift */,
 				043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */,
 				04BE42A92C11D1EA002B78EA /* CityChooseViewCell.swift */,
-				042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -519,7 +530,8 @@
 				04EBBB012C185BC500AFD14B /* BikeListManager.swift */,
 				04EBBB032C185D1300AFD14B /* BatteryDetail.swift */,
 				04EBBB052C1861DF00AFD14B /* BikeDetail.swift */,
-				04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */,
+				049BDFE32C19981A00C46D6D /* HomeManager.swift */,
+				049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -618,6 +630,38 @@
 				04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		04777D722C19B96F0025ACEC /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				04777D752C19B98C0025ACEC /* Models */,
+				04777D742C19B9820025ACEC /* Controllers */,
+				04777D732C19B97C0025ACEC /* Views */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
+		04777D732C19B97C0025ACEC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		04777D742C19B9820025ACEC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04777D762C19BA250025ACEC /* GuideViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		04777D752C19B98C0025ACEC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		04BE42A22C11D152002B78EA /* SectionIndexView */ = {
@@ -868,6 +912,7 @@
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */,
+				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
@@ -877,6 +922,7 @@
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
+				049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */,
 				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
 				04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */,
 				04BE42AA2C11D1EA002B78EA /* CityChooseViewCell.swift in Sources */,
@@ -906,6 +952,8 @@
 				04EBBAFA2C18202F00AFD14B /* BatteryListResponse.swift in Sources */,
 				04EBBB082C186F8900AFD14B /* CabinetListResponse.swift in Sources */,
 				0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */,
+				04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */,
+				049BDFE82C199FAD00C46D6D /* MainManager.swift in Sources */,
 				04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,

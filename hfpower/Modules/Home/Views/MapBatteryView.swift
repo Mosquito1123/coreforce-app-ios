@@ -77,12 +77,7 @@ private extension MapBatteryView {
 }
 
 class MapBatteryContentView: UIView {
-    var status:Int? = 0{
-        didSet{
-            setNeedsLayout()
-            
-        }
-    }
+    
     var batteryLevel: CGFloat = 0.1 {
         didSet{
             setNeedsLayout()
@@ -185,16 +180,16 @@ class MapBatteryContentView: UIView {
             batteryLevelFullImage?.draw(in: rect)
         }else{
             // 添加背景图片
-            let xbackgroundImage = status == 2 ? warningBatteryBackgroundImage: errorBatteryBackgroundImage
-            let backgroundImage = status == 1 ? batteryBackgroundImage:xbackgroundImage
+            let xbackgroundImage = batteryLevel <= 0.8 && batteryLevel >= 0.2 ? warningBatteryBackgroundImage: errorBatteryBackgroundImage
+            let backgroundImage = batteryLevel > 0.8 ? batteryBackgroundImage:xbackgroundImage
             backgroundImage?.draw(in: rect)
             
             // 电量
             let batteryLevelFrame = CGRect(x: padding + borderWidth, y: padding + borderWidth + (1 - batteryLevel) * (batteryFrame.height - 2 * borderWidth), width: batteryFrame.width - 2 * borderWidth, height: batteryLevel * (batteryFrame.height - 2 * borderWidth))
             let batteryLevelPath = UIBezierPath(roundedRect: batteryLevelFrame, cornerRadius: cornerRadius - borderWidth)
             //电量颜色
-            let xbatteryContentColor = status == 2 ? warningBatteryContentColor: errorBatteryContentColor
-            let batteryContentColor = status == 1 ? batteryContentColor:xbatteryContentColor
+            let xbatteryContentColor = batteryLevel <= 0.8 && batteryLevel >= 0.2 ? warningBatteryContentColor: errorBatteryContentColor
+            let batteryContentColor = batteryLevel > 0.8 ? batteryContentColor:xbatteryContentColor
             context.setFillColor((batteryContentColor ?? UIColor.black).cgColor)
             context.addPath(batteryLevelPath.cgPath)
             context.fillPath()
@@ -205,12 +200,11 @@ class MapBatteryContentView: UIView {
         let percentageString = String(format: "%.f%%", batteryLevel * 100)
 
         let attrString = NSMutableAttributedString(string: percentageString)
-        let attr: [NSAttributedString.Key : Any]
-        if(status == 0){
-            attr = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: UIColor(red: 1,green: 0.23,blue: 0.19,alpha: 1), .strokeWidth: -2]
-        }else{
-            attr = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1)]
-        }
+        //字体线条颜色
+        let xbatteryContentColor = batteryLevel <= 0.8 && batteryLevel >= 0.2 ? warningBatteryContentColor: errorBatteryContentColor
+        let batteryContentColor = batteryLevel > 0.8 ? batteryContentColor:xbatteryContentColor
+        var  attr:[NSAttributedString.Key:Any] = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: batteryContentColor ?? UIColor.white, .strokeWidth: -2]
+        
         
         attrString.addAttributes(attr, range: NSRange(location: 0, length: attrString.length))
        let textSize = attrString.size()

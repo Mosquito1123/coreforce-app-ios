@@ -41,7 +41,7 @@ final class NetworkingClient {
    
     class RetryPolicy: RequestInterceptor {
         let retryLimit = 3 // 最大重试次数
-        let retryDelay: TimeInterval = 2 // 重试延迟时间
+        let retryDelay: TimeInterval = 1 // 重试延迟时间
         
         func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
             let response = request.task?.response as? HTTPURLResponse
@@ -66,7 +66,7 @@ final class NetworkingClient {
         let loadingPlugin = LoadingPlugin()
         // 创建自定义的 URLSessionConfiguration
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 20 // 请求超时时间
+        configuration.timeoutIntervalForRequest = 30 // 请求超时时间
         configuration.timeoutIntervalForResource = 60 // 资源超时时间
         // 创建带重试机制的 Session
         let retrier = RetryPolicy()

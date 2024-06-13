@@ -7,13 +7,20 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 class HomeViewController: MapViewController{
     
     // MARK: - Accessor
+    var homeObservation:NSKeyValueObservation?
     var accountObservation:NSKeyValueObservation?
     var accountIsAuthObservation:NSKeyValueObservation?
     var cityCodeObservation:NSKeyValueObservation?
     // MARK: - Subviews
+    lazy var batteryView:MapBatteryView = {
+        let view = MapBatteryView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     lazy var inviteView:MapInviteView = {
         let view = MapInviteView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -69,40 +76,23 @@ class HomeViewController: MapViewController{
         setupNavbar()
         setupSubviews()
         setupLayout()
-        mapView.regionCallBack = { region in
-            NetworkService<BusinessAPI>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: region.center.longitude, lat:region.center.latitude), model:CabinetListResponse.self ) { result in
-                switch result{
-                case .success(let response):
-                    var tempAnnotations =  self.mapView.annotations
-                    tempAnnotations.removeAll { annotation in
-                        if annotation is CabinetAnnotation{
-                            return true
-                        }else{
-                            return false
-                        }
-                    }
-                    let finalAnnotations = tempAnnotations
-                    self.mapView.removeAnnotations(finalAnnotations)
-                   if let annotations =  response?.list?.map({ cabinet in
-                       let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
-                       a.cabinet = cabinet
-                       return a
-                   }){
-                       self.mapView.addAnnotations(annotations)
+        homeObservation = MainManager.shared.observe(\.batteryDetail,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
+            if let temp = change.newValue,let batteryDetail = temp {
+                self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
+                self.footerStackView.insertArrangedSubview(self.batteryView, at: 0)
 
-                   }
-                case .failure(let error):
-                    debugPrint(error)
+            }else{
+                self.footerStackView.removeArrangedSubview(self.batteryView)
+                self.batteryView.removeFromSuperview()
 
-                }
             }
-        }
+        })
         accountObservation = AccountManager.shared.observe(\.phoneNum,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newName = change.newValue,let _ = newName {
 //                print("Name changed to \(x)")
                 self.headerStackView.removeArrangedSubview(self.needLoginView)
                 self.needLoginView.removeFromSuperview()
-                self.loadAuthStatus()
+                self.fetchData()
             }else{
                 self.headerStackView.insertArrangedSubview(self.needLoginView, at: 0)
                 let loginVC = LoginViewController()
@@ -116,10 +106,8 @@ class HomeViewController: MapViewController{
         accountIsAuthObservation = AccountManager.shared.observe(\.isAuth,options: [.old,.new,.initial], changeHandler: { accountManager, change in
             if let tempAuth = change.newValue,let isAuth = tempAuth {
                 if  isAuth == 1 {
-                    self.fetchData()
-                    self.loadActivityList()
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
-                    self.needLoginView.removeFromSuperview()
+                    self.needAuthView.removeFromSuperview()
                 }else{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
 
@@ -140,84 +128,123 @@ class HomeViewController: MapViewController{
         let dispatchGroup = DispatchGroup()
 
         // 创建一个并发队列
-        let concurrentQueue = DispatchQueue.global(qos: .default)
+        let concurrentQueue = DispatchQueue.global(qos: .utility)
+        dispatchGroup.enter()
+        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
+            NetworkService<MemberAPI>().request(.member, model: MemberResponse.self) { result in
+                switch result {
+                case.success(let response):
+                    
+                    AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
+                    dispatchGroup.leave()
 
+                case .failure(let error):
+                    self.showError(withStatus: error.localizedDescription)
+                    dispatchGroup.leave()
+
+                }
+            }
+        }))
+        dispatchGroup.enter()
+
+        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
+            NetworkService<MemberAPI>().request(.activityList, model: ActivityListResponse<ActivityResponse>.self) { result in
+                switch result {
+                case .success(let response):
+                    debugPrint(response)
+                    dispatchGroup.leave()
+
+                case .failure(let error):
+                    debugPrint(error)
+                    dispatchGroup.leave()
+
+                }
+            }
+        }))
         // 启动第一个异步任务
         dispatchGroup.enter()
-        concurrentQueue.async {
-            // 模拟耗时任务
+
+        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             NetworkService<BusinessAPI>().request(.batteryList, model: DataListResponse<BatterySummary>.self) { result in
                 switch result {
                 case.success(let response):
+
+                    MainManager.shared.batteryDetail = BatteryDetail.fromStruct(response?.pageResult?.dataList?.first)
                     dispatchGroup.leave()
+
                 case .failure(let error):
+                    debugPrint(error)
                     dispatchGroup.leave()
+
                     
                 }
             }
-           
-        }
+        }))
+      
 
         // 启动第二个异步任务
         dispatchGroup.enter()
-        concurrentQueue.async {
+
+        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             // 模拟耗时任务
             NetworkService<BusinessAPI>().request(.locomotiveList, model: DataListResponse<LocomotiveSummary>.self) { result in
                 switch result {
                 case.success(let response):
 
+                    MainManager.shared.bikeDetail = BikeDetail.fromStruct(response?.pageResult?.dataList?.first)
                     dispatchGroup.leave()
+
                 case .failure(let error):
                     dispatchGroup.leave()
+
+
                     
                 }
             }
-        }
+        }))
+     
 
         // 启动第三个异步任务
         dispatchGroup.enter()
-        concurrentQueue.async {
+        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             // 模拟耗时任务
             NetworkService<BatteryDepositAPI>().request(.batteryTempOrderInfo, model: BatteryDepositResponse.self) { result in
                 switch result {
                 case.success(let response):
+
+                    MainManager.shared.batteryDeposit = BatteryDepositInfo.fromStruct(response)
                     dispatchGroup.leave()
+
                 case .failure(let error):
+                    debugPrint(error)
                     dispatchGroup.leave()
-                    
+
+
                 }
             }
-        }
-
+        }))
+        
         // 在所有任务完成后执行
+       
         dispatchGroup.notify(queue: DispatchQueue.main) {
+            var type:NSNumber = 0
+            if MainManager.shared.batteryDeposit?.id != nil{
+                type = 2
+            }else{
+                if MainManager.shared.batteryDetail?.id != nil{
+                    type = 1
+                }else{
+                    type = 0
+                }
+            }
+            MainManager.shared.type = type
+            self.loadCabinetListData(self.mapView.centerCoordinate)
             
         }
     }
-    func loadActivityList(){
-        NetworkService<MemberAPI>().request(.activityList, model: ActivityListResponse<ActivityResponse>.self) { result in
-            switch result {
-            case .success(let response):
-                debugPrint(response)
-            case .failure(let error):
-                debugPrint(error)
-            }
-        }
-    }
+   
     
-    func loadAuthStatus(){
-        NetworkService<MemberAPI>().request(.member, model: MemberResponse.self) { result in
-            switch result {
-            case.success(let response):
-                
-                AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
-                
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                
-            }
-        }
-    }
+  
     deinit {
         accountObservation?.invalidate()
         accountIsAuthObservation?.invalidate()
@@ -287,8 +314,7 @@ private extension HomeViewController {
 //        headerStackView.addArrangedSubview(batteryOfflineView)
         headerStackView.addArrangedSubview(packageCardView)
 
-        let mapBatteryView = MapBatteryView()
-        footerStackView.addArrangedSubview(mapBatteryView)
+       
         footerStackView.addArrangedSubview(inviteView)
         
         

@@ -60,7 +60,10 @@ class BatteryDetail: NSObject,Convertible {
         super.init()
         
     }
-    
+    class func fromStruct(_ bd:BatterySummary?)->BatteryDetail? {
+        let model =  bd?.kj.JSONString().kj.model(BatteryDetail.self)
+        return model
+    }
 }
 
 // MARK: - Public

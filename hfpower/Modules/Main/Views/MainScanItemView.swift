@@ -7,7 +7,7 @@
 
 import UIKit
 import ESTabBarController_swift
-enum MainScanItemType {
+enum MainScanItemType:Int {
     case battery_rent
     case battery_change
     case battery_release
@@ -45,6 +45,8 @@ class MainScanItemView: ESTabBarItemContentView {
             scanButton.setTitle(mainScanItemType?.getValue(), for: .normal)
             scanButton.setTitle(mainScanItemType?.getValue(), for: .highlighted)
             scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.toImage(), for: .normal)
+            scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.toImage(), for: .highlighted)
+
         }
         
     }
@@ -59,6 +61,7 @@ class MainScanItemView: ESTabBarItemContentView {
     }()
     lazy var scanButton:UIButton = {
         let button = UIButton(type: .custom)
+        button.frame = CGRect(x: 0, y: 0, width: 76, height: 76)
         button.setTitle("扫码租电", for: .normal)
         button.setImage(UIImage(named: "scan"), for: .normal)
         button.setBackgroundImage(UIColor(named: "22C788")?.toImage(), for: .normal)

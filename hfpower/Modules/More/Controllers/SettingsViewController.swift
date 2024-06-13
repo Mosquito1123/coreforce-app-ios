@@ -10,6 +10,7 @@ import UIKit
 class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Accessor
+    var hasLogoutBlock:(()->Void)?
     var items = [String]()
 
     // MARK: - Subviews
@@ -82,7 +83,8 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
             case.success:
                 TokenManager.shared.clearTokens()
                 AccountManager.shared.clearAccount()
-                self.tabBarController?.selectedIndex = 0
+                self.navigationController?.popViewController(animated: true)
+                self.hasLogoutBlock?()
                 
             case .failure(let error):
                 self.showError(withStatus: error.localizedDescription)

@@ -87,6 +87,9 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
         
         let settings = SettingsViewController()
         settings.title = self.items[indexPath.row]
+        settings.hasLogoutBlock = {
+            self.tabBarController?.selectedIndex = 0
+        }
         self.navigationController?.pushViewController(settings, animated: true)
         
     }

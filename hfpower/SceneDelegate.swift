@@ -23,11 +23,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         // 设置窗口的根视图控制器，这里假设你有一个名为MainViewController的视图控制器
-        let mainViewController = LoginViewController() // 确保你有这个视图控制器
-        navigationController = UINavigationController(rootViewController: mainViewController)
+//        let mainViewController = LoginViewController() // 确保你有这个视图控制器
+//        navigationController = UINavigationController(rootViewController: mainViewController)
         // 程序主界面
-        
-        let mainController = MainTabBarController.defaultMainController()
+        var mainController:UIViewController
+        if (!(UserDefaults.standard.bool(forKey: "everLaunched") )) {
+            UserDefaults.standard.set(true, forKey:"everLaunched")
+            mainController = GuideViewController()
+                   
+        }else{
+            mainController = MainTabBarController.defaultMainController()
+
+        }
         
         self.window = window
         // 将窗口的根视图控制器设置为导航控制器

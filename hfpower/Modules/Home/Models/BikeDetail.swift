@@ -39,7 +39,11 @@ class BikeDetail: NSObject,Convertible {
         super.init()
         
     }
-    
+    class func fromStruct(_ bd:LocomotiveSummary?)->BikeDetail? {
+        
+        let model =  bd?.kj.JSONString().kj.model(BikeDetail.self)
+        return model
+    }
 }
 
 // MARK: - Public

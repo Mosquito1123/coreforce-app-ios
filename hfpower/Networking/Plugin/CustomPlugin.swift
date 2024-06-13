@@ -36,22 +36,28 @@ public struct LoadingPlugin: PluginType {
     
     // 请求完成时调用
     public func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
-        DispatchQueue.main.async {
-            SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
-            switch result{
-            case.success(let response):
-                businessHUD(response)
-            case .failure(let error):
-                if let statusCode = error.response?.statusCode,statusCode == 401{
-                    
-                    SVProgressHUD.showError(withStatus: "请重新登录~~")
+        guard let showLoadingView = target as? LoadingPluginDelegate,
+            let shouldShowLoadingView = showLoadingView.shouldShowLoadingView
+            else { return }
+        if shouldShowLoadingView {
+            DispatchQueue.main.async {
+                SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
+                switch result{
+                case.success(let response):
+                    businessHUD(response)
+                case .failure(let error):
+                    if let statusCode = error.response?.statusCode,statusCode == 401{
+                        
+                        SVProgressHUD.showError(withStatus: "请登录~~")
 
-                }else{
-                    SVProgressHUD.showError(withStatus: error.errorDescription)
+                    }else{
+                        SVProgressHUD.showError(withStatus: error.errorDescription)
 
+                    }
                 }
             }
         }
+       
         
     }
     func businessHUD(_  response:Response){

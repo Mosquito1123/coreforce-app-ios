@@ -171,5 +171,8 @@ extension BusinessAPI:APIType{
         return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
 
     }
+    var shouldShowLoadingView: Bool?{
+        return false
+    }
     
 }

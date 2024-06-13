@@ -11,6 +11,7 @@ import ESTabBarController_swift
 class MainTabBarController: ESTabBarController {
     
     // MARK: - Accessor
+    var mainObservation:NSKeyValueObservation?
     var accountObservation:NSKeyValueObservation?
     // MARK: - Subviews
     
@@ -20,6 +21,15 @@ class MainTabBarController: ESTabBarController {
         accountObservation = AccountManager.shared.observe(\.phoneNum, options: [.initial,.old,.new], changeHandler: { accountManager, change in
             if let newName = change.newValue,let x = newName {
                 debugPrint(x)
+            }
+        })
+        mainObservation=MainManager.shared.observe(\.type, options: [.old,.new,.initial], changeHandler: { homeManager, change in
+            if let temp = change.newValue,let type = temp {
+                let type = MainScanItemType(rawValue: type.intValue)
+                if let tabBarItem = self.viewControllers?[1].tabBarItem as? ESTabBarItem,let itemView = tabBarItem.contentView as? MainScanItemView{
+                    itemView.mainScanItemType = type
+                    
+                }
             }
         })
         setupNavbar()
@@ -51,6 +61,7 @@ class MainTabBarController: ESTabBarController {
         tabBar.layer.insertSublayer(shapeLayer, at: 0)
     }
     deinit {
+        mainObservation?.invalidate()
         accountObservation?.invalidate()
     }
     
@@ -75,7 +86,7 @@ private extension MainTabBarController {
 
 // MARK: - Public
 extension MainTabBarController {
-    class func defaultMainController() -> UIViewController {
+    class func defaultMainController(_ centerItemType:MainScanItemType = .battery_rent) -> UIViewController {
         let home = HomeViewController()
         home.tabBarItem = UITabBarItem(title: "地图", image: UIImage(named: "map"), selectedImage: UIImage(named: "map"))
         let center = UIViewController()

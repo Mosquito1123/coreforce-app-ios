@@ -10,8 +10,8 @@ import MapKit
 class MapViewController: UIViewController,MKMapViewDelegate {
     
     // MARK: - Accessor
-    var cityCallBack:((String?)->Void)?
     let manager = CLLocationManager()
+    private var debounce:Debounce?
     // MARK: - Subviews
     lazy var mapView:HFMapView = {
         let map = HFMapView()
@@ -21,13 +21,15 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         map.userTrackingMode = .followWithHeading
         map.register(CenterAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CenterAnnotationView.self))
         map.register(CabinetAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CabinetAnnotationView.self))
-
+        
         map.translatesAutoresizingMaskIntoConstraints = false
         return map
     }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Initialize debounce with a 0.5 second interval
+        debounce = Debounce(interval: 0.6)
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.delegate = self
         manager.requestWhenInUseAuthorization()
@@ -38,8 +40,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: false)
-
+        //        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +63,7 @@ private extension MapViewController {
     private func setupNavbar() {
         
     }
-   
+    
     private func setupSubviews() {
         self.view.addSubview(mapView)
         let gradientLayer = CAGradientLayer()
@@ -70,13 +72,18 @@ private extension MapViewController {
         // 将形状图层设置为视图的 mask 属性
         mapView.layer.addSublayer(gradientLayer)
         
-       
+        
         // 设置地图的代理
         mapView.delegate = self
         // 添加一个初始标记
         let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
-
+        
         mapView.addAnnotation(centerAnnotation)
+        mapView.regionCallBack = { region in
+            self.debounce?.call {
+                self.loadCabinetListData(region.center)
+            }
+        }
     }
     
     private func setupLayout() {
@@ -87,10 +94,42 @@ private extension MapViewController {
             mapView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
+    
 }
 
 // MARK: - Public
 extension MapViewController:CLLocationManagerDelegate{
+    func loadCabinetListData(_ center:CLLocationCoordinate2D){
+        NetworkService<BusinessAPI>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: center.longitude, lat:center.latitude), model:CabinetListResponse.self ) { result in
+            switch result{
+            case .success(let response):
+                var tempAnnotations =  self.mapView.annotations
+                tempAnnotations.removeAll { annotation in
+                    if annotation is CenterAnnotation{
+                        return true
+                    }else if annotation is MKUserLocation {
+                        return true
+                    }else{
+                        return false
+                    }
+                }
+                let finalAnnotations = tempAnnotations
+                self.mapView.removeAnnotations(finalAnnotations)
+                if let annotations =  response?.list?.map({ cabinet in
+                    let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
+                    a.cabinet = cabinet
+                    return a
+                }){
+                    self.mapView.addAnnotations(annotations)
+                    
+                }
+            case .failure(let error):
+                debugPrint(error)
+                
+            }
+        }
+        
+    }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             manager.stopUpdatingLocation()
@@ -102,9 +141,8 @@ extension MapViewController:CLLocationManagerDelegate{
                 }else{
                     CityCodeManager.shared.placemark = placemarks?.first
                     CityCodeManager.shared.cityName = placemarks?.first?.locality
-
-                   let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
-                    self.cityCallBack?(placemarks?.first?.locality)
+                    
+                    let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
                     CityCodeManager.shared.cityCode = code
                 }
             }
@@ -120,14 +158,14 @@ extension MapViewController:CLLocationManagerDelegate{
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(cityName ?? "") { placemarks, error in
             if let _ = error {
-                    } else if let placemarks = placemarks, let placemark = placemarks.first {
-                        if let location = placemark.location{
-                            self.render(location)
-                        }
-                        
-                    } else {
-                      
-                    }
+            } else if let placemarks = placemarks, let placemark = placemarks.first {
+                if let location = placemark.location{
+                    self.render(location)
+                }
+                
+            } else {
+                
+            }
         }
     }
     func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance = 10000) {
@@ -145,20 +183,20 @@ extension MapViewController {
     // 监听地图区域变化
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         // 更新标记位置为地图中心
-
+        
         let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
         
         mapView.addAnnotation(centerAnnotation)
         
-       
+        
         if let imageView = mapView.subviews.first(where: { v in
             return v is UIImageView
         }){
-           imageView.removeFromSuperview()
-       }
+            imageView.removeFromSuperview()
+        }
         self.mapView.regionCallBack?(mapView.region)
         
-       
+        
     }
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         let oldCenterAnnotation = mapView.annotations.first(where: { a in
@@ -167,13 +205,13 @@ extension MapViewController {
         if let p = oldCenterAnnotation {
             
             mapView.removeAnnotation(p)
-
+            
         }
         if let imageView = mapView.subviews.first(where: { v in
             return v is UIImageView
         }){
-           imageView.removeFromSuperview()
-       }
+            imageView.removeFromSuperview()
+        }
         let imageView = UIImageView(image: UIImage(named: "center_point"))
         mapView.addSubview(imageView)
         imageView.center =  CGPoint(x: mapView.center.x, y: mapView.center.y - imageView.frame.midY + 2.5)
@@ -242,4 +280,23 @@ private extension MapViewController {
 // MARK: - Private
 private extension MapViewController {
     
+}
+class Debounce {
+    private var workItem: DispatchWorkItem?
+    private var interval: TimeInterval
+    
+    init(interval: TimeInterval) {
+        self.interval = interval
+    }
+    
+    func call(action: @escaping () -> Void) {
+        // Cancel previous task if already scheduled
+        workItem?.cancel()
+        
+        // Create new task
+        workItem = DispatchWorkItem { action() }
+        
+        // Schedule new task with delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval, execute: workItem!)
+    }
 }
