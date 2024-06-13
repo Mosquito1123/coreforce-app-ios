@@ -68,6 +68,11 @@ final class NetworkingClient {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 30 // 请求超时时间
         configuration.timeoutIntervalForResource = 60 // 资源超时时间
+        configuration.connectionProxyDictionary = [
+            kCFProxyTypeKey:kCFProxyTypeHTTPS,
+            kCFNetworkProxiesHTTPEnable: true,
+            kCFNetworkProxiesProxyAutoConfigEnable:true
+        ]
         // 创建带重试机制的 Session
         let retrier = RetryPolicy()
         let sessionWithRetry = Session(configuration: configuration, interceptor: retrier)

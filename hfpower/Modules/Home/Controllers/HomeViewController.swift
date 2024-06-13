@@ -130,7 +130,7 @@ class HomeViewController: MapViewController{
         let dispatchGroup = DispatchGroup()
 
         // 创建一个并发队列
-        let concurrentQueue = DispatchQueue.global(qos: .utility)
+        let concurrentQueue = DispatchQueue.global(qos: .background)
         dispatchGroup.enter()
         concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             NetworkService<MemberAPI>().request(.member, model: MemberResponse.self) { result in
