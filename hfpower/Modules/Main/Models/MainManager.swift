@@ -20,12 +20,30 @@ class MainManager: NSObject {
         super.init()
         
     }
+    func refreshType(){
+        var type:NSNumber = 0
+        if MainManager.shared.batteryDeposit?.id != nil{
+            type = 2
+        }else{
+            if MainManager.shared.batteryDetail?.id != nil{
+                type = 1
+            }else{
+                type = 0
+            }
+        }
+        MainManager.shared.type = type
+    }
     
 }
 
 // MARK: - Public
 extension MainManager {
-    
+    func resetAll(){
+        batteryDetail = nil
+        bikeDetail = nil
+        batteryDeposit = nil
+        type = 0
+    }
 }
 
 // MARK: - Private

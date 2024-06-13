@@ -78,11 +78,23 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if self.isViewLoaded{
+            logoutBehavior()
+        }
+    }
+    
+    
+}
+
+// MARK: - Request
+private extension SettingsViewController {
+    func logoutBehavior(){
         NetworkService<AuthAPI>().request(.logout, model: BlankResponse.self) { result in
             switch result {
             case.success:
                 TokenManager.shared.clearTokens()
                 AccountManager.shared.clearAccount()
+                MainManager.shared.resetAll()
                 self.navigationController?.popViewController(animated: true)
                 self.hasLogoutBlock?()
                 
@@ -92,14 +104,7 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
                 
             }
         }
-    } 
-    
-    
-}
-
-// MARK: - Request
-private extension SettingsViewController {
-    
+    }
 }
 
 // MARK: - Action

@@ -276,16 +276,14 @@ private extension LoginPhoneViewController {
                 TokenManager.shared.refreshToken = response?.refreshToken
                 TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
                 AccountManager.shared.phoneNum = phoneNum
-                DispatchQueue.main.async {
-                    self.navigationController?.dismiss(animated: true)
-
-                }
+                
+                self.navigationController?.dismiss(animated: true)
+                
+                
             case .failure(let error):
-                DispatchQueue.main.async {
-                    
-                    self.showError(withStatus: error.localizedDescription)
-                }
-
+                
+                self.showError(withStatus: error.localizedDescription)
+                
             }
         }
     }

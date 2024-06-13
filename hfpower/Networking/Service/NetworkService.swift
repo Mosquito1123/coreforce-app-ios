@@ -28,33 +28,21 @@ class NetworkService<R:APIType> {
             case .success(let response):
                 
                 // 尝试将响应数据解析为指定的模型类型
-                if let model = try? response.mapString().kj.model(CommonResponse<T>.self) {
-                    if model.head?.retFlag == "00000"{
-                        // 解析成功，调用成功的 completion 回调
-                        
-                        completion(.success(model.body))
-                        
-                    }else{
-                        let moyaError = MoyaError.underlying(NSError(domain: target.baseURL.absoluteString, code: Int(model.head?.retFlag ?? "-1") ?? 0, userInfo: [NSLocalizedDescriptionKey:model.head?.retMsg ?? "",NSLocalizedFailureReasonErrorKey:model.head?.retMsg ?? "",NSLocalizedRecoverySuggestionErrorKey:model.head?.retMsg ?? "","body":model.body as Any]), response)
-                        
-                        completion(.failure(moyaError))
-                    }
+                let model = try? response.mapString().kj.model(CommonResponse<T>.self)
+                // 解析成功，调用成功的 completion 回调
+                
+                completion(.success(model?.body))
                     
-                }
+                
                 
             case .failure(let error):
                 // 请求失败，调用失败的 completion 回调
-                if error.response?.statusCode == 401 {
+                if error.response?.statusCode == 401{
                     TokenManager.shared.clearTokens()
                     AccountManager.shared.clearAccount()
-                    
-                    completion(.failure(error))
-                    
-                }else{
-                    
-                    completion(.failure(error))
-                    
+                    MainManager.shared.resetAll()
                 }
+                completion(.failure(error))
             }
         }
         self.ongoingRequests[requestKey] = request

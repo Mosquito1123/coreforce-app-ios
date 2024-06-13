@@ -271,11 +271,14 @@ private extension LoginViewController {
                 TokenManager.shared.refreshToken = response?.refreshToken
                 TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
                 AccountManager.shared.phoneNum = self.accountInputView.phoneNumberTextField.text
+                
                 self.navigationController?.dismiss(animated: true)
-
+                
+                
             case .failure(let error):
+                
                 self.showError(withStatus: error.localizedDescription)
-
+                
             }
         }
     }

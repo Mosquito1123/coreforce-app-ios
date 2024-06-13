@@ -100,32 +100,34 @@ private extension MapViewController {
 // MARK: - Public
 extension MapViewController:CLLocationManagerDelegate{
     func loadCabinetListData(_ center:CLLocationCoordinate2D){
-        NetworkService<BusinessAPI>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: center.longitude, lat:center.latitude), model:CabinetListResponse.self ) { result in
-            switch result{
-            case .success(let response):
-                var tempAnnotations =  self.mapView.annotations
-                tempAnnotations.removeAll { annotation in
-                    if annotation is CenterAnnotation{
-                        return true
-                    }else if annotation is MKUserLocation {
-                        return true
-                    }else{
-                        return false
+        if let _ = self.mapView.userLocation.location{
+            NetworkService<BusinessAPI>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: center.longitude, lat:center.latitude), model:CabinetListResponse.self ) { result in
+                switch result{
+                case .success(let response):
+                    var tempAnnotations =  self.mapView.annotations
+                    tempAnnotations.removeAll { annotation in
+                        if annotation is CenterAnnotation{
+                            return true
+                        }else if annotation is MKUserLocation {
+                            return true
+                        }else{
+                            return false
+                        }
                     }
-                }
-                let finalAnnotations = tempAnnotations
-                self.mapView.removeAnnotations(finalAnnotations)
-                if let annotations =  response?.list?.map({ cabinet in
-                    let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
-                    a.cabinet = cabinet
-                    return a
-                }){
-                    self.mapView.addAnnotations(annotations)
+                    let finalAnnotations = tempAnnotations
+                    self.mapView.removeAnnotations(finalAnnotations)
+                    if let annotations =  response?.list?.map({ cabinet in
+                        let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
+                        a.cabinet = cabinet
+                        return a
+                    }){
+                        self.mapView.addAnnotations(annotations)
+                        
+                    }
+                case .failure(let error):
+                    debugPrint(error)
                     
                 }
-            case .failure(let error):
-                debugPrint(error)
-                
             }
         }
         
@@ -176,7 +178,9 @@ extension MapViewController:CLLocationManagerDelegate{
         let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let region = MKCoordinateRegion(center: coordinate, span: span)
-        mapView.setRegion(region, animated: true)
+        DispatchQueue.main.async {
+            self.mapView.setRegion(region, animated: true)
+        }
     }
 }
 extension MapViewController {

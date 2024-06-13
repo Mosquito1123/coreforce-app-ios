@@ -66,7 +66,7 @@ final class NetworkingClient {
         let loadingPlugin = LoadingPlugin()
         // 创建自定义的 URLSessionConfiguration
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 30 // 请求超时时间
+        configuration.timeoutIntervalForRequest = 60 // 请求超时时间
         configuration.timeoutIntervalForResource = 60 // 资源超时时间
         configuration.connectionProxyDictionary = [
             kCFProxyTypeKey:kCFProxyTypeHTTPS,
@@ -99,7 +99,7 @@ final class NetworkingClient {
     private func createEndpointClosure<T: APIType>(for target: T.Type) -> MoyaProvider<T>.EndpointClosure {
         let endpointClosure = { (target: T) -> Endpoint in
             let endpoint = MoyaProvider.defaultEndpointMapping(for: target)
-            let headers = ["Content-Type": "application/json"]
+            let headers = ["Content-Type": "application/json","Accept":"application/json"]
             return endpoint.adding(newHTTPHeaderFields: headers)
         }
         

@@ -42,11 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = .white
         self.window?.overrideUserInterfaceStyle = .light
-        // 低优先级后台任务
-        DispatchQueue.global(qos: .background).async {
-            // 后台任务，例如数据处理、网络请求
-            AliyunFaceAuthFacade.initSDK()
-        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

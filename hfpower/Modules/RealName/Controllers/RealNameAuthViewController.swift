@@ -100,6 +100,9 @@ class RealNameAuthViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 低优先级后台任务
+        // 后台任务，例如数据处理、网络请求
+        AliyunFaceAuthFacade.initSDK()
         self.view.backgroundColor = .white
         setupNavbar()
         setupSubviews()

@@ -46,14 +46,14 @@ class HomeViewController: MapViewController{
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
     lazy var locationChooseView:LocationChooseView = {
-       let view = LocationChooseView()
+        let view = LocationChooseView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var searchView:SearchView = {
-       let view = SearchView()
+        let view = SearchView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -67,11 +67,11 @@ class HomeViewController: MapViewController{
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-   
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = UIColor.white
         setupNavbar()
         setupSubviews()
@@ -80,27 +80,37 @@ class HomeViewController: MapViewController{
             if let temp = change.newValue,let batteryDetail = temp {
                 self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
                 self.footerStackView.insertArrangedSubview(self.batteryView, at: 0)
-
+                
             }else{
                 self.footerStackView.removeArrangedSubview(self.batteryView)
                 self.batteryView.removeFromSuperview()
-
+                
             }
         })
         accountObservation = AccountManager.shared.observe(\.phoneNum,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newName = change.newValue,let _ = newName {
-//                print("Name changed to \(x)")
+                //                print("Name changed to \(x)")
                 self.headerStackView.removeArrangedSubview(self.needLoginView)
                 self.needLoginView.removeFromSuperview()
-                self.fetchData()
+                if self.isViewLoaded{
+                    self.fetchAuthData()
+                    self.fetchActivities()
+                }
             }else{
+                if self.headerStackView.arrangedSubviews.contains(self.needAuthView){
+                    self.headerStackView.removeArrangedSubview(self.needAuthView)
+                    self.needAuthView.removeFromSuperview()
+                }
                 self.headerStackView.insertArrangedSubview(self.needLoginView, at: 0)
-                let loginVC = LoginViewController()
-                
-                let nav = UINavigationController(rootViewController: loginVC)
-                nav.modalPresentationStyle = .fullScreen
-                nav.modalTransitionStyle = .coverVertical
-                self.present(nav, animated: true)
+                if let oldNum = change.newValue,let _ = oldNum{
+                    if self.isViewLoaded{
+                        let loginVC = LoginViewController()
+                        let nav = UINavigationController(rootViewController: loginVC)
+                        nav.modalPresentationStyle = .fullScreen
+                        nav.modalTransitionStyle = .coverVertical
+                        self.present(nav, animated: true)
+                    }
+                }
             }
         })
         accountIsAuthObservation = AccountManager.shared.observe(\.isAuth,options: [.old,.new,.initial], changeHandler: { accountManager, change in
@@ -108,12 +118,15 @@ class HomeViewController: MapViewController{
                 if  isAuth == 1 {
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
                     self.needAuthView.removeFromSuperview()
+                    if self.isViewLoaded{
+                        self.fetchData()
+                        self.fetchBikeData()
+                    }
                 }else{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
-
+                    self.loadCabinetListData(self.mapView.centerCoordinate)
+                    
                 }
-            }else{
-                self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
             }
         })
         
@@ -123,130 +136,112 @@ class HomeViewController: MapViewController{
                 self.moveMap()
             }
         })
-       
+        
+    }
+    func fetchActivities(){
+        
+        NetworkService<MemberAPI>().request(.activityList, model: ActivityListResponse<ActivityResponse>.self) { result in
+            switch result {
+            case .success(let response):
+                debugPrint(response)
+            case .failure(let error):
+                debugPrint(error)
+                
+            }
+        }
+    }
+    func fetchAuthData(){
+        NetworkService<MemberAPI>().request(.member, model: MemberResponse.self) { result in
+            switch result {
+            case.success(let response):
+                
+                AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
+                
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                
+            }
+        }
+    }
+    func fetchBikeData(){
+        
+        
+        NetworkService<BusinessAPI>().request(.locomotiveList, model: DataListResponse<LocomotiveSummary>.self) { result in
+            switch result {
+            case.success(let response):
+                
+                MainManager.shared.bikeDetail = BikeDetail.fromStruct(response?.pageResult?.dataList?.first)
+                
+            case .failure(let error):
+                debugPrint(error)
+                
+                
+            }
+        }
     }
     func fetchData(){
         // 创建一个 DispatchGroup
         let dispatchGroup = DispatchGroup()
-
+        
         // 创建一个并发队列
         let concurrentQueue = DispatchQueue.global(qos: .background)
-        dispatchGroup.enter()
-        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
-            NetworkService<MemberAPI>().request(.member, model: MemberResponse.self) { result in
-                switch result {
-                case.success(let response):
-                    
-                    AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
-                    dispatchGroup.leave()
-
-                case .failure(let error):
-                    self.showError(withStatus: error.localizedDescription)
-                    dispatchGroup.leave()
-
-                }
-            }
-        }))
-        dispatchGroup.enter()
-
-        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
-            NetworkService<MemberAPI>().request(.activityList, model: ActivityListResponse<ActivityResponse>.self) { result in
-                switch result {
-                case .success(let response):
-                    debugPrint(response)
-                    dispatchGroup.leave()
-
-                case .failure(let error):
-                    debugPrint(error)
-                    dispatchGroup.leave()
-
-                }
-            }
-        }))
+        
+        
         // 启动第一个异步任务
         dispatchGroup.enter()
-
+        
         concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             NetworkService<BusinessAPI>().request(.batteryList, model: DataListResponse<BatterySummary>.self) { result in
+                dispatchGroup.leave()
+
                 switch result {
                 case.success(let response):
-
+                    
                     MainManager.shared.batteryDetail = BatteryDetail.fromStruct(response?.pageResult?.dataList?.first)
-                    dispatchGroup.leave()
-
+                    
                 case .failure(let error):
                     debugPrint(error)
-                    dispatchGroup.leave()
-
+                    
                     
                 }
             }
         }))
-      
-
-        // 启动第二个异步任务
-        dispatchGroup.enter()
-
-        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
-            // 模拟耗时任务
-            NetworkService<BusinessAPI>().request(.locomotiveList, model: DataListResponse<LocomotiveSummary>.self) { result in
-                switch result {
-                case.success(let response):
-
-                    MainManager.shared.bikeDetail = BikeDetail.fromStruct(response?.pageResult?.dataList?.first)
-                    dispatchGroup.leave()
-
-                case .failure(let error):
-                    dispatchGroup.leave()
-
-
-                    
-                }
-            }
-        }))
-     
-
+        
+        
+        
+        
+        
         // 启动第三个异步任务
         dispatchGroup.enter()
         concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             // 模拟耗时任务
             NetworkService<BatteryDepositAPI>().request(.batteryTempOrderInfo, model: BatteryDepositResponse.self) { result in
+                dispatchGroup.leave()
+
                 switch result {
                 case.success(let response):
-
+                    
                     MainManager.shared.batteryDeposit = BatteryDepositInfo.fromStruct(response)
-                    dispatchGroup.leave()
-
+                    
                 case .failure(let error):
                     debugPrint(error)
-                    dispatchGroup.leave()
-
-
+                    
+                    
                 }
             }
         }))
         
         // 在所有任务完成后执行
-       
+        
         dispatchGroup.notify(queue: DispatchQueue.main) {
-            var type:NSNumber = 0
-            if MainManager.shared.batteryDeposit?.id != nil{
-                type = 2
-            }else{
-                if MainManager.shared.batteryDetail?.id != nil{
-                    type = 1
-                }else{
-                    type = 0
-                }
-            }
-            MainManager.shared.type = type
+            MainManager.shared.refreshType()
             self.loadCabinetListData(self.mapView.centerCoordinate)
             
         }
     }
-   
     
-  
+    
+    
     deinit {
         accountObservation?.invalidate()
         accountIsAuthObservation?.invalidate()
@@ -314,17 +309,17 @@ private extension HomeViewController {
             nav.modalTransitionStyle = .coverVertical
             self.present(nav, animated: true)
         }
-//        headerStackView.addArrangedSubview(needLoginView)
-//        headerStackView.addArrangedSubview(needAuthView)
-//        let creditDepositFreeView = CreditDepositFreeView()
-//        headerStackView.addArrangedSubview(creditDepositFreeView)
-//        let expirationView = ExpirationView()
-//        headerStackView.addArrangedSubview(expirationView)
-//        let batteryOfflineView = BatteryOfflineView()
-//        headerStackView.addArrangedSubview(batteryOfflineView)
+        //        headerStackView.addArrangedSubview(needLoginView)
+        //        headerStackView.addArrangedSubview(needAuthView)
+        //        let creditDepositFreeView = CreditDepositFreeView()
+        //        headerStackView.addArrangedSubview(creditDepositFreeView)
+        //        let expirationView = ExpirationView()
+        //        headerStackView.addArrangedSubview(expirationView)
+        //        let batteryOfflineView = BatteryOfflineView()
+        //        headerStackView.addArrangedSubview(batteryOfflineView)
         headerStackView.addArrangedSubview(packageCardView)
-
-       
+        
+        
         footerStackView.addArrangedSubview(inviteView)
         
         
