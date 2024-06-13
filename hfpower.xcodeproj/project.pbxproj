@@ -49,6 +49,77 @@
 		0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F12C1068BF00834069 /* BlankResponse.swift */; };
 		0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F32C10691C00834069 /* TokenResponse.swift */; };
 		0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F52C10694D00834069 /* BaseResponse.swift */; };
+		045164F02C1A9ECD00ABE7F1 /* DTFUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E42C1A9EC500ABE7F1 /* DTFUtility.framework */; };
+		045164F12C1A9ECD00ABE7F1 /* APPSecuritySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E52C1A9EC600ABE7F1 /* APPSecuritySDK.framework */; };
+		045164F22C1A9ECD00ABE7F1 /* MultiFactorFacade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E62C1A9EC700ABE7F1 /* MultiFactorFacade.framework */; };
+		045164F32C1A9ECD00ABE7F1 /* DTFNFCIdentityManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E72C1A9EC700ABE7F1 /* DTFNFCIdentityManager.framework */; };
+		045164F42C1A9ECD00ABE7F1 /* OCRDetectSDKForTech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E82C1A9EC800ABE7F1 /* OCRDetectSDKForTech.framework */; };
+		045164F52C1A9ECD00ABE7F1 /* APBToygerFacade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E92C1A9EC900ABE7F1 /* APBToygerFacade.framework */; };
+		045164F62C1A9ECD00ABE7F1 /* ToygerNative.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164EA2C1A9EC900ABE7F1 /* ToygerNative.framework */; };
+		045164F72C1A9ECD00ABE7F1 /* ToygerService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164EB2C1A9ECA00ABE7F1 /* ToygerService.framework */; };
+		045164F82C1A9ECD00ABE7F1 /* BioAuthEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164EC2C1A9ECA00ABE7F1 /* BioAuthEngine.framework */; };
+		045164F92C1A9ECD00ABE7F1 /* AliyunFaceAuthFacade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164ED2C1A9ECB00ABE7F1 /* AliyunFaceAuthFacade.framework */; };
+		045164FA2C1A9ECD00ABE7F1 /* faceguard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164EE2C1A9ECC00ABE7F1 /* faceguard.framework */; };
+		045164FB2C1A9ECD00ABE7F1 /* DTFIdentityManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164EF2C1A9ECD00ABE7F1 /* DTFIdentityManager.framework */; };
+		045164FD2C1A9F2300ABE7F1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164FC2C1A9F2300ABE7F1 /* CoreGraphics.framework */; };
+		045164FF2C1A9F3500ABE7F1 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164FE2C1A9F3500ABE7F1 /* Accelerate.framework */; };
+		045165012C1A9F3E00ABE7F1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165002C1A9F3E00ABE7F1 /* SystemConfiguration.framework */; };
+		045165032C1A9F4800ABE7F1 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165022C1A9F4800ABE7F1 /* AssetsLibrary.framework */; };
+		045165052C1A9F5400ABE7F1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165042C1A9F5400ABE7F1 /* CoreTelephony.framework */; };
+		045165072C1A9F5C00ABE7F1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165062C1A9F5C00ABE7F1 /* QuartzCore.framework */; };
+		045165092C1A9F6300ABE7F1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165082C1A9F6300ABE7F1 /* CoreFoundation.framework */; };
+		0451650B2C1A9F6A00ABE7F1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451650A2C1A9F6A00ABE7F1 /* CoreLocation.framework */; };
+		0451650D2C1A9F7400ABE7F1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451650C2C1A9F7400ABE7F1 /* ImageIO.framework */; };
+		0451650F2C1A9F7F00ABE7F1 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451650E2C1A9F7F00ABE7F1 /* CoreMedia.framework */; };
+		045165112C1A9F8800ABE7F1 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165102C1A9F8800ABE7F1 /* CoreMotion.framework */; };
+		045165132C1A9F9300ABE7F1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165122C1A9F9300ABE7F1 /* AVFoundation.framework */; };
+		045165152C1A9F9E00ABE7F1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165142C1A9F9D00ABE7F1 /* WebKit.framework */; };
+		0451651C2C1A9FD600ABE7F1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451651B2C1A9FD600ABE7F1 /* AudioToolbox.framework */; };
+		0451651E2C1A9FDE00ABE7F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451651D2C1A9FDE00ABE7F1 /* CFNetwork.framework */; };
+		045165202C1A9FE900ABE7F1 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451651F2C1A9FE900ABE7F1 /* MobileCoreServices.framework */; };
+		045165232C1A9FFA00ABE7F1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165222C1A9FFA00ABE7F1 /* AdSupport.framework */; };
+		045165252C1AA00100ABE7F1 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165242C1AA00100ABE7F1 /* ReplayKit.framework */; };
+		045165262C1AA02300ABE7F1 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165162C1A9FA800ABE7F1 /* libresolv.tbd */; };
+		045165272C1AA03A00ABE7F1 /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165212C1A9FF100ABE7F1 /* libz.1.2.8.tbd */; };
+		045165282C1AA03A00ABE7F1 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165172C1A9FB100ABE7F1 /* libz.tbd */; };
+		045165292C1AA04D00ABE7F1 /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165192C1A9FC400ABE7F1 /* libc++.1.tbd */; };
+		0451652A2C1AA04D00ABE7F1 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451651A2C1A9FCA00ABE7F1 /* libc++.tbd */; };
+		0451652B2C1AA04D00ABE7F1 /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165182C1A9FBD00ABE7F1 /* libc++abi.tbd */; };
+		0451652E2C1AA0B400ABE7F1 /* APBToygerFacadeSuitable.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0451652C2C1AA0B300ABE7F1 /* APBToygerFacadeSuitable.bundle */; };
+		0451652F2C1AA0B400ABE7F1 /* APBToygerFacade.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0451652D2C1AA0B400ABE7F1 /* APBToygerFacade.bundle */; };
+		045165312C1AA0DA00ABE7F1 /* ToygerService.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045165302C1AA0DA00ABE7F1 /* ToygerService.bundle */; };
+		045165332C1AA0FC00ABE7F1 /* OCRXMedia.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045165322C1AA0FC00ABE7F1 /* OCRXMedia.bundle */; };
+		045165352C1AA11400ABE7F1 /* BioAuthEngine.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045165342C1AA11400ABE7F1 /* BioAuthEngine.bundle */; };
+		045165372C1AA13500ABE7F1 /* MultiFactorFacade.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 045165362C1AA13500ABE7F1 /* MultiFactorFacade.bundle */; };
+		0451653D2C1AA40100ABE7F1 /* RealNameAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0451653C2C1AA40100ABE7F1 /* RealNameAuthViewController.swift */; };
+		0451653F2C1AA4E900ABE7F1 /* HFIDCardIdentifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0451653E2C1AA4E900ABE7F1 /* HFIDCardIdentifyView.swift */; };
+		045165412C1AA5B700ABE7F1 /* HFAuthNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045165402C1AA5B700ABE7F1 /* HFAuthNameView.swift */; };
+		045165432C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045165422C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift */; };
+		0451657B2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165482C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m */; };
+		0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165492C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m */; };
+		0451657D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451654D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m */; };
+		0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451654F2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m */; };
+		0451657F2C1AC0DF00ABE7F1 /* JYBDBankCardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165502C1AC0DF00ABE7F1 /* JYBDBankCardVC.m */; };
+		045165802C1AC0DF00ABE7F1 /* JYBDScanCardManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165542C1AC0DF00ABE7F1 /* JYBDScanCardManage.m */; };
+		045165812C1AC0DF00ABE7F1 /* JYBDBankCardSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165552C1AC0DF00ABE7F1 /* JYBDBankCardSearch.m */; };
+		045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165562C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m */; };
+		045165832C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165602C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m */; };
+		045165842C1AC0DF00ABE7F1 /* JYBDCardIDInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165612C1AC0DF00ABE7F1 /* JYBDCardIDInfo.m */; };
+		045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */ = {isa = PBXBuildFile; fileRef = 045165652C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m */; };
+		045165892C1AC0E000ABE7F1 /* IDCardRectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0451656C2C1AC0DF00ABE7F1 /* IDCardRectManager.m */; };
+		0451658A2C1AC0E000ABE7F1 /* zocr0.lib in Resources */ = {isa = PBXBuildFile; fileRef = 0451656F2C1AC0DF00ABE7F1 /* zocr0.lib */; };
+		0451658B2C1AC0E000ABE7F1 /* scaningline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165712C1AC0DF00ABE7F1 /* scaningline@2x.png */; };
+		0451658C2C1AC0E000ABE7F1 /* scaningline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165722C1AC0DF00ABE7F1 /* scaningline@3x.png */; };
+		0451658D2C1AC0E000ABE7F1 /* idcard_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165732C1AC0DF00ABE7F1 /* idcard_back.png */; };
+		0451658E2C1AC0E000ABE7F1 /* flashlightscan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165742C1AC0DF00ABE7F1 /* flashlightscan@3x.png */; };
+		0451658F2C1AC0E000ABE7F1 /* flashlightscan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165752C1AC0DF00ABE7F1 /* flashlightscan@2x.png */; };
+		045165902C1AC0E000ABE7F1 /* flashlightscan.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165762C1AC0DF00ABE7F1 /* flashlightscan.png */; };
+		045165912C1AC0E000ABE7F1 /* scaningbgimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165772C1AC0DF00ABE7F1 /* scaningbgimage.png */; };
+		045165922C1AC0E000ABE7F1 /* scaningbgimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165782C1AC0DF00ABE7F1 /* scaningbgimage@2x.png */; };
+		045165932C1AC0E000ABE7F1 /* scaningbgimage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045165792C1AC0DF00ABE7F1 /* scaningbgimage@3x.png */; };
+		045165942C1AC0E000ABE7F1 /* scaningline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0451657A2C1AC0DF00ABE7F1 /* scaningline.png */; };
+		045165962C1AC7E000ABE7F1 /* libbexbankcard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451656A2C1AC0DF00ABE7F1 /* libbexbankcard.a */; };
+		045165972C1AC7E000ABE7F1 /* libexbankcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165692C1AC0DF00ABE7F1 /* libexbankcardios.a */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
@@ -56,6 +127,7 @@
 		049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE32C19981A00C46D6D /* HomeManager.swift */; };
 		049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */; };
 		049BDFE82C199FAD00C46D6D /* MainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE72C199FAD00C46D6D /* MainManager.swift */; };
+		04A5E5172C1AD53E00787551 /* MemberRpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */; };
 		04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42982C118813002B78EA /* UIViewController+Extension.swift */; };
 		04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429A2C118F0F002B78EA /* LoginModel.swift */; };
 		04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */; };
@@ -146,6 +218,96 @@
 		0443B9F12C1068BF00834069 /* BlankResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankResponse.swift; sourceTree = "<group>"; };
 		0443B9F32C10691C00834069 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		0443B9F52C10694D00834069 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		045164E32C1A9C5600ABE7F1 /* SwiftiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftiOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		045164E42C1A9EC500ABE7F1 /* DTFUtility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DTFUtility.framework; sourceTree = "<group>"; };
+		045164E52C1A9EC600ABE7F1 /* APPSecuritySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APPSecuritySDK.framework; sourceTree = "<group>"; };
+		045164E62C1A9EC700ABE7F1 /* MultiFactorFacade.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MultiFactorFacade.framework; sourceTree = "<group>"; };
+		045164E72C1A9EC700ABE7F1 /* DTFNFCIdentityManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DTFNFCIdentityManager.framework; sourceTree = "<group>"; };
+		045164E82C1A9EC800ABE7F1 /* OCRDetectSDKForTech.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCRDetectSDKForTech.framework; sourceTree = "<group>"; };
+		045164E92C1A9EC900ABE7F1 /* APBToygerFacade.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APBToygerFacade.framework; sourceTree = "<group>"; };
+		045164EA2C1A9EC900ABE7F1 /* ToygerNative.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ToygerNative.framework; sourceTree = "<group>"; };
+		045164EB2C1A9ECA00ABE7F1 /* ToygerService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ToygerService.framework; sourceTree = "<group>"; };
+		045164EC2C1A9ECA00ABE7F1 /* BioAuthEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BioAuthEngine.framework; sourceTree = "<group>"; };
+		045164ED2C1A9ECB00ABE7F1 /* AliyunFaceAuthFacade.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunFaceAuthFacade.framework; sourceTree = "<group>"; };
+		045164EE2C1A9ECC00ABE7F1 /* faceguard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = faceguard.framework; sourceTree = "<group>"; };
+		045164EF2C1A9ECD00ABE7F1 /* DTFIdentityManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DTFIdentityManager.framework; sourceTree = "<group>"; };
+		045164FC2C1A9F2300ABE7F1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		045164FE2C1A9F3500ABE7F1 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		045165002C1A9F3E00ABE7F1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		045165022C1A9F4800ABE7F1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		045165042C1A9F5400ABE7F1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		045165062C1A9F5C00ABE7F1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		045165082C1A9F6300ABE7F1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		0451650A2C1A9F6A00ABE7F1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0451650C2C1A9F7400ABE7F1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0451650E2C1A9F7F00ABE7F1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		045165102C1A9F8800ABE7F1 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		045165122C1A9F9300ABE7F1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		045165142C1A9F9D00ABE7F1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		045165162C1A9FA800ABE7F1 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		045165172C1A9FB100ABE7F1 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		045165182C1A9FBD00ABE7F1 /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
+		045165192C1A9FC400ABE7F1 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		0451651A2C1A9FCA00ABE7F1 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		0451651B2C1A9FD600ABE7F1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0451651D2C1A9FDE00ABE7F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0451651F2C1A9FE900ABE7F1 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		045165212C1A9FF100ABE7F1 /* libz.1.2.8.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.8.tbd; path = usr/lib/libz.1.2.8.tbd; sourceTree = SDKROOT; };
+		045165222C1A9FFA00ABE7F1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		045165242C1AA00100ABE7F1 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		0451652C2C1AA0B300ABE7F1 /* APBToygerFacadeSuitable.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = APBToygerFacadeSuitable.bundle; path = APBToygerFacade.framework/APBToygerFacadeSuitable.bundle; sourceTree = "<group>"; };
+		0451652D2C1AA0B400ABE7F1 /* APBToygerFacade.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = APBToygerFacade.bundle; path = APBToygerFacade.framework/APBToygerFacade.bundle; sourceTree = "<group>"; };
+		045165302C1AA0DA00ABE7F1 /* ToygerService.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ToygerService.bundle; path = ToygerService.framework/ToygerService.bundle; sourceTree = "<group>"; };
+		045165322C1AA0FC00ABE7F1 /* OCRXMedia.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = OCRXMedia.bundle; path = OCRDetectSDKForTech.framework/OCRXMedia.bundle; sourceTree = "<group>"; };
+		045165342C1AA11400ABE7F1 /* BioAuthEngine.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = BioAuthEngine.bundle; path = BioAuthEngine.framework/BioAuthEngine.bundle; sourceTree = "<group>"; };
+		045165362C1AA13500ABE7F1 /* MultiFactorFacade.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = MultiFactorFacade.bundle; path = MultiFactorFacade.framework/MultiFactorFacade.bundle; sourceTree = "<group>"; };
+		0451653C2C1AA40100ABE7F1 /* RealNameAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealNameAuthViewController.swift; sourceTree = "<group>"; };
+		0451653E2C1AA4E900ABE7F1 /* HFIDCardIdentifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFIDCardIdentifyView.swift; sourceTree = "<group>"; };
+		045165402C1AA5B700ABE7F1 /* HFAuthNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFAuthNameView.swift; sourceTree = "<group>"; };
+		045165422C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFAuthIDNumberView.swift; sourceTree = "<group>"; };
+		045165472C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+IDCardExtend.h"; sourceTree = "<group>"; };
+		045165482C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+IDCardExtend.m"; sourceTree = "<group>"; };
+		045165492C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+IDCardExtend.m"; sourceTree = "<group>"; };
+		0451654A2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+IDCardExtend.h"; sourceTree = "<group>"; };
+		0451654C2C1AC0DF00ABE7F1 /* JYBDIDCardVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDIDCardVC.h; sourceTree = "<group>"; };
+		0451654D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDScanCardBaseVC.m; sourceTree = "<group>"; };
+		0451654E2C1AC0DF00ABE7F1 /* JYBDBankCardVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDBankCardVC.h; sourceTree = "<group>"; };
+		0451654F2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDIDCardVC.m; sourceTree = "<group>"; };
+		045165502C1AC0DF00ABE7F1 /* JYBDBankCardVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDBankCardVC.m; sourceTree = "<group>"; };
+		045165512C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDScanCardBaseVC.h; sourceTree = "<group>"; };
+		045165532C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDScanCardManageBase.h; sourceTree = "<group>"; };
+		045165542C1AC0DF00ABE7F1 /* JYBDScanCardManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDScanCardManage.m; sourceTree = "<group>"; };
+		045165552C1AC0DF00ABE7F1 /* JYBDBankCardSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDBankCardSearch.m; sourceTree = "<group>"; };
+		045165562C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDScanCardManageBase.m; sourceTree = "<group>"; };
+		045165572C1AC0DF00ABE7F1 /* JYBDBankCardSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDBankCardSearch.h; sourceTree = "<group>"; };
+		045165582C1AC0DF00ABE7F1 /* JYBDScanCardManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDScanCardManage.h; sourceTree = "<group>"; };
+		0451655A2C1AC0DF00ABE7F1 /* exbankcardcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exbankcardcore.h; sourceTree = "<group>"; };
+		0451655B2C1AC0DF00ABE7F1 /* commondef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commondef.h; sourceTree = "<group>"; };
+		0451655C2C1AC0DF00ABE7F1 /* exbankcard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exbankcard.h; sourceTree = "<group>"; };
+		0451655D2C1AC0DF00ABE7F1 /* excards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = excards.h; sourceTree = "<group>"; };
+		0451655E2C1AC0DF00ABE7F1 /* BankCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BankCard.h; sourceTree = "<group>"; };
+		045165602C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDBankCardInfo.m; sourceTree = "<group>"; };
+		045165612C1AC0DF00ABE7F1 /* JYBDCardIDInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDCardIDInfo.m; sourceTree = "<group>"; };
+		045165622C1AC0DF00ABE7F1 /* JYBDBankCardInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDBankCardInfo.h; sourceTree = "<group>"; };
+		045165632C1AC0DF00ABE7F1 /* JYBDCardIDInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDCardIDInfo.h; sourceTree = "<group>"; };
+		045165652C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JYBDNewFormeScaningV.m; sourceTree = "<group>"; };
+		045165662C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYBDNewFormeScaningV.h; sourceTree = "<group>"; };
+		045165682C1AC0DF00ABE7F1 /* libexidcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexidcardios.a; sourceTree = "<group>"; };
+		045165692C1AC0DF00ABE7F1 /* libexbankcardios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libexbankcardios.a; sourceTree = "<group>"; };
+		0451656A2C1AC0DF00ABE7F1 /* libbexbankcard.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbexbankcard.a; sourceTree = "<group>"; };
+		0451656C2C1AC0DF00ABE7F1 /* IDCardRectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCardRectManager.m; sourceTree = "<group>"; };
+		0451656D2C1AC0DF00ABE7F1 /* IDCardRectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCardRectManager.h; sourceTree = "<group>"; };
+		0451656F2C1AC0DF00ABE7F1 /* zocr0.lib */ = {isa = PBXFileReference; lastKnownFileType = file; path = zocr0.lib; sourceTree = "<group>"; };
+		045165712C1AC0DF00ABE7F1 /* scaningline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningline@2x.png"; sourceTree = "<group>"; };
+		045165722C1AC0DF00ABE7F1 /* scaningline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningline@3x.png"; sourceTree = "<group>"; };
+		045165732C1AC0DF00ABE7F1 /* idcard_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idcard_back.png; sourceTree = "<group>"; };
+		045165742C1AC0DF00ABE7F1 /* flashlightscan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flashlightscan@3x.png"; sourceTree = "<group>"; };
+		045165752C1AC0DF00ABE7F1 /* flashlightscan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flashlightscan@2x.png"; sourceTree = "<group>"; };
+		045165762C1AC0DF00ABE7F1 /* flashlightscan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flashlightscan.png; sourceTree = "<group>"; };
+		045165772C1AC0DF00ABE7F1 /* scaningbgimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scaningbgimage.png; sourceTree = "<group>"; };
+		045165782C1AC0DF00ABE7F1 /* scaningbgimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningbgimage@2x.png"; sourceTree = "<group>"; };
+		045165792C1AC0DF00ABE7F1 /* scaningbgimage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningbgimage@3x.png"; sourceTree = "<group>"; };
+		0451657A2C1AC0DF00ABE7F1 /* scaningline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scaningline.png; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +315,7 @@
 		049BDFE32C19981A00C46D6D /* HomeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeManager.swift; sourceTree = "<group>"; };
 		049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDepositInfo.swift; sourceTree = "<group>"; };
 		049BDFE72C199FAD00C46D6D /* MainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManager.swift; sourceTree = "<group>"; };
+		04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRpResponse.swift; sourceTree = "<group>"; };
 		04BE42982C118813002B78EA /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		04BE429A2C118F0F002B78EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCodeManager.swift; sourceTree = "<group>"; };
@@ -209,6 +372,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				045165092C1A9F6300ABE7F1 /* CoreFoundation.framework in Frameworks */,
+				045164FB2C1A9ECD00ABE7F1 /* DTFIdentityManager.framework in Frameworks */,
+				0451651E2C1A9FDE00ABE7F1 /* CFNetwork.framework in Frameworks */,
+				045165972C1AC7E000ABE7F1 /* libexbankcardios.a in Frameworks */,
+				045164F02C1A9ECD00ABE7F1 /* DTFUtility.framework in Frameworks */,
+				0451650F2C1A9F7F00ABE7F1 /* CoreMedia.framework in Frameworks */,
+				045164FA2C1A9ECD00ABE7F1 /* faceguard.framework in Frameworks */,
+				0451652A2C1AA04D00ABE7F1 /* libc++.tbd in Frameworks */,
+				045164F42C1A9ECD00ABE7F1 /* OCRDetectSDKForTech.framework in Frameworks */,
+				045165282C1AA03A00ABE7F1 /* libz.tbd in Frameworks */,
+				045165262C1AA02300ABE7F1 /* libresolv.tbd in Frameworks */,
+				045165252C1AA00100ABE7F1 /* ReplayKit.framework in Frameworks */,
+				045164F92C1A9ECD00ABE7F1 /* AliyunFaceAuthFacade.framework in Frameworks */,
+				045165112C1A9F8800ABE7F1 /* CoreMotion.framework in Frameworks */,
+				045165032C1A9F4800ABE7F1 /* AssetsLibrary.framework in Frameworks */,
+				045164F22C1A9ECD00ABE7F1 /* MultiFactorFacade.framework in Frameworks */,
+				045165232C1A9FFA00ABE7F1 /* AdSupport.framework in Frameworks */,
+				045165012C1A9F3E00ABE7F1 /* SystemConfiguration.framework in Frameworks */,
+				045164F72C1A9ECD00ABE7F1 /* ToygerService.framework in Frameworks */,
+				045165272C1AA03A00ABE7F1 /* libz.1.2.8.tbd in Frameworks */,
+				045165202C1A9FE900ABE7F1 /* MobileCoreServices.framework in Frameworks */,
+				045165132C1A9F9300ABE7F1 /* AVFoundation.framework in Frameworks */,
+				045164F62C1A9ECD00ABE7F1 /* ToygerNative.framework in Frameworks */,
+				0451652B2C1AA04D00ABE7F1 /* libc++abi.tbd in Frameworks */,
+				045164F32C1A9ECD00ABE7F1 /* DTFNFCIdentityManager.framework in Frameworks */,
+				045164F12C1A9ECD00ABE7F1 /* APPSecuritySDK.framework in Frameworks */,
+				045165962C1AC7E000ABE7F1 /* libbexbankcard.a in Frameworks */,
+				045164FD2C1A9F2300ABE7F1 /* CoreGraphics.framework in Frameworks */,
+				045164F82C1A9ECD00ABE7F1 /* BioAuthEngine.framework in Frameworks */,
+				045164FF2C1A9F3500ABE7F1 /* Accelerate.framework in Frameworks */,
+				045165072C1A9F5C00ABE7F1 /* QuartzCore.framework in Frameworks */,
+				045164F52C1A9ECD00ABE7F1 /* APBToygerFacade.framework in Frameworks */,
+				0451650D2C1A9F7400ABE7F1 /* ImageIO.framework in Frameworks */,
+				045165292C1AA04D00ABE7F1 /* libc++.1.tbd in Frameworks */,
+				0451650B2C1A9F6A00ABE7F1 /* CoreLocation.framework in Frameworks */,
+				0451651C2C1A9FD600ABE7F1 /* AudioToolbox.framework in Frameworks */,
+				045165052C1A9F5400ABE7F1 /* CoreTelephony.framework in Frameworks */,
+				045165152C1A9F9E00ABE7F1 /* WebKit.framework in Frameworks */,
 				54DAC2B9DB9B7B0ACD0DECA2 /* Pods_hfpower.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,6 +488,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				045165382C1AA38F00ABE7F1 /* RealName */,
 				04777D722C19B96F0025ACEC /* Guide */,
 				043DEC8C2C096762003FD6AD /* Cabinet */,
 				043DEC7E2C085468003FD6AD /* Home */,
@@ -628,8 +830,191 @@
 				04EBBAFB2C18543200AFD14B /* BatteryDepositResponse.swift */,
 				04EBBAFD2C1858B700AFD14B /* ActivityListResponse.swift */,
 				04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */,
+				04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		045165382C1AA38F00ABE7F1 /* RealName */ = {
+			isa = PBXGroup;
+			children = (
+				0451653B2C1AA3B000ABE7F1 /* Views */,
+				0451653A2C1AA3A400ABE7F1 /* Controllers */,
+				045165392C1AA39D00ABE7F1 /* Models */,
+			);
+			path = RealName;
+			sourceTree = "<group>";
+		};
+		045165392C1AA39D00ABE7F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0451653A2C1AA3A400ABE7F1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0451653C2C1AA40100ABE7F1 /* RealNameAuthViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0451653B2C1AA3B000ABE7F1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0451653E2C1AA4E900ABE7F1 /* HFIDCardIdentifyView.swift */,
+				045165402C1AA5B700ABE7F1 /* HFAuthNameView.swift */,
+				045165422C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		045165442C1AC0DF00ABE7F1 /* JYBD_IDCardRecognition */ = {
+			isa = PBXGroup;
+			children = (
+				045165452C1AC0DF00ABE7F1 /* Classes */,
+				0451656E2C1AC0DF00ABE7F1 /* dicts */,
+				045165702C1AC0DF00ABE7F1 /* Resources */,
+			);
+			name = JYBD_IDCardRecognition;
+			path = hfpower/Tools/JYBD_IDCardRecognition;
+			sourceTree = SOURCE_ROOT;
+		};
+		045165452C1AC0DF00ABE7F1 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				045165462C1AC0DF00ABE7F1 /* Category */,
+				0451654B2C1AC0DF00ABE7F1 /* Controller */,
+				045165522C1AC0DF00ABE7F1 /* JYBD_OCR_Bank */,
+				045165592C1AC0DF00ABE7F1 /* libexidcard */,
+				0451655F2C1AC0DF00ABE7F1 /* Model */,
+				045165642C1AC0DF00ABE7F1 /* View */,
+				045165672C1AC0DF00ABE7F1 /* exbankcardcore */,
+				0451656B2C1AC0DF00ABE7F1 /* Tool */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		045165462C1AC0DF00ABE7F1 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				045165472C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.h */,
+				045165482C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m */,
+				045165492C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m */,
+				0451654A2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		0451654B2C1AC0DF00ABE7F1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0451654C2C1AC0DF00ABE7F1 /* JYBDIDCardVC.h */,
+				0451654D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m */,
+				0451654E2C1AC0DF00ABE7F1 /* JYBDBankCardVC.h */,
+				0451654F2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m */,
+				045165502C1AC0DF00ABE7F1 /* JYBDBankCardVC.m */,
+				045165512C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.h */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		045165522C1AC0DF00ABE7F1 /* JYBD_OCR_Bank */ = {
+			isa = PBXGroup;
+			children = (
+				045165532C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.h */,
+				045165542C1AC0DF00ABE7F1 /* JYBDScanCardManage.m */,
+				045165552C1AC0DF00ABE7F1 /* JYBDBankCardSearch.m */,
+				045165562C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m */,
+				045165572C1AC0DF00ABE7F1 /* JYBDBankCardSearch.h */,
+				045165582C1AC0DF00ABE7F1 /* JYBDScanCardManage.h */,
+			);
+			path = JYBD_OCR_Bank;
+			sourceTree = "<group>";
+		};
+		045165592C1AC0DF00ABE7F1 /* libexidcard */ = {
+			isa = PBXGroup;
+			children = (
+				0451655A2C1AC0DF00ABE7F1 /* exbankcardcore.h */,
+				0451655B2C1AC0DF00ABE7F1 /* commondef.h */,
+				0451655C2C1AC0DF00ABE7F1 /* exbankcard.h */,
+				0451655D2C1AC0DF00ABE7F1 /* excards.h */,
+				0451655E2C1AC0DF00ABE7F1 /* BankCard.h */,
+			);
+			path = libexidcard;
+			sourceTree = "<group>";
+		};
+		0451655F2C1AC0DF00ABE7F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				045165602C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m */,
+				045165612C1AC0DF00ABE7F1 /* JYBDCardIDInfo.m */,
+				045165622C1AC0DF00ABE7F1 /* JYBDBankCardInfo.h */,
+				045165632C1AC0DF00ABE7F1 /* JYBDCardIDInfo.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		045165642C1AC0DF00ABE7F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				045165652C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m */,
+				045165662C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		045165672C1AC0DF00ABE7F1 /* exbankcardcore */ = {
+			isa = PBXGroup;
+			children = (
+				045165682C1AC0DF00ABE7F1 /* libexidcardios.a */,
+				045165692C1AC0DF00ABE7F1 /* libexbankcardios.a */,
+				0451656A2C1AC0DF00ABE7F1 /* libbexbankcard.a */,
+			);
+			path = exbankcardcore;
+			sourceTree = "<group>";
+		};
+		0451656B2C1AC0DF00ABE7F1 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				0451656C2C1AC0DF00ABE7F1 /* IDCardRectManager.m */,
+				0451656D2C1AC0DF00ABE7F1 /* IDCardRectManager.h */,
+			);
+			path = Tool;
+			sourceTree = "<group>";
+		};
+		0451656E2C1AC0DF00ABE7F1 /* dicts */ = {
+			isa = PBXGroup;
+			children = (
+				0451656F2C1AC0DF00ABE7F1 /* zocr0.lib */,
+			);
+			path = dicts;
+			sourceTree = "<group>";
+		};
+		045165702C1AC0DF00ABE7F1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				045165712C1AC0DF00ABE7F1 /* scaningline@2x.png */,
+				045165722C1AC0DF00ABE7F1 /* scaningline@3x.png */,
+				045165732C1AC0DF00ABE7F1 /* idcard_back.png */,
+				045165742C1AC0DF00ABE7F1 /* flashlightscan@3x.png */,
+				045165752C1AC0DF00ABE7F1 /* flashlightscan@2x.png */,
+				045165762C1AC0DF00ABE7F1 /* flashlightscan.png */,
+				045165772C1AC0DF00ABE7F1 /* scaningbgimage.png */,
+				045165782C1AC0DF00ABE7F1 /* scaningbgimage@2x.png */,
+				045165792C1AC0DF00ABE7F1 /* scaningbgimage@3x.png */,
+				0451657A2C1AC0DF00ABE7F1 /* scaningline.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		045165952C1AC0F400ABE7F1 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				045165442C1AC0DF00ABE7F1 /* JYBD_IDCardRecognition */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 		04777D722C19B96F0025ACEC /* Guide */ = {
@@ -742,8 +1127,26 @@
 		331C90B12BC6C60000BB534F = {
 			isa = PBXGroup;
 			children = (
+				045165362C1AA13500ABE7F1 /* MultiFactorFacade.bundle */,
+				045165342C1AA11400ABE7F1 /* BioAuthEngine.bundle */,
+				045165322C1AA0FC00ABE7F1 /* OCRXMedia.bundle */,
+				045165302C1AA0DA00ABE7F1 /* ToygerService.bundle */,
+				0451652D2C1AA0B400ABE7F1 /* APBToygerFacade.bundle */,
+				0451652C2C1AA0B300ABE7F1 /* APBToygerFacadeSuitable.bundle */,
 				331C90BC2BC6C60000BB534F /* hfpower */,
 				331C90BB2BC6C60000BB534F /* Products */,
+				045164ED2C1A9ECB00ABE7F1 /* AliyunFaceAuthFacade.framework */,
+				045164E92C1A9EC900ABE7F1 /* APBToygerFacade.framework */,
+				045164E52C1A9EC600ABE7F1 /* APPSecuritySDK.framework */,
+				045164EC2C1A9ECA00ABE7F1 /* BioAuthEngine.framework */,
+				045164EF2C1A9ECD00ABE7F1 /* DTFIdentityManager.framework */,
+				045164E72C1A9EC700ABE7F1 /* DTFNFCIdentityManager.framework */,
+				045164E42C1A9EC500ABE7F1 /* DTFUtility.framework */,
+				045164EE2C1A9ECC00ABE7F1 /* faceguard.framework */,
+				045164E62C1A9EC700ABE7F1 /* MultiFactorFacade.framework */,
+				045164E82C1A9EC800ABE7F1 /* OCRDetectSDKForTech.framework */,
+				045164EA2C1A9EC900ABE7F1 /* ToygerNative.framework */,
+				045164EB2C1A9ECA00ABE7F1 /* ToygerService.framework */,
 				BCF53446EBC580E60CFC44E9 /* Pods */,
 				FD82ADF64339628FB6CF6019 /* Frameworks */,
 			);
@@ -760,6 +1163,7 @@
 		331C90BC2BC6C60000BB534F /* hfpower */ = {
 			isa = PBXGroup;
 			children = (
+				045165952C1AC0F400ABE7F1 /* Tools */,
 				0415AF1A2BC9155D00E9290D /* Modules */,
 				0415AF192BC914DD00E9290D /* Resources */,
 				0415AF182BC8E50F00E9290D /* Extensions */,
@@ -771,6 +1175,7 @@
 				331C90C62BC6C60100BB534F /* Assets.xcassets */,
 				331C90C82BC6C60100BB534F /* LaunchScreen.storyboard */,
 				331C90CB2BC6C60100BB534F /* Info.plist */,
+				045164E32C1A9C5600ABE7F1 /* SwiftiOS-Bridging-Header.h */,
 			);
 			path = hfpower;
 			sourceTree = "<group>";
@@ -787,6 +1192,30 @@
 		FD82ADF64339628FB6CF6019 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				045165242C1AA00100ABE7F1 /* ReplayKit.framework */,
+				045165222C1A9FFA00ABE7F1 /* AdSupport.framework */,
+				045165212C1A9FF100ABE7F1 /* libz.1.2.8.tbd */,
+				0451651F2C1A9FE900ABE7F1 /* MobileCoreServices.framework */,
+				0451651D2C1A9FDE00ABE7F1 /* CFNetwork.framework */,
+				0451651B2C1A9FD600ABE7F1 /* AudioToolbox.framework */,
+				0451651A2C1A9FCA00ABE7F1 /* libc++.tbd */,
+				045165192C1A9FC400ABE7F1 /* libc++.1.tbd */,
+				045165182C1A9FBD00ABE7F1 /* libc++abi.tbd */,
+				045165172C1A9FB100ABE7F1 /* libz.tbd */,
+				045165162C1A9FA800ABE7F1 /* libresolv.tbd */,
+				045165142C1A9F9D00ABE7F1 /* WebKit.framework */,
+				045165122C1A9F9300ABE7F1 /* AVFoundation.framework */,
+				045165102C1A9F8800ABE7F1 /* CoreMotion.framework */,
+				0451650E2C1A9F7F00ABE7F1 /* CoreMedia.framework */,
+				0451650C2C1A9F7400ABE7F1 /* ImageIO.framework */,
+				0451650A2C1A9F6A00ABE7F1 /* CoreLocation.framework */,
+				045165082C1A9F6300ABE7F1 /* CoreFoundation.framework */,
+				045165062C1A9F5C00ABE7F1 /* QuartzCore.framework */,
+				045165042C1A9F5400ABE7F1 /* CoreTelephony.framework */,
+				045165022C1A9F4800ABE7F1 /* AssetsLibrary.framework */,
+				045165002C1A9F3E00ABE7F1 /* SystemConfiguration.framework */,
+				045164FE2C1A9F3500ABE7F1 /* Accelerate.framework */,
+				045164FC2C1A9F2300ABE7F1 /* CoreGraphics.framework */,
 				B9B1EC9728C1917EDB97E64F /* Pods_hfpower.framework */,
 			);
 			name = Frameworks;
@@ -852,9 +1281,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				045165372C1AA13500ABE7F1 /* MultiFactorFacade.bundle in Resources */,
+				045165352C1AA11400ABE7F1 /* BioAuthEngine.bundle in Resources */,
+				045165912C1AC0E000ABE7F1 /* scaningbgimage.png in Resources */,
+				045165332C1AA0FC00ABE7F1 /* OCRXMedia.bundle in Resources */,
+				045165312C1AA0DA00ABE7F1 /* ToygerService.bundle in Resources */,
+				0451652E2C1AA0B400ABE7F1 /* APBToygerFacadeSuitable.bundle in Resources */,
+				0451652F2C1AA0B400ABE7F1 /* APBToygerFacade.bundle in Resources */,
+				0451658B2C1AC0E000ABE7F1 /* scaningline@2x.png in Resources */,
 				331C90C72BC6C60100BB534F /* Assets.xcassets in Resources */,
+				045165902C1AC0E000ABE7F1 /* flashlightscan.png in Resources */,
+				045165922C1AC0E000ABE7F1 /* scaningbgimage@2x.png in Resources */,
+				0451658C2C1AC0E000ABE7F1 /* scaningline@3x.png in Resources */,
+				0451658E2C1AC0E000ABE7F1 /* flashlightscan@3x.png in Resources */,
 				331C90CA2BC6C60100BB534F /* Base in Resources */,
 				04BE42A12C11C514002B78EA /* area.json in Resources */,
+				0451658D2C1AC0E000ABE7F1 /* idcard_back.png in Resources */,
+				0451658F2C1AC0E000ABE7F1 /* flashlightscan@2x.png in Resources */,
+				0451658A2C1AC0E000ABE7F1 /* zocr0.lib in Resources */,
+				045165942C1AC0E000ABE7F1 /* scaningline.png in Resources */,
+				045165932C1AC0E000ABE7F1 /* scaningbgimage@3x.png in Resources */,
 				331C90C52BC6C60000BB534F /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -913,13 +1359,17 @@
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */,
 				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
+				0451657F2C1AC0DF00ABE7F1 /* JYBDBankCardVC.m in Sources */,
+				04A5E5172C1AD53E00787551 /* MemberRpResponse.swift in Sources */,
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
+				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
+				045165892C1AC0E000ABE7F1 /* IDCardRectManager.m in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
 				049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */,
@@ -928,14 +1378,17 @@
 				04BE42AA2C11D1EA002B78EA /* CityChooseViewCell.swift in Sources */,
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
 				0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */,
+				0451653D2C1AA40100ABE7F1 /* RealNameAuthViewController.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
 				04BE429F2C11C4BC002B78EA /* CityCodeHelper.swift in Sources */,
+				045165432C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift in Sources */,
 				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
 				0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */,
 				04EBBAFE2C1858B700AFD14B /* ActivityListResponse.swift in Sources */,
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
 				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
+				045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
@@ -943,6 +1396,7 @@
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
 				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
+				045165832C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m in Sources */,
 				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
 				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
@@ -950,6 +1404,7 @@
 				0443B9EA2C10414100834069 /* TokenManager.swift in Sources */,
 				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
 				04EBBAFA2C18202F00AFD14B /* BatteryListResponse.swift in Sources */,
+				045165802C1AC0DF00ABE7F1 /* JYBDScanCardManage.m in Sources */,
 				04EBBB082C186F8900AFD14B /* CabinetListResponse.swift in Sources */,
 				0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */,
 				04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */,
@@ -968,35 +1423,43 @@
 				331C90C22BC6C60000BB534F /* ViewController.swift in Sources */,
 				043DEC912C0971F9003FD6AD /* CabinetListViewCell.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
+				0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */,
 				04FFEE372C00975B00939B46 /* LoginVCodeInputView.swift in Sources */,
 				0415AF3F2BCCD97400E9290D /* BatteryDepositAPI.swift in Sources */,
 				04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */,
+				0451653F2C1AA4E900ABE7F1 /* HFIDCardIdentifyView.swift in Sources */,
 				04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */,
 				04FFEE392C0097CE00939B46 /* LoginInviteCodeInputView.swift in Sources */,
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
+				045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */,
 				04EBBB042C185D1300AFD14B /* BatteryDetail.swift in Sources */,
 				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
+				0451657D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m in Sources */,
 				043DEC892C089930003FD6AD /* SearchCabinetListViewController.swift in Sources */,
 				043DEC872C085C3F003FD6AD /* BatteryOfflineView.swift in Sources */,
 				04224DA92C09D37A0087066F /* CabinetStatisticBatteryListView.swift in Sources */,
 				04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */,
 				04FFEE4C2C05AA1400939B46 /* NeedLoginView.swift in Sources */,
+				045165812C1AC0DF00ABE7F1 /* JYBDBankCardSearch.m in Sources */,
 				043DEC7D2C085253003FD6AD /* MapViewController.swift in Sources */,
 				331C90BE2BC6C60000BB534F /* AppDelegate.swift in Sources */,
 				043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */,
 				0415AF432BCCDCFE00E9290D /* MemberAPI.swift in Sources */,
 				04001C4C2C071FF6000A040F /* CustomerServiceViewController.swift in Sources */,
+				0451657B2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m in Sources */,
 				04BE42AD2C11D583002B78EA /* SectionIndexViewItemIndicator.swift in Sources */,
 				04BE42B42C12A198002B78EA /* AccountManager.swift in Sources */,
+				045165842C1AC0DF00ABE7F1 /* JYBDCardIDInfo.m in Sources */,
 				04001C502C073420000A040F /* MapFeatureView.swift in Sources */,
 				04FFEE352C008CC500939B46 /* LoginPasswordInputView.swift in Sources */,
 				04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */,
 				0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
+				045165412C1AA5B700ABE7F1 /* HFAuthNameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,26 +1613,101 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6TN5SJ8W78;
+				ENABLE_TESTABILITY = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hfpower/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "核蜂换电";
+				INFOPLIST_KEY_CFBundleDisplayName = "核蜂动力";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机权限进行扫描二维码和上传头像图片功能";
+				INFOPLIST_KEY_NSContactsUsageDescription = "需要访问您的通讯录";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "此App将可访问位置来获取附近的电池柜获取相机权限上传头像功能";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "需要获取个人照片进行编辑是否允许此App获取相册权限？";
+				INFOPLIST_KEY_NSLocationUsageDescription = "需要获取个人位置进行显示电池柜是否允许此App获取你的定位？";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要获取个人位置进行显示电池柜是否允许此App获取你的定位？";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问您的麦克风";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要获取个人位置进行显示电池柜是否允许此App获取你的定位？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hfpower/JYBD_IDCardRecognition/Classes/exbankcardcore",
+					"$(PROJECT_DIR)/hfpower/Tools/JYBD_IDCardRecognition/Classes/exbankcardcore",
+				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"swiftCoreGraphics\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"ESTabBarController_swift\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"JXSegmentedView\"",
+					"-framework",
+					"\"KakaJSON\"",
+					"-framework",
+					"\"LookinServer\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"Photos\"",
+					"-framework",
+					"\"PhotosUI\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SDCAlertView\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SwiftyUserDefaults\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"YNDropDownMenu\"",
+					"-framework",
+					"\"ZLPhotoBrowser\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lzh.hfpower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "hfpower/SwiftiOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1185,25 +1723,97 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6TN5SJ8W78;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = hfpower/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "核蜂换电";
+				INFOPLIST_KEY_CFBundleDisplayName = "核蜂动力";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机权限进行扫描二维码和上传头像图片功能";
+				INFOPLIST_KEY_NSContactsUsageDescription = "需要访问您的通讯录";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "此App将可访问位置来获取附近的电池柜获取相机权限上传头像功能";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "需要获取个人照片进行编辑是否允许此App获取相册权限？";
+				INFOPLIST_KEY_NSLocationUsageDescription = "需要获取个人位置进行显示电池柜是否允许此App获取你的定位？";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "需要获取个人位置进行显示电池柜是否允许此App获取你的定位？";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问您的麦克风";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要获取个人位置进行显示电池柜是否允许此App获取你的定位？";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hfpower/JYBD_IDCardRecognition/Classes/exbankcardcore",
+					"$(PROJECT_DIR)/hfpower/Tools/JYBD_IDCardRecognition/Classes/exbankcardcore",
+				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"swiftCoreGraphics\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"ESTabBarController_swift\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"JXSegmentedView\"",
+					"-framework",
+					"\"KakaJSON\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"Moya\"",
+					"-framework",
+					"\"Photos\"",
+					"-framework",
+					"\"PhotosUI\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SDCAlertView\"",
+					"-framework",
+					"\"SVProgressHUD\"",
+					"-framework",
+					"\"SnapKit\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+					"-framework",
+					"\"SwiftyUserDefaults\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"YNDropDownMenu\"",
+					"-framework",
+					"\"ZLPhotoBrowser\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lzh.hfpower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "hfpower/SwiftiOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

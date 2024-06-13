@@ -7,7 +7,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-
+import AliyunFaceAuthFacade
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -42,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = .white
         self.window?.overrideUserInterfaceStyle = .light
+        AliyunFaceAuthFacade.initSDK()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

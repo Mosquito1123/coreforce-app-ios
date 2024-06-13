@@ -96,8 +96,11 @@ extension AuthAPI:APIType{
         return .successAndRedirectCodes
     }
     var appHeader:[String:String]{
-        return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
-
+        if let accessToken = TokenManager.shared.accessToken{
+            return ["createTime":Date().currentTimeString,"requestNo":"\(UInt32.requestNo)","access_token":accessToken]
+        }else{
+            return ["createTime":Date().currentTimeString,"requestNo":"\(UInt32.requestNo)"]
+        }
     }
     
     

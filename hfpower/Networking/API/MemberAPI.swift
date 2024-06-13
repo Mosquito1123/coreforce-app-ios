@@ -17,8 +17,8 @@ enum MemberAPI{
     case memberBind
     case memberMsg
     case memberMsgRead
-    case memberRpInit
-    case memberRpDescribe
+    case memberRpInit(params:[String:Any])
+    case memberRpDescribe(certifyId:String)
     case feedback
     case memberInviteCode
 
@@ -57,7 +57,19 @@ extension MemberAPI:APIType{
     
     var method: Moya.Method {
         // Define HTTP method for each endpoint if needed
-        return .get // Example: return .post for POST requests
+        switch self {
+        case .member:
+            return .get
+        case .activityList:
+            return .get
+        case .memberRpInit:
+            return .post
+        case .memberRpDescribe:
+            return .post
+        default:
+            return .post
+            
+        }
     }
 
     var task: Task {
@@ -67,6 +79,12 @@ extension MemberAPI:APIType{
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         case .activityList:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        case .memberRpInit(params:let params):
+            let mParams = ["head": appHeader,"body":params]
+            return .requestCompositeParameters(bodyParameters: mParams, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+        case .memberRpDescribe(certifyId:let certifyId):
+            let params = ["head": appHeader,"body":["certifyId":certifyId]]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             
@@ -80,8 +98,11 @@ extension MemberAPI:APIType{
         return .successAndRedirectCodes
     }
     var appHeader:[String:String]{
-        return ["createTime":Date().currentTimeString,"requestNo":"\(Int.requestNo)","access_token":TokenManager.shared.accessToken ?? ""]
-
+        if let accessToken = TokenManager.shared.accessToken{
+            return ["createTime":Date().currentTimeString,"requestNo":"\(UInt32.requestNo)","access_token":accessToken]
+        }else{
+            return ["createTime":Date().currentTimeString,"requestNo":"\(UInt32.requestNo)"]
+        }
     }
     
 }

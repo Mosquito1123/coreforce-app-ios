@@ -12,17 +12,12 @@ class MainTabBarController: ESTabBarController {
     
     // MARK: - Accessor
     var mainObservation:NSKeyValueObservation?
-    var accountObservation:NSKeyValueObservation?
     // MARK: - Subviews
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        accountObservation = AccountManager.shared.observe(\.phoneNum, options: [.initial,.old,.new], changeHandler: { accountManager, change in
-            if let newName = change.newValue,let x = newName {
-                debugPrint(x)
-            }
-        })
+        
         mainObservation=MainManager.shared.observe(\.type, options: [.old,.new,.initial], changeHandler: { homeManager, change in
             if let temp = change.newValue,let type = temp {
                 let type = MainScanItemType(rawValue: type.intValue)
@@ -62,7 +57,6 @@ class MainTabBarController: ESTabBarController {
     }
     deinit {
         mainObservation?.invalidate()
-        accountObservation?.invalidate()
     }
     
 }

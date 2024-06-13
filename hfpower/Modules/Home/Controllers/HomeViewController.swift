@@ -112,6 +112,8 @@ class HomeViewController: MapViewController{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
 
                 }
+            }else{
+                self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
             }
         })
         
@@ -303,6 +305,14 @@ private extension HomeViewController {
             customerVC.hidesBottomBarWhenPushed = true
             
             self.navigationController?.pushViewController(customerVC, animated: true)
+        }
+        needAuthView.authAction = { sender in
+            let realNameAuthVC = RealNameAuthViewController()
+            
+            let nav = UINavigationController(rootViewController: realNameAuthVC)
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .coverVertical
+            self.present(nav, animated: true)
         }
 //        headerStackView.addArrangedSubview(needLoginView)
 //        headerStackView.addArrangedSubview(needAuthView)

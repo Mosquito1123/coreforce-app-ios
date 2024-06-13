@@ -11,3 +11,9 @@ extension Int {
         return Int(arc4random())
     }
 }
+extension UInt32{
+    static var requestNo:UInt32{
+        return arc4random()
+    }
+}
+

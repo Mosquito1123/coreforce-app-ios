@@ -6,12 +6,11 @@
 //
 
 import UIKit
-typealias LoginAction = (_ sender:UIButton) -> Void
 
 class NeedLoginView: UIView {
 
     // MARK: - Accessor
-    var loginAction:LoginAction?
+    var loginAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var iconView: UIImageView = {
         let iconView = UIImageView()

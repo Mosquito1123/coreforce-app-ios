@@ -19,7 +19,6 @@ class NetworkService<R:APIType> {
         let requestKey = target.path
         
         if self.ongoingRequests[requestKey] != nil {
-            debugPrint("Request already in progress")
             return
         }
         let request = self.provider?.request(target) { result in

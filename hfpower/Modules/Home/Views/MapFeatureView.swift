@@ -41,13 +41,16 @@ class MapFeatureView: UIView {
     // MARK: - Subviews
     lazy var featureButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
+        button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     // MARK: - Lifecycle
    convenience init(_ mapFeatureType:MapFeatureType?,_ mapFeatureAction:MapFeatureAction?){
-       self.init(frame:CGRect(x: 0, y: 0, width: 38, height: 38))
+       self.init()
        self.mapFeatureType = mapFeatureType
        self.mapFeatureAction = mapFeatureAction
     }
@@ -105,6 +108,8 @@ extension MapFeatureView {
 // MARK: - Action
 @objc private extension MapFeatureView {
     @objc func buttonAction(_ sender:UIButton){
+        let fb =   UIImpactFeedbackGenerator(style: .heavy)
+        fb.impactOccurred()
         self.mapFeatureAction?(sender,self.mapFeatureType)
     }
 }

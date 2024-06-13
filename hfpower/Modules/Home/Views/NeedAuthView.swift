@@ -6,12 +6,11 @@
 //
 
 import UIKit
-typealias AuthAction = (_ sender:UIButton) -> Void
 
 class NeedAuthView: UIView {
 
     // MARK: - Accessor
-    var authAction:AuthAction?
+    var authAction:ButtonActionBlock?
 
     // MARK: - Subviews
     lazy var iconView: UIImageView = {

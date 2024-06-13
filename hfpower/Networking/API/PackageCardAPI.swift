@@ -51,4 +51,11 @@ extension PackageCardAPI: APIType {
         // Define headers for each endpoint if needed
         return nil
     }
+    var appHeader:[String:String]{
+        if let accessToken = TokenManager.shared.accessToken{
+            return ["createTime":Date().currentTimeString,"requestNo":"\(UInt32.requestNo)","access_token":accessToken]
+        }else{
+            return ["createTime":Date().currentTimeString,"requestNo":"\(UInt32.requestNo)"]
+        }
+    }
 }
