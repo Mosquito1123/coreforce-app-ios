@@ -205,7 +205,7 @@ private extension RealNameAuthViewController {
             p["certName"] = name
             p["certNo"] = number
         }
-        NetworkService<MemberAPI>().request(.memberRpInit(params: p), model: MemberRpResponse.self) { result in
+        NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpInit(params: p)) { result in
             switch result {
             case.success(let response):
                 var extParams: [String: Any] = [
@@ -221,7 +221,7 @@ private extension RealNameAuthViewController {
                     switch zimResponse.code {
                         
                     case .ZIMResponseSuccess:
-                        NetworkService<MemberAPI>().request(.memberRpDescribe(certifyId: response?.certifyId ?? ""), model: MemberRpResponse.self) { result in
+                        NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpDescribe(certifyId: response?.certifyId ?? "")) { result in
                             switch result{
                             case .success:
                                 AccountManager.shared.isAuth = 1

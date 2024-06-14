@@ -139,8 +139,7 @@ class HomeViewController: MapViewController{
         
     }
     func fetchActivities(){
-        
-        NetworkService<MemberAPI>().request(.activityList, model: ActivityListResponse<ActivityResponse>.self) { result in
+        NetworkService<MemberAPI,ActivityListResponse<ActivityResponse>>().request(.activityList) { result in
             switch result {
             case .success(let response):
                 debugPrint(response)
@@ -151,7 +150,7 @@ class HomeViewController: MapViewController{
         }
     }
     func fetchAuthData(){
-        NetworkService<MemberAPI>().request(.member, model: MemberResponse.self) { result in
+        NetworkService<MemberAPI,MemberResponse>().request(.member) { result in
             switch result {
             case.success(let response):
                 
@@ -166,7 +165,7 @@ class HomeViewController: MapViewController{
     func fetchBikeData(){
         
         
-        NetworkService<BusinessAPI>().request(.locomotiveList, model: DataListResponse<LocomotiveSummary>.self) { result in
+        NetworkService<BusinessAPI,DataListResponse<LocomotiveSummary>>().request(.locomotiveList) { result in
             switch result {
             case.success(let response):
                 
@@ -191,7 +190,7 @@ class HomeViewController: MapViewController{
         dispatchGroup.enter()
         
         concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
-            NetworkService<BusinessAPI>().request(.batteryList, model: DataListResponse<BatterySummary>.self) { result in
+            NetworkService<BusinessAPI,DataListResponse<BatterySummary>>().request(.batteryList) { result in
                 dispatchGroup.leave()
 
                 switch result {
@@ -215,7 +214,7 @@ class HomeViewController: MapViewController{
         dispatchGroup.enter()
         concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             // 模拟耗时任务
-            NetworkService<BatteryDepositAPI>().request(.batteryTempOrderInfo, model: BatteryDepositResponse.self) { result in
+            NetworkService<BatteryDepositAPI,BatteryDepositResponse>().request(.batteryTempOrderInfo) { result in
                 dispatchGroup.leave()
 
                 switch result {

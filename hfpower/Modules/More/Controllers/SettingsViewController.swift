@@ -12,6 +12,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Accessor
     var hasLogoutBlock:(()->Void)?
     var items = [String]()
+    private var debounce:Debounce?
 
     // MARK: - Subviews
     lazy var tableView: UITableView = {
@@ -31,6 +32,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.debounce  = Debounce(interval: 0.5)
         self.view.backgroundColor = UIColor.white
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         setupNavbar()
@@ -79,7 +81,10 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if self.isViewLoaded{
-            logoutBehavior()
+            self.debounce?.call {
+                self.logoutBehavior()
+
+            }
         }
     }
     
@@ -89,7 +94,7 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
 // MARK: - Request
 private extension SettingsViewController {
     func logoutBehavior(){
-        NetworkService<AuthAPI>().request(.logout, model: BlankResponse.self) { result in
+        NetworkService<AuthAPI,BlankResponse>().request(.logout) { result in
             switch result {
             case.success:
                 TokenManager.shared.clearTokens()

@@ -120,7 +120,7 @@ extension LoginVCodeInputView :UITextFieldDelegate{
     }
     @objc func sendVCode(_ sender:UIButton){
         if self.isValidPhoneNumber(phoneNum ?? ""){
-            NetworkService<AuthAPI>().request(.sendSMSCode(phoneNumber: phoneNum ?? ""), model: BlankResponse.self) { result in
+            NetworkService<AuthAPI,BlankResponse>().request(.sendSMSCode(phoneNumber: phoneNum ?? "")) { result in
                 switch result{
                 case .success(_):
                     self.sendCodeAction?(sender)

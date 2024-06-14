@@ -101,7 +101,7 @@ private extension MapViewController {
 extension MapViewController:CLLocationManagerDelegate{
     func loadCabinetListData(_ center:CLLocationCoordinate2D){
         if let _ = self.mapView.userLocation.location{
-            NetworkService<BusinessAPI>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: center.longitude, lat:center.latitude), model:CabinetListResponse.self ) { result in
+            NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: center.longitude, lat:center.latitude)) { result in
                 switch result{
                 case .success(let response):
                     var tempAnnotations =  self.mapView.annotations

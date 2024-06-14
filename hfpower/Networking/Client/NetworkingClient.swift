@@ -39,21 +39,7 @@ final class NetworkingClient {
         return nil
     }
    
-    class RetryPolicy: RequestInterceptor {
-        let retryLimit = 3 // 最大重试次数
-        let retryDelay: TimeInterval = 1 // 重试延迟时间
-        
-        func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
-            let response = request.task?.response as? HTTPURLResponse
-            
-            // 仅在服务器错误 (5xx) 或网络错误时重试
-            if let response = response, (500...599).contains(response.statusCode), request.retryCount < retryLimit {
-                completion(.retryWithDelay(retryDelay))
-            } else {
-                completion(.doNotRetry)
-            }
-        }
-    }
+    
 
    
     func createProvider<T: APIType>(forTarget target: T.Type) -> MoyaProvider<T> {

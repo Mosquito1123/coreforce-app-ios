@@ -268,7 +268,7 @@ private extension LoginPhoneViewController {
             
         }
 
-        NetworkService<AuthAPI>().request(.loginWithSMS(phoneNumber: phoneNum ?? "", code:vCode ?? "",inviteCode: inviteCode,type: "pin"), model: TokenResponse.self) { result in
+        NetworkService<AuthAPI,TokenResponse>().request(.loginWithSMS(phoneNumber: phoneNum ?? "", code:vCode ?? "",inviteCode: inviteCode,type: "pin")) { result in
             switch result {
             case .success(let response):
                 TokenManager.shared.accessToken = response?.accessToken

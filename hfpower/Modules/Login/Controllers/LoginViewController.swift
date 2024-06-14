@@ -263,7 +263,7 @@ private extension LoginViewController {
 // MARK: - Action
 @objc private extension LoginViewController {
     private func loginBehavior(){
-        NetworkService<AuthAPI>().request(.login(username: accountInputView.phoneNumberTextField.text ?? "", password: passwordInputView.passwordTextField.text ?? "", type: "pw"), model:TokenResponse.self) { result in
+        NetworkService<AuthAPI,TokenResponse>().request(.login(username: accountInputView.phoneNumberTextField.text ?? "", password: passwordInputView.passwordTextField.text ?? "", type: "pw")) { result in
             switch result{
             case .success(let response):
                 TokenManager.shared.accessToken = response?.accessToken
