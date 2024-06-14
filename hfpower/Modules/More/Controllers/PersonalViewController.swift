@@ -54,7 +54,7 @@ class PersonalViewController: UIViewController {
 private extension PersonalViewController {
     
     private func setupNavbar() {
-        self.title = "个人中心"
+        self.title = "我的"
     }
    
     private func setupSubviews() {

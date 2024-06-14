@@ -142,7 +142,7 @@ class HomeViewController: MapViewController{
         NetworkService<MemberAPI,ActivityListResponse<ActivityResponse>>().request(.activityList) { result in
             switch result {
             case .success(let response):
-                debugPrint(response)
+                ActivityListManager.shared.activityList = response?.inviteList
             case .failure(let error):
                 debugPrint(error)
                 
@@ -183,7 +183,7 @@ class HomeViewController: MapViewController{
         let dispatchGroup = DispatchGroup()
         
         // 创建一个并发队列
-        let concurrentQueue = DispatchQueue.global(qos: .background)
+        let concurrentQueue = DispatchQueue(label: "org.alamofire.session.home")
         
         
         // 启动第一个异步任务

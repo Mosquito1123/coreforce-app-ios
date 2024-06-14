@@ -22,6 +22,7 @@ class NetworkService<R:APIType,T: Convertible> {
         configuration.httpMaximumConnectionsPerHost = 5
         configuration.httpShouldUsePipelining = true
         configuration.requestCachePolicy = .useProtocolCachePolicy
+        configuration.allowsConstrainedNetworkAccess = true
         if #available(iOS 13.0, *) {
             configuration.allowsExpensiveNetworkAccess = true
         }
@@ -31,7 +32,6 @@ class NetworkService<R:APIType,T: Convertible> {
         let sessionWithRetry = Session(configuration: configuration)
         provider = MoyaProvider<MultiTarget>(session: sessionWithRetry,plugins: [loadingPlugin,networkLoggerPlugin],trackInflights: true)
     }
-    private var ongoingRequests: [String: Cancellable] = [:]
     
     func request(_ target: R, completion: @escaping (Result<T?, Error>) -> Void) {
         let requestKey = target.path
@@ -43,11 +43,8 @@ class NetworkService<R:APIType,T: Convertible> {
             
             
         }
-        if self.ongoingRequests[requestKey] != nil {
-            return
-        }
+        
         let request = self.provider?.request(MultiTarget(target),callbackQueue: DispatchQueue.main) { result in
-            self.ongoingRequests.removeValue(forKey: requestKey)
             if needHUD == true{
                 SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
                 
@@ -88,7 +85,6 @@ class NetworkService<R:APIType,T: Convertible> {
                 completion(.failure(error))
             }
         }
-        self.ongoingRequests[requestKey] = request
         
         
         

@@ -17,6 +17,8 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         let map = HFMapView()
         map.overrideUserInterfaceStyle = .light
         map.showsUserLocation = true
+        map.userTrackingMode = .followWithHeading
+        map.pointOfInterestFilter = .includingAll
         map.showsCompass = false
         map.userTrackingMode = .followWithHeading
         map.register(CenterAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CenterAnnotationView.self))
@@ -125,7 +127,7 @@ extension MapViewController:CLLocationManagerDelegate{
                         
                     }
                 case .failure(let error):
-                    debugPrint(error)
+                    self.showError(withStatus: error.localizedDescription)
                     
                 }
             }
