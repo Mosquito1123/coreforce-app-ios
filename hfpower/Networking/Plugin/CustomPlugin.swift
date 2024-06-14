@@ -26,7 +26,8 @@ public struct LoadingPlugin: PluginType {
             // 使用缓存的响应
             cachedRequest.cachePolicy = .returnCacheDataElseLoad
         }
-        
+        cachedRequest.addValue(TokenManager.shared.accessToken ?? "", forHTTPHeaderField: "access_token")
+        cachedRequest.addValue("keep-alive", forHTTPHeaderField: "Connection")
         return cachedRequest
     }
     

@@ -57,35 +57,35 @@ extension AuthAPI:APIType{
     var task: Task {
         switch self {
         case .sendSMSCode(let phoneNumber):
-            let params = ["body": ["phoneNum": phoneNumber], "head": appHeader] as [String : Any]
+            let params = ["body": ["phoneNum": phoneNumber]] as [String : Any]
 
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         case .login(let username, let password,let type):
             
-            let params = ["body": ["account": username, "password": password.md5,"type":type], "head": appHeader] as [String : Any]
+            let params = ["body": ["account": username, "password": password.md5,"type":type]] as [String : Any]
 
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         case .loginWithSMS(let phoneNumber, let code,let inviteCode,let type):
-            var params = ["body": ["account": phoneNumber, "password": code,"type":type], "head": appHeader] as [String : Any]
+            var params = ["body": ["account": phoneNumber, "password": code,"type":type]] as [String : Any]
             if let x = inviteCode{
                 params["inviteCode"] = x
             }
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         case .register(let phoneNumber, let inviteCode, let code,let type):
-            var params = ["body": ["account": phoneNumber, "password": code,"type":type], "head": appHeader] as [String : Any]
+            var params = ["body": ["account": phoneNumber, "password": code,"type":type]] as [String : Any]
             if let x = inviteCode{
                 params["inviteCode"] = x
             }
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         case .logout:
-            let params = ["head": appHeader,"body":[:]] as [String : Any]
-            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+            let params = ["body":[:]] as [String : Any]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         case .logoff:
-            let params = ["head": appHeader,"body":[:]] as [String : Any]
-            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+            let params = ["body":[:]] as [String : Any]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         case .refreshToken(let refreshToken):
             let params = ["refresh_token": refreshToken]
-            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         }
     }
     

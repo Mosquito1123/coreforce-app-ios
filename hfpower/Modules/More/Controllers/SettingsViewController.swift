@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.debounce  = Debounce(interval: 0.5)
+        self.debounce  = Debounce(interval: 0.2)
         self.view.backgroundColor = UIColor.white
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         setupNavbar()

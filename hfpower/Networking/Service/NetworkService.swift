@@ -10,27 +10,25 @@ import Moya
 import KakaJSON
 import SVProgressHUD
 class NetworkService<R:APIType,T: Convertible> {
-
     
-    private let provider: MoyaProvider<R>?
+    
+    private var provider: MoyaProvider<MultiTarget>?
     init() {
-        let accessTokenPlugin = HFAccessTokenPlugin.init(tokenClosure: { _ in
-            TokenManager.shared.accessToken ?? ""
-        })
+        let networkLoggerPlugin = NetworkLoggerPlugin()
         let loadingPlugin = LoadingPlugin()
         // 创建自定义的 URLSessionConfiguration
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 30 // 请求超时时间
-        configuration.timeoutIntervalForResource = 60 // 资源超时时间
-        configuration.connectionProxyDictionary = [
-            kCFProxyTypeKey:kCFProxyTypeHTTPS,
-            kCFNetworkProxiesHTTPEnable: true,
-            kCFNetworkProxiesProxyAutoConfigEnable:true
-        ]
+        configuration.shouldUseExtendedBackgroundIdleMode = true
+        configuration.httpMaximumConnectionsPerHost = 5
+        configuration.requestCachePolicy = .useProtocolCachePolicy
+        if #available(iOS 13.0, *) {
+            configuration.allowsExpensiveNetworkAccess = true
+        }
+        configuration.waitsForConnectivity = true
         // 创建带重试机制的 Session
-        let retrier = RetryPolicy()
-        let sessionWithRetry = Session(configuration: configuration, interceptor: retrier)
-        provider = MoyaProvider<R>(plugins: [accessTokenPlugin,loadingPlugin])
+        //        let retrier = RetryPolicy()
+        let sessionWithRetry = Session(configuration: configuration)
+        provider = MoyaProvider<MultiTarget>(session: sessionWithRetry,plugins: [loadingPlugin,networkLoggerPlugin],trackInflights: true)
     }
     private var ongoingRequests: [String: Cancellable] = [:]
     
@@ -38,20 +36,20 @@ class NetworkService<R:APIType,T: Convertible> {
         let requestKey = target.path
         let needHUD = target.shouldShowLoadingView
         if needHUD == true{
-                SVProgressHUD.setDefaultStyle(.dark)
-                SVProgressHUD.setMinimumDismissTimeInterval(2)
-                SVProgressHUD.show()
-                
+            SVProgressHUD.setDefaultStyle(.dark)
+            SVProgressHUD.setMinimumDismissTimeInterval(2)
+            SVProgressHUD.show()
+            
             
         }
         if self.ongoingRequests[requestKey] != nil {
             return
         }
-        let request = self.provider?.request(target,callbackQueue: DispatchQueue.main) { result in
+        let request = self.provider?.request(MultiTarget(target),callbackQueue: DispatchQueue.main) { result in
             self.ongoingRequests.removeValue(forKey: requestKey)
             if needHUD == true{
-                    SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
-                    
+                SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
+                
                 
             }
             switch result {
@@ -64,14 +62,14 @@ class NetworkService<R:APIType,T: Convertible> {
                     completion(.success(model?.body))
                 }catch let error{
                     if needHUD == true{
-                            SVProgressHUD.showError(withStatus: error.localizedDescription)
+                        SVProgressHUD.showError(withStatus: error.localizedDescription)
                         
                     }
                     completion(.failure(MoyaError.jsonMapping(response)))
-
+                    
                 }
                 
-                    
+                
                 
                 
             case .failure(let error):
