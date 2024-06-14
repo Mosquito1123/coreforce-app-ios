@@ -27,6 +27,45 @@ class MainTabBarController: ESTabBarController {
                 }
             }
         })
+        self.didHijackHandler = {
+            [weak self] tabbarController, viewController, index in
+            let fb =   UIImpactFeedbackGenerator(style: .heavy)
+            fb.impactOccurred()
+            if  AccountManager.shared.phoneNum == nil{
+                if self?.isViewLoaded == true{
+                    let loginVC = LoginViewController()
+                    let nav = UINavigationController(rootViewController: loginVC)
+                    nav.modalPresentationStyle = .fullScreen
+                    nav.modalTransitionStyle = .coverVertical
+                    self?.present(nav, animated: true, completion: {
+                        self?.showWindowError(withStatus: "请登录~~")
+                        
+                    })
+                }
+                
+                return
+            }
+            if  AccountManager.shared.isAuth != 1{
+                if self?.isViewLoaded == true{
+                    let realNameAuthVC = RealNameAuthViewController()
+                    let nav = UINavigationController(rootViewController: realNameAuthVC)
+                    nav.modalPresentationStyle = .fullScreen
+                    nav.modalTransitionStyle = .coverVertical
+                    self?.present(nav, animated: true, completion: {
+                        self?.showWindowError(withStatus: "请实名认证~~")
+                        
+                    })
+                }
+                
+                return
+            }
+            let scanVC = HFScanViewController()
+            let nav = UINavigationController(rootViewController: scanVC)
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .coverVertical
+            self?.present(nav, animated: true)
+            
+        }
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -52,7 +91,7 @@ class MainTabBarController: ESTabBarController {
         barRightArc.frame = CGRect(x: tabBar.bounds.midX + 49 - 30, y: tabBar.bounds.minY - 24 + 12, width: 64, height: 24)
         shapeLayer.addSublayer(barLeftArc)
         shapeLayer.addSublayer(barRightArc)
-
+        
         tabBar.layer.insertSublayer(shapeLayer, at: 0)
     }
     deinit {
@@ -66,9 +105,9 @@ private extension MainTabBarController {
     
     private func setupNavbar() {
         addRoundedCorners()
-
+        
     }
-   
+    
     private func setupSubviews() {
         
     }
@@ -101,17 +140,13 @@ extension MainTabBarController {
             }
             return false
         }
-        mainTabBarController.didHijackHandler = {
-            [weak mainTabBarController] tabbarController, viewController, index in
-            
-            
-        }
+        
         mainTabBarController.viewControllers = viewControllers
         mainTabBarController.title = "Main"
         let nav = UINavigationController.init(rootViewController: mainTabBarController)
         return nav
     }
-  
+    
 }
 
 // MARK: - Request

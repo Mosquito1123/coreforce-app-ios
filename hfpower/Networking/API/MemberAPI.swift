@@ -90,7 +90,14 @@ extension MemberAPI:APIType{
             
         }
     }
-    
+    var shouldShowLoadingView: Bool?{
+        switch self {
+        case .activityList:
+            return false
+        default:
+            return true
+        }
+    }
     var authorizationType: HFAuthorizationType? {
         return .bearer
     }

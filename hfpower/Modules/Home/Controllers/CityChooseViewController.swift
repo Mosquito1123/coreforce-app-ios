@@ -191,7 +191,7 @@ private extension CityChooseViewController {
 
 // MARK: - Action
 @objc private extension CityChooseViewController {
-    @objc func closeButton(_ sender:UIButton){
+    @objc func closeButton(_ sender:UIBarButtonItem){
         self.navigationController?.dismiss(animated: true)
     }
 }

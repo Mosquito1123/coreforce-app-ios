@@ -20,6 +20,7 @@ class NetworkService<R:APIType,T: Convertible> {
         let configuration = URLSessionConfiguration.default
         configuration.shouldUseExtendedBackgroundIdleMode = true
         configuration.httpMaximumConnectionsPerHost = 5
+        configuration.httpShouldUsePipelining = true
         configuration.requestCachePolicy = .useProtocolCachePolicy
         if #available(iOS 13.0, *) {
             configuration.allowsExpensiveNetworkAccess = true

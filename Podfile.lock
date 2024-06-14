@@ -17,6 +17,7 @@ PODS:
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
+  - swiftScan (1.2.1)
   - SwiftyJSON (5.0.2)
   - SwiftyUserDefaults (5.3.0)
   - YNDropDownMenu (3.1.0)
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - SDCAlertView
   - SnapKit
   - SVProgressHUD
+  - swiftScan
   - SwiftyJSON
   - SwiftyUserDefaults
   - YNDropDownMenu
@@ -54,6 +56,7 @@ SPEC REPOS:
     - SDCAlertView
     - SnapKit
     - SVProgressHUD
+    - swiftScan
     - SwiftyJSON
     - SwiftyUserDefaults
     - YNDropDownMenu
@@ -71,11 +74,12 @@ SPEC CHECKSUMS:
   SDCAlertView: cec2dd84906b1fb30490ea59f50d1666f797be6f
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
+  swiftScan: 0849e7d7c1c641384767a573ee8cb90b88d1ddd9
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   SwiftyUserDefaults: 63f80248cf5bfb3458825d9a78f2eb7e1293a040
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: 9a1d50668c51af7c6313aa6c08f40019e41e8017
+PODFILE CHECKSUM: 75d0940a08b7df5a1c6fe3c6f2323fd6c6dc0546
 
 COCOAPODS: 1.15.2

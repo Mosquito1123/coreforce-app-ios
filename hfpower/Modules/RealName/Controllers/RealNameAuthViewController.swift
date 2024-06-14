@@ -251,7 +251,7 @@ private extension RealNameAuthViewController {
             }
         }
     }
-    @objc func closeButton(_ sender:UIButton){
+    @objc func closeButton(_ sender:UIBarButtonItem){
         self.navigationController?.dismiss(animated: true)
     }
 }

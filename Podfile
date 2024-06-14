@@ -33,4 +33,5 @@ target 'hfpower' do
   pod "ESTabBarController-swift"
   pod 'SVProgressHUD'
   pod 'SDCAlertView'
+  pod 'swiftScan'
 end
