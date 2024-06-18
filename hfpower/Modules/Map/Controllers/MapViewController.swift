@@ -10,7 +10,13 @@ import MapKit
 class MapViewController: UIViewController,MKMapViewDelegate {
     
     // MARK: - Accessor
-    let manager = CLLocationManager()
+    lazy var manager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.distanceFilter = 10.0
+        manager.delegate = self
+        return manager
+    }()
     private var debounce:Debounce?
     // MARK: - Subviews
     lazy var mapView:HFMapView = {
@@ -25,6 +31,7 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         map.register(CabinetAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CabinetAnnotationView.self))
         
         map.translatesAutoresizingMaskIntoConstraints = false
+        map.delegate = self
         return map
     }()
     // MARK: - Lifecycle
@@ -32,13 +39,18 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         super.viewDidLoad()
         // Initialize debounce with a 0.5 second interval
         debounce = Debounce(interval: 0.6)
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.delegate = self
+   
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
+        manager.startUpdatingHeading()
         setupNavbar()
         setupSubviews()
         setupLayout()
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        manager.stopUpdatingHeading()
+        manager.stopUpdatingLocation()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -76,7 +88,6 @@ private extension MapViewController {
         
         
         // 设置地图的代理
-        mapView.delegate = self
         // 添加一个初始标记
         let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
         
@@ -134,24 +145,28 @@ extension MapViewController:CLLocationManagerDelegate{
         }
         
     }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            manager.stopUpdatingLocation()
-            render(location)
-            let geocoder = CLGeocoder()
-            geocoder.reverseGeocodeLocation(location) { placemarks, error in
-                if let _ = error{
-                    
-                }else{
-                    CityCodeManager.shared.placemark = placemarks?.first
-                    CityCodeManager.shared.cityName = placemarks?.first?.locality
-                    
-                    let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
-                    CityCodeManager.shared.cityCode = code
+    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
+        let userlocation = mapView.userLocation
+        if CLLocationCoordinate2DIsValid(userlocation.coordinate){
+            mapView.setCenter(userlocation.coordinate, animated: true)
+            if let location = userlocation.location {
+                let geocoder = CLGeocoder()
+                geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                    if let _ = error{
+                        
+                    }else{
+                        CityCodeManager.shared.placemark = placemarks?.first
+                        CityCodeManager.shared.cityName = placemarks?.first?.locality
+                        
+                        let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
+                        CityCodeManager.shared.cityCode = code
+                    }
                 }
             }
+            
         }
     }
+   
     func moveMap(){
         let cityName = CityCodeManager.shared.cityName
         if let placemark = CityCodeManager.shared.placemark,placemark.locality == cityName,let location = placemark.location{
@@ -177,11 +192,12 @@ extension MapViewController:CLLocationManagerDelegate{
         mapView.setRegion(coordinateRegion, animated: true)
     }
     func render(_ location: CLLocation) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+        let finalRegion = self.mapView.regionThatFits(region)
+
         DispatchQueue.main.async {
-            self.mapView.setRegion(region, animated: true)
+            self.mapView.setRegion(finalRegion, animated: true)
         }
     }
 }
@@ -238,6 +254,8 @@ extension MapViewController {
             annotationView?.canShowCallout = true
             
             return annotationView
+        }else if annotation is MKUserLocation{
+            return nil
         }else{
             return nil
         }

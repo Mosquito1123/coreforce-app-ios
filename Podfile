@@ -34,4 +34,5 @@ target 'hfpower' do
   pod 'SVProgressHUD'
   pod 'SDCAlertView'
   pod 'swiftScan'
+  pod 'FloatingPanel'
 end
