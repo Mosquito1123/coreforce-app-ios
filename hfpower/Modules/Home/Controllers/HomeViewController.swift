@@ -77,6 +77,15 @@ class HomeViewController: UIViewController{
         setupNavbar()
         setupSubviews()
         setupLayout()
+    
+        if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
+            self.fetchAuthData()
+            self.fetchActivities()
+        }
+        if let isAuth = AccountManager.shared.isAuth,isAuth == 1,self.isViewLoaded{
+            self.fetchData()
+            self.fetchBikeData()
+        }
         homeObservation = MainManager.shared.observe(\.batteryDetail,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let temp = change.newValue,let batteryDetail = temp {
                 self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
@@ -93,10 +102,7 @@ class HomeViewController: UIViewController{
                 //                print("Name changed to \(x)")
                 self.headerStackView.removeArrangedSubview(self.needLoginView)
                 self.needLoginView.removeFromSuperview()
-                if self.isViewLoaded{
-                    self.fetchAuthData()
-                    self.fetchActivities()
-                }
+                NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
             }else{
                 if self.headerStackView.arrangedSubviews.contains(self.needAuthView){
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
@@ -119,14 +125,10 @@ class HomeViewController: UIViewController{
                 if  isAuth == 1 {
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
                     self.needAuthView.removeFromSuperview()
-                    if self.isViewLoaded{
-                        self.fetchData()
-                        self.fetchBikeData()
-                    }
+                    NotificationCenter.default.post(name: Notification.Name("auth"), object: nil)
                 }else{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
-                    self.mapViewController.loadCabinetListData()
-                    
+
                 }
             }
         })
@@ -138,6 +140,11 @@ class HomeViewController: UIViewController{
             }
         })
         
+    }
+    func startObserving(){
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: Notification.Name("login"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthState(_:)), name: Notification.Name("auth"), object: nil)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -240,7 +247,6 @@ class HomeViewController: UIViewController{
         
         dispatchGroup.notify(queue: DispatchQueue.main) {
             MainManager.shared.refreshType()
-            self.mapViewController.loadCabinetListData()
 
         }
     }
@@ -248,6 +254,7 @@ class HomeViewController: UIViewController{
     
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         accountObservation?.invalidate()
         accountIsAuthObservation?.invalidate()
         cityCodeObservation?.invalidate()
@@ -342,7 +349,7 @@ private extension HomeViewController {
         }
         footerStackView.addArrangedSubview(locateView)
         let refreshView = MapFeatureView(.refresh) { sender, mapFeatureType in
-            
+            self.mapViewController.loadCabinetListData()
         }
         footerStackView.addArrangedSubview(refreshView)
         let filterView = MapFeatureView(.filter) { sender, mapFeatureType in
@@ -401,7 +408,19 @@ private extension HomeViewController {
     @objc func needLogin(_ sender:UIButton){
         
     }
-    
+    @objc func handleLoginState(_ notification:Notification){
+        if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
+            self.fetchAuthData()
+            self.fetchActivities()
+        }
+        
+    }
+    @objc func handleAuthState(_ notification:Notification){
+        if let isAuth = AccountManager.shared.isAuth,isAuth == 1,self.isViewLoaded{
+            self.fetchData()
+            self.fetchBikeData()
+        }
+    }
 }
 
 // MARK: - Private

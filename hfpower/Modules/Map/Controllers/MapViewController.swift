@@ -11,6 +11,8 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     
     // MARK: - Accessor
     let locationManager = CLLocationManager()
+
+    
     // MARK: - Subviews
     lazy var mapView:HFMapView = {
         let map = HFMapView()
@@ -35,10 +37,43 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         setupNavbar()
         setupSubviews()
         setupLayout()
+       
+        
     }
+    func firstLoadData(){
+        let userlocation = mapView.userLocation
+        if CLLocationCoordinate2DIsValid(userlocation.coordinate){
+            if let location = userlocation.location {
+                
+                let geocoder = CLGeocoder()
+                geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                    if let _ = error{
+                        
+                    }else{
+                        CityCodeManager.shared.placemark = placemarks?.first
+                        CityCodeManager.shared.cityName = placemarks?.first?.locality
+                        
+                        let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
+                        CityCodeManager.shared.cityCode = code
+                        
+                        
+                        
+                    }
+                }
+            }
+            
+        }
+    }
+    //    func startObserving(){
+    //        NotificationCenter.default.addObserver(self, selector: #selector(handleLocationState(_:)), name: Notification.Name("location"), object: nil)
+    //
+    //    }
+    //    deinit{
+    //        NotificationCenter.default.removeObserver(self)
+    //    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-   
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -54,9 +89,24 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     }
     func loadCabinetListData(){
         if let _ = self.mapView.userLocation.location{
+            if let _ = mapView.userLocation.heading {
+                return
+            }
             NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: mapView.centerCoordinate.longitude, lat:mapView.centerCoordinate.latitude)) { result in
                 switch result{
                 case .success(let response):
+                    var tempAnnotations =  self.mapView.annotations
+                    tempAnnotations.removeAll { annotation in
+                        if annotation is CenterAnnotation{
+                            return true
+                        }else if annotation is MKUserLocation {
+                            return true
+                        }else{
+                            return false
+                        }
+                    }
+                    let finalAnnotations = tempAnnotations
+                    self.mapView.removeAnnotations(finalAnnotations)
                     
                     if let annotations =  response?.list?.map({ cabinet in
                         let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
@@ -94,11 +144,11 @@ private extension MapViewController {
         
         // 设置地图的代理
         
-
+        
         
         
     }
-
+    
     private func setupLayout() {
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -113,7 +163,7 @@ private extension MapViewController {
 // MARK: - Public
 extension MapViewController{
     // 处理位置更新
-
+    
     // 中心地图到用户位置
     func centerMapOnUserLocation(userLocation: MKUserLocation) {
         if let location = userLocation.location{
@@ -122,52 +172,62 @@ extension MapViewController{
                                                       longitudinalMeters: 1000)
             mapView.setRegion(coordinateRegion, animated: true)
         }
-       
+        
     }
-    
     // 处理授权状态变化
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
-            mapView.userTrackingMode = .followWithHeading
-            
+            mapView.userTrackingMode = .follow
+           
             
         }else if status == .authorizedAlways {
-            mapView.userTrackingMode = .followWithHeading
-
+            mapView.userTrackingMode = .follow
+            
             
         }
     }
-   
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+
+    }
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+               
+
+    }
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        firstLoadData()
+    }
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
     }
-    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
-        let userlocation = mapView.userLocation
-        if CLLocationCoordinate2DIsValid(userlocation.coordinate){
-            if let location = userlocation.location {
-                
-                let geocoder = CLGeocoder()
-                geocoder.reverseGeocodeLocation(location) { placemarks, error in
-                    if let _ = error{
-                        
-                    }else{
-                        CityCodeManager.shared.placemark = placemarks?.first
-                        CityCodeManager.shared.cityName = placemarks?.first?.locality
-                        
-                        let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
-                        CityCodeManager.shared.cityCode = code
-                    }
-                }
-            }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        // 动画效果
+        UIView.animate(withDuration: 0.3,
+                       animations: {
+            view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        }, completion: { _ in
             
+        })
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        // 当取消选择时将标注恢复原样
+        UIView.animate(withDuration: 0.2) {
+            view.transform = CGAffineTransform.identity
         }
+    }
+    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+        
+    }
+    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
+       
         
     }
     
     func moveMap(){
         self.mapView.userTrackingMode = .none
         let cityName = CityCodeManager.shared.cityName
-        if let placemark = CityCodeManager.shared.placemark,placemark.locality == cityName,let location = placemark.location{
-            self.mapView.userTrackingMode = .followWithHeading
+        if let placemark = CityCodeManager.shared.placemark,placemark.locality == cityName,let _ = placemark.location{
+            self.mapView.userTrackingMode = .follow
             return
         }
         
@@ -206,8 +266,19 @@ extension MapViewController {
             imageView.removeFromSuperview()
         }
         self.mapView.regionCallBack?(mapView.region)
+        // 加载数据
+        
+        self.loadCabinetListData()
         
         
+    }
+    
+    
+    
+    func distanceBetween(coord1: CLLocationCoordinate2D, coord2: CLLocationCoordinate2D) -> CLLocationDistance {
+        let loc1 = CLLocation(latitude: coord1.latitude, longitude: coord1.longitude)
+        let loc2 = CLLocation(latitude: coord2.latitude, longitude: coord2.longitude)
+        return loc1.distance(from: loc2)
     }
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         let oldCenterAnnotation = mapView.annotations.first(where: { a in
@@ -260,6 +331,9 @@ private extension MapViewController {
 
 // MARK: - Action
 @objc private extension MapViewController {
+    @objc func handleLocationState(_ notification:Notification){
+        self.loadCabinetListData()
+    }
     @objc func panG(_ sender:UIPanGestureRecognizer){
         if sender.state == .changed{
             // 获取地图当前可见区域的中心坐标
