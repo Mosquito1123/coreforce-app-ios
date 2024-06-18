@@ -8,13 +8,14 @@
 import UIKit
 import CoreLocation
 import MapKit
-class HomeViewController: MapViewController{
+class HomeViewController: UIViewController{
     
     // MARK: - Accessor
     var homeObservation:NSKeyValueObservation?
     var accountObservation:NSKeyValueObservation?
     var accountIsAuthObservation:NSKeyValueObservation?
     var cityCodeObservation:NSKeyValueObservation?
+    let mapViewController = MapViewController()
     // MARK: - Subviews
     lazy var batteryView:MapBatteryView = {
         let view = MapBatteryView()
@@ -124,7 +125,7 @@ class HomeViewController: MapViewController{
                     }
                 }else{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
-                    self.loadCabinetListData(self.mapView.centerCoordinate)
+                    self.mapViewController.loadCabinetListData()
                     
                 }
             }
@@ -133,9 +134,14 @@ class HomeViewController: MapViewController{
         cityCodeObservation = CityCodeManager.shared.observe(\.cityName,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newName = change.newValue,let x = newName {
                 self.locationChooseView.currentLocationButton.setTitle(x, for: .normal)
-                self.moveMap()
+                self.mapViewController.moveMap()
             }
         })
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         
     }
     func fetchActivities(){
@@ -234,8 +240,8 @@ class HomeViewController: MapViewController{
         
         dispatchGroup.notify(queue: DispatchQueue.main) {
             MainManager.shared.refreshType()
-            self.loadCabinetListData(self.mapView.centerCoordinate)
-            
+            self.mapViewController.loadCabinetListData()
+
         }
     }
     
@@ -260,7 +266,11 @@ private extension HomeViewController {
     private func setupSubviews() {
         // 设置地图的初始位置和显示范围
         
-        
+        self.addChild(mapViewController)
+        self.view.addSubview(mapViewController.view)
+        mapViewController.view.frame = self.view.bounds
+
+        mapViewController.didMove(toParent: self)
         self.view.addSubview(headerStackView)
         self.view.addSubview(footerStackView)
         
@@ -327,7 +337,8 @@ private extension HomeViewController {
         }
         footerStackView.addArrangedSubview(listView)
         let locateView = MapFeatureView(.locate) { sender, mapFeatureType in
-            self.manager.startUpdatingLocation()
+            self.mapViewController.mapView.userTrackingMode = .followWithHeading
+
         }
         footerStackView.addArrangedSubview(locateView)
         let refreshView = MapFeatureView(.refresh) { sender, mapFeatureType in

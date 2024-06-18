@@ -14,11 +14,7 @@ class HFMapView: MKMapView {
 
     // MARK: - Accessor
     var regionCallBack:RegionCallBack?
-    var centerCoordinateCallBack:CenterCoordinateCallBack?
-    override func setRegion(_ region: MKCoordinateRegion, animated: Bool) {
-        super.setRegion(region, animated: animated)
-        self.centerCoordinateCallBack?(self.centerCoordinate)
-    }
+    
    
     // MARK: - Subviews
 

@@ -7,26 +7,18 @@
 
 import UIKit
 import MapKit
-class MapViewController: UIViewController,MKMapViewDelegate {
+class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
     
     // MARK: - Accessor
-    lazy var manager: CLLocationManager = {
-        let manager = CLLocationManager()
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.distanceFilter = 10.0
-        manager.delegate = self
-        return manager
-    }()
-    private var debounce:Debounce?
+    let locationManager = CLLocationManager()
     // MARK: - Subviews
     lazy var mapView:HFMapView = {
         let map = HFMapView()
         map.overrideUserInterfaceStyle = .light
         map.showsUserLocation = true
-        map.userTrackingMode = .followWithHeading
+        map.userTrackingMode = .none
         map.pointOfInterestFilter = .includingAll
         map.showsCompass = false
-        map.userTrackingMode = .followWithHeading
         map.register(CenterAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CenterAnnotationView.self))
         map.register(CabinetAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CabinetAnnotationView.self))
         
@@ -38,19 +30,15 @@ class MapViewController: UIViewController,MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Initialize debounce with a 0.5 second interval
-        debounce = Debounce(interval: 0.6)
-   
-        manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
-        manager.startUpdatingHeading()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         setupNavbar()
         setupSubviews()
         setupLayout()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        manager.stopUpdatingHeading()
-        manager.stopUpdatingLocation()
+   
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -58,15 +46,32 @@ class MapViewController: UIViewController,MKMapViewDelegate {
         
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         
+    }
+    func loadCabinetListData(){
+        if let _ = self.mapView.userLocation.location{
+            NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: mapView.centerCoordinate.longitude, lat:mapView.centerCoordinate.latitude)) { result in
+                switch result{
+                case .success(let response):
+                    
+                    if let annotations =  response?.list?.map({ cabinet in
+                        let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
+                        a.cabinet = cabinet
+                        return a
+                    }){
+                        self.mapView.addAnnotations(annotations)
+                        
+                    }
+                case .failure(let error):
+                    self.showError(withStatus: error.localizedDescription)
+                    
+                }
+            }
+        }
         
     }
 }
@@ -88,17 +93,12 @@ private extension MapViewController {
         
         
         // 设置地图的代理
-        // 添加一个初始标记
-        let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
         
-        mapView.addAnnotation(centerAnnotation)
-        mapView.regionCallBack = { region in
-            self.debounce?.call {
-                self.loadCabinetListData(region.center)
-            }
-        }
+
+        
+        
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: self.view.topAnchor),
@@ -111,45 +111,40 @@ private extension MapViewController {
 }
 
 // MARK: - Public
-extension MapViewController:CLLocationManagerDelegate{
-    func loadCabinetListData(_ center:CLLocationCoordinate2D){
-        if let _ = self.mapView.userLocation.location{
-            NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: center.longitude, lat:center.latitude)) { result in
-                switch result{
-                case .success(let response):
-                    var tempAnnotations =  self.mapView.annotations
-                    tempAnnotations.removeAll { annotation in
-                        if annotation is CenterAnnotation{
-                            return true
-                        }else if annotation is MKUserLocation {
-                            return true
-                        }else{
-                            return false
-                        }
-                    }
-                    let finalAnnotations = tempAnnotations
-                    self.mapView.removeAnnotations(finalAnnotations)
-                    if let annotations =  response?.list?.map({ cabinet in
-                        let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
-                        a.cabinet = cabinet
-                        return a
-                    }){
-                        self.mapView.addAnnotations(annotations)
-                        
-                    }
-                case .failure(let error):
-                    self.showError(withStatus: error.localizedDescription)
-                    
-                }
-            }
+extension MapViewController{
+    // 处理位置更新
+
+    // 中心地图到用户位置
+    func centerMapOnUserLocation(userLocation: MKUserLocation) {
+        if let location = userLocation.location{
+            let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
+                                                      latitudinalMeters: 1000,
+                                                      longitudinalMeters: 1000)
+            mapView.setRegion(coordinateRegion, animated: true)
         }
-        
+       
+    }
+    
+    // 处理授权状态变化
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            mapView.userTrackingMode = .followWithHeading
+            
+            
+        }else if status == .authorizedAlways {
+            mapView.userTrackingMode = .followWithHeading
+
+            
+        }
+    }
+   
+    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
     }
     func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
         let userlocation = mapView.userLocation
         if CLLocationCoordinate2DIsValid(userlocation.coordinate){
-            mapView.setCenter(userlocation.coordinate, animated: true)
             if let location = userlocation.location {
+                
                 let geocoder = CLGeocoder()
                 geocoder.reverseGeocodeLocation(location) { placemarks, error in
                     if let _ = error{
@@ -165,12 +160,14 @@ extension MapViewController:CLLocationManagerDelegate{
             }
             
         }
+        
     }
-   
+    
     func moveMap(){
+        self.mapView.userTrackingMode = .none
         let cityName = CityCodeManager.shared.cityName
         if let placemark = CityCodeManager.shared.placemark,placemark.locality == cityName,let location = placemark.location{
-            self.render(location)
+            self.mapView.userTrackingMode = .followWithHeading
             return
         }
         
@@ -179,7 +176,7 @@ extension MapViewController:CLLocationManagerDelegate{
             if let _ = error {
             } else if let placemarks = placemarks, let placemark = placemarks.first {
                 if let location = placemark.location{
-                    self.render(location)
+                    self.centerMapOnLocation(location: location)
                 }
                 
             } else {
@@ -191,15 +188,7 @@ extension MapViewController:CLLocationManagerDelegate{
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
-    func render(_ location: CLLocation) {
-        let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-        let finalRegion = self.mapView.regionThatFits(region)
-
-        DispatchQueue.main.async {
-            self.mapView.setRegion(finalRegion, animated: true)
-        }
-    }
+    
 }
 extension MapViewController {
     // 监听地图区域变化
