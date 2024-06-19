@@ -45,7 +45,7 @@ class CabinetAnnotationView: MKAnnotationView {
         } else {
             // Fallback on earlier versions
         }
-
+        self.collisionMode = .circle
         setupSubviews()
         setupLayout()
     }

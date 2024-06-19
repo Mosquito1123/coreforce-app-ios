@@ -83,7 +83,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.locationManager.startUpdatingLocation()
         
     }
     func loadCabinetListData(){
