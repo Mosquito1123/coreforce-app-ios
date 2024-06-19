@@ -34,6 +34,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         // Initialize debounce with a 0.5 second interval
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         setupNavbar()
         setupSubviews()
         setupLayout()
