@@ -39,6 +39,15 @@ class HomeViewController: UIViewController{
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    lazy var headerStackBatteryView:HFStackView = {
+        let stackView = HFStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.alignment = .trailing
+        stackView.distribution = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     lazy var footerStackView:HFStackView = {
         let stackView = HFStackView()
         stackView.axis = .vertical
@@ -89,10 +98,10 @@ class HomeViewController: UIViewController{
         homeObservation = MainManager.shared.observe(\.batteryDetail,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let temp = change.newValue,let batteryDetail = temp {
                 self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
-                self.footerStackView.insertArrangedSubview(self.batteryView, at: 0)
+                self.headerStackBatteryView.addSubview(self.batteryView)
                 
             }else{
-                self.footerStackView.removeArrangedSubview(self.batteryView)
+                self.headerStackBatteryView.removeArrangedSubview(self.batteryView)
                 self.batteryView.removeFromSuperview()
                 
             }
@@ -337,7 +346,7 @@ private extension HomeViewController {
         //        let batteryOfflineView = BatteryOfflineView()
         //        headerStackView.addArrangedSubview(batteryOfflineView)
         headerStackView.addArrangedSubview(packageCardView)
-        
+        headerStackView.addArrangedSubview(headerStackBatteryView)
         
         footerStackView.addArrangedSubview(inviteView)
         
