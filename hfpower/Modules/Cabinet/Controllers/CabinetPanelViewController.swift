@@ -10,7 +10,10 @@ import UIKit
 class CabinetPanelViewController: UIViewController {
     
     // MARK: - Accessor
-    
+    var navigateAction:ButtonActionBlock?
+    var scanAction:ButtonActionBlock?
+    var dropDownAction:ButtonActionBlock?
+    var detailAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var cabinetPanelView: CabinetPanelView = {
         var panelView = CabinetPanelView()
@@ -38,14 +41,19 @@ private extension CabinetPanelViewController {
     private func setupSubviews() {
         view.addSubview(self.cabinetPanelView)
         self.cabinetPanelView.statisticView.showTop = true
+        self.cabinetPanelView.navigateAction = self.navigateAction
+        self.cabinetPanelView.scanAction = self.scanAction
+        self.cabinetPanelView.detailAction = self.detailAction
+        self.cabinetPanelView.dropDownAction = self.dropDownAction
+
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
             cabinetPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             cabinetPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            cabinetPanelView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            cabinetPanelView.heightAnchor.constraint(equalToConstant: 364),
+            cabinetPanelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            cabinetPanelView.topAnchor.constraint(equalTo: self.view.topAnchor),
 
         ])
     }

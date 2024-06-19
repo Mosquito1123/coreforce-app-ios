@@ -13,6 +13,7 @@ class CabinetPanelView: UIView {
     var navigateAction:ButtonActionBlock?
     var scanAction:ButtonActionBlock?
     var dropDownAction:ButtonActionBlock?
+    var detailAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -38,6 +39,8 @@ class CabinetPanelView: UIView {
         button.setTitleColor(UIColor(named: "447AFE"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        button.addTarget(self, action: #selector(detailButtonAction(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     lazy var businessTimeLabel: UILabel = {
@@ -57,6 +60,12 @@ class CabinetPanelView: UIView {
         label.textColor = UIColor(named: "333333")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    lazy var locationImageView: UIImageView = {
+        let locationImageView = UIImageView()
+        locationImageView.image = UIImage(named: "search_list_icon_location")
+        locationImageView.translatesAutoresizingMaskIntoConstraints = false
+        return locationImageView
     }()
     lazy var locationLabel: UILabel = {
         let label = UILabel()
@@ -171,6 +180,7 @@ private extension CabinetPanelView {
         addSubview(depositStatusButton)
         addSubview(rentStatusButton)
         addSubview(rideLabel)
+        addSubview(locationImageView)
         addSubview(locationLabel)
         addSubview(statisticView)
         addSubview(navigateButton)
@@ -208,7 +218,12 @@ private extension CabinetPanelView {
             rideLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             rideLabel.topAnchor.constraint(equalTo: topLineView.bottomAnchor, constant: 10),
             rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
-            locationLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            locationImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            locationImageView.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
+            locationImageView.widthAnchor.constraint(equalToConstant: 14),
+            locationImageView.heightAnchor.constraint(equalToConstant: 14),
+
+            locationLabel.leadingAnchor.constraint(equalTo: self.locationImageView.trailingAnchor, constant: 3),
             locationLabel.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
             
             
@@ -217,7 +232,7 @@ private extension CabinetPanelView {
             statisticView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             statisticView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             statisticView.bottomAnchor.constraint(equalTo: navigateButton.topAnchor, constant: -14),
-            statisticView.heightAnchor.constraint(equalToConstant: 114),
+            statisticView.heightAnchor.constraint(equalToConstant: 160),
 
 
 
@@ -255,6 +270,9 @@ extension CabinetPanelView {
     }
     @objc func scanButtonAction(_ sender:UIButton){
         self.scanAction?(sender)
+    }
+    @objc func detailButtonAction(_ sender:UIButton){
+        self.detailAction?(sender)
     }
 }
 

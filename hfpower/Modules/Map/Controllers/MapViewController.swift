@@ -7,12 +7,14 @@
 
 import UIKit
 import MapKit
+import FloatingPanel
 class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
     
     // MARK: - Accessor
     let locationManager = CLLocationManager()
 
-    
+    let fpc = FloatingPanelController()
+
     // MARK: - Subviews
     lazy var mapView:HFMapView = {
         let map = HFMapView()
@@ -121,7 +123,11 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         
     }
 }
-
+extension MapViewController:FloatingPanelControllerDelegate{
+    func floatingPanel(_ fpc: FloatingPanelController, shouldAllowToScroll scrollView: UIScrollView, in state: FloatingPanelState) -> Bool {
+        return state == .full || state == .half
+    }
+}
 // MARK: - Setup
 private extension MapViewController {
     
@@ -210,8 +216,29 @@ extension MapViewController{
                        animations: {
             view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         }, completion: { _ in
+         
             
+
         })
+        fpc.delegate = self
+        fpc.contentInsetAdjustmentBehavior = .always
+        fpc.surfaceView.appearance = {
+            let appearance = SurfaceAppearance()
+            appearance.cornerRadius = 15.0
+            return appearance
+        }()
+        let contentVC = CabinetPanelViewController()
+        contentVC.scanAction = { sender in
+        }
+        contentVC.detailAction = { sender in
+        }
+        contentVC.navigateAction = { sender in
+        }
+        contentVC.dropDownAction = { sender in
+            self.fpc.removePanelFromParent(animated: true)
+        }
+        fpc.set(contentViewController: contentVC)
+        fpc.addPanel(toParent: self)
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -390,5 +417,18 @@ class Debounce {
         
         // Schedule new task with delay
         DispatchQueue.main.asyncAfter(deadline: .now() + interval, execute: workItem!)
+    }
+}
+
+class RemovablePanelLayout: FloatingPanelLayout {
+    let position: FloatingPanelPosition = .bottom
+    let initialState: FloatingPanelState = .half
+    let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
+        .full: FloatingPanelLayoutAnchor(absoluteInset: 100.0, edge: .top, referenceGuide: .safeArea),
+            .half: FloatingPanelLayoutAnchor(absoluteInset: 364.0, edge: .bottom, referenceGuide: .safeArea)
+    ]
+
+    func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
+        return 0.0
     }
 }

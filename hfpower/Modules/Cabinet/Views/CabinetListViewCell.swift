@@ -11,6 +11,7 @@ class CabinetListViewCell: UITableViewCell {
     
     // MARK: - Accessor
     var navigateAction:ButtonActionBlock?
+    var detailAction:ButtonActionBlock?
 
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
@@ -29,6 +30,8 @@ class CabinetListViewCell: UITableViewCell {
         button.setTitleColor(UIColor(named: "447AFE"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        button.addTarget(self, action: #selector(detailButtonAction(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     lazy var businessTimeLabel: UILabel = {
@@ -219,7 +222,9 @@ extension CabinetListViewCell {
     @objc func navigateButtonAction(_ sender:UIButton){
         self.navigateAction?(sender)
     }
-
+    @objc func detailButtonAction(_ sender:UIButton){
+        self.detailAction?(sender)
+    }
     
 }
 
