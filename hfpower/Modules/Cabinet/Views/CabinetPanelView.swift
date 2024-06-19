@@ -1,17 +1,18 @@
 //
-//  CabinetListViewCell.swift
+//  CabinetPanelView.swift
 //  hfpower
 //
-//  Created by EDY on 2024/5/31.
+//  Created by EDY on 2024/6/19.
 //
 
 import UIKit
 
-class CabinetListViewCell: UITableViewCell {
-    
+class CabinetPanelView: UIView {
+
     // MARK: - Accessor
     var navigateAction:ButtonActionBlock?
-
+    var scanAction:ButtonActionBlock?
+    var dropDownAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -21,6 +22,14 @@ class CabinetListViewCell: UITableViewCell {
         label.textColor = UIColor(named: "262626")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    lazy var dropDownButton:UIButton = {
+        let button = UIButton(type:.custom)
+        button.setImage(UIImage(named: "drop_down"), for: .normal)
+        button.setImage(UIImage(named: "drop_down"), for: .selected)
+        button.addTarget(self, action: #selector(dropDownButtonAction(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     lazy var detailButton: UIButton = {
         let button = UIButton(type:.custom)
@@ -85,15 +94,32 @@ class CabinetListViewCell: UITableViewCell {
         let button = UIButton(type: .custom)
         // 设置按钮的圆角和边框
         button.setTitle("导航", for: .normal)
-        button.setTitleColor(UIColor(named: "333333"), for: .normal)
+        button.setTitleColor(UIColor(named: "1D2129"), for: .normal)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
-        button.setImage(UIImage(named: "navigate"), for: .normal)
+        button.setBackgroundImage(UIColor.white.toImage(), for: .highlighted)
+
         // 设置按钮的标题字体和大小
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        button.layer.cornerRadius = 15
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
+        button.layer.cornerRadius = 25
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(named: "E5E6EB")?.cgColor
         button.addTarget(self, action: #selector(navigateButtonAction(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    lazy var scanButton:UIButton = {
+        let button = UIButton(type: .custom)
+        // 设置按钮的圆角和边框
+        button.setTitle("扫码换电", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setBackgroundImage(UIColor(named: "447AFE")?.toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(named: "447AFE")?.toImage(), for: .highlighted)
+
+        // 设置按钮的标题字体和大小
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
+        button.layer.cornerRadius = 25
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(scanButtonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -108,22 +134,16 @@ class CabinetListViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // MARK: - Static
-    class func cellIdentifier() -> String {
-        return String(describing: self)
-    }
-    
-    class func cell(with tableView: UITableView) -> CabinetListViewCell {
-        let identifier = cellIdentifier()
-        if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? CabinetListViewCell { return cell }
-        return CabinetListViewCell(style: .default, reuseIdentifier: identifier)
-    }
-    
+    lazy var topLineView:UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor(named: "EDEDED")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     // MARK: - Lifecycle
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .white
         setupSubviews()
         setupLayout()
     }
@@ -137,34 +157,39 @@ class CabinetListViewCell: UITableViewCell {
         detailButton.setImagePosition(type: .imageRight, Space: 6)
        
     }
-  
-
 }
 
 // MARK: - Setup
-private extension CabinetListViewCell {
+private extension CabinetPanelView {
     
     private func setupSubviews() {
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(detailButton)
-        contentView.addSubview(businessTimeLabel)
-        contentView.addSubview(depositStatusButton)
-        contentView.addSubview(rentStatusButton)
-        contentView.addSubview(rideLabel)
-        contentView.addSubview(locationLabel)
-        contentView.addSubview(statisticView)
-        contentView.addSubview(navigateButton)
-        contentView.addSubview(lineView)
+        addSubview(titleLabel)
+        addSubview(dropDownButton)
+        addSubview(detailButton)
+        addSubview(businessTimeLabel)
+        addSubview(topLineView)
+        addSubview(depositStatusButton)
+        addSubview(rentStatusButton)
+        addSubview(rideLabel)
+        addSubview(locationLabel)
+        addSubview(statisticView)
+        addSubview(navigateButton)
+        addSubview(lineView)
+        addSubview(scanButton)
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
-            titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: 16),
-            detailButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
-            detailButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 16),
+            dropDownButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16),
+            dropDownButton.topAnchor.constraint(equalTo: self.topAnchor,constant: 16),
+            dropDownButton.widthAnchor.constraint(equalToConstant: 18),
+            dropDownButton.heightAnchor.constraint(equalToConstant: 18),
+            detailButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16),
+            detailButton.centerYAnchor.constraint(equalTo: businessTimeLabel.centerYAnchor),
             detailButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 16),
-            businessTimeLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            businessTimeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             businessTimeLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5.5),
             businessTimeLabel.trailingAnchor.constraint(equalTo:rentStatusButton.leadingAnchor, constant: -14),
             rentStatusButton.centerYAnchor.constraint(equalTo: businessTimeLabel.centerYAnchor),
@@ -175,55 +200,65 @@ private extension CabinetListViewCell {
             depositStatusButton.widthAnchor.constraint(equalToConstant: 41),
             depositStatusButton.heightAnchor.constraint(equalToConstant: 20),
             rentStatusButton.trailingAnchor.constraint(equalTo: depositStatusButton.leadingAnchor,constant: -6),
+            topLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            topLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            topLineView.topAnchor.constraint(equalTo: self.businessTimeLabel.bottomAnchor, constant: 13),
+            topLineView.heightAnchor.constraint(equalToConstant: 0.5),
             
-            
-            rideLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            rideLabel.topAnchor.constraint(equalTo: businessTimeLabel.bottomAnchor, constant: 8),
+            rideLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            rideLabel.topAnchor.constraint(equalTo: topLineView.bottomAnchor, constant: 10),
             rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
-            locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            locationLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             locationLabel.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
-            locationLabel.trailingAnchor.constraint(equalTo: navigateButton.leadingAnchor, constant: -16),
-            navigateButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            navigateButton.widthAnchor.constraint(equalToConstant: 62),
-            navigateButton.heightAnchor.constraint(equalToConstant: 30),
-            navigateButton.bottomAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: -5),
             
-            statisticView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            statisticView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            statisticView.bottomAnchor.constraint(equalTo: lineView.topAnchor, constant: -16),
+            
+            
+            
+            statisticView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            statisticView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            statisticView.bottomAnchor.constraint(equalTo: navigateButton.topAnchor, constant: -14),
             statisticView.heightAnchor.constraint(equalToConstant: 114),
 
 
 
-            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            lineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             lineView.heightAnchor.constraint(equalToConstant: 10),
 
-
+            navigateButton.widthAnchor.constraint(equalToConstant: 165),
+            navigateButton.heightAnchor.constraint(equalToConstant: 50),
+            navigateButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            scanButton.widthAnchor.constraint(equalToConstant: 165),
+            scanButton.heightAnchor.constraint(equalToConstant: 50),
+            scanButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            scanButton.centerYAnchor.constraint(equalTo: navigateButton.centerYAnchor),
 
 
         ])
-        
     }
     
 }
 
 // MARK: - Public
-extension CabinetListViewCell {
+extension CabinetPanelView {
     
 }
 
 // MARK: - Action
-@objc private extension CabinetListViewCell {
+@objc private extension CabinetPanelView {
+    @objc func dropDownButtonAction(_ sender:UIButton){
+        self.dropDownAction?(sender)
+    }
     @objc func navigateButtonAction(_ sender:UIButton){
         self.navigateAction?(sender)
     }
-
-    
+    @objc func scanButtonAction(_ sender:UIButton){
+        self.scanAction?(sender)
+    }
 }
 
 // MARK: - Private
-private extension CabinetListViewCell {
+private extension CabinetPanelView {
     
 }
