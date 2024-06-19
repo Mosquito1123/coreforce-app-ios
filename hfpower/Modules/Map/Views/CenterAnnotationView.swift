@@ -25,6 +25,7 @@ class CenterAnnotationView: MKAnnotationView {
         } else {
             // Fallback on earlier versions
         }
+        self.displayPriority = .required
         setupSubviews()
         setupLayout()
     }
@@ -32,7 +33,11 @@ class CenterAnnotationView: MKAnnotationView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.centerOffset = CGPoint(x: 0, y: -(self.image?.size.height ?? 0)/2)
 
+    }
 }
 
 // MARK: - Setup

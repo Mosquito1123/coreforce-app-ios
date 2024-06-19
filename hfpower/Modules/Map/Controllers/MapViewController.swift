@@ -302,7 +302,7 @@ extension MapViewController {
         }
         let imageView = UIImageView(image: UIImage(named: "center_point"))
         mapView.addSubview(imageView)
-        imageView.center =  CGPoint(x: mapView.center.x, y: mapView.center.y - imageView.frame.midY + 2.5)
+        imageView.center =  CGPoint(x: mapView.center.x, y: mapView.center.y - imageView.frame.maxY + 2.5)
     }
     // 自定义标记外观
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

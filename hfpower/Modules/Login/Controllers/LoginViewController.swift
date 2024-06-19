@@ -266,6 +266,7 @@ private extension LoginViewController {
         NetworkService<AuthAPI,TokenResponse>().request(.login(username: accountInputView.phoneNumberTextField.text ?? "", password: passwordInputView.passwordTextField.text ?? "", type: "pw")) { result in
             switch result{
             case .success(let response):
+                NotificationCenter.default.post(name: .userLoggedIn, object: nil)
                 TokenManager.shared.accessToken = response?.accessToken
                 TokenManager.shared.accessTokenExpiration = response?.accessTokenExpiration
                 TokenManager.shared.refreshToken = response?.refreshToken

@@ -25,3 +25,8 @@ extension String {
 //        return hash.map { String(format: "%02x", $0) }.joined()
 //    }
 }
+extension Notification.Name {
+    static let userLoggedIn = Notification.Name("UserLoggedInNotification")
+    static let userLoggedOut = Notification.Name("UserLoggedOutNotification")
+    static let userAuthenticated = Notification.Name("UserAuthenticatedNotification")
+}

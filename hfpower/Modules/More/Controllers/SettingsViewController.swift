@@ -97,9 +97,7 @@ private extension SettingsViewController {
         NetworkService<AuthAPI,BlankResponse>().request(.logout) { result in
             switch result {
             case.success:
-                TokenManager.shared.clearTokens()
-                AccountManager.shared.clearAccount()
-                MainManager.shared.resetAll()
+                NotificationCenter.default.post(name: .userLoggedOut, object: nil)
                 self.navigationController?.popViewController(animated: true)
                 self.hasLogoutBlock?()
                 

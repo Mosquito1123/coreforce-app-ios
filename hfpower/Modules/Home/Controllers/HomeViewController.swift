@@ -102,7 +102,6 @@ class HomeViewController: UIViewController{
                 //                print("Name changed to \(x)")
                 self.headerStackView.removeArrangedSubview(self.needLoginView)
                 self.needLoginView.removeFromSuperview()
-                NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
             }else{
                 if self.headerStackView.arrangedSubviews.contains(self.needAuthView){
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
@@ -125,7 +124,6 @@ class HomeViewController: UIViewController{
                 if  isAuth == 1 {
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
                     self.needAuthView.removeFromSuperview()
-                    NotificationCenter.default.post(name: Notification.Name("auth"), object: nil)
                 }else{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
 
@@ -142,8 +140,10 @@ class HomeViewController: UIViewController{
         
     }
     func startObserving(){
-        NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: Notification.Name("login"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthState(_:)), name: Notification.Name("auth"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: .userLoggedIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: .userLoggedOut, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthState(_:)), name: .userAuthenticated, object: nil)
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -168,6 +168,10 @@ class HomeViewController: UIViewController{
             case.success(let response):
                 
                 AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
+                if  AccountManager.shared.isAuth == 1{
+                    NotificationCenter.default.post(name: .userAuthenticated, object: nil)
+
+                }
                 
             case .failure(let error):
                 self.showError(withStatus: error.localizedDescription)
@@ -409,10 +413,17 @@ private extension HomeViewController {
         
     }
     @objc func handleLoginState(_ notification:Notification){
-        if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
-            self.fetchAuthData()
-            self.fetchActivities()
+        if notification.name == .userLoggedOut{
+            TokenManager.shared.clearTokens()
+            AccountManager.shared.clearAccount()
+            MainManager.shared.resetAll()
+        }else if notification.name == .userLoggedIn{
+            if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
+                self.fetchAuthData()
+                self.fetchActivities()
+            }
         }
+       
         
     }
     @objc func handleAuthState(_ notification:Notification){

@@ -41,10 +41,11 @@ class CabinetAnnotationView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         if #available(iOS 14.0, *) {
-            self.zPriority = .defaultSelected
+            self.zPriority = .min
         } else {
             // Fallback on earlier versions
         }
+        self.displayPriority = .required
         self.collisionMode = .circle
         setupSubviews()
         setupLayout()
