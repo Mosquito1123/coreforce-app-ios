@@ -11,7 +11,7 @@ class CenterAnnotationView: MKAnnotationView {
 
     // MARK: - Accessor
     override var annotation: MKAnnotation?{
-        willSet{
+        didSet{
             
         }
     }
@@ -20,6 +20,11 @@ class CenterAnnotationView: MKAnnotationView {
     // MARK: - Lifecycle
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        if #available(iOS 14.0, *) {
+            self.zPriority = .max
+        } else {
+            // Fallback on earlier versions
+        }
         setupSubviews()
         setupLayout()
     }

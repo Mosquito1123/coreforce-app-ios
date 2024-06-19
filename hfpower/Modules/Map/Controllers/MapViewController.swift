@@ -18,7 +18,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         let map = HFMapView()
         map.overrideUserInterfaceStyle = .light
         map.showsUserLocation = true
-        map.userTrackingMode = .none
+        map.userTrackingMode = .follow
         map.pointOfInterestFilter = .includingAll
         map.showsCompass = false
         map.register(CenterAnnotationView.self, forAnnotationViewWithReuseIdentifier: String(describing: CenterAnnotationView.self))
@@ -38,7 +38,6 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         setupSubviews()
         setupLayout()
        
-        
     }
     func firstLoadData(){
         let userlocation = mapView.userLocation
@@ -56,7 +55,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                         let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
                         CityCodeManager.shared.cityCode = code
                         
-                        
+                        self.loadCabinetListData()
                         
                     }
                 }
@@ -89,9 +88,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     }
     func loadCabinetListData(){
         if let _ = self.mapView.userLocation.location{
-            if let _ = mapView.userLocation.heading {
-                return
-            }
+            self.locationManager.stopUpdatingLocation()
             NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: mapView.centerCoordinate.longitude, lat:mapView.centerCoordinate.latitude)) { result in
                 switch result{
                 case .success(let response):
@@ -174,15 +171,24 @@ extension MapViewController{
         }
         
     }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+           if let location = locations.last {
+               print("用户位置已更新: \(location.coordinate)")
+               // 在这里可以执行需要用户位置的逻辑
+               // 例如，设置地图的中心点为用户位置
+               firstLoadData()
+               
+           }
+       }
     // 处理授权状态变化
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             mapView.userTrackingMode = .follow
-           
+            locationManager.startUpdatingLocation()
             
         }else if status == .authorizedAlways {
             mapView.userTrackingMode = .follow
-            
+            locationManager.startUpdatingLocation()
             
         }
     }
@@ -194,7 +200,7 @@ extension MapViewController{
 
     }
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-        firstLoadData()
+    
     }
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
     }
@@ -268,7 +274,7 @@ extension MapViewController {
         self.mapView.regionCallBack?(mapView.region)
         // 加载数据
         
-        self.loadCabinetListData()
+        
         
         
     }
@@ -301,17 +307,17 @@ extension MapViewController {
     // 自定义标记外观
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is CenterAnnotation {
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CenterAnnotationView.self))
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CenterAnnotationView.self),for: annotation)
             
             // 设置自定义图标
-            annotationView?.canShowCallout = true
+            annotationView.canShowCallout = true
             
             return annotationView
         }else if annotation is CabinetAnnotation{
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CabinetAnnotationView.self))
-            annotationView?.annotation = annotation
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: CabinetAnnotationView.self),for: annotation)
+            annotationView.annotation = annotation
             // 设置自定义图标
-            annotationView?.canShowCallout = true
+            annotationView.canShowCallout = true
             
             return annotationView
         }else if annotation is MKUserLocation{

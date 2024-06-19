@@ -40,6 +40,12 @@ class CabinetAnnotationView: MKAnnotationView {
     // MARK: - Lifecycle
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        if #available(iOS 14.0, *) {
+            self.zPriority = .defaultSelected
+        } else {
+            // Fallback on earlier versions
+        }
+
         setupSubviews()
         setupLayout()
     }
@@ -47,7 +53,11 @@ class CabinetAnnotationView: MKAnnotationView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.centerOffset = CGPoint(x: 0, y: -(self.image?.size.height ?? 0)/2)
 
+    }
 }
 
 // MARK: - Setup
