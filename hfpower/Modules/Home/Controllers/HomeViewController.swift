@@ -99,7 +99,6 @@ class HomeViewController: UIViewController{
         })
         accountObservation = AccountManager.shared.observe(\.phoneNum,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newName = change.newValue,let _ = newName {
-                //                print("Name changed to \(x)")
                 self.headerStackView.removeArrangedSubview(self.needLoginView)
                 self.needLoginView.removeFromSuperview()
             }else{
@@ -418,10 +417,12 @@ private extension HomeViewController {
             AccountManager.shared.clearAccount()
             MainManager.shared.resetAll()
         }else if notification.name == .userLoggedIn{
+            self.mapViewController.locationManager.startUpdatingLocation()
             if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
                 self.fetchAuthData()
                 self.fetchActivities()
             }
+            
         }
        
         
