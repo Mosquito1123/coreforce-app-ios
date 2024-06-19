@@ -42,8 +42,8 @@ class HomeViewController: UIViewController{
     lazy var headerStackBatteryView:HFStackView = {
         let stackView = HFStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.alignment = .trailing
+        stackView.spacing = 12
+        stackView.alignment = .bottom
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -134,7 +134,7 @@ class HomeViewController: UIViewController{
                     self.needAuthView.removeFromSuperview()
                 }else{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
-
+                    
                 }
             }
         })
@@ -150,9 +150,9 @@ class HomeViewController: UIViewController{
     func startObserving(){
         NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: .userLoggedIn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: .userLoggedOut, object: nil)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handleAuthState(_:)), name: .userAuthenticated, object: nil)
-
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -178,7 +178,7 @@ class HomeViewController: UIViewController{
                 AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
                 if  AccountManager.shared.isAuth == 1{
                     NotificationCenter.default.post(name: .userAuthenticated, object: nil)
-
+                    
                 }
                 
             case .failure(let error):
@@ -217,7 +217,7 @@ class HomeViewController: UIViewController{
         concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
             NetworkService<BusinessAPI,DataListResponse<BatterySummary>>().request(.batteryList) { result in
                 dispatchGroup.leave()
-
+                
                 switch result {
                 case.success(let response):
                     
@@ -241,7 +241,7 @@ class HomeViewController: UIViewController{
             // 模拟耗时任务
             NetworkService<BatteryDepositAPI,BatteryDepositResponse>().request(.batteryTempOrderInfo) { result in
                 dispatchGroup.leave()
-
+                
                 switch result {
                 case.success(let response):
                     
@@ -259,7 +259,7 @@ class HomeViewController: UIViewController{
         
         dispatchGroup.notify(queue: DispatchQueue.main) {
             MainManager.shared.refreshType()
-
+            
         }
     }
     
@@ -288,10 +288,11 @@ private extension HomeViewController {
         self.addChild(mapViewController)
         self.view.addSubview(mapViewController.view)
         mapViewController.view.frame = self.view.bounds
-
+        
         mapViewController.didMove(toParent: self)
         self.view.addSubview(headerStackView)
         self.view.addSubview(footerStackView)
+        self.view.addSubview(headerStackBatteryView)
         
         needLoginView.loginAction = { (sender) -> Void in
             let loginVC = LoginViewController()
@@ -346,7 +347,6 @@ private extension HomeViewController {
         //        let batteryOfflineView = BatteryOfflineView()
         //        headerStackView.addArrangedSubview(batteryOfflineView)
         headerStackView.addArrangedSubview(packageCardView)
-        headerStackView.addArrangedSubview(headerStackBatteryView)
         
         footerStackView.addArrangedSubview(inviteView)
         
@@ -357,7 +357,7 @@ private extension HomeViewController {
         footerStackView.addArrangedSubview(listView)
         let locateView = MapFeatureView(.locate) { sender, mapFeatureType in
             self.mapViewController.mapView.userTrackingMode = .followWithHeading
-
+            
         }
         footerStackView.addArrangedSubview(locateView)
         let refreshView = MapFeatureView(.refresh) { sender, mapFeatureType in
@@ -393,6 +393,9 @@ private extension HomeViewController {
             headerStackView.topAnchor.constraint(equalTo: self.locationChooseView.bottomAnchor,constant: 10),
             headerStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             headerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
+            headerStackBatteryView.topAnchor.constraint(equalTo: self.headerStackView.bottomAnchor,constant: 10),
+            headerStackBatteryView.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14-38-14),
+            headerStackBatteryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             footerStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -26),
             footerStackView.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14-38-14),
             footerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
@@ -437,7 +440,7 @@ private extension HomeViewController {
             }
             
         }
-       
+        
         
     }
     @objc func handleAuthState(_ notification:Notification){
