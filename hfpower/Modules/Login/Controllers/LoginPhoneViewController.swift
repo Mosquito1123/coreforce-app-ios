@@ -271,13 +271,12 @@ private extension LoginPhoneViewController {
         NetworkService<AuthAPI,TokenResponse>().request(.loginWithSMS(phoneNumber: phoneNum ?? "", code:vCode ?? "",inviteCode: inviteCode,type: "pin")) { result in
             switch result {
             case .success(let response):
-                NotificationCenter.default.post(name: .userLoggedIn, object: nil)
                 TokenManager.shared.accessToken = response?.accessToken
                 TokenManager.shared.accessTokenExpiration = response?.accessTokenExpiration
                 TokenManager.shared.refreshToken = response?.refreshToken
                 TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
                 AccountManager.shared.phoneNum = phoneNum
-                
+                NotificationCenter.default.post(name: .userLoggedIn, object: nil)
                 self.navigationController?.dismiss(animated: true)
                 
                 

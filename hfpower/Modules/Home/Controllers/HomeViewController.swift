@@ -77,7 +77,7 @@ class HomeViewController: UIViewController{
         setupNavbar()
         setupSubviews()
         setupLayout()
-    
+        startObserving()
         if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
             self.fetchAuthData()
             self.fetchActivities()
@@ -421,6 +421,10 @@ private extension HomeViewController {
             if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
                 self.fetchAuthData()
                 self.fetchActivities()
+            }
+            if let isAuth = AccountManager.shared.isAuth,isAuth == 1,self.isViewLoaded{
+                self.fetchData()
+                self.fetchBikeData()
             }
             
         }

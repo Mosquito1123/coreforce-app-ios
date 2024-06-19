@@ -42,10 +42,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = .white
         self.window?.overrideUserInterfaceStyle = .light
-        DispatchQueue.main.async {
-            IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enable = true
 
-        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
