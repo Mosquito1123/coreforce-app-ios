@@ -35,4 +35,6 @@ target 'hfpower' do
   pod 'SDCAlertView'
   pod 'swiftScan'
   pod 'FloatingPanel'
+  pod 'FSPagerView'
+  pod 'DGCharts'
 end

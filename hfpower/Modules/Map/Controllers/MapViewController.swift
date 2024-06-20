@@ -291,6 +291,9 @@ extension MapViewController{
                 self.present(nav, animated: true)
             }
             contentVC.detailAction = { sender in
+                self.fpc.hide(animated: true)
+                let cabinetDetailVC = CabinetDetailViewController()
+                self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
             }
             contentVC.navigateAction = { sender in
                 self.mapNavigation(lat: annotation.coordinate.latitude, lng: annotation.coordinate.longitude, address: annotation.cabinet?.number, currentController: self)
