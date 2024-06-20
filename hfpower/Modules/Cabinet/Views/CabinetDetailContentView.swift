@@ -88,8 +88,6 @@ class CabinetDetailContentView: UIView {
         button.setImage(UIImage(named: "cabinet_navigate"),for: .normal)
         button.setImage(UIImage(named: "cabinet_navigate"),for: .highlighted)
 
-        button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
-        button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
 
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .regular)
@@ -133,6 +131,13 @@ class CabinetDetailContentView: UIView {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
+        let bgLayer1 = CAGradientLayer()
+        bgLayer1.colors = [UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor, UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor, UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1).cgColor]
+        bgLayer1.locations = [0, 0.62, 1]
+        bgLayer1.frame = CGRect(x: 0, y: 0, width: self.bounds.size.width, height: 136.5)
+        bgLayer1.startPoint = CGPoint(x: 0.5, y: 0)
+        bgLayer1.endPoint = CGPoint(x: 1, y: 1)
+        self.layer.insertSublayer(bgLayer1, at: 0)
         navigateButton.setImagePosition(type: .imageTop, Space: 6)
        
     }
@@ -142,6 +147,9 @@ class CabinetDetailContentView: UIView {
 private extension CabinetDetailContentView {
     
     private func setupSubviews() {
+
+        // fillCode
+   
         addSubview(titleLabel)
         addSubview(businessTimeLabel)
         addSubview(topLineView)
@@ -173,7 +181,7 @@ private extension CabinetDetailContentView {
             rentStatusButton.trailingAnchor.constraint(equalTo: depositStatusButton.leadingAnchor,constant: -6),
             topLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             topLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            topLineView.topAnchor.constraint(equalTo: self.businessTimeLabel.bottomAnchor, constant: 13),
+            topLineView.topAnchor.constraint(equalTo: self.businessTimeLabel.bottomAnchor, constant: 21),
             topLineView.heightAnchor.constraint(equalToConstant: 0.5),
             
             rideLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
@@ -195,14 +203,13 @@ private extension CabinetDetailContentView {
             statisticView.bottomAnchor.constraint(equalTo: chartView.topAnchor, constant: -12),
             statisticView.heightAnchor.constraint(equalToConstant: 146),
 
-            navigateButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            navigateButton.topAnchor.constraint(equalTo: topAnchor,constant: 14),
-            navigateButton.widthAnchor.constraint(equalToConstant: 165),
-            navigateButton.heightAnchor.constraint(equalToConstant: 50),
-            navigateButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            navigateButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            navigateButton.topAnchor.constraint(equalTo: self.topAnchor,constant: 14),
+            navigateButton.widthAnchor.constraint(equalToConstant: 39),
+            navigateButton.heightAnchor.constraint(equalToConstant: 62),
             chartView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 16),
             chartView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -16),
-            chartView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -20-100),
+//            chartView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -20-100),
             chartView.heightAnchor.constraint(equalToConstant: 240),
 
 

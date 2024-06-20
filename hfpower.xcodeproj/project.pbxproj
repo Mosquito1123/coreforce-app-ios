@@ -34,6 +34,7 @@
 		042849152C2436EC0011032F /* CabinetDetailContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042849142C2436EC0011032F /* CabinetDetailContentViewController.swift */; };
 		042849172C2437290011032F /* CabinetDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042849162C2437290011032F /* CabinetDetailContentView.swift */; };
 		042849192C24388D0011032F /* CabinetDetailBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042849182C24388D0011032F /* CabinetDetailBottomView.swift */; };
+		0428491B2C245B990011032F /* CabinetNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428491A2C245B990011032F /* CabinetNumberView.swift */; };
 		042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */; };
 		043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC762C074850003FD6AD /* MapPackageCardView.swift */; };
 		043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC782C074889003FD6AD /* MapInviteView.swift */; };
@@ -214,6 +215,7 @@
 		042849142C2436EC0011032F /* CabinetDetailContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailContentViewController.swift; sourceTree = "<group>"; };
 		042849162C2437290011032F /* CabinetDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailContentView.swift; sourceTree = "<group>"; };
 		042849182C24388D0011032F /* CabinetDetailBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailBottomView.swift; sourceTree = "<group>"; };
+		0428491A2C245B990011032F /* CabinetNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetNumberView.swift; sourceTree = "<group>"; };
 		042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotationView.swift; sourceTree = "<group>"; };
 		043DEC762C074850003FD6AD /* MapPackageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPackageCardView.swift; sourceTree = "<group>"; };
 		043DEC782C074889003FD6AD /* MapInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInviteView.swift; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 				04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */,
 				042849162C2437290011032F /* CabinetDetailContentView.swift */,
 				042849182C24388D0011032F /* CabinetDetailBottomView.swift */,
+				0428491A2C245B990011032F /* CabinetNumberView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1424,6 +1427,7 @@
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */,
+				0428491B2C245B990011032F /* CabinetNumberView.swift in Sources */,
 				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
 				0451657F2C1AC0DF00ABE7F1 /* JYBDBankCardVC.m in Sources */,
 				04A5E5172C1AD53E00787551 /* MemberRpResponse.swift in Sources */,
