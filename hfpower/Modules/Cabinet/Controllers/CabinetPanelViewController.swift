@@ -10,6 +10,13 @@ import UIKit
 class CabinetPanelViewController: UIViewController {
     
     // MARK: - Accessor
+    var cabinet:CabinetSummary?{
+        didSet{
+            self.cabinetPanelView.businessTimeLabel.text = cabinet?.number
+            self.cabinetPanelView.locationLabel.text = cabinet?.location
+
+        }
+    }
     var navigateAction:ButtonActionBlock?
     var scanAction:ButtonActionBlock?
     var dropDownAction:ButtonActionBlock?

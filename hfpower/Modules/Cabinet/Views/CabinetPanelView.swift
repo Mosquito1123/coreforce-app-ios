@@ -10,6 +10,11 @@ import UIKit
 class CabinetPanelView: UIView {
 
     // MARK: - Accessor
+    var cabinet:CabinetSummary?{
+        didSet{
+            
+        }
+    }
     var navigateAction:ButtonActionBlock?
     var scanAction:ButtonActionBlock?
     var dropDownAction:ButtonActionBlock?

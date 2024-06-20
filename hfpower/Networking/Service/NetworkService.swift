@@ -18,7 +18,6 @@ class NetworkService<R:APIType,T: Convertible> {
         let loadingPlugin = LoadingPlugin()
         // 创建自定义的 URLSessionConfiguration
         let configuration = URLSessionConfiguration.default
-        configuration.shouldUseExtendedBackgroundIdleMode = true
         configuration.httpMaximumConnectionsPerHost = 5
         configuration.httpShouldUsePipelining = true
         configuration.requestCachePolicy = .useProtocolCachePolicy
@@ -28,13 +27,11 @@ class NetworkService<R:APIType,T: Convertible> {
         }
         configuration.waitsForConnectivity = true
         // 创建带重试机制的 Session
-        //        let retrier = RetryPolicy()
-        let sessionWithRetry = Session(configuration: configuration)
-        provider = MoyaProvider<MultiTarget>(session: sessionWithRetry,plugins: [loadingPlugin,networkLoggerPlugin],trackInflights: true)
+        let session = Session(configuration: configuration)
+        provider = MoyaProvider<MultiTarget>(session: session,plugins: [loadingPlugin,networkLoggerPlugin],trackInflights: true)
     }
     
     func request(_ target: R, completion: @escaping (Result<T?, Error>) -> Void) {
-        let requestKey = target.path
         let needHUD = target.shouldShowLoadingView
         if needHUD == true{
             SVProgressHUD.setDefaultStyle(.dark)
@@ -44,7 +41,7 @@ class NetworkService<R:APIType,T: Convertible> {
             
         }
         
-        let request = self.provider?.request(MultiTarget(target),callbackQueue: DispatchQueue.main) { result in
+        self.provider?.request(MultiTarget(target),callbackQueue: DispatchQueue.main) { result in
             if needHUD == true{
                 SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
                 

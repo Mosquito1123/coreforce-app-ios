@@ -40,5 +40,23 @@ extension UIViewController{
          alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named: "447AFE") ?? UIColor.blue]), style: .normal, handler: sureBlock))
          alert.present()
     }
-  
+    /// 获取最底层window
+    static func ex_rootWindow() -> UIWindow? {
+        var rootWindow: UIWindow? = nil
+        if #available(iOS 13, *) {
+            rootWindow = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first
+        }
+        if let _ = rootWindow {}
+        else if let w = UIApplication.shared.delegate?.window {
+            rootWindow = w
+        }
+        else if let w = UIApplication.shared.windows.first {
+            rootWindow = w
+        }
+        return rootWindow
+    }
+   
 }

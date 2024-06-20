@@ -120,6 +120,7 @@
 		045165942C1AC0E000ABE7F1 /* scaningline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0451657A2C1AC0DF00ABE7F1 /* scaningline.png */; };
 		045165962C1AC7E000ABE7F1 /* libbexbankcard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451656A2C1AC0DF00ABE7F1 /* libbexbankcard.a */; };
 		045165972C1AC7E000ABE7F1 /* libexbankcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165692C1AC0DF00ABE7F1 /* libexbankcardios.a */; };
+		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
@@ -314,6 +315,7 @@
 		045165782C1AC0DF00ABE7F1 /* scaningbgimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningbgimage@2x.png"; sourceTree = "<group>"; };
 		045165792C1AC0DF00ABE7F1 /* scaningbgimage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningbgimage@3x.png"; sourceTree = "<group>"; };
 		0451657A2C1AC0DF00ABE7F1 /* scaningline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scaningline.png; sourceTree = "<group>"; };
+		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 			children = (
 				043DEC882C089930003FD6AD /* SearchCabinetListViewController.swift */,
 				04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */,
+				04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1513,6 +1516,7 @@
 				04FFEE352C008CC500939B46 /* LoginPasswordInputView.swift in Sources */,
 				04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */,
 				0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */,
+				04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
 				045165412C1AA5B700ABE7F1 /* HFAuthNameView.swift in Sources */,

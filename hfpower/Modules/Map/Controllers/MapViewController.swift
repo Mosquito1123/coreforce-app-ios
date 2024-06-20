@@ -12,9 +12,11 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     
     // MARK: - Accessor
     let locationManager = CLLocationManager()
-
+    var didSelectBlock:((_ mapView: MKMapView, _ view: MKAnnotationView)->Void)?
+    var didDeselectBlock:((_ mapView: MKMapView, _ view: MKAnnotationView)->Void)?
+    
     let fpc = FloatingPanelController()
-
+    
     // MARK: - Subviews
     lazy var mapView:HFMapView = {
         let map = HFMapView()
@@ -39,7 +41,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         setupNavbar()
         setupSubviews()
         setupLayout()
-       
+        
     }
     func firstLoadData(){
         let userlocation = mapView.userLocation
@@ -125,7 +127,10 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
 }
 extension MapViewController:FloatingPanelControllerDelegate{
     func floatingPanel(_ fpc: FloatingPanelController, shouldAllowToScroll scrollView: UIScrollView, in state: FloatingPanelState) -> Bool {
-        return state == .full || state == .half
+        return state == .half
+    }
+    func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
+        return RemovablePanelLayout()
     }
 }
 // MARK: - Setup
@@ -177,14 +182,14 @@ extension MapViewController{
         
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-           if let location = locations.last {
-               print("用户位置已更新: \(location.coordinate)")
-               // 在这里可以执行需要用户位置的逻辑
-               // 例如，设置地图的中心点为用户位置
-               firstLoadData()
-               
-           }
-       }
+        if let location = locations.last {
+            print("用户位置已更新: \(location.coordinate)")
+            // 在这里可以执行需要用户位置的逻辑
+            // 例如，设置地图的中心点为用户位置
+            firstLoadData()
+            
+        }
+    }
     // 处理授权状态变化
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
@@ -198,60 +203,85 @@ extension MapViewController{
         }
     }
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-
+        
     }
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-               
-
+        
+        
     }
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-    
+        
     }
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        self.didSelectBlock?(mapView,view)
+        
         // 动画效果
-        UIView.animate(withDuration: 0.3,
-                       animations: {
-            view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        }, completion: { _ in
-         
-            
+        if view.annotation is CabinetAnnotation{
+            UIView.animate(withDuration: 0.3,
+                           animations: {
+                // 缩放视图
+                let scaleTransform = CGAffineTransform(scaleX: 1.5, y: 1.5)
 
-        })
-        fpc.delegate = self
-        fpc.contentInsetAdjustmentBehavior = .always
-        fpc.surfaceView.appearance = {
-            let appearance = SurfaceAppearance()
-            appearance.cornerRadius = 15.0
-            return appearance
-        }()
-        let contentVC = CabinetPanelViewController()
-        contentVC.scanAction = { sender in
+                // 平移视图，例如向上平移 50 单位
+                let translationTransform = CGAffineTransform(translationX: 0, y: -10)
+
+                // 组合变换
+                let combinedTransform = scaleTransform.concatenating(translationTransform)
+                view.transform = combinedTransform
+            }, completion: { _ in
+                
+                
+                
+            })
+            fpc.delegate = self
+            fpc.isRemovalInteractionEnabled = true
+            fpc.contentInsetAdjustmentBehavior = .always
+            fpc.surfaceView.appearance = {
+                let appearance = SurfaceAppearance()
+                appearance.cornerRadius = 15.0
+                return appearance
+            }()
+            let contentVC = CabinetPanelViewController()
+            contentVC.scanAction = { sender in
+            }
+            contentVC.detailAction = { sender in
+            }
+            contentVC.navigateAction = { sender in
+            }
+            contentVC.dropDownAction = { sender in
+                self.fpc.hide(animated: true)
+            }
+            fpc.set(contentViewController: contentVC)
+            guard let window = UIViewController.ex_rootWindow() else { fatalError("Any window not found") }
+            
+            window.addSubview(fpc.view)
+            fpc.view.frame = window.bounds
+            fpc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            
+            fpc.show(animated: true)
         }
-        contentVC.detailAction = { sender in
-        }
-        contentVC.navigateAction = { sender in
-        }
-        contentVC.dropDownAction = { sender in
-            self.fpc.removePanelFromParent(animated: true)
-        }
-        fpc.set(contentViewController: contentVC)
-        fpc.addPanel(toParent: self)
+        
+        
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        // 当取消选择时将标注恢复原样
-        UIView.animate(withDuration: 0.2) {
-            view.transform = CGAffineTransform.identity
+        self.didDeselectBlock?(mapView,view)
+        if view.annotation is CabinetAnnotation{
+            
+            // 当取消选择时将标注恢复原样
+            UIView.animate(withDuration: 0.2) {
+                view.transform = CGAffineTransform.identity
+            }
         }
     }
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         
     }
     func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
-       
+        
         
     }
     
@@ -424,10 +454,10 @@ class RemovablePanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
-        .full: FloatingPanelLayoutAnchor(absoluteInset: 100.0, edge: .top, referenceGuide: .safeArea),
-            .half: FloatingPanelLayoutAnchor(absoluteInset: 364.0, edge: .bottom, referenceGuide: .safeArea)
+        
+        .half: FloatingPanelLayoutAnchor(absoluteInset: 364.0, edge: .bottom, referenceGuide: .safeArea)
     ]
-
+    
     func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
         return 0.0
     }

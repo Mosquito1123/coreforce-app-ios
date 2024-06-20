@@ -36,6 +36,7 @@ class CabinetStatisticView: UIView {
     }()
     lazy var titleLabel:UILabel = {
         let label = UILabel()
+        label.text = "电池"
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.textColor = UIColor(named: "1D2129")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +54,9 @@ class CabinetStatisticView: UIView {
     }()
     lazy var giftButton: UIButton = {
         let button = UIButton(type:.custom)
+        button.setTitle("购买套餐卡更优惠", for: .normal)
+        button.setTitle("购买套餐卡更优惠", for: .highlighted)
+
         button.setImage(UIImage(named: "gift_right_icon"), for: .normal)
         button.setImage(UIImage(named: "gift_right_icon"), for: .highlighted)
         button.setTitleColor(UIColor(named: "C96518"), for: .normal)
