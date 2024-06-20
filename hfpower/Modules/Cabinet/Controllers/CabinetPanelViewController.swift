@@ -26,9 +26,10 @@ class CabinetPanelViewController: UIViewController {
                 let cyclingTimeInSeconds = walkingTimeInSeconds / 4.5 // 假设电动车速度是步行的 4.5 倍
                 
                 // 时间格式化// 距离格式化
-                if let cyclingTimeFormatted = self.mapController?.formatTime(seconds: cyclingTimeInSeconds), let distanceFormatted = self.mapController?.formatDistance(meters: route.distance){
-                    self.cabinetPanelView.rideLabel.text = "\(distanceFormatted) · 骑行\(cyclingTimeFormatted)"
-                }
+                let cyclingTimeFormatted = String.formatTime(seconds: cyclingTimeInSeconds) 
+                let distanceFormatted = String.formatDistance(meters: route.distance)
+                self.cabinetPanelView.rideLabel.text = "\(distanceFormatted) · 骑行\(cyclingTimeFormatted)"
+
                 
                 
                

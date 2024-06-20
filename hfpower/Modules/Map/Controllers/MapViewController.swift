@@ -257,11 +257,11 @@ extension MapViewController{
                 let cyclingTimeInSeconds = walkingTimeInSeconds / 4.5 // 假设电动车速度是步行的 4.5 倍
                 
                 // 时间格式化
-                let cyclingTimeFormatted = self.formatTime(seconds: cyclingTimeInSeconds)
+                let cyclingTimeFormatted = String.formatTime(seconds: cyclingTimeInSeconds)
                 print("Estimated cycling time: \(cyclingTimeFormatted)")
                 
                 // 距离格式化
-                let distanceFormatted = self.formatDistance(meters: route.distance)
+                let distanceFormatted = String.formatDistance(meters: route.distance)
                 print("Distance: \(distanceFormatted)")
                 
                 // 移除之前的路径
@@ -350,23 +350,7 @@ extension MapViewController{
         let directions = MKDirections(request: request)
         directions.calculate(completionHandler: completion)
     }
-    func formatTime(seconds: TimeInterval) -> String {
-        if seconds > 60 {
-            let minutes = Int(seconds) / 60
-            let remainingSeconds = Int(seconds) % 60
-            return "\(minutes) 分钟 \(remainingSeconds) 秒"
-        } else {
-            return "\(Int(seconds)) 秒"
-        }
-    }
-    func formatDistance(meters: CLLocationDistance) -> String {
-        if meters > 1000 {
-            let kilometers = meters / 1000
-            return String(format: "%.2f 公里", kilometers)
-        } else {
-            return String(format: "%.0f 米", meters)
-        }
-    }
+    
     func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
         
         
@@ -401,6 +385,26 @@ extension MapViewController{
 }
 extension MapViewController {
     // 监听地图区域变化
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        for annotationView in views {
+            if annotationView is CenterAnnotationView{
+                UIView.animateKeyframes(withDuration: 0.3, delay: 0, options: [], animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
+                        annotationView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                    }
+                    
+                    UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+                        annotationView.transform = .identity
+                    }
+                }, completion: { _ in
+                    // 动画完成后的操作
+                    
+                })
+            }
+            
+        }
+        
+    }
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         // 更新标记位置为地图中心
         

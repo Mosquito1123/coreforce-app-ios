@@ -91,10 +91,7 @@ class HomeViewController: UIViewController{
             self.fetchAuthData()
             self.fetchActivities()
         }
-        if let isAuth = AccountManager.shared.isAuth,isAuth == 1,self.isViewLoaded{
-            self.fetchData()
-            self.fetchBikeData()
-        }
+       
         homeObservation = MainManager.shared.observe(\.batteryDetail,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let temp = change.newValue,let batteryDetail = temp {
                 self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
@@ -435,11 +432,7 @@ private extension HomeViewController {
                 self.fetchAuthData()
                 self.fetchActivities()
             }
-            if let isAuth = AccountManager.shared.isAuth,isAuth == 1,self.isViewLoaded{
-                self.fetchData()
-                self.fetchBikeData()
-            }
-            
+           
         }
         
         
