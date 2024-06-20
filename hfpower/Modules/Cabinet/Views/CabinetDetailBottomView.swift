@@ -15,13 +15,14 @@ class CabinetDetailBottomView: UIView {
     lazy var scanButton:UIButton = {
         let button = UIButton(type: .custom)
         // 设置按钮的圆角和边框
+        button.tintAdjustmentMode = .automatic
         button.setTitle("扫码换电", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setImage(UIImage(named: "scan"), for: .normal)
         button.setImage(UIImage(named: "scan"), for: .highlighted)
 
         button.setBackgroundImage(UIColor(named: "447AFE")?.toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(named: "447AFE")?.toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(named: "447AFE")?.withAlphaComponent(0.5).toImage(), for: .highlighted)
 
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16,weight: .medium)

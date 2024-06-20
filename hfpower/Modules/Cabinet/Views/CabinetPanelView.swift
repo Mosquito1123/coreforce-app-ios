@@ -30,7 +30,7 @@ class CabinetPanelView: UIView {
         return label
     }()
     lazy var dropDownButton:UIButton = {
-        let button = UIButton(type:.custom)
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 18, height: 18))
         button.setImage(UIImage(named: "drop_down"), for: .normal)
         button.setImage(UIImage(named: "drop_down"), for: .selected)
         button.addTarget(self, action: #selector(dropDownButtonAction(_:)), for: .touchUpInside)
@@ -38,7 +38,7 @@ class CabinetPanelView: UIView {
         return button
     }()
     lazy var detailButton: UIButton = {
-        let button = UIButton(type:.custom)
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
         button.setImage(UIImage(named: "icon_arrow_right"), for: .normal)
         button.setTitle("详情", for: .normal)
         button.setTitleColor(UIColor(named: "447AFE"), for: .normal)
@@ -107,10 +107,11 @@ class CabinetPanelView: UIView {
     lazy var navigateButton:UIButton = {
         let button = UIButton(type: .custom)
         // 设置按钮的圆角和边框
+        button.tintAdjustmentMode = .automatic
         button.setTitle("导航", for: .normal)
         button.setTitleColor(UIColor(named: "1D2129"), for: .normal)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
-        button.setBackgroundImage(UIColor.white.toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
 
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
@@ -125,9 +126,10 @@ class CabinetPanelView: UIView {
         let button = UIButton(type: .custom)
         // 设置按钮的圆角和边框
         button.setTitle("扫码换电", for: .normal)
+        button.tintAdjustmentMode = .automatic
         button.setTitleColor(UIColor.white, for: .normal)
         button.setBackgroundImage(UIColor(named: "447AFE")?.toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(named: "447AFE")?.toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(named: "447AFE")?.withAlphaComponent(0.5).toImage(), for: .highlighted)
 
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
