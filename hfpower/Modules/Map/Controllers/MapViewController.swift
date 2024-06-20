@@ -11,7 +11,18 @@ import FloatingPanel
 class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
     
     // MARK: - Accessor
-    let locationManager = CLLocationManager()
+    lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        // 在这里可以进行其他的配置
+        manager.delegate = self
+        
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        manager.requestWhenInUseAuthorization()
+        
+        
+        return manager
+    }()
     var didSelectBlock:((_ mapView: MKMapView, _ view: MKAnnotationView)->Void)?
     var didDeselectBlock:((_ mapView: MKMapView, _ view: MKAnnotationView)->Void)?
     
@@ -36,8 +47,9 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         // Initialize debounce with a 0.5 second interval
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        
+        locationManager.startUpdatingLocation()
+
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -219,23 +231,49 @@ extension MapViewController{
         self.didSelectBlock?(mapView,view)
         
         // 动画效果
-        if view.annotation is CabinetAnnotation{
-            UIView.animate(withDuration: 0.3,
-                           animations: {
-                // 缩放视图
-                let scaleTransform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-
-                // 平移视图，例如向上平移 50 单位
-                let translationTransform = CGAffineTransform(translationX: 0, y: -10)
-
-                // 组合变换
-                let combinedTransform = scaleTransform.concatenating(translationTransform)
-                view.transform = combinedTransform
+        if let annotation = view.annotation as? CabinetAnnotation{
+            UIView.animateKeyframes(withDuration: 0.3, delay: 0, options: [], animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
+                    view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5) {
+                    view.transform = .identity
+                }
             }, completion: { _ in
-                
-                
-                
+                // 动画完成后的操作
             })
+
+            guard let sourceCoordinate = mapView.userLocation.location?.coordinate else {return} // 起点
+            let destinationCoordinate = annotation.coordinate
+            
+            calculateCyclingTime(from: sourceCoordinate, to: destinationCoordinate) { response, error in
+                guard let response = response, let route = response.routes.first else {
+                    print("Error calculating directions: \(String(describing: error))")
+                    return
+                }
+                
+                let walkingTimeInSeconds = route.expectedTravelTime
+                let cyclingTimeInSeconds = walkingTimeInSeconds / 4.5 // 假设电动车速度是步行的 4.5 倍
+                
+                // 时间格式化
+                let cyclingTimeFormatted = self.formatTime(seconds: cyclingTimeInSeconds)
+                print("Estimated cycling time: \(cyclingTimeFormatted)")
+                
+                // 距离格式化
+                let distanceFormatted = self.formatDistance(meters: route.distance)
+                print("Distance: \(distanceFormatted)")
+                
+                // 移除之前的路径
+                let overlays = self.mapView.overlays
+                self.mapView.removeOverlays(overlays)
+                
+                // 添加新路径
+                self.mapView.addOverlay(route.polyline)
+                let expandedMapRect = route.polyline.boundingMapRect.expanded(byFactor: 1.5) // Expand by 20%
+
+                self.mapView.setVisibleMapRect(expandedMapRect, animated: true)
+            }
             fpc.delegate = self
             fpc.isRemovalInteractionEnabled = true
             fpc.contentInsetAdjustmentBehavior = .always
@@ -246,14 +284,22 @@ extension MapViewController{
             }()
             let contentVC = CabinetPanelViewController()
             contentVC.scanAction = { sender in
+                let scanVC = HFScanViewController()
+                let nav = UINavigationController(rootViewController: scanVC)
+                nav.modalPresentationStyle = .fullScreen
+                nav.modalTransitionStyle = .coverVertical
+                self.present(nav, animated: true)
             }
             contentVC.detailAction = { sender in
             }
             contentVC.navigateAction = { sender in
+                self.mapNavigation(lat: annotation.coordinate.latitude, lng: annotation.coordinate.longitude, address: annotation.cabinet?.number, currentController: self)
             }
             contentVC.dropDownAction = { sender in
                 self.fpc.hide(animated: true)
             }
+            contentVC.mapController = self
+            contentVC.annotation = annotation
             fpc.set(contentViewController: contentVC)
             guard let window = UIViewController.ex_rootWindow() else { fatalError("Any window not found") }
             
@@ -272,13 +318,54 @@ extension MapViewController{
         if view.annotation is CabinetAnnotation{
             
             // 当取消选择时将标注恢复原样
-            UIView.animate(withDuration: 0.2) {
-                view.transform = CGAffineTransform.identity
-            }
+           
         }
     }
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         
+    }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: polyline)
+            renderer.strokeColor = .cyan
+            renderer.lineWidth = 4.0
+            renderer.lineDashPattern = [0, 10] // 调整箭头的显示间隔
+
+            return renderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
+    }
+    func calculateCyclingTime(from sourceCoordinate: CLLocationCoordinate2D, to destinationCoordinate: CLLocationCoordinate2D, completion: @escaping (MKDirections.Response?, Error?) -> Void) {
+        let sourcePlacemark = MKPlacemark(coordinate: sourceCoordinate)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationCoordinate)
+        
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        let request = MKDirections.Request()
+        request.source = sourceMapItem
+        request.destination = destinationMapItem
+        request.transportType = .walking // 使用 walking 来模拟骑行时间
+        
+        let directions = MKDirections(request: request)
+        directions.calculate(completionHandler: completion)
+    }
+    func formatTime(seconds: TimeInterval) -> String {
+        if seconds > 60 {
+            let minutes = Int(seconds) / 60
+            let remainingSeconds = Int(seconds) % 60
+            return "\(minutes) 分钟 \(remainingSeconds) 秒"
+        } else {
+            return "\(Int(seconds)) 秒"
+        }
+    }
+    func formatDistance(meters: CLLocationDistance) -> String {
+        if meters > 1000 {
+            let kilometers = meters / 1000
+            return String(format: "%.2f 公里", kilometers)
+        } else {
+            return String(format: "%.0f 米", meters)
+        }
     }
     func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
         

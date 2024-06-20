@@ -7,7 +7,67 @@
 
 import UIKit
 import SDCAlertView
+import MapKit
 extension UIViewController{
+    func mapNavigation(lat: Double, lng: Double, address: String?, currentController: UIViewController?) {
+        let urlScheme = "hefenghuandian://" // 设置本APPurlScheme 可修改
+        let appName = "tie.battery.qi" // 设置APP名称 可修改
+        
+        // 设置目的地的经纬度结构体
+        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        
+        var destinationName = "目的地"
+        if let address = address, !address.isEmpty {
+            destinationName = address
+        }
+        
+        let alert = AlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // Apple Maps
+        if let appleMapsURL = URL(string: "http://maps.apple.com/"), UIApplication.shared.canOpenURL(appleMapsURL) {
+            let action = AlertAction(title: "苹果地图", style: .normal) { _ in
+                let currentLocation = MKMapItem.forCurrentLocation()
+                let destinationLocation = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary: nil))
+                destinationLocation.name = destinationName
+                MKMapItem.openMaps(with: [currentLocation, destinationLocation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsShowsTrafficKey: true])
+            }
+            alert.addAction(action)
+        }
+        
+        // Baidu Maps
+        if let baiduMapsURL = URL(string: "baidumap://"), UIApplication.shared.canOpenURL(baiduMapsURL) {
+            let action = AlertAction(title: "百度地图", style: .normal) { _ in
+                let baiduStr = "baidumap://map/direction?origin={{我的位置}}&destination=name:\(destinationName)|latlng:\(coordinate.latitude),\(coordinate.longitude)&mode=driving&coord_type=gcj02"
+                if let urlString = baiduStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: urlString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: { success in
+                        print("百度地图打开完成")
+                    })
+                }
+            }
+            alert.addAction(action)
+        }
+        
+        // Gaode Maps
+        if let gaodeMapsURL = URL(string: "iosamap://"), UIApplication.shared.canOpenURL(gaodeMapsURL) {
+            let action = AlertAction(title: "高德地图", style: .normal) { _ in
+                let gaodeStr = "iosamap://path?sourceApplication=\(appName)&backScheme=\(urlScheme)&dlat=\(coordinate.latitude)&dlon=\(coordinate.longitude)&dname=\(destinationName)&dev=0&t=0"
+                if let urlString = gaodeStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: urlString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: { success in
+                        print("高德地图打开完成")
+                    })
+                }
+            }
+            alert.addAction(action)
+        }
+        
+        // 取消
+        let cancelAction = AlertAction(title: "取消", style: .preferred, handler: nil)
+        alert.addAction(cancelAction)
+        
+        if let controller = currentController {
+            controller.present(alert, animated: true, completion: nil)
+        }
+    }
     func showPrivacyAlertController(cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction) -> Void)? = nil){
         let textView = UITextView()
          textView.backgroundColor = .clear

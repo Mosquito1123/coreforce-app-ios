@@ -10,7 +10,7 @@ import UIKit
 class CabinetDetailViewController: UIViewController {
     
     // MARK: - Accessor
-    var cabinet:CabinetSummary?{
+    var cabinetAnnotation:CabinetAnnotation?{
         didSet{
         }
     }

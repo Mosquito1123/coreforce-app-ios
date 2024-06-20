@@ -10,13 +10,34 @@ import UIKit
 class CabinetPanelViewController: UIViewController {
     
     // MARK: - Accessor
-    var cabinet:CabinetSummary?{
+    var annotation:CabinetAnnotation?{
         didSet{
-            self.cabinetPanelView.businessTimeLabel.text = cabinet?.number
-            self.cabinetPanelView.locationLabel.text = cabinet?.location
-
+            self.cabinetPanelView.titleLabel.text = annotation?.cabinet?.number
+            self.cabinetPanelView.locationLabel.text = annotation?.cabinet?.location
+            guard let sourceCoordinate = mapController?.mapView.userLocation.location?.coordinate else {return} // 起点
+            guard let destinationCoordinate = annotation?.coordinate else {return}
+            self.mapController?.calculateCyclingTime(from: sourceCoordinate, to: destinationCoordinate, completion: { response, error in
+                guard let response = response, let route = response.routes.first else {
+                    print("Error calculating directions: \(String(describing: error))")
+                    return
+                }
+                
+                let walkingTimeInSeconds = route.expectedTravelTime
+                let cyclingTimeInSeconds = walkingTimeInSeconds / 4.5 // 假设电动车速度是步行的 4.5 倍
+                
+                // 时间格式化// 距离格式化
+                if let cyclingTimeFormatted = self.mapController?.formatTime(seconds: cyclingTimeInSeconds), let distanceFormatted = self.mapController?.formatDistance(meters: route.distance){
+                    self.cabinetPanelView.rideLabel.text = "\(distanceFormatted) · 骑行\(cyclingTimeFormatted)"
+                }
+                
+                
+               
+                
+                
+            })
         }
     }
+    var mapController:MapViewController?
     var navigateAction:ButtonActionBlock?
     var scanAction:ButtonActionBlock?
     var dropDownAction:ButtonActionBlock?
@@ -35,6 +56,7 @@ class CabinetPanelViewController: UIViewController {
         setupSubviews()
         setupLayout()
     }
+   
     
 }
 

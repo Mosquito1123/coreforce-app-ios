@@ -30,6 +30,7 @@
 		04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA42C09A6F50087066F /* CabinetStatisticView.swift */; };
 		04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA62C09BCFA0087066F /* CabinetLocationView.swift */; };
 		04224DA92C09D37A0087066F /* CabinetStatisticBatteryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */; };
+		042849132C240A1C0011032F /* MapRect+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042849122C240A1C0011032F /* MapRect+Extension.swift */; };
 		042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */; };
 		043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC762C074850003FD6AD /* MapPackageCardView.swift */; };
 		043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC782C074889003FD6AD /* MapInviteView.swift */; };
@@ -206,6 +207,7 @@
 		04224DA42C09A6F50087066F /* CabinetStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticView.swift; sourceTree = "<group>"; };
 		04224DA62C09BCFA0087066F /* CabinetLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetLocationView.swift; sourceTree = "<group>"; };
 		04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticBatteryListView.swift; sourceTree = "<group>"; };
+		042849122C240A1C0011032F /* MapRect+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapRect+Extension.swift"; sourceTree = "<group>"; };
 		042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotationView.swift; sourceTree = "<group>"; };
 		043DEC762C074850003FD6AD /* MapPackageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPackageCardView.swift; sourceTree = "<group>"; };
 		043DEC782C074889003FD6AD /* MapInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInviteView.swift; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				04BE42982C118813002B78EA /* UIViewController+Extension.swift */,
 				04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */,
 				0496C94D2C13094500B7884B /* UIResponder+Extension.swift */,
+				042849122C240A1C0011032F /* MapRect+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1494,6 +1497,7 @@
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
 				045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */,
+				042849132C240A1C0011032F /* MapRect+Extension.swift in Sources */,
 				04EBBB042C185D1300AFD14B /* BatteryDetail.swift in Sources */,
 				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
 				0451657D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m in Sources */,

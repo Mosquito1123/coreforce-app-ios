@@ -429,7 +429,8 @@ private extension HomeViewController {
             AccountManager.shared.clearAccount()
             MainManager.shared.resetAll()
         }else if notification.name == .userLoggedIn{
-            self.mapViewController.locationManager.requestWhenInUseAuthorization()
+            self.mapViewController.locationManager.startUpdatingLocation()
+            
             if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
                 self.fetchAuthData()
                 self.fetchActivities()
