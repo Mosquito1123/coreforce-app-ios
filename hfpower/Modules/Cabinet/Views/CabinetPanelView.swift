@@ -142,12 +142,7 @@ class CabinetPanelView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    lazy var lineView:UIView = {
-       let view = UIView()
-        view.backgroundColor = UIColor(named: "F7F7F7")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+   
     lazy var topLineView:UIView = {
        let view = UIView()
         view.backgroundColor = UIColor(named: "EDEDED")
@@ -189,7 +184,6 @@ private extension CabinetPanelView {
         addSubview(locationLabel)
         addSubview(statisticView)
         addSubview(navigateButton)
-        addSubview(lineView)
         addSubview(scanButton)
     }
     
@@ -240,11 +234,6 @@ private extension CabinetPanelView {
             statisticView.heightAnchor.constraint(equalToConstant: 160),
 
 
-
-            lineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            lineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            lineView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: 10),
 
             navigateButton.widthAnchor.constraint(equalToConstant: 165),
             navigateButton.heightAnchor.constraint(equalToConstant: 50),

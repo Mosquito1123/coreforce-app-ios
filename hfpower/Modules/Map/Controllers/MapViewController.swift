@@ -291,7 +291,7 @@ extension MapViewController{
                 self.present(nav, animated: true)
             }
             contentVC.detailAction = { sender in
-                self.fpc.hide(animated: true)
+         
                 let cabinetDetailVC = CabinetDetailViewController()
                 self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
             }
@@ -304,11 +304,17 @@ extension MapViewController{
             contentVC.mapController = self
             contentVC.annotation = annotation
             fpc.set(contentViewController: contentVC)
-            guard let window = UIViewController.ex_rootWindow() else { fatalError("Any window not found") }
+            guard let controller = UIViewController.ex_presentController() else { fatalError("Any window not found") }
             
-            window.addSubview(fpc.view)
-            fpc.view.frame = window.bounds
-            fpc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            controller.view.addSubview(fpc.view)
+            fpc.view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                fpc.view.bottomAnchor.constraint(equalTo: controller.view.safeAreaLayoutGuide.bottomAnchor),
+                fpc.view.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
+                fpc.view.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
+                fpc.view.topAnchor.constraint(equalTo: controller.view.topAnchor),
+
+            ])
             
             fpc.show(animated: true)
         }
