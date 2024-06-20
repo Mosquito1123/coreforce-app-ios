@@ -6,13 +6,17 @@
 //
 
 import UIKit
-import FloatingPanel
+
 class CabinetDetailContentViewController: UIViewController {
     
     // MARK: - Accessor
     
     // MARK: - Subviews
-
+    lazy var cabinetDetailContentView:CabinetDetailContentView = {
+        let view = CabinetDetailContentView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,11 +36,16 @@ private extension CabinetDetailContentViewController {
     }
    
     private func setupSubviews() {
-        
+        self.view.addSubview(self.cabinetDetailContentView)
     }
     
     private func setupLayout() {
-        
+        NSLayoutConstraint.activate([
+            cabinetDetailContentView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            cabinetDetailContentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            cabinetDetailContentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            cabinetDetailContentView.topAnchor.constraint(equalTo: self.view.topAnchor),
+        ])
     }
 }
 

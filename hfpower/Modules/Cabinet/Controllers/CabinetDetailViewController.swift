@@ -7,9 +7,11 @@
 
 import UIKit
 import FSPagerView
+import FloatingPanel
 class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate {
     
     // MARK: - Accessor
+    let fpc = FloatingPanelController()
     var cabinetAnnotation:CabinetAnnotation?{
         didSet{
         }
@@ -46,10 +48,15 @@ private extension CabinetDetailViewController {
     }
    
     private func setupSubviews() {
-        self.addChild(cabinetDetailContentController)
-        self.view.addSubview(cabinetDetailContentController.view)
-        cabinetDetailContentController.view.frame = self.view.bounds
-        cabinetDetailContentController.didMove(toParent: self)
+        fpc.delegate = self
+        fpc.set(contentViewController: self.cabinetDetailContentController)
+        fpc.contentInsetAdjustmentBehavior = .always
+        fpc.surfaceView.appearance = {
+            let appearance = SurfaceAppearance()
+            appearance.cornerRadius = 15.0
+            return appearance
+        }()
+        fpc.addPanel(toParent: self)
         self.view.addSubview(self.bottomView)
     }
     
@@ -65,8 +72,11 @@ private extension CabinetDetailViewController {
 }
 
 // MARK: - Public
-extension CabinetDetailViewController {
-    
+extension CabinetDetailViewController:FloatingPanelControllerDelegate{
+    func floatingPanel(_ fpc: FloatingPanelController, shouldAllowToScroll scrollView: UIScrollView, in state: FloatingPanelState) -> Bool {
+        return state == .half || state == .full
+    }
+
 }
 
 // MARK: - Request
