@@ -9,6 +9,7 @@ PODS:
   - IQKeyboardManagerSwift (7.0.3)
   - JXSegmentedView (1.3.3)
   - KakaJSON (1.1.2)
+  - Kingfisher (7.12.0)
   - LookinServer/Core (1.2.8)
   - LookinServer/Swift (1.2.8):
     - LookinServer/Core
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift
   - JXSegmentedView
   - KakaJSON (~> 1.1.2)
+  - Kingfisher
   - LookinServer/Swift
   - MJRefresh
   - Moya
@@ -61,6 +63,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - JXSegmentedView
     - KakaJSON
+    - Kingfisher
     - LookinServer
     - MJRefresh
     - Moya
@@ -82,6 +85,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: f9c5dc36cba16ddd2e51fa7d51c34a2e083029b5
   JXSegmentedView: 651b60fcf705258ba9395edd53876dbd2853fb68
   KakaJSON: cc5ff50a8c1cfbb09413db8496cb709a209e6137
+  Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
   LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
@@ -94,6 +98,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: 39a3738b344cd8ad49c308d6aa89eee986c02d04
+PODFILE CHECKSUM: 4838af3e03760f6184d30bce410364847f4e3f3a
 
 COCOAPODS: 1.15.2

@@ -293,6 +293,7 @@ extension MapViewController{
             contentVC.detailAction = { sender in
          
                 let cabinetDetailVC = CabinetDetailViewController()
+                cabinetDetailVC.cabinetAnnotation = annotation
                 self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
             }
             contentVC.navigateAction = { sender in
@@ -562,3 +563,4 @@ class RemovablePanelLayout: FloatingPanelLayout {
         return 0.0
     }
 }
+

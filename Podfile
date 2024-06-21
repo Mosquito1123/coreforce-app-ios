@@ -37,4 +37,6 @@ target 'hfpower' do
   pod 'FloatingPanel'
   pod 'FSPagerView'
   pod 'DGCharts'
+  pod 'Kingfisher'
+
 end
