@@ -96,8 +96,8 @@ class CabinetDetailContentView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    lazy var cabinetNumberView: UIView = {
-        let cabinetNumberView = UIView()
+    lazy var cabinetNumberView: CabinetNumberView = {
+        let cabinetNumberView = CabinetNumberView()
         cabinetNumberView.translatesAutoresizingMaskIntoConstraints = false
         return cabinetNumberView
     }()
@@ -107,8 +107,8 @@ class CabinetDetailContentView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    lazy var chartView: LineChartView = {
-        let chartView = LineChartView()
+    lazy var chartView: ChartMainView = {
+        let chartView = ChartMainView()
         chartView.translatesAutoresizingMaskIntoConstraints = false
         return chartView
     }()
@@ -135,8 +135,8 @@ class CabinetDetailContentView: UIView {
         bgLayer1.colors = [UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor, UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor, UIColor(red: 0.97, green: 0.97, blue: 0.97, alpha: 1).cgColor]
         bgLayer1.locations = [0, 0.62, 1]
         bgLayer1.frame = CGRect(x: 0, y: 0, width: self.bounds.size.width, height: 136.5)
-        bgLayer1.startPoint = CGPoint(x: 0.5, y: 0)
-        bgLayer1.endPoint = CGPoint(x: 1, y: 1)
+//        bgLayer1.startPoint = CGPoint(x: 0, y: 0)
+//        bgLayer1.endPoint = CGPoint(x: 1, y: 1)
         self.layer.insertSublayer(bgLayer1, at: 0)
         navigateButton.setImagePosition(type: .imageTop, Space: 6)
        
@@ -158,6 +158,7 @@ private extension CabinetDetailContentView {
         addSubview(rideLabel)
         addSubview(locationImageView)
         addSubview(locationLabel)
+        addSubview(cabinetNumberView)
         addSubview(statisticView)
         statisticView.showTop = true
         addSubview(navigateButton)
@@ -188,13 +189,15 @@ private extension CabinetDetailContentView {
             rideLabel.topAnchor.constraint(equalTo: topLineView.bottomAnchor, constant: 10),
             rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
             locationImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            locationImageView.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
+            locationImageView.bottomAnchor.constraint(equalTo: cabinetNumberView.topAnchor, constant: -14),
             locationImageView.widthAnchor.constraint(equalToConstant: 14),
             locationImageView.heightAnchor.constraint(equalToConstant: 14),
 
             locationLabel.leadingAnchor.constraint(equalTo: self.locationImageView.trailingAnchor, constant: 3),
-            locationLabel.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
-            
+            locationLabel.bottomAnchor.constraint(equalTo: cabinetNumberView.topAnchor, constant: -14),
+            cabinetNumberView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            cabinetNumberView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            cabinetNumberView.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -12),
             
             
             

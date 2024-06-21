@@ -30,9 +30,15 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     // MARK: - Accessor
     let base = "https://www.coreforce.cn"
     let fpc = FloatingPanelController()
+    var cabinetExchangeForecastDatas:[CabinetExchangeForecast]?{
+        didSet{
+            self.cabinetDetailContentController.cabinetExchangeForecastDatas = cabinetExchangeForecastDatas
+        }
+    }
     var cabinetAnnotation:CabinetAnnotation?{
         didSet{
             self.cabinetDetailContentController.cabinetDetailContentView.titleLabel.text = cabinetAnnotation?.cabinet?.number
+            self.cabinetDetailContentController.cabinetDetailContentView.cabinetNumberView.numberLabel.text = cabinetAnnotation?.cabinet?.number
             self.cabinetDetailContentController.cabinetDetailContentView.locationLabel.text = cabinetAnnotation?.cabinet?.location
             guard let sourceCoordinate = mapController.mapView.userLocation.location?.coordinate else {return} // 起点
             guard let destinationCoordinate = cabinetAnnotation?.coordinate else {return}
@@ -53,16 +59,16 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
                 
             })
             var list = [String]()
-            if let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id {
+            if let _ = cabinetAnnotation?.cabinet?.photo1, let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id {
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(1)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
             }
-            if let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id{
+            if let _ = cabinetAnnotation?.cabinet?.photo2,let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id{
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(2)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
 
             }
-            if let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id{
+            if let _ = cabinetAnnotation?.cabinet?.photo3,let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id{
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(3)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
             }
@@ -108,8 +114,22 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
         setupNavbar()
         setupSubviews()
         setupLayout()
+        loadCabinetDetail(id: cabinetAnnotation?.cabinet?.id?.description, number: cabinetAnnotation?.cabinet?.number)
     }
-    
+    func loadCabinetDetail(id:String?,number:String?){
+        if let idx = id,let numberx = number{
+            NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: idx, number: numberx)) { result in
+                switch result {
+                case .success(let response):
+                    self.cabinetExchangeForecastDatas = response?.cabinetExchangeForecast
+                case .failure(let error):
+                    debugPrint(error)
+
+                }
+            }
+        }
+        
+    }
 }
 
 // MARK: - Setup
@@ -123,6 +143,12 @@ private extension CabinetDetailViewController {
         self.view.addSubview(pagerView)
 
         fpc.delegate = self
+        self.cabinetDetailContentController.cabinetDetailContentView.navigateAction = { action in
+            guard let annotation = self.cabinetAnnotation else {
+                self.showError(withStatus: "该电柜坐标数据有误")
+                return}
+            self.mapNavigation(lat: annotation.coordinate.latitude, lng: annotation.coordinate.longitude, address: annotation.cabinet?.number, currentController: self)
+        }
         fpc.set(contentViewController: self.cabinetDetailContentController)
         fpc.contentInsetAdjustmentBehavior = .always
         fpc.surfaceView.appearance = {

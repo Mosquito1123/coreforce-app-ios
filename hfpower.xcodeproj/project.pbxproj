@@ -164,6 +164,8 @@
 		04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB052C1861DF00AFD14B /* BikeDetail.swift */; };
 		04EBBB082C186F8900AFD14B /* CabinetListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */; };
 		04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */; };
+		04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */; };
+		04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C012C25877200F47E79 /* ChartMainView.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -364,6 +366,8 @@
 		04EBBB052C1861DF00AFD14B /* BikeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetail.swift; sourceTree = "<group>"; };
 		04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetListResponse.swift; sourceTree = "<group>"; };
 		04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotation.swift; sourceTree = "<group>"; };
+		04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailResponse.swift; sourceTree = "<group>"; };
+		04FB1C012C25877200F47E79 /* ChartMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMainView.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -810,6 +814,7 @@
 				042849162C2437290011032F /* CabinetDetailContentView.swift */,
 				042849182C24388D0011032F /* CabinetDetailBottomView.swift */,
 				0428491A2C245B990011032F /* CabinetNumberView.swift */,
+				04FB1C012C25877200F47E79 /* ChartMainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -866,6 +871,7 @@
 				04EBBAFD2C1858B700AFD14B /* ActivityListResponse.swift */,
 				04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */,
 				04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */,
+				04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1434,6 +1440,7 @@
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
 				04A5E51F2C1C253400787551 /* HFScanViewController.swift in Sources */,
+				04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */,
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
 				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
@@ -1499,6 +1506,7 @@
 				04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */,
 				331C90C22BC6C60000BB534F /* ViewController.swift in Sources */,
 				043DEC912C0971F9003FD6AD /* CabinetListViewCell.swift in Sources */,
+				04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
 				0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */,
 				04FFEE372C00975B00939B46 /* LoginVCodeInputView.swift in Sources */,

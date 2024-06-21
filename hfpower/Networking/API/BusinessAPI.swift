@@ -14,7 +14,7 @@ enum BusinessAPI {
     case cabinetScan
     case cabinetScanReturn
     case replaceConfirm
-    case cabinet
+    case cabinet(id:String,number:String)
     case cabinetList(tempStorageSw:NSNumber?,cityCode:String?,lon:Double?,lat:Double?)
     case cabinetScanRent
     case batteryLock
@@ -144,6 +144,8 @@ extension BusinessAPI:APIType{
         case .batteryList:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         case .locomotiveList:
+            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        case .cabinet(id: let id, number: let number):
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
