@@ -45,7 +45,7 @@ class MainScanItemView: ESTabBarItemContentView {
             scanButton.setTitle(mainScanItemType?.getValue(), for: .normal)
             scanButton.setTitle(mainScanItemType?.getValue(), for: .highlighted)
             scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.toImage(), for: .normal)
-            scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.toImage(), for: .highlighted)
+            scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.withAlphaComponent(0.3).toImage(), for: .highlighted)
 
         }
         
@@ -62,10 +62,19 @@ class MainScanItemView: ESTabBarItemContentView {
     lazy var scanButton:UIButton = {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 0, width: 76, height: 76)
+        button.tintAdjustmentMode = .automatic
         button.setTitle("扫码租电", for: .normal)
+        button.setTitle("扫码租电", for: .highlighted)
+
         button.setImage(UIImage(named: "scan"), for: .normal)
+        button.setImage(UIImage(named: "scan"), for: .highlighted)
+
         button.setBackgroundImage(UIColor(named: "22C788")?.toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(named: "22C788")?.withAlphaComponent(0.3).toImage(), for: .highlighted)
+
         button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.white.withAlphaComponent(0.3), for: .highlighted)
+
         button.layer.cornerRadius = 38
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
