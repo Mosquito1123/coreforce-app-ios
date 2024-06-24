@@ -19,6 +19,7 @@ class PersonalViewController: UIViewController {
         tableView.register(PersonalViewCell.self, forCellReuseIdentifier: PersonalViewCell.cellIdentifier())
         tableView.register(PersonalHeaderViewCell.self, forCellReuseIdentifier: PersonalHeaderViewCell.cellIdentifier())
         tableView.register(PersonalPackageCardViewCell.self, forCellReuseIdentifier: PersonalPackageCardViewCell.cellIdentifier())
+        tableView.register(PersonalDevicesViewCell.self, forCellReuseIdentifier: PersonalDevicesViewCell.cellIdentifier())
 
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
@@ -50,6 +51,14 @@ class PersonalViewController: UIViewController {
             }
             self.navigationController?.pushViewController(settings, animated: true)
         }),PersonalListModel(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier(),action: { sender in
+            
+        }),PersonalListModel(title: "我的设备",cellHeight: 198, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
+            
+        }),PersonalListModel(title: "我的资产",cellHeight: 120, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
+            
+        }),PersonalListModel(title: "我的里程",cellHeight: 120, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
+            
+        }),PersonalListModel(title: "其他服务",cellHeight: 120, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
             
         })]
         self.tableView.reloadData()
@@ -97,7 +106,10 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         if let headerCell = cell as? PersonalHeaderViewCell{
             headerCell.settingsAction = action
+        }else if let contentCell = cell as? PersonalDevicesViewCell{
+            contentCell.titleLabel.text = item.title
         }
+        
         return cell
         
         

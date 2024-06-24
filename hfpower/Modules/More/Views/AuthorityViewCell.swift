@@ -13,7 +13,43 @@ class AuthorityViewCell: UITableViewCell {
     var sureAction:ButtonActionBlock?
 
     // MARK: - Subviews
-    
+    lazy var mainView: UIImageView = {
+        let mainView = UIImageView()
+        mainView.image = UIImage(named: "authority_button_bg")
+        mainView.translatesAutoresizingMaskIntoConstraints = false
+        return mainView
+    }()
+    lazy var iconView: UIImageView = {
+        let iconView = UIImageView()
+        iconView.image = UIImage(named: "authority_icon")
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        return iconView
+    }()
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = UIColor(named: "333333")
+        label.text = "进行实名认证可享受更多特权服务"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    lazy var sureButton:UIButton = {
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: 0, y: 0, width: 72, height: 31)
+        button.tintAdjustmentMode = .automatic
+        button.setBackgroundImage(UIColor(named: "FB9D5C")?.toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(named: "FB9D5C")?.withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white, for: .highlighted)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        button.setTitle("立即实名", for: .normal)
+        button.setTitle("立即实名", for: .highlighted)
+        button.layer.cornerRadius = 15.5
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(sureButtonTapped(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     // MARK: - Static
     class func cellIdentifier() -> String {
         return String(describing: self)
@@ -45,11 +81,36 @@ class AuthorityViewCell: UITableViewCell {
 private extension AuthorityViewCell {
     
     private func setupSubviews() {
-        
+        self.contentView.addSubview(self.mainView)
+        self.mainView.addSubview(iconView)
+        self.mainView.addSubview(titleLabel)
+        self.mainView.addSubview(sureButton)
+
     }
     
     private func setupLayout() {
-        
+        NSLayoutConstraint.activate([
+            self.mainView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 12),
+            self.mainView.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: 8),
+            self.mainView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -8),
+            self.mainView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -12),
+
+        ])
+        NSLayoutConstraint.activate([
+            iconView.widthAnchor.constraint(equalToConstant: 20),
+            iconView.heightAnchor.constraint(equalToConstant: 20),
+            iconView.leadingAnchor.constraint(equalTo: self.mainView.leadingAnchor,constant: 12),
+            iconView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            iconView.centerYAnchor.constraint(equalTo: sureButton.centerYAnchor),
+            iconView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor,constant: -4),
+            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: sureButton.leadingAnchor,constant: -14),
+            sureButton.trailingAnchor.constraint(equalTo: self.mainView.trailingAnchor,constant: -12),
+            sureButton.heightAnchor.constraint(equalToConstant: 31),
+            sureButton.widthAnchor.constraint(equalToConstant: 72),
+            sureButton.topAnchor.constraint(equalTo: self.mainView.topAnchor, constant: 12),
+            sureButton.bottomAnchor.constraint(equalTo: self.mainView.bottomAnchor, constant: -12),
+
+        ])
     }
     
 }
@@ -61,7 +122,9 @@ extension AuthorityViewCell {
 
 // MARK: - Action
 @objc private extension AuthorityViewCell {
-    
+    @objc func sureButtonTapped(_ sender:UIButton){
+        self.sureAction?(sender)
+    }
 }
 
 // MARK: - Private
