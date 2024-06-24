@@ -10,23 +10,22 @@ import UIKit
 class PersonalViewController: UIViewController {
     
     // MARK: - Accessor
-    var items = [String]()
+    var items = [PersonalListModel]()
     var accountObservation:NSKeyValueObservation?
-
+    
     // MARK: - Subviews
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.isScrollEnabled = false
         tableView.register(PersonalViewCell.self, forCellReuseIdentifier: PersonalViewCell.cellIdentifier())
+        tableView.register(PersonalHeaderViewCell.self, forCellReuseIdentifier: PersonalHeaderViewCell.cellIdentifier())
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
-        tableView.backgroundView = UIView()
-        tableView.backgroundColor = UIColor(named: "F7F8FA")
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundView = PersonalViewBackgroundView()
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return tableView
     }()
     // MARK: - Lifecycle
@@ -42,7 +41,15 @@ class PersonalViewController: UIViewController {
                 debugPrint(x)
             }
         })
-        self.items = ["设置"]
+        self.items = [PersonalListModel(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),action: { sender in
+            let settings = SettingsViewController()
+            settings.hasLogoutBlock = {
+                self.tabBarController?.selectedIndex = 0
+            }
+            self.navigationController?.pushViewController(settings, animated: true)
+        }),PersonalListModel(title: "其他",cellHeight: 95, identifier: PersonalViewCell.cellIdentifier(),action: { sender in
+            
+        })]
         self.tableView.reloadData()
     }
     deinit {
@@ -57,8 +64,10 @@ private extension PersonalViewController {
     private func setupNavbar() {
         self.title = "我的"
     }
-   
+    
     private func setupSubviews() {
+        let bgView = PersonalViewBackgroundView(frame: self.view.bounds)
+        view.addSubview(bgView)
         view.addSubview(tableView)
     }
     
@@ -68,7 +77,7 @@ private extension PersonalViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-
+            
         ])
     }
 }
@@ -80,18 +89,24 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PersonalViewCell.cellIdentifier(), for: indexPath)
-        cell.textLabel?.text = self.items[indexPath.row]
+        let item = self.items[indexPath.row]
+        let action = item.action
+        guard let identifier = item.identifier else {return UITableViewCell()}
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        if let headerCell = cell as? PersonalHeaderViewCell{
+            headerCell.settingsAction = action
+        }
         return cell
+        
+        
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = self.items[indexPath.row]
+        return item.cellHeight ?? 0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let settings = SettingsViewController()
-        settings.title = self.items[indexPath.row]
-        settings.hasLogoutBlock = {
-            self.tabBarController?.selectedIndex = 0
-        }
-        self.navigationController?.pushViewController(settings, animated: true)
+        
         
     }
     

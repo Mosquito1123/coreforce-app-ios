@@ -24,6 +24,7 @@ class PersonalHeaderViewCell: UITableViewCell {
     }()
     lazy var titleLabel: CopyableLabel = {
         let label = CopyableLabel()
+        label.text = "陈丽"
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textColor = UIColor(named: "333333")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +32,7 @@ class PersonalHeaderViewCell: UITableViewCell {
     }()
     lazy var subTitleLabel: CopyableLabel = {
         let label = CopyableLabel()
+        label.text = "131xxxx2321"
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor(named: "666666")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -88,7 +90,6 @@ class PersonalHeaderViewCell: UITableViewCell {
 private extension PersonalHeaderViewCell {
     
     private func setupSubviews() {
-        contentView.addSubview(cornerBackgroundView)
         contentView.addSubview(headerImageView)
         contentView.addSubview(authorityButton)
         contentView.addSubview(titleLabel)
@@ -99,7 +100,21 @@ private extension PersonalHeaderViewCell {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-        
+            settingsButton.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+            settingsButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -24),
+            settingsButton.bottomAnchor.constraint(equalTo: self.headerImageView.topAnchor, constant: -8),
+            settingsButton.widthAnchor.constraint(equalToConstant: 28),
+            settingsButton.heightAnchor.constraint(equalToConstant: 28),
+            headerImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 14),
+            headerImageView.widthAnchor.constraint(equalToConstant: 64),
+            headerImageView.heightAnchor.constraint(equalToConstant: 64),
+            titleLabel.leadingAnchor.constraint(equalTo: self.headerImageView.trailingAnchor,constant: 12),
+            subTitleLabel.leadingAnchor.constraint(equalTo: self.headerImageView.trailingAnchor,constant: 12),
+            titleLabel.topAnchor.constraint(equalTo: self.headerImageView.topAnchor, constant: 5.5),
+            titleLabel.bottomAnchor.constraint(equalTo: self.subTitleLabel.topAnchor, constant: -5),
+            authorityButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            authorityButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor,constant: 2),
+
         ])
     }
     

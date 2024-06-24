@@ -168,6 +168,7 @@
 		04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C012C25877200F47E79 /* ChartMainView.swift */; };
 		04FB1C042C29135100F47E79 /* PersonalHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C032C29135100F47E79 /* PersonalHeaderViewCell.swift */; };
 		04FB1C062C2922FD00F47E79 /* PersonalViewBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C052C2922FD00F47E79 /* PersonalViewBackgroundView.swift */; };
+		04FB1C082C29537B00F47E79 /* PersonalListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C072C29537B00F47E79 /* PersonalListModel.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -372,6 +373,7 @@
 		04FB1C012C25877200F47E79 /* ChartMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMainView.swift; sourceTree = "<group>"; };
 		04FB1C032C29135100F47E79 /* PersonalHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalHeaderViewCell.swift; sourceTree = "<group>"; };
 		04FB1C052C2922FD00F47E79 /* PersonalViewBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewBackgroundView.swift; sourceTree = "<group>"; };
+		04FB1C072C29537B00F47E79 /* PersonalListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalListModel.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -626,6 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */,
+				04FB1C072C29537B00F47E79 /* PersonalListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1492,6 +1495,7 @@
 				04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */,
 				042849172C2437290011032F /* CabinetDetailContentView.swift in Sources */,
 				0443B9EA2C10414100834069 /* TokenManager.swift in Sources */,
+				04FB1C082C29537B00F47E79 /* PersonalListModel.swift in Sources */,
 				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
 				04EBBAFA2C18202F00AFD14B /* BatteryListResponse.swift in Sources */,
 				045165802C1AC0DF00ABE7F1 /* JYBDScanCardManage.m in Sources */,
