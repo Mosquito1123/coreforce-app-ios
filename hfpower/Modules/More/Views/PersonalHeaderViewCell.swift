@@ -225,6 +225,7 @@ class VerificationButton: UIButton {
 
     private func setupButton() {
         layer.cornerRadius = 2
+        layer.masksToBounds = true
         titleLabel?.font = UIFont.systemFont(ofSize: 9, weight: .medium)
         self.tintAdjustmentMode = .automatic
         setTitleColor(.white, for: .normal)

@@ -18,6 +18,8 @@ class PersonalViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(PersonalViewCell.self, forCellReuseIdentifier: PersonalViewCell.cellIdentifier())
         tableView.register(PersonalHeaderViewCell.self, forCellReuseIdentifier: PersonalHeaderViewCell.cellIdentifier())
+        tableView.register(PersonalPackageCardViewCell.self, forCellReuseIdentifier: PersonalPackageCardViewCell.cellIdentifier())
+
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -47,7 +49,7 @@ class PersonalViewController: UIViewController {
                 self.tabBarController?.selectedIndex = 0
             }
             self.navigationController?.pushViewController(settings, animated: true)
-        }),PersonalListModel(title: "其他",cellHeight: 95, identifier: PersonalViewCell.cellIdentifier(),action: { sender in
+        }),PersonalListModel(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier(),action: { sender in
             
         })]
         self.tableView.reloadData()
