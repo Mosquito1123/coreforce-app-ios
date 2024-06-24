@@ -166,6 +166,8 @@
 		04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */; };
 		04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */; };
 		04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C012C25877200F47E79 /* ChartMainView.swift */; };
+		04FB1C042C29135100F47E79 /* PersonalHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C032C29135100F47E79 /* PersonalHeaderViewCell.swift */; };
+		04FB1C062C2922FD00F47E79 /* PersonalViewBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C052C2922FD00F47E79 /* PersonalViewBackgroundView.swift */; };
 		04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE2E2C00454400939B46 /* LoginViewController.swift */; };
 		04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */; };
 		04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */; };
@@ -368,6 +370,8 @@
 		04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotation.swift; sourceTree = "<group>"; };
 		04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailResponse.swift; sourceTree = "<group>"; };
 		04FB1C012C25877200F47E79 /* ChartMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMainView.swift; sourceTree = "<group>"; };
+		04FB1C032C29135100F47E79 /* PersonalHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalHeaderViewCell.swift; sourceTree = "<group>"; };
+		04FB1C052C2922FD00F47E79 /* PersonalViewBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewBackgroundView.swift; sourceTree = "<group>"; };
 		04FFEE2E2C00454400939B46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		04FFEE302C0080FE00939B46 /* LoginAccountInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAccountInputView.swift; sourceTree = "<group>"; };
 		04FFEE322C00889400939B46 /* LoginPhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPhoneViewController.swift; sourceTree = "<group>"; };
@@ -630,6 +634,8 @@
 			isa = PBXGroup;
 			children = (
 				0496C9492C12E12800B7884B /* PersonalViewCell.swift */,
+				04FB1C032C29135100F47E79 /* PersonalHeaderViewCell.swift */,
+				04FB1C052C2922FD00F47E79 /* PersonalViewBackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1474,6 +1480,7 @@
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
 				0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */,
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
+				04FB1C062C2922FD00F47E79 /* PersonalViewBackgroundView.swift in Sources */,
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
 				04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
@@ -1540,6 +1547,7 @@
 				04BE42AD2C11D583002B78EA /* SectionIndexViewItemIndicator.swift in Sources */,
 				04BE42B42C12A198002B78EA /* AccountManager.swift in Sources */,
 				045165842C1AC0DF00ABE7F1 /* JYBDCardIDInfo.m in Sources */,
+				04FB1C042C29135100F47E79 /* PersonalHeaderViewCell.swift in Sources */,
 				04001C502C073420000A040F /* MapFeatureView.swift in Sources */,
 				04FFEE352C008CC500939B46 /* LoginPasswordInputView.swift in Sources */,
 				04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */,

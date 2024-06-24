@@ -24,6 +24,7 @@ class PersonalViewController: UIViewController {
         tableView.backgroundColor = UIColor(named: "F7F8FA")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundView = PersonalViewBackgroundView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         return tableView
