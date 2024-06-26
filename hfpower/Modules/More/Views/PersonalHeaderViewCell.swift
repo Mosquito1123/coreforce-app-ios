@@ -108,6 +108,7 @@ private extension PersonalHeaderViewCell {
             headerImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 14),
             headerImageView.widthAnchor.constraint(equalToConstant: 64),
             headerImageView.heightAnchor.constraint(equalToConstant: 64),
+            headerImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -6),
             titleLabel.leadingAnchor.constraint(equalTo: self.headerImageView.trailingAnchor,constant: 12),
             subTitleLabel.leadingAnchor.constraint(equalTo: self.headerImageView.trailingAnchor,constant: 12),
             titleLabel.topAnchor.constraint(equalTo: self.headerImageView.topAnchor, constant: 5.5),

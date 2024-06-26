@@ -28,6 +28,7 @@ class PersonalContentViewCell: UITableViewCell {
     }()
     lazy var stackView: HFStackView = {
         let stackView = HFStackView()
+        stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()

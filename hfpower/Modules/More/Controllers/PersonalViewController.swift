@@ -15,11 +15,13 @@ class PersonalViewController: UIViewController {
     
     // MARK: - Subviews
     lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(PersonalViewCell.self, forCellReuseIdentifier: PersonalViewCell.cellIdentifier())
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(PersonalHeaderViewCell.self, forCellReuseIdentifier: PersonalHeaderViewCell.cellIdentifier())
         tableView.register(PersonalPackageCardViewCell.self, forCellReuseIdentifier: PersonalPackageCardViewCell.cellIdentifier())
         tableView.register(PersonalDevicesViewCell.self, forCellReuseIdentifier: PersonalDevicesViewCell.cellIdentifier())
+        tableView.register(PersonalAssetsViewCell.self, forCellReuseIdentifier: PersonalAssetsViewCell.cellIdentifier())
+        tableView.register(PersonalMileageViewCell.self, forCellReuseIdentifier: PersonalMileageViewCell.cellIdentifier())
+        tableView.register(PersonalOthersViewCell.self, forCellReuseIdentifier: PersonalOthersViewCell.cellIdentifier())
 
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
@@ -52,13 +54,13 @@ class PersonalViewController: UIViewController {
             self.navigationController?.pushViewController(settings, animated: true)
         }),PersonalListModel(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier(),action: { sender in
             
-        }),PersonalListModel(title: "我的设备",cellHeight: 198, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
+        }),PersonalListModel(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
             
-        }),PersonalListModel(title: "我的资产",cellHeight: 120, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
+        }),PersonalListModel(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),action: { sender in
             
-        }),PersonalListModel(title: "我的里程",cellHeight: 120, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
+        }),PersonalListModel(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier(),action: { sender in
             
-        }),PersonalListModel(title: "其他服务",cellHeight: 120, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
+        }),PersonalListModel(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),action: { sender in
             
         })]
         self.tableView.reloadData()
@@ -108,16 +110,22 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             headerCell.settingsAction = action
         }else if let contentCell = cell as? PersonalDevicesViewCell{
             contentCell.titleLabel.text = item.title
+        }else if let contentCell = cell as? PersonalAssetsViewCell{
+            contentCell.titleLabel.text = item.title
+        }else if let contentCell = cell as? PersonalMileageViewCell{
+            contentCell.titleLabel.text = item.title
+        }else if let contentCell = cell as? PersonalOthersViewCell{
+            contentCell.titleLabel.text = item.title
         }
         
         return cell
         
         
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let item = self.items[indexPath.row]
-        return item.cellHeight ?? 0
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let item = self.items[indexPath.row]
+//        return item.cellHeight ?? 0
+//    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         

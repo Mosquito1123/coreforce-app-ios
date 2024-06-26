@@ -39,6 +39,7 @@
 		042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D84FA2C2986F20049DDB5 /* PersonalAssetsViewCell.swift */; };
 		042D84FD2C2987130049DDB5 /* PersonalMileageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D84FC2C2987130049DDB5 /* PersonalMileageViewCell.swift */; };
 		042D84FF2C2987300049DDB5 /* PersonalOthersViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D84FE2C2987300049DDB5 /* PersonalOthersViewCell.swift */; };
+		042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D85002C2BB8BB0049DDB5 /* PersonalElementView.swift */; };
 		042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */; };
 		043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC762C074850003FD6AD /* MapPackageCardView.swift */; };
 		043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC782C074889003FD6AD /* MapInviteView.swift */; };
@@ -232,6 +233,7 @@
 		042D84FA2C2986F20049DDB5 /* PersonalAssetsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalAssetsViewCell.swift; sourceTree = "<group>"; };
 		042D84FC2C2987130049DDB5 /* PersonalMileageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalMileageViewCell.swift; sourceTree = "<group>"; };
 		042D84FE2C2987300049DDB5 /* PersonalOthersViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalOthersViewCell.swift; sourceTree = "<group>"; };
+		042D85002C2BB8BB0049DDB5 /* PersonalElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementView.swift; sourceTree = "<group>"; };
 		042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotationView.swift; sourceTree = "<group>"; };
 		043DEC762C074850003FD6AD /* MapPackageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPackageCardView.swift; sourceTree = "<group>"; };
 		043DEC782C074889003FD6AD /* MapInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInviteView.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 				042D84FA2C2986F20049DDB5 /* PersonalAssetsViewCell.swift */,
 				042D84FC2C2987130049DDB5 /* PersonalMileageViewCell.swift */,
 				042D84FE2C2987300049DDB5 /* PersonalOthersViewCell.swift */,
+				042D85002C2BB8BB0049DDB5 /* PersonalElementView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1586,6 +1589,7 @@
 				0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */,
 				04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
+				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
 				045165412C1AA5B700ABE7F1 /* HFAuthNameView.swift in Sources */,
 			);

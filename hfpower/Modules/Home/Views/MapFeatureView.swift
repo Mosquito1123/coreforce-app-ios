@@ -41,6 +41,7 @@ class MapFeatureView: UIView {
     // MARK: - Subviews
     lazy var featureButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.tintAdjustmentMode = .automatic
         button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
