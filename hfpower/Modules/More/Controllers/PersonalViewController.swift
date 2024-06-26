@@ -116,6 +116,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.titleLabel.text = item.title
         }else if let contentCell = cell as? PersonalOthersViewCell{
             contentCell.titleLabel.text = item.title
+            contentCell.items = [PersonalListModel(title: "我的订单",icon: UIImage(named: "order")),PersonalListModel(title: "购买套餐",icon: UIImage(named: "buy")),PersonalListModel(title: "电池寄存",icon: UIImage(named: "post")),PersonalListModel(title: "卡仓取电",icon: UIImage(named: "fetch_b")),PersonalListModel(title: "邀请有礼",icon: UIImage(named: "invite")),PersonalListModel(title: "用户反馈",icon: UIImage(named: "remark")),PersonalListModel(title: "用户指南",icon: UIImage(named: "guide")),PersonalListModel(title: "消息通知",icon: UIImage(named: "message")),PersonalListModel(title: "常见问题",icon: UIImage(named: "qa")),PersonalListModel(title: "领券中心",icon: UIImage(named: "coupon"))]
         }
         
         return cell

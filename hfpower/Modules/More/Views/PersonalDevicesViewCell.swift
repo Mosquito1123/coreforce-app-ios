@@ -15,14 +15,16 @@ class PersonalDevicesViewCell: PersonalContentViewCell {
     lazy var batteryStackView: HFStackView = {
         let stackView = HFStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     lazy var bikeStackView: HFStackView = {
         let stackView = HFStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -66,6 +68,8 @@ private extension PersonalDevicesViewCell {
         let view13 = PersonalElementView()
         view13.tag = 13
         let view14 = PersonalIconView()
+        view14.iconWidth.constant = 8
+        view14.iconHeight.constant = 15
         view14.iconImageView.image = UIImage(named: "arrow_right")
         view14.tag = 14
         self.batteryStackView.addArrangedSubview(view10)
@@ -83,6 +87,8 @@ private extension PersonalDevicesViewCell {
         let view22 = PersonalElementView()
         view22.tag = 22
         let view23 = PersonalIconView()
+        view23.iconWidth.constant = 8
+        view23.iconHeight.constant = 15
         view23.iconImageView.image = UIImage(named: "arrow_right")
         view23.tag = 23
         self.bikeStackView.addArrangedSubview(view20)

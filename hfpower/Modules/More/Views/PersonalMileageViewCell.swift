@@ -12,7 +12,14 @@ class PersonalMileageViewCell: PersonalContentViewCell {
     // MARK: - Accessor
     
     // MARK: - Subviews
-    
+    lazy var mileageStackView: HFStackView = {
+        let stackView = HFStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 0
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
     // MARK: - Static
     override class func cellIdentifier() -> String {
         return String(describing: self)
@@ -33,7 +40,7 @@ class PersonalMileageViewCell: PersonalContentViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 
 }
@@ -42,7 +49,20 @@ class PersonalMileageViewCell: PersonalContentViewCell {
 private extension PersonalMileageViewCell {
     
     private func setupSubviews() {
-        
+        let view10 = PersonalIconView()
+        view10.iconImageView.image = UIImage(named: "mileage")
+        view10.tag = 10
+        let view11 = PersonalElementView()
+        view11.tag = 11
+        let view12 = PersonalElementView()
+        view12.tag = 12
+        let view13 = PersonalElementView()
+        view13.tag = 13
+        self.mileageStackView.addArrangedSubview(view10)
+        self.mileageStackView.addArrangedSubview(view11)
+        self.mileageStackView.addArrangedSubview(view12)
+        self.mileageStackView.addArrangedSubview(view13)
+        self.stackView.addArrangedSubview(self.mileageStackView)
     }
     
     private func setupLayout() {

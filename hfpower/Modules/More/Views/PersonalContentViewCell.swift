@@ -10,7 +10,7 @@ import UIKit
 class PersonalContentViewCell: UITableViewCell {
     
     // MARK: - Accessor
-    
+    var bottomMargin:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var mainView: UIView = {
         let view = UIView()
@@ -29,6 +29,8 @@ class PersonalContentViewCell: UITableViewCell {
     lazy var stackView: HFStackView = {
         let stackView = HFStackView()
         stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.spacing = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -68,10 +70,11 @@ private extension PersonalContentViewCell {
     }
     
     private func setupLayout() {
+        bottomMargin = self.mainView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -8)
         NSLayoutConstraint.activate([
             self.mainView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 12),
             self.mainView.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: 8),
-            self.mainView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -8),
+            bottomMargin,
             self.mainView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -12),
             
         ])

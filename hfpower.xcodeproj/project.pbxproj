@@ -132,6 +132,7 @@
 		045165972C1AC7E000ABE7F1 /* libexbankcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165692C1AC0DF00ABE7F1 /* libexbankcardios.a */; };
 		045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17532C2BE94E0082AF5B /* PersonalIconView.swift */; };
 		045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */; };
+		045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
@@ -347,6 +348,7 @@
 		0451657A2C1AC0DF00ABE7F1 /* scaningline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scaningline.png; sourceTree = "<group>"; };
 		045C17532C2BE94E0082AF5B /* PersonalIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalIconView.swift; sourceTree = "<group>"; };
 		045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconView.swift; sourceTree = "<group>"; };
+		045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconViewCell.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
@@ -669,6 +671,7 @@
 				042D85002C2BB8BB0049DDB5 /* PersonalElementView.swift */,
 				045C17532C2BE94E0082AF5B /* PersonalIconView.swift */,
 				045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */,
+				045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1547,6 +1550,7 @@
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				0443B9E72C10173100834069 /* String+Extension.swift in Sources */,
 				04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */,
+				045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */,
 				04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */,
 				043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */,
 				04BE42AB2C11D57C002B78EA /* SectionIndexView.swift in Sources */,

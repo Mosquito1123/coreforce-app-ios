@@ -10,10 +10,12 @@ import UIKit
 class PersonalIconView: UIView {
 
     // MARK: - Accessor
-    
+    var iconWidth:NSLayoutConstraint!
+    var iconHeight:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var iconImageView: UIImageView = {
         let iconImageView = UIImageView()
+        iconImageView.contentMode = .scaleAspectFit
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         return iconImageView
     }()
@@ -39,11 +41,13 @@ private extension PersonalIconView {
     }
     
     private func setupLayout() {
+        iconWidth = iconImageView.widthAnchor.constraint(equalToConstant: 29)
+        iconHeight = iconImageView.heightAnchor.constraint(equalToConstant: 29)
         NSLayoutConstraint.activate([
             iconImageView.centerXAnchor.constraint(equalTo:self.centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo:self.centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 29),
-            iconImageView.heightAnchor.constraint(equalToConstant: 29),
+            iconWidth,
+            iconHeight,
 
 
         ])
