@@ -130,6 +130,8 @@
 		045165942C1AC0E000ABE7F1 /* scaningline.png in Resources */ = {isa = PBXBuildFile; fileRef = 0451657A2C1AC0DF00ABE7F1 /* scaningline.png */; };
 		045165962C1AC7E000ABE7F1 /* libbexbankcard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451656A2C1AC0DF00ABE7F1 /* libbexbankcard.a */; };
 		045165972C1AC7E000ABE7F1 /* libexbankcardios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 045165692C1AC0DF00ABE7F1 /* libexbankcardios.a */; };
+		045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17532C2BE94E0082AF5B /* PersonalIconView.swift */; };
+		045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
@@ -343,6 +345,8 @@
 		045165782C1AC0DF00ABE7F1 /* scaningbgimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningbgimage@2x.png"; sourceTree = "<group>"; };
 		045165792C1AC0DF00ABE7F1 /* scaningbgimage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scaningbgimage@3x.png"; sourceTree = "<group>"; };
 		0451657A2C1AC0DF00ABE7F1 /* scaningline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scaningline.png; sourceTree = "<group>"; };
+		045C17532C2BE94E0082AF5B /* PersonalIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalIconView.swift; sourceTree = "<group>"; };
+		045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconView.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
@@ -663,6 +667,8 @@
 				042D84FC2C2987130049DDB5 /* PersonalMileageViewCell.swift */,
 				042D84FE2C2987300049DDB5 /* PersonalOthersViewCell.swift */,
 				042D85002C2BB8BB0049DDB5 /* PersonalElementView.swift */,
+				045C17532C2BE94E0082AF5B /* PersonalIconView.swift */,
+				045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1479,6 +1485,7 @@
 				04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */,
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
 				042D84F92C2985B90049DDB5 /* PersonalContentViewCell.swift in Sources */,
+				045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */,
 				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
@@ -1523,6 +1530,7 @@
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
 				04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */,
 				042849172C2437290011032F /* CabinetDetailContentView.swift in Sources */,
+				045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */,
 				0443B9EA2C10414100834069 /* TokenManager.swift in Sources */,
 				04FB1C082C29537B00F47E79 /* PersonalListModel.swift in Sources */,
 				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
