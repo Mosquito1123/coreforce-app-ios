@@ -41,6 +41,12 @@
 		042D84FF2C2987300049DDB5 /* PersonalOthersViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D84FE2C2987300049DDB5 /* PersonalOthersViewCell.swift */; };
 		042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D85002C2BB8BB0049DDB5 /* PersonalElementView.swift */; };
 		042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */; };
+		043C4C132C2EA51700E887B9 /* PackageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C122C2EA51700E887B9 /* PackageCard.swift */; };
+		043C4C152C2EAF5B00E887B9 /* BuyPackageCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */; };
+		043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */; };
+		043C4C192C2EBB1200E887B9 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C182C2EBB1200E887B9 /* UIView+Extension.swift */; };
+		043C4C1B2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C1A2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift */; };
+		043C4C1D2C2EBFAE00E887B9 /* BuyPackageCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C1C2C2EBFAE00E887B9 /* BuyPackageCardModel.swift */; };
 		043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC762C074850003FD6AD /* MapPackageCardView.swift */; };
 		043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC782C074889003FD6AD /* MapInviteView.swift */; };
 		043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043DEC7A2C081833003FD6AD /* MapBatteryView.swift */; };
@@ -238,6 +244,12 @@
 		042D84FE2C2987300049DDB5 /* PersonalOthersViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalOthersViewCell.swift; sourceTree = "<group>"; };
 		042D85002C2BB8BB0049DDB5 /* PersonalElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementView.swift; sourceTree = "<group>"; };
 		042F2B2E2C19461500D27A04 /* CabinetAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotationView.swift; sourceTree = "<group>"; };
+		043C4C122C2EA51700E887B9 /* PackageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCard.swift; sourceTree = "<group>"; };
+		043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardViewController.swift; sourceTree = "<group>"; };
+		043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeViewCell.swift; sourceTree = "<group>"; };
+		043C4C182C2EBB1200E887B9 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		043C4C1A2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardPlansViewCell.swift; sourceTree = "<group>"; };
+		043C4C1C2C2EBFAE00E887B9 /* BuyPackageCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardModel.swift; sourceTree = "<group>"; };
 		043DEC762C074850003FD6AD /* MapPackageCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPackageCardView.swift; sourceTree = "<group>"; };
 		043DEC782C074889003FD6AD /* MapInviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInviteView.swift; sourceTree = "<group>"; };
 		043DEC7A2C081833003FD6AD /* MapBatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBatteryView.swift; sourceTree = "<group>"; };
@@ -530,6 +542,7 @@
 				04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */,
 				0496C94D2C13094500B7884B /* UIResponder+Extension.swift */,
 				042849122C240A1C0011032F /* MapRect+Extension.swift */,
+				043C4C182C2EBB1200E887B9 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -546,6 +559,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				043C4C0E2C2EA46B00E887B9 /* PackageCard */,
 				04A5E51A2C1C24CA00787551 /* Scan */,
 				045165382C1AA38F00ABE7F1 /* RealName */,
 				04777D722C19B96F0025ACEC /* Guide */,
@@ -764,6 +778,42 @@
 				0415AF422BCCDCFE00E9290D /* MemberAPI.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		043C4C0E2C2EA46B00E887B9 /* PackageCard */ = {
+			isa = PBXGroup;
+			children = (
+				043C4C112C2EA49100E887B9 /* Views */,
+				043C4C102C2EA48500E887B9 /* Controllers */,
+				043C4C0F2C2EA47A00E887B9 /* Models */,
+			);
+			path = PackageCard;
+			sourceTree = "<group>";
+		};
+		043C4C0F2C2EA47A00E887B9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				043C4C122C2EA51700E887B9 /* PackageCard.swift */,
+				043C4C1C2C2EBFAE00E887B9 /* BuyPackageCardModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		043C4C102C2EA48500E887B9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		043C4C112C2EA49100E887B9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				043C4C1A2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift */,
+				043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		043DEC7E2C085468003FD6AD /* Home */ = {
@@ -1471,7 +1521,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043C4C132C2EA51700E887B9 /* PackageCard.swift in Sources */,
 				0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */,
+				043C4C192C2EBB1200E887B9 /* UIView+Extension.swift in Sources */,
 				04FB1C0A2C29576C00F47E79 /* PersonalPackageCardViewCell.swift in Sources */,
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
@@ -1488,6 +1540,7 @@
 				04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */,
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
 				042D84F92C2985B90049DDB5 /* PersonalContentViewCell.swift in Sources */,
+				043C4C1B2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift in Sources */,
 				045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */,
 				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
@@ -1498,6 +1551,7 @@
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
 				049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */,
+				043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */,
 				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
 				04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */,
 				04BE42AA2C11D1EA002B78EA /* CityChooseViewCell.swift in Sources */,
@@ -1524,11 +1578,13 @@
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
 				04FB1C062C2922FD00F47E79 /* PersonalViewBackgroundView.swift in Sources */,
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
+				043C4C1D2C2EBFAE00E887B9 /* BuyPackageCardModel.swift in Sources */,
 				04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
 				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
 				045165832C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m in Sources */,
 				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
+				043C4C152C2EAF5B00E887B9 /* BuyPackageCardViewController.swift in Sources */,
 				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
 				04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */,
