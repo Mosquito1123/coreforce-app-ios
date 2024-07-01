@@ -23,17 +23,18 @@ class BuyPackageCardViewController: UIViewController {
         tableView.register(BatteryTypeViewCell.self, forCellReuseIdentifier: BatteryTypeViewCell.cellIdentifier())
         tableView.register(BuyPackageCardPlansViewCell.self, forCellReuseIdentifier: BuyPackageCardPlansViewCell.cellIdentifier())
         tableView.register(BoughtPlansViewCell.self, forCellReuseIdentifier: BoughtPlansViewCell.cellIdentifier())
-
+        tableView.register(FeeDetailViewCell.self, forCellReuseIdentifier: FeeDetailViewCell.cellIdentifier())
+        
         return tableView
     }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier())]
+        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier())]
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +50,7 @@ private extension BuyPackageCardViewController {
     private func setupNavbar() {
         self.title = "购买套餐"
     }
-   
+    
     private func setupSubviews() {
         self.view.addSubview(self.tableView)
         
@@ -61,8 +62,8 @@ private extension BuyPackageCardViewController {
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-
-
+            
+            
         ])
     }
 }
@@ -76,19 +77,21 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.items[indexPath.row]
         guard let identifier = item.identifier else {return UITableViewCell()}
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         if let cellx = cell as? BatteryTypeViewCell{
             cellx.iconImageView.image = item.icon
             cellx.titleLabel.text = item.title
             cellx.contentLabel.text = item.subtitle
-
+            
         }else if let cellx = cell as? BuyPackageCardPlansViewCell{
             cellx.titleLabel.text = item.title
             cellx.items = [PackageCard(),PackageCard()]
         }else if let cellx = cell as? BoughtPlansViewCell{
             cellx.titleLabel.text = item.title
             cellx.contentLabel.text = item.subtitle
+        }else if let cellx = cell as? FeeDetailViewCell{
+            cellx.titleLabel.text = item.title
         }
         return cell
     }

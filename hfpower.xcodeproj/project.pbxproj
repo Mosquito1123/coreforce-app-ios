@@ -167,6 +167,8 @@
 		04BE42B42C12A198002B78EA /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B32C12A198002B78EA /* AccountManager.swift */; };
 		04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B52C12BC42002B78EA /* MemberResponse.swift */; };
 		04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */; };
+		04DE268B2C32A21C0052D056 /* DepositServiceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */; };
+		04DE268D2C32A5F90052D056 /* FeeDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */; };
 		04EAF4512C22BC5100CD1434 /* CabinetPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */; };
 		04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */; };
 		04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */; };
@@ -390,6 +392,8 @@
 		04BE42B32C12A198002B78EA /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		04BE42B52C12BC42002B78EA /* MemberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberResponse.swift; sourceTree = "<group>"; };
 		04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoughtPlansViewCell.swift; sourceTree = "<group>"; };
+		04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositServiceViewCell.swift; sourceTree = "<group>"; };
+		04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeDetailViewCell.swift; sourceTree = "<group>"; };
 		04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelViewController.swift; sourceTree = "<group>"; };
 		04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelView.swift; sourceTree = "<group>"; };
 		04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocomotiveListResponse.swift; sourceTree = "<group>"; };
@@ -815,6 +819,8 @@
 				043C4C1A2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift */,
 				043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */,
 				04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */,
+				04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */,
+				04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1540,6 +1546,7 @@
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
 				042D84FD2C2987130049DDB5 /* PersonalMileageViewCell.swift in Sources */,
+				04DE268B2C32A21C0052D056 /* DepositServiceViewCell.swift in Sources */,
 				04A5E51F2C1C253400787551 /* HFScanViewController.swift in Sources */,
 				04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */,
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
@@ -1559,6 +1566,7 @@
 				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
 				04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */,
 				04BE42AA2C11D1EA002B78EA /* CityChooseViewCell.swift in Sources */,
+				04DE268D2C32A5F90052D056 /* FeeDetailViewCell.swift in Sources */,
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
 				042849152C2436EC0011032F /* CabinetDetailContentViewController.swift in Sources */,
 				0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */,
