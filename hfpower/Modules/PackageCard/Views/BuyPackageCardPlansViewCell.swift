@@ -96,7 +96,7 @@ private extension BuyPackageCardPlansViewCell {
     private func setupSubviews() {
         self.selectionStyle = .none
         self.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
-        self.containerView.addSubview(self.containerView)
+        self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(titleLabel)
         self.containerView.addSubview(collectionView)
     }
@@ -175,7 +175,7 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
                                                         .font: UIFont.systemFont(ofSize: 12)
                                                     ])
             originAmountLabel.attributedText = attributedText
-            let perMonthNumber = model.price!.doubleValue / model.days!.doubleValue
+            let perMonthNumber = (model.price?.doubleValue  ?? 0)/(model.days?.doubleValue ?? 0)
             planPerMonthLabel.text = "\(nf.string(from: NSNumber(value: perMonthNumber)) ?? "0")元/天"
         }
     }
@@ -254,7 +254,7 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
         let attributedText = NSAttributedString(string: "￥1698",
                                                 attributes: [
                                                     .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                    .foregroundColor: UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1),
+                                                    .foregroundColor: UIColor(red: 0.63, green: 0.63, blue: 0.63, alpha: 1),
                                                     .font: UIFont.systemFont(ofSize: 12)
                                                 ])
         label.attributedText = attributedText
@@ -267,7 +267,7 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = ""
-        label.textColor = UIColor(red: 255/255, green: 58/255, blue: 58/255, alpha: 1)
+        label.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -327,13 +327,13 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                backgroundColor = .white
-                layer.borderWidth = 2.0
-                layer.borderColor = UIColor(red: 49/255, green: 113/255, blue: 239/255, alpha: 1).cgColor
-                planUnitLabel.textColor = UIColor(red: 49/255, green: 113/255, blue: 239/255, alpha: 1)
-                planAmountLabel.textColor = UIColor(red: 49/255, green: 113/255, blue: 239/255, alpha: 1)
+                backgroundColor = UIColor(red: 0.94, green: 0.96, blue: 1, alpha: 1)
+                layer.borderWidth = 1.5
+                layer.borderColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1).cgColor
+                planUnitLabel.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
+                planAmountLabel.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
             } else {
-                backgroundColor = UIColor(red: 246/255, green: 247/255, blue: 249/255, alpha: 1)
+                backgroundColor = UIColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1)
                 layer.borderWidth = 0.0
                 layer.borderColor = UIColor.clear.cgColor
                 planUnitLabel.textColor = UIColor(white: 51/255, alpha: 1)

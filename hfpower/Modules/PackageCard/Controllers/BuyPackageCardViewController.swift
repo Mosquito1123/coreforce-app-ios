@@ -84,6 +84,7 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
 
         }else if let cellx = cell as? BuyPackageCardPlansViewCell{
             cellx.titleLabel.text = item.title
+            cellx.items = [PackageCard(),PackageCard()]
         }
         return cell
     }
