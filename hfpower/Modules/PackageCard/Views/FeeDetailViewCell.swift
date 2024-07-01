@@ -178,7 +178,7 @@ private extension FeeDetailViewCell {
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             
             batteryRentLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
-            batteryRentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 36),
+            batteryRentLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 18),
             
             batteryRentDetailLabel.leadingAnchor.constraint(equalTo: batteryRentLabel.trailingAnchor, constant: 11),
             batteryRentDetailLabel.centerYAnchor.constraint(equalTo: batteryRentLabel.centerYAnchor),
@@ -187,27 +187,28 @@ private extension FeeDetailViewCell {
             batteryRentAmountLabel.centerYAnchor.constraint(equalTo: batteryRentLabel.centerYAnchor),
             
             batteryDepositLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
-            batteryDepositLabel.topAnchor.constraint(equalTo: batteryRentLabel.bottomAnchor, constant: 33),
+            batteryDepositLabel.topAnchor.constraint(equalTo: batteryRentLabel.bottomAnchor, constant: 16),
             
             batteryDepositAmountLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
             batteryDepositAmountLabel.centerYAnchor.constraint(equalTo: batteryDepositLabel.centerYAnchor),
             
             selectedPlanLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
-            selectedPlanLabel.topAnchor.constraint(equalTo: batteryDepositLabel.bottomAnchor, constant: 33),
+            selectedPlanLabel.topAnchor.constraint(equalTo: batteryDepositLabel.bottomAnchor, constant: 16),
             
             selectedPlanDetailLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
             selectedPlanDetailLabel.centerYAnchor.constraint(equalTo: selectedPlanLabel.centerYAnchor),
             
             couponLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
-            couponLabel.topAnchor.constraint(equalTo: selectedPlanLabel.bottomAnchor, constant: 32),
+            couponLabel.topAnchor.constraint(equalTo: selectedPlanLabel.bottomAnchor, constant: 16),
+            couponLabel.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -18),
             
             couponDetailLabel.trailingAnchor.constraint(lessThanOrEqualTo: couponImageView.leadingAnchor, constant: -14),
             couponDetailLabel.centerYAnchor.constraint(equalTo: couponLabel.centerYAnchor),
             
             couponImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
             couponImageView.centerYAnchor.constraint(equalTo: couponLabel.centerYAnchor),
-            couponImageView.widthAnchor.constraint(equalToConstant: 12),
-            couponImageView.heightAnchor.constraint(equalToConstant: 24),
+            couponImageView.widthAnchor.constraint(equalToConstant: 6),
+            couponImageView.heightAnchor.constraint(equalToConstant: 12),
         ])
     }
     
