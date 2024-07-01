@@ -85,7 +85,7 @@ private extension BoughtPlansViewCell {
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 14),
             containerView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -14),
-            containerView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 14),
+            containerView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 6),
             containerView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -6),
         ])
         NSLayoutConstraint.activate([

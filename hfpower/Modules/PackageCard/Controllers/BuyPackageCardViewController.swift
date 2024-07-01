@@ -24,6 +24,7 @@ class BuyPackageCardViewController: UIViewController {
         tableView.register(BuyPackageCardPlansViewCell.self, forCellReuseIdentifier: BuyPackageCardPlansViewCell.cellIdentifier())
         tableView.register(BoughtPlansViewCell.self, forCellReuseIdentifier: BoughtPlansViewCell.cellIdentifier())
         tableView.register(FeeDetailViewCell.self, forCellReuseIdentifier: FeeDetailViewCell.cellIdentifier())
+        tableView.register(RecommendViewCell.self, forCellReuseIdentifier: RecommendViewCell.cellIdentifier())
         
         return tableView
     }()
@@ -34,7 +35,7 @@ class BuyPackageCardViewController: UIViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier())]
+        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),BuyPackageCardModel(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier())]
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -92,6 +93,15 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             cellx.contentLabel.text = item.subtitle
         }else if let cellx = cell as? FeeDetailViewCell{
             cellx.titleLabel.text = item.title
+        }else if let cellx = cell as? RecommendViewCell{
+            cellx.titleLabel.text = item.title
+            cellx.textField.attributedPlaceholder = NSAttributedString(
+                string: item.subtitle ?? "",
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 16),
+                    .foregroundColor: UIColor(rgba: 0xA0A0A0FF)
+                ]
+            )
         }
         return cell
     }

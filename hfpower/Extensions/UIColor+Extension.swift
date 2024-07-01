@@ -22,4 +22,11 @@ extension UIColor{
         
         return image
     }
+    convenience init(rgba: UInt32) {
+           let red = CGFloat((rgba >> 24) & 0xFF) / 255.0
+           let green = CGFloat((rgba >> 16) & 0xFF) / 255.0
+           let blue = CGFloat((rgba >> 8) & 0xFF) / 255.0
+           let alpha = CGFloat(rgba & 0xFF) / 255.0
+           self.init(red: red, green: green, blue: blue, alpha: alpha)
+       }
 }

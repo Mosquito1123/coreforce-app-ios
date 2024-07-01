@@ -169,6 +169,7 @@
 		04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */; };
 		04DE268B2C32A21C0052D056 /* DepositServiceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */; };
 		04DE268D2C32A5F90052D056 /* FeeDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */; };
+		04DE268F2C32B64A0052D056 /* RecommendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268E2C32B64A0052D056 /* RecommendViewCell.swift */; };
 		04EAF4512C22BC5100CD1434 /* CabinetPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */; };
 		04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */; };
 		04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */; };
@@ -394,6 +395,7 @@
 		04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoughtPlansViewCell.swift; sourceTree = "<group>"; };
 		04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositServiceViewCell.swift; sourceTree = "<group>"; };
 		04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeDetailViewCell.swift; sourceTree = "<group>"; };
+		04DE268E2C32B64A0052D056 /* RecommendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewCell.swift; sourceTree = "<group>"; };
 		04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelViewController.swift; sourceTree = "<group>"; };
 		04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelView.swift; sourceTree = "<group>"; };
 		04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocomotiveListResponse.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */,
 				04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */,
 				04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */,
+				04DE268E2C32B64A0052D056 /* RecommendViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1639,6 +1642,7 @@
 				04EAF4512C22BC5100CD1434 /* CabinetPanelViewController.swift in Sources */,
 				04FFEE392C0097CE00939B46 /* LoginInviteCodeInputView.swift in Sources */,
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
+				04DE268F2C32B64A0052D056 /* RecommendViewCell.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
