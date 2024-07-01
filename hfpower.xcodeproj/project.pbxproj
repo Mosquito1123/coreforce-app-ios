@@ -166,6 +166,7 @@
 		04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */; };
 		04BE42B42C12A198002B78EA /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B32C12A198002B78EA /* AccountManager.swift */; };
 		04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B52C12BC42002B78EA /* MemberResponse.swift */; };
+		04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */; };
 		04EAF4512C22BC5100CD1434 /* CabinetPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */; };
 		04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */; };
 		04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */; };
@@ -388,6 +389,7 @@
 		04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		04BE42B32C12A198002B78EA /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		04BE42B52C12BC42002B78EA /* MemberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberResponse.swift; sourceTree = "<group>"; };
+		04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoughtPlansViewCell.swift; sourceTree = "<group>"; };
 		04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelViewController.swift; sourceTree = "<group>"; };
 		04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelView.swift; sourceTree = "<group>"; };
 		04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocomotiveListResponse.swift; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 			children = (
 				043C4C1A2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift */,
 				043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */,
+				04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1531,6 +1534,7 @@
 				0428491B2C245B990011032F /* CabinetNumberView.swift in Sources */,
 				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
 				0451657F2C1AC0DF00ABE7F1 /* JYBDBankCardVC.m in Sources */,
+				04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */,
 				042D84FF2C2987300049DDB5 /* PersonalOthersViewCell.swift in Sources */,
 				04A5E5172C1AD53E00787551 /* MemberRpResponse.swift in Sources */,
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,

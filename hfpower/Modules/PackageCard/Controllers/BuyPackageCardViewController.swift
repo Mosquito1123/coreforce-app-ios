@@ -22,6 +22,7 @@ class BuyPackageCardViewController: UIViewController {
         tableView.delegate = self
         tableView.register(BatteryTypeViewCell.self, forCellReuseIdentifier: BatteryTypeViewCell.cellIdentifier())
         tableView.register(BuyPackageCardPlansViewCell.self, forCellReuseIdentifier: BuyPackageCardPlansViewCell.cellIdentifier())
+        tableView.register(BoughtPlansViewCell.self, forCellReuseIdentifier: BoughtPlansViewCell.cellIdentifier())
 
         return tableView
     }()
@@ -32,7 +33,7 @@ class BuyPackageCardViewController: UIViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier(), icon: UIImage(named: "battery_type"))]
+        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier())]
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +86,9 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
         }else if let cellx = cell as? BuyPackageCardPlansViewCell{
             cellx.titleLabel.text = item.title
             cellx.items = [PackageCard(),PackageCard()]
+        }else if let cellx = cell as? BoughtPlansViewCell{
+            cellx.titleLabel.text = item.title
+            cellx.contentLabel.text = item.subtitle
         }
         return cell
     }
