@@ -16,10 +16,13 @@ class BuyPackageCardViewController: UIViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(BatteryTypeViewCell.self, forCellReuseIdentifier: BatteryTypeViewCell.cellIdentifier())
+        tableView.register(BuyPackageCardPlansViewCell.self, forCellReuseIdentifier: BuyPackageCardPlansViewCell.cellIdentifier())
+
         return tableView
     }()
     // MARK: - Lifecycle
@@ -29,7 +32,7 @@ class BuyPackageCardViewController: UIViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", icon: UIImage(named: "battery_type"))]
+        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier(), icon: UIImage(named: "battery_type"))]
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -70,12 +73,17 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BatteryTypeViewCell.cellIdentifier(), for: indexPath)
-        if let cellx = cell as? BatteryTypeViewCell{
-            cellx.iconImageView.image = self.items[indexPath.row].icon
-            cellx.titleLabel.text = self.items[indexPath.row].title
-            cellx.contentLabel.text = self.items[indexPath.row].subtitle
+        let item = self.items[indexPath.row]
+        guard let identifier = item.identifier else {return UITableViewCell()}
 
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        if let cellx = cell as? BatteryTypeViewCell{
+            cellx.iconImageView.image = item.icon
+            cellx.titleLabel.text = item.title
+            cellx.contentLabel.text = item.subtitle
+
+        }else if let cellx = cell as? BuyPackageCardPlansViewCell{
+            cellx.titleLabel.text = item.title
         }
         return cell
     }
