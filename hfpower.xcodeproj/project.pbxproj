@@ -141,6 +141,7 @@
 		045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
+		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -152,6 +153,7 @@
 		04A5E5212C1C25B000787551 /* MyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5E5202C1C25B000787551 /* MyCodeViewController.swift */; };
 		04A5E5232C1C2A4A00787551 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04A5E5222C1C2A4A00787551 /* CodeScan.bundle */; };
 		04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5E5242C1C564500787551 /* ActivityListManager.swift */; };
+		04B2DFE52C3564470032B14D /* DepositService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2DFE42C3564470032B14D /* DepositService.swift */; };
 		04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42982C118813002B78EA /* UIViewController+Extension.swift */; };
 		04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429A2C118F0F002B78EA /* LoginModel.swift */; };
 		04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */; };
@@ -367,6 +369,7 @@
 		045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconViewCell.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -378,6 +381,7 @@
 		04A5E5202C1C25B000787551 /* MyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCodeViewController.swift; sourceTree = "<group>"; };
 		04A5E5222C1C2A4A00787551 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
 		04A5E5242C1C564500787551 /* ActivityListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListManager.swift; sourceTree = "<group>"; };
+		04B2DFE42C3564470032B14D /* DepositService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositService.swift; sourceTree = "<group>"; };
 		04BE42982C118813002B78EA /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		04BE429A2C118F0F002B78EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCodeManager.swift; sourceTree = "<group>"; };
@@ -803,6 +807,7 @@
 			children = (
 				043C4C122C2EA51700E887B9 /* PackageCard.swift */,
 				043C4C1C2C2EBFAE00E887B9 /* BuyPackageCardModel.swift */,
+				04B2DFE42C3564470032B14D /* DepositService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -824,6 +829,7 @@
 				04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */,
 				04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */,
 				04DE268E2C32B64A0052D056 /* RecommendViewCell.swift */,
+				047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1590,6 +1596,7 @@
 				042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
 				0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */,
+				047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */,
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
 				04FB1C062C2922FD00F47E79 /* PersonalViewBackgroundView.swift in Sources */,
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
@@ -1644,6 +1651,7 @@
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
 				04DE268F2C32B64A0052D056 /* RecommendViewCell.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
+				04B2DFE52C3564470032B14D /* DepositService.swift in Sources */,
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
 				045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */,

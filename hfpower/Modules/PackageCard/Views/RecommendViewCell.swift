@@ -137,10 +137,10 @@ private extension RecommendViewCell {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 19),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 14),
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 6),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -6),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -19)
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -14)
         ])
         
         NSLayoutConstraint.activate([
