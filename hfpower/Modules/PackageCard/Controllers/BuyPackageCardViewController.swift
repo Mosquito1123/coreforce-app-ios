@@ -26,6 +26,7 @@ class BuyPackageCardViewController: UIViewController {
         tableView.register(FeeDetailViewCell.self, forCellReuseIdentifier: FeeDetailViewCell.cellIdentifier())
         tableView.register(RecommendViewCell.self, forCellReuseIdentifier: RecommendViewCell.cellIdentifier())
         tableView.register(UserIntroductionsViewCell.self, forCellReuseIdentifier: UserIntroductionsViewCell.cellIdentifier())
+        tableView.register(DepositServiceViewCell.self, forCellReuseIdentifier: DepositServiceViewCell.cellIdentifier())
 
         return tableView
     }()
@@ -36,7 +37,7 @@ class BuyPackageCardViewController: UIViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),BuyPackageCardModel(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),BuyPackageCardModel(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier())]
+        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier()),BuyPackageCardModel(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),BuyPackageCardModel(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),BuyPackageCardModel(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier())]
         self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -105,6 +106,10 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             )
         }else if let cellx = cell as? UserIntroductionsViewCell{
             cellx.titleLabel.text = item.title
+        }else if let cellx = cell as? DepositServiceViewCell{
+            cellx.titleLabel.text = item.title
+            cellx.items = [DepositService(),DepositService()]
+
         }
         return cell
     }
