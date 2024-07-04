@@ -99,6 +99,9 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
         }else if let cellx = cell as? BuyPackageCardPlansViewCell{
             cellx.titleLabel.text = item.title
             cellx.items = [PackageCard(),PackageCard()]
+            cellx.didSelectItemBlock = {(collectionView,indexPath) in
+                self.bottomView.model = [PackageCard(),PackageCard()][indexPath.item]
+            }
         }else if let cellx = cell as? BoughtPlansViewCell{
             cellx.titleLabel.text = item.title
             cellx.contentLabel.text = item.subtitle

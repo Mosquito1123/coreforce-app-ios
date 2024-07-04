@@ -18,11 +18,12 @@ class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.didSelectItemBlock?(collectionView,indexPath)
     }
     
     
     // MARK: - Accessor
+    var didSelectItemBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
     var containerViewHeight:NSLayoutConstraint!
     var items = [PackageCard](){
         didSet{
