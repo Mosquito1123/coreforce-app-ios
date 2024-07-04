@@ -25,7 +25,7 @@ class CustomerServiceViewController: UIViewController, UIGestureRecognizerDelega
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor(named: "F7F7F7")
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -175,8 +175,56 @@ private extension CustomerServiceViewController {
 private extension CustomerServiceViewController {
     
 }
-class CustomerServicePagerViewController:UIViewController,JXSegmentedListContainerViewListDelegate{
+class CustomerServicePagerViewController:UIViewController,JXSegmentedListContainerViewListDelegate,UITableViewDelegate,UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomerServicePagerViewCell.cellIdentifier(), for: indexPath) as? CustomerServicePagerViewCell else {return UITableViewCell()}
+        cell.item = ""
+        return cell
+    }
+    
     func listView() -> UIView {
         return self.view
+    }
+    var item:String?
+    // MARK: - Subviews
+    
+    // 懒加载的 TableView
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(CustomerServicePagerViewCell.self, forCellReuseIdentifier: CustomerServicePagerViewCell.cellIdentifier())
+
+        return tableView
+    }()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.clear
+        setupNavbar()
+        setupSubviews()
+        setupLayout()
+    }
+}
+private extension CustomerServicePagerViewController{
+    private func setupNavbar() {
+    }
+    private func setupSubviews() {
+        self.view.addSubview(self.tableView)
+      
+    }
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
     }
 }
