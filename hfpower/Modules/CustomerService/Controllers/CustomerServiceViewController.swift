@@ -89,7 +89,7 @@ private extension CustomerServiceViewController {
    
     private func setupSubviews() {
         self.view.addSubview(self.backgroundImageView)
-        let dataSource = JXSegmentedTitleDataSource()
+        let dataSource = JXSegmentedDotDataSource()
         dataSource.isTitleColorGradientEnabled = true
         dataSource.titleSelectedColor = UIColor.white
         dataSource.titleNormalColor = UIColor.white.withAlphaComponent(0.7)
@@ -99,6 +99,7 @@ private extension CustomerServiceViewController {
         dataSource.isTitleStrokeWidthEnabled = true
         dataSource.isSelectedAnimable = true
         dataSource.titles = ["常见问题","换电操作","电池问题","电柜问题","其他"]
+        dataSource.dotStates = [false,false, false,false,false]
         let indicator = JXSegmentedIndicatorLineView()
         indicator.indicatorColor = .white
         indicator.indicatorWidth = JXSegmentedViewAutomaticDimension
@@ -106,6 +107,7 @@ private extension CustomerServiceViewController {
         segmentedDataSource = dataSource
         segmentedView.dataSource = segmentedDataSource
         segmentedView.delegate = self
+        segmentedView.defaultSelectedIndex = 0
         segmentedView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(segmentedView)
         listContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,8 +136,9 @@ private extension CustomerServiceViewController {
 // MARK: - Public
 extension CustomerServiceViewController: JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        if let titleDataSource = segmentedDataSource as? JXSegmentedTitleDataSource {
+        if let dotDataSource = segmentedDataSource as? JXSegmentedDotDataSource {
             //先更新数据源的数据
+            dotDataSource.dotStates[index] = false
             //再调用reloadItem(at: index)
             segmentedView.reloadItem(at: index)
         }
@@ -153,7 +156,9 @@ extension CustomerServiceViewController: JXSegmentedListContainerViewDataSource 
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        return CustomerServicePagerViewController()
+        let pager = CustomerServicePagerView()
+        pager.title = (segmentedView.dataSource as? JXSegmentedDotDataSource)?.titles[index]
+        return pager
     }
 }
 extension CustomerServiceViewController {
@@ -174,21 +179,21 @@ private extension CustomerServiceViewController {
 private extension CustomerServiceViewController {
     
 }
-class CustomerServicePagerViewController:UIViewController,JXSegmentedListContainerViewListDelegate,UITableViewDelegate,UITableViewDataSource{
+class CustomerServicePagerView:UIView,JXSegmentedListContainerViewListDelegate,UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomerServicePagerViewCell.cellIdentifier(), for: indexPath) as? CustomerServicePagerViewCell else {return UITableViewCell()}
-        cell.item = ""
+        cell.title = self.title
         return cell
     }
     
     func listView() -> UIView {
-        return self.view
+        return self
     }
-    var item:String?
+    var title:String?
     // MARK: - Subviews
     
     // 懒加载的 TableView
@@ -203,27 +208,31 @@ class CustomerServicePagerViewController:UIViewController,JXSegmentedListContain
 
         return tableView
     }()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.clear
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.clear
         setupNavbar()
         setupSubviews()
         setupLayout()
     }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder:coder)
+    }
 }
-private extension CustomerServicePagerViewController{
+private extension CustomerServicePagerView{
     private func setupNavbar() {
     }
     private func setupSubviews() {
-        self.view.addSubview(self.tableView)
+        self.addSubview(self.tableView)
       
     }
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
 }

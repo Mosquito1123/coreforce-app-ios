@@ -28,8 +28,9 @@ class CustomerServicePagerViewCell: UITableViewCell ,UITableViewDelegate,UITable
 
         }
     }
-    var item:String?{
+    var title:String?{
         didSet{
+            self.titleLabel.text = title
             self.elements = [""]
         }
     }
@@ -93,6 +94,7 @@ class CustomerServicePagerViewCell: UITableViewCell ,UITableViewDelegate,UITable
 private extension CustomerServicePagerViewCell {
     
     private func setupSubviews() {
+        self.selectionStyle = .none
         self.backgroundColor = .clear
         self.contentView.addSubview(containerView)
         self.containerView.addSubview(self.titleLabel)
