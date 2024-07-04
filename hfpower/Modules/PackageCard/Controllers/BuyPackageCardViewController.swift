@@ -30,6 +30,11 @@ class BuyPackageCardViewController: UIViewController {
 
         return tableView
     }()
+    lazy var bottomView: BuyPackageCardBottomView = {
+        let view = BuyPackageCardBottomView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,18 +60,22 @@ private extension BuyPackageCardViewController {
     }
     
     private func setupSubviews() {
+        self.view.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
         self.view.addSubview(self.tableView)
+        self.view.addSubview(bottomView)
         
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            
-            
+            bottomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            bottomView.heightAnchor.constraint(equalToConstant: 90)
         ])
     }
 }

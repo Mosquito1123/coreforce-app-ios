@@ -17,6 +17,9 @@ class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICo
         cell.model = self.items[indexPath.row]
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
     
     
     // MARK: - Accessor
