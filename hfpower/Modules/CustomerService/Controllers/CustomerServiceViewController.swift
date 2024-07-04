@@ -134,9 +134,8 @@ private extension CustomerServiceViewController {
 // MARK: - Public
 extension CustomerServiceViewController: JXSegmentedViewDelegate {
     func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        if let dotDataSource = segmentedDataSource as? JXSegmentedDotDataSource {
+        if let titleDataSource = segmentedDataSource as? JXSegmentedTitleDataSource {
             //先更新数据源的数据
-            dotDataSource.dotStates[index] = false
             //再调用reloadItem(at: index)
             segmentedView.reloadItem(at: index)
         }
