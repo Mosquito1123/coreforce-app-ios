@@ -8,5 +8,14 @@
 import Foundation
 import KakaJSON
 struct CabinetFilter:Convertible{
+    var id:Int?
+    var title:String?
+    var filterItems:[CabinetFilterItem]?
     
+}
+struct CabinetFilterItem:Convertible{
+    var id:Int?
+    var title:String?
+    var content:String?
+    var selected:Bool?
 }

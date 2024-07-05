@@ -12,7 +12,7 @@ class CabinetFilterViewController: UIViewController {
     // MARK: - Accessor
     var sureAction:ButtonActionBlock?
     var closeAction:ButtonActionBlock?
-    var items = [[CabinetFilter]]()
+    var items = [CabinetFilter]()
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -121,12 +121,12 @@ extension CabinetFilterViewController:UICollectionViewDataSource,UICollectionVie
         return self.items.count
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.items[section].count
+        return self.items[section].filterItems?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CabinetFilterViewCell.cellIdentifier(), for: indexPath) as? CabinetFilterViewCell else {return CabinetFilterViewCell()}
-        cell.model = self.items[indexPath.section][indexPath.item]
+        cell.model = self.items[indexPath.section].filterItems?[indexPath.item]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

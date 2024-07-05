@@ -10,13 +10,20 @@ import UIKit
 class CabinetFilterViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var model:CabinetFilter?{
+    var model:CabinetFilterItem?{
         didSet{
             
         }
     }
     // MARK: - Subviews
-    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = UIColor(rgba:0x262626FF)
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     // MARK: - Static
     class func cellIdentifier() -> String {
         return String(describing: self)
@@ -37,7 +44,7 @@ class CabinetFilterViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder:coder)
     }
 
 }
@@ -46,10 +53,18 @@ class CabinetFilterViewCell: UICollectionViewCell {
 private extension CabinetFilterViewCell {
     
     private func setupSubviews() {
-        
+        self.backgroundColor = UIColor(rgba: 0xF4F4F4FF)
+        self.layer.cornerRadius = 18
+        self.contentView.addSubview(self.titleLabel)
     }
     
     private func setupLayout() {
+        NSLayoutConstraint.activate([
+            self.titleLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            self.titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: 9),
+            self.titleLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -9),
+
+        ])
         
     }
     
@@ -57,7 +72,22 @@ private extension CabinetFilterViewCell {
 
 // MARK: - Public
 extension CabinetFilterViewCell {
-    
+    override var isSelected: Bool{
+        didSet{
+            if isSelected {
+                self.backgroundColor = UIColor(rgba: 0x416CFFFF).withAlphaComponent(0.1)
+                self.titleLabel.textColor = UIColor(rgba: 0x416CFFFF)
+                self.titleLabel.font = UIFont.systemFont(ofSize: 13,weight: .semibold)
+            }else{
+                self.backgroundColor = UIColor(rgba: 0xF4F4F4FF)
+                self.titleLabel.textColor = UIColor(rgba: 0x262626FF)
+                self.titleLabel.font = UIFont.systemFont(ofSize: 13)
+
+
+
+            }
+        }
+    }
 }
 
 // MARK: - Action
