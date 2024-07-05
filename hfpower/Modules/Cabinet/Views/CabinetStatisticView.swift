@@ -69,6 +69,7 @@ class CabinetStatisticView: UIView {
     }()
     lazy var batteryListView: CabinetStatisticBatteryListView = {
         let view = CabinetStatisticBatteryListView()
+        view.onLine = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

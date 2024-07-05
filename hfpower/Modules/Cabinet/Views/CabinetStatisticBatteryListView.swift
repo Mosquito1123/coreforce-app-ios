@@ -10,6 +10,14 @@ import UIKit
 class CabinetStatisticBatteryListView: UIView {
 
     // MARK: - Accessor
+    var onLine:Bool = false{
+        didSet{
+            tableView.isHidden = !onLine
+            titleLabel.isHidden = onLine
+            imageView.isHidden = onLine
+
+        }
+    }
     var batteryLevels: [CGFloat] = [0.82, 0.5, 0.1]{
         didSet{
             self.tableView.reloadData()
@@ -18,6 +26,8 @@ class CabinetStatisticBatteryListView: UIView {
     // MARK: - Subviews
     lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.isHidden = false
+
         tableView.isScrollEnabled = false
         tableView.register(BatteryTableViewCell.self, forCellReuseIdentifier: BatteryTableViewCell.cellIdentifier())
         tableView.tableFooterView = UIView()
@@ -29,6 +39,23 @@ class CabinetStatisticBatteryListView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         return tableView
+    }()
+    lazy var imageView:UIImageView = {
+        let imageView = UIImageView()
+        imageView.isHidden = true
+        imageView.image = UIImage(named: "cabinet_offline")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "电柜离线"
+        label.numberOfLines = 0
+        label.isHidden = true
+        label.textColor = UIColor(named: "969FBB")
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     // MARK: - Lifecycle
     override init(frame: CGRect) {
@@ -50,6 +77,8 @@ private extension CabinetStatisticBatteryListView {
     
     private func setupSubviews() {
         addSubview(tableView)
+        addSubview(titleLabel)
+        addSubview(imageView)
     }
     
     private func setupLayout() {
@@ -58,6 +87,12 @@ private extension CabinetStatisticBatteryListView {
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.topAnchor.constraint(equalTo: topAnchor,constant: 10),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10),
+        ])
+        NSLayoutConstraint.activate([
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor,constant: -7),
+            imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
