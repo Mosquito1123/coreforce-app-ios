@@ -101,6 +101,22 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         super.viewDidAppear(animated)
         
     }
+    func showFloatingPanel(_ contentVC:UIViewController){
+        fpc.delegate = self
+        fpc.isRemovalInteractionEnabled = true
+        fpc.contentInsetAdjustmentBehavior = .always
+        fpc.surfaceView.appearance = {
+            let appearance = SurfaceAppearance()
+            appearance.cornerRadius = 15.0
+            return appearance
+        }()
+        fpc.set(contentViewController: contentVC)
+        fpc.contentMode = .fitToBounds
+        fpc.addPanel(toParent: self,animated: true)
+    }
+    func hideFloatingPanel(_ contentVC:UIViewController){
+        fpc.removePanelFromParent(animated: true)
+    }
     func loadCabinetListData(){
         if let _ = self.mapView.userLocation.location{
             self.locationManager.stopUpdatingLocation()

@@ -366,7 +366,11 @@ private extension HomeViewController {
         }
         footerStackView.addArrangedSubview(refreshView)
         let filterView = MapFeatureView(.filter) { sender, mapFeatureType in
-            
+            let contentVC = CabinetFilterViewController()
+            contentVC.closeAction = { sender in
+                self.mapViewController.hideFloatingPanel(contentVC)
+            }
+            self.mapViewController.showFloatingPanel(contentVC)
         }
         footerStackView.addArrangedSubview(filterView)
         

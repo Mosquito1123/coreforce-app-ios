@@ -90,6 +90,7 @@ private extension CabinetFilterViewController {
     }
    
     private func setupSubviews() {
+        self.view.backgroundColor = .white
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.closeButton)
         self.view.addSubview(self.collectionView)
@@ -99,7 +100,20 @@ private extension CabinetFilterViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-        
+            titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 13),
+            titleLabel.bottomAnchor.constraint(equalTo: self.collectionView.topAnchor, constant: -13),
+
+            closeButton.widthAnchor.constraint(equalToConstant: 27),
+            closeButton.heightAnchor.constraint(equalToConstant: 27),
+            closeButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 11),
+            closeButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -13),
+            
+            self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -80)
+
+
         ])
         NSLayoutConstraint.activate([
             sureButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
