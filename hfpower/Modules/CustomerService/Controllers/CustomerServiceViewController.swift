@@ -10,6 +10,7 @@ import JXSegmentedView
 class CustomerServiceViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Accessor
+    var contactAction:ButtonActionBlock?
     var segmentedDataSource: JXSegmentedBaseDataSource?
         let segmentedView = JXSegmentedView()
         lazy var listContainerView: JXSegmentedListContainerView! = {
@@ -21,6 +22,26 @@ class CustomerServiceViewController: UIViewController, UIGestureRecognizerDelega
         view.image = UIImage(named: "customer_service_background")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    lazy var contactButton:UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("联系我们", for: .normal)
+        button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .selected)
+        button.setImage(UIImage(named: "customer_service_phone"), for: .normal)
+        button.setImage(UIImage(named: "customer_service_phone"), for: .highlighted)
+        button.setImage(UIImage(named: "customer_service_phone"), for: .selected)
+
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16,weight: .medium)
+        button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
+        button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor.white.toImage(), for: .selected)
+        button.setBackgroundImage(UIColor.white.toImage(), for: .disabled)
+        button.layer.cornerRadius = 24.5
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(onCalled(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -61,6 +82,10 @@ class CustomerServiceViewController: UIViewController, UIGestureRecognizerDelega
             // 恢复标题字体和颜色
             navigationBar.titleTextAttributes = nil
         }
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contactButton.setImagePosition(type: .imageLeft, Space: 2)
     }
 }
 
@@ -113,6 +138,8 @@ private extension CustomerServiceViewController {
         listContainerView.translatesAutoresizingMaskIntoConstraints = false
         segmentedView.listContainer = listContainerView
         view.addSubview(listContainerView)
+        view.addSubview(contactButton)
+        self.view.bringSubviewToFront(contactButton)
     }
     
     private func setupLayout() {
@@ -129,6 +156,12 @@ private extension CustomerServiceViewController {
             self.listContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.listContainerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.listContainerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.contactButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
+            self.contactButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -16),
+            self.contactButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -29),
+            self.contactButton.heightAnchor.constraint(equalToConstant: 50),
+
+
         ])
     }
 }
@@ -143,7 +176,7 @@ extension CustomerServiceViewController: JXSegmentedViewDelegate {
             segmentedView.reloadItem(at: index)
         }
 
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = (segmentedView.selectedIndex == 0)
+//        navigationController?.interactivePopGestureRecognizer?.isEnabled = (segmentedView.selectedIndex == 0)
     }
 }
 
@@ -172,7 +205,12 @@ private extension CustomerServiceViewController {
 
 // MARK: - Action
 @objc private extension CustomerServiceViewController {
-    
+    @objc func onCalled(_ sender:UIButton){
+        if let phoneURL = URL(string: "tel://400-6789-509"), UIApplication.shared.canOpenURL(phoneURL) {
+            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+        }
+        self.contactAction?(sender)
+    }
 }
 
 // MARK: - Private
