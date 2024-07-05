@@ -22,7 +22,7 @@ class UserIntroductionsViewCell: UITableViewCell {
     }()
     private lazy var headerView:UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "FFF7E8")
+        view.backgroundColor = UIColor(rgba:0xFFF7E8FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -34,7 +34,7 @@ class UserIntroductionsViewCell: UITableViewCell {
     }()
     lazy var titleLabel:UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -42,14 +42,14 @@ class UserIntroductionsViewCell: UITableViewCell {
     lazy var pointView1:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(named: "D2D2D2")
+        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel1:UILabel  = {
         let label = UILabel()
         label.text = "自取出电池后，不支持退租金；"
-        label.textColor = UIColor(named: "666666")
+        label.textColor = UIColor(rgba:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,14 +58,14 @@ class UserIntroductionsViewCell: UITableViewCell {
     lazy var pointView2:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(named: "D2D2D2")
+        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel2:UILabel  = {
         let label = UILabel()
         label.text = "请选择电压规格同车辆一致的电池；"
-        label.textColor = UIColor(named: "666666")
+        label.textColor = UIColor(rgba:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -74,14 +74,14 @@ class UserIntroductionsViewCell: UITableViewCell {
     lazy var pointView3:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(named: "D2D2D2")
+        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel3:UILabel  = {
         let label = UILabel()
         label.text = "因电池误选并使用及改装车辆导致的后果由用户自行承担；"
-        label.textColor = UIColor(named: "666666")
+        label.textColor = UIColor(rgba:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -90,14 +90,14 @@ class UserIntroductionsViewCell: UITableViewCell {
     lazy var pointView4:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(named: "D2D2D2")
+        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel4:UILabel  = {
         let label = UILabel()
         label.text = "若电池被盗，或者捡到核蜂动力电池，请及时联系客服。"
-        label.textColor = UIColor(named: "666666")
+        label.textColor = UIColor(rgba:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false

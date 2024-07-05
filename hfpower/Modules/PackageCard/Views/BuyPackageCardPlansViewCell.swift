@@ -41,7 +41,7 @@ class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICo
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

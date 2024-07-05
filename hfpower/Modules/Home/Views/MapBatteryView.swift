@@ -88,19 +88,19 @@ class MapBatteryContentView: UIView {
             setNeedsLayout()
         }
     }
-    var batteryContentColor:UIColor? = UIColor(named: "22C788"){
+    var batteryContentColor:UIColor = UIColor(rgba:0x22C788FF){
         didSet{
             setNeedsLayout()
             
         }
     }
-    var errorBatteryContentColor:UIColor? = UIColor(named: "FF3B30"){
+    var errorBatteryContentColor:UIColor = UIColor(rgba:0xFF3B30FF){
         didSet{
             setNeedsLayout()
             
         }
     }
-    var warningBatteryContentColor:UIColor? = UIColor(named: "FAAD14"){
+    var warningBatteryContentColor:UIColor = UIColor(rgba:0xFAAD14FF){
         didSet{
             setNeedsLayout()
             
@@ -190,7 +190,7 @@ class MapBatteryContentView: UIView {
             //电量颜色
             let xbatteryContentColor = batteryLevel <= 0.8 && batteryLevel >= 0.2 ? warningBatteryContentColor: errorBatteryContentColor
             let batteryContentColor = batteryLevel > 0.8 ? batteryContentColor:xbatteryContentColor
-            context.setFillColor((batteryContentColor ?? UIColor.black).cgColor)
+            context.setFillColor(batteryContentColor.cgColor)
             context.addPath(batteryLevelPath.cgPath)
             context.fillPath()
         }
@@ -203,7 +203,7 @@ class MapBatteryContentView: UIView {
         //字体线条颜色
         let xbatteryContentColor = batteryLevel <= 0.8 && batteryLevel >= 0.2 ? warningBatteryContentColor: errorBatteryContentColor
         let batteryContentColor = batteryLevel > 0.8 ? batteryContentColor:xbatteryContentColor
-        var  attr:[NSAttributedString.Key:Any] = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: batteryContentColor ?? UIColor.white, .strokeWidth: -2]
+        var  attr:[NSAttributedString.Key:Any] = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: batteryContentColor, .strokeWidth: -2]
         
         
         attrString.addAttributes(attr, range: NSRange(location: 0, length: attrString.length))

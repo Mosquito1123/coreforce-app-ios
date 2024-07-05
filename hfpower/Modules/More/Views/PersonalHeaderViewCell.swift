@@ -26,7 +26,7 @@ class PersonalHeaderViewCell: UITableViewCell {
         let label = CopyableLabel()
         label.text = "陈丽"
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,7 +34,7 @@ class PersonalHeaderViewCell: UITableViewCell {
         let label = CopyableLabel()
         label.text = "131xxxx2321"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(named: "666666")
+        label.textColor = UIColor(rgba:0x666666FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -242,10 +242,10 @@ class VerificationButton: UIButton {
     }
     private func updateAppearance() {
         if isVerified {
-            setBackgroundImage(UIColor(named: "447AFE")?.toImage(), for: .normal)
+            setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
             setTitle("已实名认证", for: .normal)
         } else {
-            setBackgroundImage(UIColor(named: "FE9044")?.toImage(), for: .normal)
+            setBackgroundImage(UIColor(rgba:0xFE9044FF).toImage(), for: .normal)
             setTitle("未实名认证", for: .normal)
         }
     }

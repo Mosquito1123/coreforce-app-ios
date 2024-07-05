@@ -65,9 +65,9 @@ class SummaryTableView: UIView {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12)
         if column == 1{
-            label.textColor = UIColor(named: "26B01E")
+            label.textColor = UIColor(rgba:0x26B01EFF)
         }else{
-            label.textColor = UIColor(named: "1D2129")
+            label.textColor = UIColor(rgba:0x1D2129FF)
 
         }
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -135,9 +135,9 @@ private extension SummaryTableView {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12)
         if column == 1{
-            label.textColor = UIColor(named: "26B01E")
+            label.textColor = UIColor(rgba:0x26B01EFF)
         }else{
-            label.textColor = UIColor(named: "1D2129")
+            label.textColor = UIColor(rgba:0x1D2129FF)
 
         }
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -194,7 +194,7 @@ class GradientHeaderView: UIView {
                 for i in 0..<items.count {
                     let label = UILabel()
                     label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-                    label.textColor = UIColor(named: "1D2129")
+                    label.textColor = UIColor(rgba:0x1D2129FF)
                     label.text = items[i]
                     label.textAlignment = .center
                     stackView.addArrangedSubview(label)
@@ -237,7 +237,7 @@ class GradientHeaderView: UIView {
         for i in 1...3 {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-            label.textColor = UIColor(named: "1D2129")
+            label.textColor = UIColor(rgba:0x1D2129FF)
             label.text = "Header \(i)"
             label.textAlignment = .center
             headerStackView.addArrangedSubview(label)

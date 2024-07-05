@@ -38,7 +38,7 @@ class CabinetStatisticView: UIView {
         let label = UILabel()
         label.text = "电池"
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        label.textColor = UIColor(named: "1D2129")
+        label.textColor = UIColor(rgba:0x1D2129FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true
         return label
@@ -59,8 +59,8 @@ class CabinetStatisticView: UIView {
 
         button.setImage(UIImage(named: "gift_right_icon"), for: .normal)
         button.setImage(UIImage(named: "gift_right_icon"), for: .highlighted)
-        button.setTitleColor(UIColor(named: "C96518"), for: .normal)
-        button.setTitleColor(UIColor(named: "C96518"), for: .highlighted)
+        button.setTitleColor(UIColor(rgba:0xC96518FF), for: .normal)
+        button.setTitleColor(UIColor(rgba:0xC96518FF), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .medium)
         button.addTarget(self, action: #selector(giftButtonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +81,7 @@ class CabinetStatisticView: UIView {
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.layer.borderColor = UIColor(named: "F2F3F5")?.cgColor
+        self.layer.borderColor = UIColor(rgba:0xF2F3F5FF).cgColor
         self.layer.borderWidth = 0.5
         self.layer.cornerRadius = 10
         setupSubviews()

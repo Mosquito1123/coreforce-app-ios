@@ -69,8 +69,8 @@ class MainScanItemView: ESTabBarItemContentView {
         button.setImage(UIImage(named: "scan"), for: .normal)
         button.setImage(UIImage(named: "scan"), for: .highlighted)
 
-        button.setBackgroundImage(UIColor(named: "22C788")?.toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(named: "22C788")?.withAlphaComponent(0.3).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(rgba:0x22C788FF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(rgba:0x22C788FF).withAlphaComponent(0.3).toImage(), for: .highlighted)
 
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white.withAlphaComponent(0.3), for: .highlighted)

@@ -15,7 +15,7 @@ class PersonalElementView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "- -"
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 12,weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -23,7 +23,7 @@ class PersonalElementView: UIView {
     lazy var subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "- -"
-        label.textColor = UIColor(named: "666666")
+        label.textColor = UIColor(rgba:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -25,8 +25,8 @@ class LoginInviteCodeInputView: UIView {
         textField.borderStyle = .none
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.enablesReturnKeyAutomatically = true
-        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"333333") ?? UIColor.black]
-        textField.attributedPlaceholder = NSAttributedString(string: "请输入邀请码（选填）", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(named:"A0A0A0") ?? UIColor.black])
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF)]
+        textField.attributedPlaceholder = NSAttributedString(string: "请输入邀请码（选填）", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0xA0A0A0FF)])
         textField.returnKeyType = .done
         textField.delegate = self
         textField.keyboardType = .asciiCapableNumberPad
@@ -36,7 +36,7 @@ class LoginInviteCodeInputView: UIView {
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(named: "F5F7FB")
+        self.backgroundColor = UIColor(rgba:0xF5F7FBFF)
         self.layer.cornerRadius = 25
         setupSubviews()
         setupLayout()
@@ -79,7 +79,7 @@ extension LoginInviteCodeInputView:UITextFieldDelegate {
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.layer.borderColor = UIColor(named: "3171EF")?.cgColor
+        self.layer.borderColor = UIColor(rgba:0x3171EFFF).cgColor
         self.layer.borderWidth = 1.5
     }
     func textFieldDidEndEditing(_ textField: UITextField) {

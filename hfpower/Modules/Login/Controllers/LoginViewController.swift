@@ -61,8 +61,8 @@ class LoginViewController:UIViewController, UITextViewDelegate {
         button.setTitle("立即登录", for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
-        let imageEnabled = UIColor(named: "447AFE")?.toImage()
-        let imageDisabled =  UIColor(named: "447AFE 20")?.toImage()
+        let imageEnabled = UIColor(rgba:0x447AFEFF).toImage()
+        let imageDisabled =  UIColor(rgba:0x447AFEFF).withAlphaComponent(0.2).toImage()
         button.setBackgroundImage(imageEnabled, for: .normal)
         button.setBackgroundImage(imageDisabled, for: .disabled)
 
@@ -80,7 +80,7 @@ class LoginViewController:UIViewController, UITextViewDelegate {
 
         // 验证码登录按钮
         button.setTitle("切换验证码登录", for: .normal)
-        button.setTitleColor(UIColor(named: "797979"), for: .normal)
+        button.setTitleColor(UIColor(rgba:0x797979FF), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         button.addTarget(self, action: #selector(goToPhoneLogin(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -173,16 +173,16 @@ private extension LoginViewController {
         
         let attributedString = NSMutableAttributedString(string: "阅读并同意《核蜂换电隐私政策》和《租赁协议》", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
-            .foregroundColor: UIColor(named: "666666") ?? UIColor.black
+            .foregroundColor: UIColor(rgba:0x666666FF) 
         ])
         
         let privacyPolicyRange = (attributedString.string as NSString).range(of: "《核蜂换电隐私政策》")
         attributedString.addAttribute(.link, value: "http://www.coreforce.cn/privacy/index.html", range: privacyPolicyRange)
-        attributedString.addAttribute(.foregroundColor, value: UIColor(named: "3171EF") ?? UIColor.blue, range: privacyPolicyRange)
+        attributedString.addAttribute(.foregroundColor, value: UIColor(rgba:0x3171EFFF) , range: privacyPolicyRange)
         
         let rentalAgreementRange = (attributedString.string as NSString).range(of: "《租赁协议》")
         attributedString.addAttribute(.link, value: "http://www.coreforce.cn/privacy/member.html", range: rentalAgreementRange)
-        attributedString.addAttribute(.foregroundColor, value: UIColor(named: "3171EF") ?? UIColor.blue, range: rentalAgreementRange)
+        attributedString.addAttribute(.foregroundColor, value: UIColor(rgba:0x3171EFFF) , range: rentalAgreementRange)
         
         return attributedString
     }

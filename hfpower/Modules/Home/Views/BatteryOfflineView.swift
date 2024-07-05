@@ -16,7 +16,7 @@ class BatteryOfflineView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         let attrString = NSMutableAttributedString(string: "您的电池已离线，请前往附近电柜及时更换电池")
-        let attr: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor(named: "FF4D4F") ?? UIColor.red]
+        let attr: [NSAttributedString.Key : Any] = [.font: UIFont.systemFont(ofSize: 14),.foregroundColor: UIColor(rgba:0xFF4D4FFF) ]
         attrString.addAttributes(attr, range: NSRange(location: 0, length: attrString.length))
         label.attributedText = attrString
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,7 @@ class BatteryOfflineView: UIView {
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(named: "FFEBE9")
+        self.backgroundColor = UIColor(rgba:0xFFEBE9FF)
         self.layer.cornerRadius = 8
         self.layer.shadowColor = UIColor(red: 0.39, green: 0.47, blue: 0.67, alpha: 0.3).cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 5)

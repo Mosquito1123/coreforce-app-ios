@@ -139,6 +139,10 @@
 		045215262C3687780091FD1A /* CustomerServicePagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215252C3687780091FD1A /* CustomerServicePagerViewCell.swift */; };
 		045215282C368A120091FD1A /* CustomerServicePagerItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215272C368A120091FD1A /* CustomerServicePagerItemViewCell.swift */; };
 		0452152A2C37A5530091FD1A /* CabinetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215292C37A5530091FD1A /* CabinetListViewController.swift */; };
+		0452152C2C37DF680091FD1A /* CabinetFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452152B2C37DF680091FD1A /* CabinetFilterViewController.swift */; };
+		0452152E2C37E1E80091FD1A /* CabinetFilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452152D2C37E1E80091FD1A /* CabinetFilterViewCell.swift */; };
+		045215302C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452152F2C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift */; };
+		045215322C37E3130091FD1A /* CabinetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215312C37E3130091FD1A /* CabinetFilter.swift */; };
 		045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17532C2BE94E0082AF5B /* PersonalIconView.swift */; };
 		045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */; };
 		045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */; };
@@ -371,6 +375,10 @@
 		045215252C3687780091FD1A /* CustomerServicePagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServicePagerViewCell.swift; sourceTree = "<group>"; };
 		045215272C368A120091FD1A /* CustomerServicePagerItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServicePagerItemViewCell.swift; sourceTree = "<group>"; };
 		045215292C37A5530091FD1A /* CabinetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetListViewController.swift; sourceTree = "<group>"; };
+		0452152B2C37DF680091FD1A /* CabinetFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetFilterViewController.swift; sourceTree = "<group>"; };
+		0452152D2C37E1E80091FD1A /* CabinetFilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetFilterViewCell.swift; sourceTree = "<group>"; };
+		0452152F2C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetFilterHeaderReusableView.swift; sourceTree = "<group>"; };
+		045215312C37E3130091FD1A /* CabinetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetFilter.swift; sourceTree = "<group>"; };
 		045C17532C2BE94E0082AF5B /* PersonalIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalIconView.swift; sourceTree = "<group>"; };
 		045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconView.swift; sourceTree = "<group>"; };
 		045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconViewCell.swift; sourceTree = "<group>"; };
@@ -918,6 +926,7 @@
 				04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */,
 				042849142C2436EC0011032F /* CabinetDetailContentViewController.swift */,
 				045215292C37A5530091FD1A /* CabinetListViewController.swift */,
+				0452152B2C37DF680091FD1A /* CabinetFilterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -937,6 +946,8 @@
 				042849182C24388D0011032F /* CabinetDetailBottomView.swift */,
 				0428491A2C245B990011032F /* CabinetNumberView.swift */,
 				04FB1C012C25877200F47E79 /* ChartMainView.swift */,
+				0452152D2C37E1E80091FD1A /* CabinetFilterViewCell.swift */,
+				0452152F2C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -944,6 +955,7 @@
 		043DEC8F2C096793003FD6AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				045215312C37E3130091FD1A /* CabinetFilter.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1562,6 +1574,7 @@
 				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
 				0451657F2C1AC0DF00ABE7F1 /* JYBDBankCardVC.m in Sources */,
 				04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */,
+				045215302C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift in Sources */,
 				042D84FF2C2987300049DDB5 /* PersonalOthersViewCell.swift in Sources */,
 				04A5E5172C1AD53E00787551 /* MemberRpResponse.swift in Sources */,
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
@@ -1595,6 +1608,7 @@
 				045215282C368A120091FD1A /* CustomerServicePagerItemViewCell.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
+				0452152E2C37E1E80091FD1A /* CabinetFilterViewCell.swift in Sources */,
 				04BE429F2C11C4BC002B78EA /* CityCodeHelper.swift in Sources */,
 				045165432C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift in Sources */,
 				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
@@ -1680,6 +1694,7 @@
 				04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */,
 				04FFEE4C2C05AA1400939B46 /* NeedLoginView.swift in Sources */,
 				045165812C1AC0DF00ABE7F1 /* JYBDBankCardSearch.m in Sources */,
+				0452152C2C37DF680091FD1A /* CabinetFilterViewController.swift in Sources */,
 				043DEC7D2C085253003FD6AD /* MapViewController.swift in Sources */,
 				331C90BE2BC6C60000BB534F /* AppDelegate.swift in Sources */,
 				043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */,
@@ -1699,6 +1714,7 @@
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
+				045215322C37E3130091FD1A /* CabinetFilter.swift in Sources */,
 				045165412C1AA5B700ABE7F1 /* HFAuthNameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

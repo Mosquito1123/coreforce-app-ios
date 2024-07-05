@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.backgroundView = UIView()
-        tableView.backgroundColor = UIColor(named: "F7F8FA")
+        tableView.backgroundColor = UIColor(rgba:0xF7F8FAFF)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false

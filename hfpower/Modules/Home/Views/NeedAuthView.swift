@@ -23,7 +23,7 @@ class NeedAuthView: UIView {
         let label = UILabel()
         label.text = "实名认证体验更多服务"
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,8 +34,8 @@ class NeedAuthView: UIView {
      
         actionButton.setTitleColor(UIColor.white, for: .normal)
         actionButton.setTitleColor(UIColor.white, for: .highlighted)
-        let imageEnabled = image(from: UIColor(named: "447AFE") ?? .blue)
-        let imageDisabled = image(from: UIColor(named: "447AFE 20") ?? .blue)
+        let imageEnabled = image(from: UIColor(rgba:0x447AFEFF))
+        let imageDisabled = image(from: UIColor(rgba:0x447AFEFF).withAlphaComponent(0.2))
         actionButton.setBackgroundImage(imageEnabled, for: .normal)
         actionButton.setBackgroundImage(imageDisabled, for: .disabled)
 

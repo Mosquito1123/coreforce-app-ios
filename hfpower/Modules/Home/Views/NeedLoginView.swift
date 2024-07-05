@@ -22,7 +22,7 @@ class NeedLoginView: UIView {
         let label = UILabel()
         label.text = "登录后，开启换电之旅"
         label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -33,8 +33,8 @@ class NeedLoginView: UIView {
      
         actionButton.setTitleColor(UIColor.white, for: .normal)
         actionButton.setTitleColor(UIColor.white, for: .highlighted)
-        let imageEnabled = UIColor(named: "447AFE")?.toImage()
-        let imageDisabled = UIColor(named: "447AFE 20")?.toImage()
+        let imageEnabled = UIColor(rgba:0x447AFEFF).toImage()
+        let imageDisabled = UIColor(rgba:0x447AFEFF).withAlphaComponent(0.2).toImage()
         actionButton.setBackgroundImage(imageEnabled, for: .normal)
         actionButton.setBackgroundImage(imageDisabled, for: .disabled)
 

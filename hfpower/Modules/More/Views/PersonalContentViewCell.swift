@@ -21,7 +21,7 @@ class PersonalContentViewCell: UITableViewCell {
     }()
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = UIColor(named: "4D4D4D")
+        titleLabel.textColor = UIColor(rgba:0x4D4D4DFF)
         titleLabel.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel

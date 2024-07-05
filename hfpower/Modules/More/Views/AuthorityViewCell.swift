@@ -28,7 +28,7 @@ class AuthorityViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.text = "进行实名认证可享受更多特权服务"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -37,8 +37,8 @@ class AuthorityViewCell: UITableViewCell {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 0, width: 72, height: 31)
         button.tintAdjustmentMode = .automatic
-        button.setBackgroundImage(UIColor(named: "FB9D5C")?.toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(named: "FB9D5C")?.withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(rgba:0xFB9D5CFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(rgba:0xFB9D5CFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.white, for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)

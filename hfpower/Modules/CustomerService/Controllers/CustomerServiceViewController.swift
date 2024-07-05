@@ -46,7 +46,7 @@ class CustomerServiceViewController: UIViewController, UIGestureRecognizerDelega
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "F7F7F7")
+        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
         setupNavbar()
         setupSubviews()
         setupLayout()

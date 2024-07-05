@@ -26,7 +26,7 @@ class CabinetLocationView: UIView {
         let label = UILabel()
         label.text = "青岛市二〇二四年〇五月三十一日"
         label.numberOfLines = 1
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 14,weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -37,7 +37,7 @@ class CabinetLocationView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("重新定位", for: .normal)
         button.setImage(UIImage(named: "search_list_icon_refresh"), for: .normal)
-        button.setTitleColor(UIColor(named: "447AFE"), for: .normal)
+        button.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
         button.addTarget(self, action: #selector(actionButtonTapped(_:)), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -24,7 +24,7 @@ class FeeDetailViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.text = "费用结算"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textColor = UIColor(named: "333333")
+        label.textColor = UIColor(rgba:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

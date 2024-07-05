@@ -28,7 +28,7 @@ class SearchCabinetListViewController: UIViewController,UIGestureRecognizerDeleg
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(named: "F7F7F7")
+        tableView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
