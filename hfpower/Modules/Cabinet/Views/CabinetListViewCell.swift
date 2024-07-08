@@ -10,6 +10,11 @@ import UIKit
 class CabinetListViewCell: UITableViewCell {
     
     // MARK: - Accessor
+    var item:CabinetSummary?{
+        didSet{
+            
+        }
+    }
     var navigateAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
 
