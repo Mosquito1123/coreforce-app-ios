@@ -127,7 +127,7 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         toggleButton.isSelected = LoginModel.shared.agreement
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         
     }
 }

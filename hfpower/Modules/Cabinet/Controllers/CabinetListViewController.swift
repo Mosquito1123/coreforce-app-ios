@@ -37,7 +37,7 @@ class CabinetListViewController: UIViewController, UIGestureRecognizerDelegate{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         // 设置导航栏颜色
         if let navigationBar = self.navigationController?.navigationBar {
@@ -56,7 +56,8 @@ class CabinetListViewController: UIViewController, UIGestureRecognizerDelegate{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
         // 恢复导航栏颜色
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.setBackgroundImage(nil, for: .default)

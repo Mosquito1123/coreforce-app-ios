@@ -68,7 +68,10 @@ class PersonalViewController: UIViewController {
     deinit {
         accountObservation?.invalidate()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 }
 
 // MARK: - Setup

@@ -27,7 +27,7 @@ class NotificationViewController: UIViewController,UISearchControllerDelegate, U
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         
     }
 }
