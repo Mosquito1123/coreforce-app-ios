@@ -112,10 +112,22 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         }()
         fpc.set(contentViewController: contentVC)
         fpc.contentMode = .fitToBounds
-        fpc.addPanel(toParent: self,animated: true)
+        guard let controller = UIViewController.ex_presentController() else { fatalError("Any window not found") }
+        
+        controller.view.addSubview(fpc.view)
+        fpc.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            fpc.view.bottomAnchor.constraint(equalTo: controller.view.bottomAnchor),
+            fpc.view.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
+            fpc.view.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
+            fpc.view.topAnchor.constraint(equalTo: controller.view.topAnchor),
+
+        ])
+        
+        fpc.show(animated: true)
     }
     func hideFloatingPanel(_ contentVC:UIViewController){
-        fpc.removePanelFromParent(animated: true)
+        fpc.hide(animated: true)
     }
     func loadCabinetListData(){
         if let _ = self.mapView.userLocation.location{
