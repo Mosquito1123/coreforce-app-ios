@@ -12,7 +12,16 @@ class CabinetFilterViewCell: UICollectionViewCell {
     // MARK: - Accessor
     var model:CabinetFilterItem?{
         didSet{
-            
+            self.titleLabel.text = model?.title
+            if  model?.selected == true{
+                self.backgroundColor = UIColor(rgba: 0x416CFFFF).withAlphaComponent(0.1)
+                self.titleLabel.textColor = UIColor(rgba: 0x416CFFFF)
+                self.titleLabel.font = UIFont.systemFont(ofSize: 13,weight: .semibold)
+            }else{
+                self.backgroundColor = UIColor(rgba: 0xF4F4F4FF)
+                self.titleLabel.textColor = UIColor(rgba: 0x262626FF)
+                self.titleLabel.font = UIFont.systemFont(ofSize: 13)
+            }
         }
     }
     // MARK: - Subviews
@@ -72,22 +81,7 @@ private extension CabinetFilterViewCell {
 
 // MARK: - Public
 extension CabinetFilterViewCell {
-    override var isSelected: Bool{
-        didSet{
-            if isSelected {
-                self.backgroundColor = UIColor(rgba: 0x416CFFFF).withAlphaComponent(0.1)
-                self.titleLabel.textColor = UIColor(rgba: 0x416CFFFF)
-                self.titleLabel.font = UIFont.systemFont(ofSize: 13,weight: .semibold)
-            }else{
-                self.backgroundColor = UIColor(rgba: 0xF4F4F4FF)
-                self.titleLabel.textColor = UIColor(rgba: 0x262626FF)
-                self.titleLabel.font = UIFont.systemFont(ofSize: 13)
-
-
-
-            }
-        }
-    }
+    
 }
 
 // MARK: - Action

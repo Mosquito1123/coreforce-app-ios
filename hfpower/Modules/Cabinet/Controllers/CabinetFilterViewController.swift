@@ -53,30 +53,37 @@ class CabinetFilterViewController: UIViewController {
         collectionViewLayout.minimumLineSpacing = 16 // 行间距
         let itemWidth = (UIScreen.main.bounds.size.width - 16 - 30 - 16) / 4
         collectionViewLayout.itemSize = CGSize(width: itemWidth, height: 36)
+        collectionViewLayout.headerReferenceSize = CGSize(width: (UIScreen.main.bounds.size.width - 16 - 16), height: 44)
+        
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
         collectionViewLayout.scrollDirection = .vertical
-
+        
         // 初始化 UICollectionView
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
-        
+        collectionView.allowsMultipleSelection = true
         // 注册 UICollectionView 的 cell
         collectionView.register(CabinetFilterViewCell.self, forCellWithReuseIdentifier: CabinetFilterViewCell.cellIdentifier())
         collectionView.register(CabinetFilterHeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CabinetFilterHeaderReusableView.viewIdentifier())
-
+        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-                                                                                            
+        
         return collectionView
     }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
+        self.items = [
+            CabinetFilter(id: 0, title: "电池型号", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: "48V", content: "", selected: false),CabinetFilterItem(id: 2, title: "60V", content: "", selected: false)]),
+            CabinetFilter(id: 0, title: "电池电量", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: ">90%", content: "", selected: false),CabinetFilterItem(id: 2, title: ">80%", content: "", selected: false)]),
+            CabinetFilter(id: 0, title: "电柜", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: "可租赁", content: "", selected: false),CabinetFilterItem(id: 2, title: "可寄存", content: "", selected: false),CabinetFilterItem(id: 3, title: "24h", content: "", selected: false)]),
+        ]
     }
     
 }
@@ -88,7 +95,7 @@ private extension CabinetFilterViewController {
         self.title = "筛选"
         self.titleLabel.text = self.title
     }
-   
+    
     private func setupSubviews() {
         self.view.backgroundColor = .white
         self.view.addSubview(self.titleLabel)
@@ -103,7 +110,7 @@ private extension CabinetFilterViewController {
             titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 13),
             titleLabel.bottomAnchor.constraint(equalTo: self.collectionView.topAnchor, constant: -13),
-
+            
             closeButton.widthAnchor.constraint(equalToConstant: 27),
             closeButton.heightAnchor.constraint(equalToConstant: 27),
             closeButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 11),
@@ -112,16 +119,16 @@ private extension CabinetFilterViewController {
             self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -80)
-
-
+            
+            
         ])
         NSLayoutConstraint.activate([
             sureButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
             sureButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -16),
             sureButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -27),
             sureButton.heightAnchor.constraint(equalToConstant: 40)
-
-
+            
+            
         ])
     }
 }
@@ -143,7 +150,37 @@ extension CabinetFilterViewController:UICollectionViewDataSource,UICollectionVie
         cell.model = self.items[indexPath.section].filterItems?[indexPath.item]
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CabinetFilterHeaderReusableView.viewIdentifier(), for: indexPath) as? CabinetFilterHeaderReusableView else {return CabinetFilterHeaderReusableView()}
+        view.element = self.items[indexPath.section]
+        return view
+        
+    }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard var cabinetFilterItems = self.items[indexPath.section].filterItems else {
+            return
+        }
+        
+        var updatedIndexPaths: [IndexPath] = []
+        
+        for (i, var item) in cabinetFilterItems.enumerated() {
+            if i == indexPath.item && !(item.selected ?? false) {
+                item.selected = true
+                updatedIndexPaths.append(IndexPath(row: i, section: indexPath.section))
+            } else if i != indexPath.item && (item.selected ?? false) {
+                item.selected = false
+                updatedIndexPaths.append(IndexPath(row: i, section: indexPath.section))
+            }
+            cabinetFilterItems[i] = item
+        }
+        
+        self.items[indexPath.section].filterItems = cabinetFilterItems
+        
+        collectionView.performBatchUpdates({
+            collectionView.reloadItems(at: updatedIndexPaths)
+        }, completion: nil)
+        
+        
     }
     
     

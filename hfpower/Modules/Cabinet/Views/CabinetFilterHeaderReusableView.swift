@@ -10,7 +10,11 @@ import UIKit
 class CabinetFilterHeaderReusableView: UICollectionReusableView {
     
     // MARK: - Accessor
-    
+    var element:CabinetFilter?{
+        didSet{
+            self.titleLabel.text = element?.title
+        }
+    }
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -56,8 +60,8 @@ private extension CabinetFilterHeaderReusableView {
         NSLayoutConstraint.activate([
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 7),
             self.titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor),
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 16),
+            self.titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor,constant: -16),
 
         ])
     }
