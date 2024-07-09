@@ -149,6 +149,7 @@
 		0452153A2C3CDA5D0091FD1A /* LogoffListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215392C3CDA5D0091FD1A /* LogoffListViewCell.swift */; };
 		0452153C2C3CE2A50091FD1A /* LogoffTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452153B2C3CE2A50091FD1A /* LogoffTableHeaderView.swift */; };
 		045215402C3CE46C0091FD1A /* LogoffBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452153F2C3CE46C0091FD1A /* LogoffBottomView.swift */; };
+		045215422C3CEC170091FD1A /* LogoffTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215412C3CEC170091FD1A /* LogoffTableFooterView.swift */; };
 		045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17532C2BE94E0082AF5B /* PersonalIconView.swift */; };
 		045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */; };
 		045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */; };
@@ -391,6 +392,7 @@
 		045215392C3CDA5D0091FD1A /* LogoffListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoffListViewCell.swift; sourceTree = "<group>"; };
 		0452153B2C3CE2A50091FD1A /* LogoffTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoffTableHeaderView.swift; sourceTree = "<group>"; };
 		0452153F2C3CE46C0091FD1A /* LogoffBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoffBottomView.swift; sourceTree = "<group>"; };
+		045215412C3CEC170091FD1A /* LogoffTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoffTableFooterView.swift; sourceTree = "<group>"; };
 		045C17532C2BE94E0082AF5B /* PersonalIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalIconView.swift; sourceTree = "<group>"; };
 		045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconView.swift; sourceTree = "<group>"; };
 		045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconViewCell.swift; sourceTree = "<group>"; };
@@ -734,6 +736,7 @@
 				045215392C3CDA5D0091FD1A /* LogoffListViewCell.swift */,
 				0452153B2C3CE2A50091FD1A /* LogoffTableHeaderView.swift */,
 				0452153F2C3CE46C0091FD1A /* LogoffBottomView.swift */,
+				045215412C3CEC170091FD1A /* LogoffTableFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1650,6 +1653,7 @@
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
 				043C4C1D2C2EBFAE00E887B9 /* BuyPackageCardModel.swift in Sources */,
 				04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */,
+				045215422C3CEC170091FD1A /* LogoffTableFooterView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
 				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
 				045165832C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m in Sources */,

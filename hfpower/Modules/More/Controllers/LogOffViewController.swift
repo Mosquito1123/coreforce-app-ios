@@ -21,6 +21,7 @@ class LogOffViewController: UIViewController, UIGestureRecognizerDelegate {
         let tableView = UITableView()
         tableView.register(LogoffListViewCell.self, forCellReuseIdentifier: LogoffListViewCell.cellIdentifier())
         tableView.tableFooterView = UIView()
+        tableView.tableHeaderView = LogoffTableHeaderView()
         tableView.separatorStyle = .none
         tableView.backgroundView = UIView()
         tableView.backgroundColor = UIColor.white

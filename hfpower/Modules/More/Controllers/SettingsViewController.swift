@@ -73,7 +73,6 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.setBackgroundImage(UIColor.white.toImage(), for: .default)
             navigationBar.shadowImage = UIColor.white.toImage()
-            navigationBar.tintColor = UIColor.black  // 设置导航栏按钮颜色
             
             // 设置标题字体和颜色
             let titleAttributes: [NSAttributedString.Key: Any] = [
@@ -91,7 +90,6 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
         if let navigationBar = self.navigationController?.navigationBar {
             navigationBar.setBackgroundImage(nil, for: .default)
             navigationBar.shadowImage = nil
-            navigationBar.tintColor = nil  // 恢复默认按钮颜色
             
             // 恢复标题字体和颜色
             navigationBar.titleTextAttributes = nil
