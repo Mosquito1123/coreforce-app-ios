@@ -12,7 +12,7 @@ class LogoffListViewCell: UITableViewCell {
     // MARK: - Accessor
     var element:Logoff?{
         didSet{
-            
+            self.pointLabel.text = element?.title
         }
     }
     // MARK: - Subviews

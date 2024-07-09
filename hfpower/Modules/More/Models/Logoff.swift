@@ -8,5 +8,6 @@
 import Foundation
 import KakaJSON
 struct Logoff:Convertible{
-    
+    var id:Int?
+    var title:String?
 }

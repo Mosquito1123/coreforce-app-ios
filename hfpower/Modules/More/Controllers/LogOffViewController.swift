@@ -10,7 +10,11 @@ import UIKit
 class LogOffViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Accessor
-    var items = [Logoff]()
+    var items = [Logoff](){
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
     // MARK: - Subviews\
     lazy var bottomView: LogoffBottomView = {
         let view = LogoffBottomView()
@@ -38,6 +42,15 @@ class LogOffViewController: UIViewController, UIGestureRecognizerDelegate {
         setupNavbar()
         setupSubviews()
         setupLayout()
+        self.items = [
+            Logoff(id: 0, title: "注销后将无法使用核蜂动力下的核蜂动力app、核蜂动力小程序等"),
+            Logoff(id: 1, title: "身份及账户信息将被清空"),
+            Logoff(id: 2, title: "优惠券将被清空"),
+            Logoff(id: 3, title: "所有的交易记录等将被清空"),
+            Logoff(id: 4, title: "所有的邀请奖励将被清空"),
+            Logoff(id: 5, title: "注销前请及时退租已租的电池和电车，以免产生法律纠纷"),
+            Logoff(id: 6, title: "注销前请及时退款已购套餐，以免给您造成不必要的经济损失"),
+        ]
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -113,6 +126,7 @@ private extension LogOffViewController {
 extension LogOffViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LogoffListViewCell.cellIdentifier(), for: indexPath) as? LogoffListViewCell else {return LogoffListViewCell()}
+        cell.element = self.items[indexPath.row]
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
