@@ -73,6 +73,7 @@ private extension LogoffListViewCell {
             pointView.heightAnchor.constraint(equalToConstant: 5),
             pointView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 22),
             pointView.trailingAnchor.constraint(equalTo: self.pointLabel.leadingAnchor,constant: -10),
+            pointView.topAnchor.constraint(equalTo: self.pointLabel.topAnchor,constant: 7),
             pointLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 6),
             pointLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -6),
             pointLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor   , constant: -35),

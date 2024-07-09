@@ -20,6 +20,7 @@ class LogoffTableHeaderView: UIView {
     }()
     lazy var dashedLineView1: DashedLineView = {
         let view = DashedLineView()
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -35,6 +36,7 @@ class LogoffTableHeaderView: UIView {
     
     lazy var dashedLineView2: DashedLineView = {
         let view = DashedLineView()
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -58,8 +60,8 @@ private extension LogoffTableHeaderView {
     private func setupSubviews() {
         self.addSubview(self.iconImageView)
         self.addSubview(self.dashedLineView1)
-        self.addSubview(self.dashedLineView2)
         self.addSubview(self.titleLabel)
+        self.addSubview(self.dashedLineView2)
     }
     
     private func setupLayout() {
@@ -71,7 +73,7 @@ private extension LogoffTableHeaderView {
             self.iconImageView.bottomAnchor.constraint(equalTo: self.titleLabel.topAnchor,constant: -30),
             self.titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             // DashedLineView1 Constraints
-            dashedLineView1.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 45.5),
+            dashedLineView1.widthAnchor.constraint(equalToConstant: 100),
             dashedLineView1.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             dashedLineView1.heightAnchor.constraint(equalToConstant: 1),
             titleLabel.leadingAnchor.constraint(equalTo: dashedLineView1.trailingAnchor, constant: 12),
@@ -80,7 +82,7 @@ private extension LogoffTableHeaderView {
             dashedLineView2.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 12),
             dashedLineView2.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             dashedLineView2.heightAnchor.constraint(equalToConstant: 1),
-            dashedLineView2.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: 45.5),
+            dashedLineView2.widthAnchor.constraint(equalToConstant: 100),
             titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -14),
 
         ])

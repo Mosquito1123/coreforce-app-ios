@@ -24,10 +24,17 @@ class LogOffViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(LogoffListViewCell.self, forCellReuseIdentifier: LogoffListViewCell.cellIdentifier())
-        tableView.tableFooterView = LogoffTableFooterView()
-        tableView.tableHeaderView = LogoffTableHeaderView()
+        let footerView = LogoffTableFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
+
+        // 强制布局并设置 tableHeaderView 的高度
+        footerView.layoutIfNeeded()
+        tableView.tableFooterView = footerView
+        let headerView = LogoffTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 150))
+
+        // 强制布局并设置 tableHeaderView 的高度
+        headerView.layoutIfNeeded()
+        tableView.tableHeaderView = headerView
         tableView.separatorStyle = .none
-        tableView.backgroundView = UIView()
         tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
