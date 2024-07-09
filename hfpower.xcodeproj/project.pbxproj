@@ -160,6 +160,10 @@
 		048EE74D2C3D25630094A0CB /* LowPowerReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE74C2C3D25630094A0CB /* LowPowerReminderViewController.swift */; };
 		048EE74F2C3D26640094A0CB /* LowPowerReminderListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE74E2C3D26640094A0CB /* LowPowerReminderListViewCell.swift */; };
 		048EE7512C3D277B0094A0CB /* LowPowerReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7502C3D277B0094A0CB /* LowPowerReminder.swift */; };
+		048EE7532C3D3A5D0094A0CB /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7522C3D3A5D0094A0CB /* AboutViewController.swift */; };
+		048EE7552C3D3B7C0094A0CB /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7542C3D3B7C0094A0CB /* About.swift */; };
+		048EE7572C3D3BB60094A0CB /* AboutListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7562C3D3BB60094A0CB /* AboutListViewCell.swift */; };
+		048EE7592C3D425E0094A0CB /* AboutTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7582C3D425E0094A0CB /* AboutTableHeaderView.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -406,6 +410,10 @@
 		048EE74C2C3D25630094A0CB /* LowPowerReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPowerReminderViewController.swift; sourceTree = "<group>"; };
 		048EE74E2C3D26640094A0CB /* LowPowerReminderListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPowerReminderListViewCell.swift; sourceTree = "<group>"; };
 		048EE7502C3D277B0094A0CB /* LowPowerReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPowerReminder.swift; sourceTree = "<group>"; };
+		048EE7522C3D3A5D0094A0CB /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		048EE7542C3D3B7C0094A0CB /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
+		048EE7562C3D3BB60094A0CB /* AboutListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutListViewCell.swift; sourceTree = "<group>"; };
+		048EE7582C3D425E0094A0CB /* AboutTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableHeaderView.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -708,6 +716,7 @@
 				0496C94B2C12EFC300B7884B /* SettingsViewController.swift */,
 				045215352C3CD6270091FD1A /* LogOffViewController.swift */,
 				048EE74C2C3D25630094A0CB /* LowPowerReminderViewController.swift */,
+				048EE7522C3D3A5D0094A0CB /* AboutViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -720,6 +729,7 @@
 				045215332C3BEDE10091FD1A /* Settings.swift */,
 				045215372C3CD97B0091FD1A /* Logoff.swift */,
 				048EE7502C3D277B0094A0CB /* LowPowerReminder.swift */,
+				048EE7542C3D3B7C0094A0CB /* About.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -746,6 +756,8 @@
 				0452153F2C3CE46C0091FD1A /* LogoffBottomView.swift */,
 				045215412C3CEC170091FD1A /* LogoffTableFooterView.swift */,
 				048EE74E2C3D26640094A0CB /* LowPowerReminderListViewCell.swift */,
+				048EE7562C3D3BB60094A0CB /* AboutListViewCell.swift */,
+				048EE7582C3D425E0094A0CB /* AboutTableHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1617,16 +1629,19 @@
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
 				042D84F92C2985B90049DDB5 /* PersonalContentViewCell.swift in Sources */,
 				043C4C1B2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift in Sources */,
+				048EE7592C3D425E0094A0CB /* AboutTableHeaderView.swift in Sources */,
 				045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */,
 				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
+				048EE7572C3D3BB60094A0CB /* AboutListViewCell.swift in Sources */,
 				045165892C1AC0E000ABE7F1 /* IDCardRectManager.m in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
 				049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */,
+				048EE7532C3D3A5D0094A0CB /* AboutViewController.swift in Sources */,
 				048EE74D2C3D25630094A0CB /* LowPowerReminderViewController.swift in Sources */,
 				043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */,
 				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
@@ -1737,6 +1752,7 @@
 				331C90BE2BC6C60000BB534F /* AppDelegate.swift in Sources */,
 				043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */,
 				0415AF432BCCDCFE00E9290D /* MemberAPI.swift in Sources */,
+				048EE7552C3D3B7C0094A0CB /* About.swift in Sources */,
 				04001C4C2C071FF6000A040F /* CustomerServiceViewController.swift in Sources */,
 				0451657B2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m in Sources */,
 				045215382C3CD97B0091FD1A /* Logoff.swift in Sources */,

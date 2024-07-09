@@ -180,6 +180,9 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
         }else if item.title == "低电量提醒"{
             let lowPowerReminderViewController = LowPowerReminderViewController()
             self.navigationController?.pushViewController(lowPowerReminderViewController, animated: true)
+        }else if item.title == "关于我们"{
+            let aboutViewController = AboutViewController()
+            self.navigationController?.pushViewController(aboutViewController, animated: true)
         }
         if item.type == 3 {
             tableView.deselectRow(at: indexPath, animated: true)

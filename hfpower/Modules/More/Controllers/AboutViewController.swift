@@ -1,5 +1,5 @@
 //
-//  LowPowerReminderViewController.swift
+//  AboutViewController.swift
 //  hfpower
 //
 //  Created by EDY on 2024/7/9.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-class LowPowerReminderViewController: UIViewController, UIGestureRecognizerDelegate {
+class AboutViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Accessor
-    var items = [LowPowerReminder](){
+    var items = [About](){
         didSet{
             self.tableView.reloadData()
         }
@@ -18,8 +18,9 @@ class LowPowerReminderViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Subviews
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(LowPowerReminderListViewCell.self, forCellReuseIdentifier: LowPowerReminderListViewCell.cellIdentifier())
+        tableView.register(AboutListViewCell.self, forCellReuseIdentifier: AboutListViewCell.cellIdentifier())
         tableView.separatorStyle = .none
+        tableView.tableHeaderView = AboutTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
         tableView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
         tableView.delegate = self
         tableView.dataSource = self
@@ -34,11 +35,16 @@ class LowPowerReminderViewController: UIViewController, UIGestureRecognizerDeleg
         setupNavbar()
         setupSubviews()
         setupLayout()
+        let  majorVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         self.items = [
-            LowPowerReminder(id: 0, title: "APP通知提醒",content: "电量首次低于30%/20%/10%触发",selected: true),
-            LowPowerReminder(id: 1, title: "短信提醒",content: "电量首次低于30%/20%/10%触发",selected: false),
-            LowPowerReminder(id: 2, title: "微信公众号提醒",content: "电量首次低于30%/20%/10%触发",selected: false),
-            LowPowerReminder(id: 3, title: "低电量提醒勿扰模式",content: "开启后，23:00-次日06:00将不再提醒",selected: false),
+            About(id: 0, title: "版权所有",content: "青岛铁骑网络科技有限公司"),
+            About(id: 1, title: "微信公众号",content: "核蜂换电"),
+            About(id: 2, title: "客服电话",content: "400 6789 509"),
+            About(id: 3, title: "ICP备案号",content: "123456789"),
+            About(id: 3, title: "网站",content: "123456789"),
+
+            About(id: 3, title: "当前版本",content: majorVersion ?? ""),
+
           
         ]
     }
@@ -74,10 +80,10 @@ class LowPowerReminderViewController: UIViewController, UIGestureRecognizerDeleg
 }
 
 // MARK: - Setup
-private extension LowPowerReminderViewController {
+private extension AboutViewController {
     
     private func setupNavbar() {
-        self.title = "低电量消息提醒设置"
+        self.title = "关于我们"
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
         // 自定义返回按钮
@@ -107,27 +113,25 @@ private extension LowPowerReminderViewController {
 }
 
 // MARK: - Public
-extension LowPowerReminderViewController:UITableViewDelegate,UITableViewDataSource {
+extension AboutViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: LowPowerReminderListViewCell.cellIdentifier(), for: indexPath) as? LowPowerReminderListViewCell else {return LowPowerReminderListViewCell()}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AboutListViewCell.cellIdentifier(), for: indexPath) as? AboutListViewCell else {return AboutListViewCell()}
         cell.element = self.items[indexPath.row]
-        cell.switchAction = { aswitch in
-            
-        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
     }
+    
 }
-
 // MARK: - Request
-private extension LowPowerReminderViewController {
+private extension AboutViewController {
     
 }
 
 // MARK: - Action
-@objc private extension LowPowerReminderViewController {
+@objc private extension AboutViewController {
     @objc func backButtonTapped() {
         // 返回按钮的点击事件处理
         self.navigationController?.popViewController(animated: true)
@@ -135,6 +139,6 @@ private extension LowPowerReminderViewController {
 }
 
 // MARK: - Private
-private extension LowPowerReminderViewController {
+private extension AboutViewController {
     
 }
