@@ -164,6 +164,10 @@
 		048EE7552C3D3B7C0094A0CB /* About.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7542C3D3B7C0094A0CB /* About.swift */; };
 		048EE7572C3D3BB60094A0CB /* AboutListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7562C3D3BB60094A0CB /* AboutListViewCell.swift */; };
 		048EE7592C3D425E0094A0CB /* AboutTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7582C3D425E0094A0CB /* AboutTableHeaderView.swift */; };
+		048EE75B2C3D47400094A0CB /* PersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE75A2C3D47400094A0CB /* PersonalInfoViewController.swift */; };
+		048EE75E2C3D47D30094A0CB /* PersonalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE75D2C3D47D30094A0CB /* PersonalInfo.swift */; };
+		048EE7602C3D481C0094A0CB /* PersonalInfoListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE75F2C3D481C0094A0CB /* PersonalInfoListViewCell.swift */; };
+		048EE7622C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7612C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -414,6 +418,10 @@
 		048EE7542C3D3B7C0094A0CB /* About.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = About.swift; sourceTree = "<group>"; };
 		048EE7562C3D3BB60094A0CB /* AboutListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutListViewCell.swift; sourceTree = "<group>"; };
 		048EE7582C3D425E0094A0CB /* AboutTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableHeaderView.swift; sourceTree = "<group>"; };
+		048EE75A2C3D47400094A0CB /* PersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoViewController.swift; sourceTree = "<group>"; };
+		048EE75D2C3D47D30094A0CB /* PersonalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfo.swift; sourceTree = "<group>"; };
+		048EE75F2C3D481C0094A0CB /* PersonalInfoListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoListViewCell.swift; sourceTree = "<group>"; };
+		048EE7612C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoTableHeaderView.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -717,6 +725,7 @@
 				045215352C3CD6270091FD1A /* LogOffViewController.swift */,
 				048EE74C2C3D25630094A0CB /* LowPowerReminderViewController.swift */,
 				048EE7522C3D3A5D0094A0CB /* AboutViewController.swift */,
+				048EE75A2C3D47400094A0CB /* PersonalInfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -730,6 +739,7 @@
 				045215372C3CD97B0091FD1A /* Logoff.swift */,
 				048EE7502C3D277B0094A0CB /* LowPowerReminder.swift */,
 				048EE7542C3D3B7C0094A0CB /* About.swift */,
+				048EE75D2C3D47D30094A0CB /* PersonalInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -758,6 +768,8 @@
 				048EE74E2C3D26640094A0CB /* LowPowerReminderListViewCell.swift */,
 				048EE7562C3D3BB60094A0CB /* AboutListViewCell.swift */,
 				048EE7582C3D425E0094A0CB /* AboutTableHeaderView.swift */,
+				048EE75F2C3D481C0094A0CB /* PersonalInfoListViewCell.swift */,
+				048EE7612C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1266,6 +1278,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		048EE75C2C3D477B0094A0CB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		04A5E51A2C1C24CA00787551 /* Scan */ = {
 			isa = PBXGroup;
 			children = (
@@ -1413,6 +1432,7 @@
 		331C90BC2BC6C60000BB534F /* hfpower */ = {
 			isa = PBXGroup;
 			children = (
+				048EE75C2C3D477B0094A0CB /* Base */,
 				045165952C1AC0F400ABE7F1 /* Tools */,
 				0415AF1A2BC9155D00E9290D /* Modules */,
 				0415AF192BC914DD00E9290D /* Resources */,
@@ -1609,6 +1629,7 @@
 				0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */,
 				043C4C192C2EBB1200E887B9 /* UIView+Extension.swift in Sources */,
 				04FB1C0A2C29576C00F47E79 /* PersonalPackageCardViewCell.swift in Sources */,
+				048EE75B2C3D47400094A0CB /* PersonalInfoViewController.swift in Sources */,
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */,
@@ -1636,6 +1657,7 @@
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
+				048EE7602C3D481C0094A0CB /* PersonalInfoListViewCell.swift in Sources */,
 				048EE7572C3D3BB60094A0CB /* AboutListViewCell.swift in Sources */,
 				045165892C1AC0E000ABE7F1 /* IDCardRectManager.m in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
@@ -1672,6 +1694,7 @@
 				042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
 				045215402C3CE46C0091FD1A /* LogoffBottomView.swift in Sources */,
+				048EE7622C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift in Sources */,
 				0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */,
 				047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */,
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
@@ -1766,6 +1789,7 @@
 				04FFEE352C008CC500939B46 /* LoginPasswordInputView.swift in Sources */,
 				04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */,
 				0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */,
+				048EE75E2C3D47D30094A0CB /* PersonalInfo.swift in Sources */,
 				04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
