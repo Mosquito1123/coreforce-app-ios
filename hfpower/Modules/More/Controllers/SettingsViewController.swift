@@ -177,6 +177,9 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
         if item.title == "注销账号"{
             let logoffViewController = LogOffViewController()
             self.navigationController?.pushViewController(logoffViewController, animated: true)
+        }else if item.title == "低电量提醒"{
+            let lowPowerReminderViewController = LowPowerReminderViewController()
+            self.navigationController?.pushViewController(lowPowerReminderViewController, animated: true)
         }
         if item.type == 3 {
             tableView.deselectRow(at: indexPath, animated: true)
