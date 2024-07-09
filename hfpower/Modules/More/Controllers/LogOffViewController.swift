@@ -20,7 +20,7 @@ class LogOffViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(LogoffListViewCell.self, forCellReuseIdentifier: LogoffListViewCell.cellIdentifier())
-        tableView.tableFooterView = UIView()
+        tableView.tableFooterView = LogoffTableFooterView()
         tableView.tableHeaderView = LogoffTableHeaderView()
         tableView.separatorStyle = .none
         tableView.backgroundView = UIView()
