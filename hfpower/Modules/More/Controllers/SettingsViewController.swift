@@ -86,7 +86,6 @@ class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         // 恢复导航栏颜色
         if let navigationBar = self.navigationController?.navigationBar {
@@ -177,6 +176,10 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.items[indexPath.section].items[indexPath.row]
+        if item.title == "注销账号"{
+            let logoffViewController = LogOffViewController()
+            self.navigationController?.pushViewController(logoffViewController, animated: true)
+        }
         if item.type == 3 {
             tableView.deselectRow(at: indexPath, animated: true)
             if self.isViewLoaded{

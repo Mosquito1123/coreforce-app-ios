@@ -263,14 +263,14 @@ class SettingsHeaderView:UITableViewHeaderFooterView{
         super.init(coder: coder)
     }
     private func setupSubviews() {
-        self.contentView.translatesAutoresizingMaskIntoConstraints = false
+//        self.contentView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
         
     }
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            self.contentView.heightAnchor.constraint(equalToConstant: 16)
-        ])
+//        NSLayoutConstraint.activate([
+//            self.contentView.heightAnchor.constraint(equalToConstant: 16)
+//        ])
         
     }
 }

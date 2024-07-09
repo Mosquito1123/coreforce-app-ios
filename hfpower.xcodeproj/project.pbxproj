@@ -144,6 +144,11 @@
 		045215302C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452152F2C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift */; };
 		045215322C37E3130091FD1A /* CabinetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215312C37E3130091FD1A /* CabinetFilter.swift */; };
 		045215342C3BEDE10091FD1A /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215332C3BEDE10091FD1A /* Settings.swift */; };
+		045215362C3CD6270091FD1A /* LogOffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215352C3CD6270091FD1A /* LogOffViewController.swift */; };
+		045215382C3CD97B0091FD1A /* Logoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215372C3CD97B0091FD1A /* Logoff.swift */; };
+		0452153A2C3CDA5D0091FD1A /* LogoffListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045215392C3CDA5D0091FD1A /* LogoffListViewCell.swift */; };
+		0452153C2C3CE2A50091FD1A /* LogoffTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452153B2C3CE2A50091FD1A /* LogoffTableHeaderView.swift */; };
+		045215402C3CE46C0091FD1A /* LogoffBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0452153F2C3CE46C0091FD1A /* LogoffBottomView.swift */; };
 		045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17532C2BE94E0082AF5B /* PersonalIconView.swift */; };
 		045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */; };
 		045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */; };
@@ -381,6 +386,11 @@
 		0452152F2C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetFilterHeaderReusableView.swift; sourceTree = "<group>"; };
 		045215312C37E3130091FD1A /* CabinetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetFilter.swift; sourceTree = "<group>"; };
 		045215332C3BEDE10091FD1A /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		045215352C3CD6270091FD1A /* LogOffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOffViewController.swift; sourceTree = "<group>"; };
+		045215372C3CD97B0091FD1A /* Logoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logoff.swift; sourceTree = "<group>"; };
+		045215392C3CDA5D0091FD1A /* LogoffListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoffListViewCell.swift; sourceTree = "<group>"; };
+		0452153B2C3CE2A50091FD1A /* LogoffTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoffTableHeaderView.swift; sourceTree = "<group>"; };
+		0452153F2C3CE46C0091FD1A /* LogoffBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoffBottomView.swift; sourceTree = "<group>"; };
 		045C17532C2BE94E0082AF5B /* PersonalIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalIconView.swift; sourceTree = "<group>"; };
 		045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconView.swift; sourceTree = "<group>"; };
 		045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconViewCell.swift; sourceTree = "<group>"; };
@@ -688,6 +698,7 @@
 			children = (
 				04FFEE3F2C04700600939B46 /* PersonalViewController.swift */,
 				0496C94B2C12EFC300B7884B /* SettingsViewController.swift */,
+				045215352C3CD6270091FD1A /* LogOffViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -698,6 +709,7 @@
 				04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */,
 				04FB1C072C29537B00F47E79 /* PersonalListModel.swift */,
 				045215332C3BEDE10091FD1A /* Settings.swift */,
+				045215372C3CD97B0091FD1A /* Logoff.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -719,6 +731,9 @@
 				045C17532C2BE94E0082AF5B /* PersonalIconView.swift */,
 				045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */,
 				045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */,
+				045215392C3CDA5D0091FD1A /* LogoffListViewCell.swift */,
+				0452153B2C3CE2A50091FD1A /* LogoffTableHeaderView.swift */,
+				0452153F2C3CE46C0091FD1A /* LogoffBottomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1623,9 +1638,11 @@
 				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
 				045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
+				045215362C3CD6270091FD1A /* LogOffViewController.swift in Sources */,
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
+				045215402C3CE46C0091FD1A /* LogoffBottomView.swift in Sources */,
 				0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */,
 				047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */,
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
@@ -1656,10 +1673,12 @@
 				049BDFE82C199FAD00C46D6D /* MainManager.swift in Sources */,
 				042849192C24388D0011032F /* CabinetDetailBottomView.swift in Sources */,
 				04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */,
+				0452153C2C3CE2A50091FD1A /* LogoffTableHeaderView.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				0443B9E72C10173100834069 /* String+Extension.swift in Sources */,
 				04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */,
+				0452153A2C3CDA5D0091FD1A /* LogoffListViewCell.swift in Sources */,
 				045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */,
 				04001C3C2C05DBF6000A040F /* MainScanItemView.swift in Sources */,
 				043DEC7B2C081833003FD6AD /* MapBatteryView.swift in Sources */,
@@ -1705,6 +1724,7 @@
 				0415AF432BCCDCFE00E9290D /* MemberAPI.swift in Sources */,
 				04001C4C2C071FF6000A040F /* CustomerServiceViewController.swift in Sources */,
 				0451657B2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m in Sources */,
+				045215382C3CD97B0091FD1A /* Logoff.swift in Sources */,
 				04BE42AD2C11D583002B78EA /* SectionIndexViewItemIndicator.swift in Sources */,
 				04BE42B42C12A198002B78EA /* AccountManager.swift in Sources */,
 				045215262C3687780091FD1A /* CustomerServicePagerViewCell.swift in Sources */,
