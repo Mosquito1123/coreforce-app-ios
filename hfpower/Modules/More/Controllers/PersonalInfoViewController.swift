@@ -20,7 +20,12 @@ class PersonalInfoViewController: UIViewController, UIGestureRecognizerDelegate 
         let tableView = UITableView()
         tableView.register(PersonalInfoListViewCell.self, forCellReuseIdentifier: PersonalInfoListViewCell.cellIdentifier())
         tableView.separatorStyle = .none
-        tableView.tableHeaderView = AboutTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
+        let tableHeaderView = PersonalInfoTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
+        tableHeaderView.editAction = { sender in
+                    
+        }        
+        
+        tableView.tableHeaderView = tableHeaderView
         tableView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
         tableView.delegate = self
         tableView.dataSource = self

@@ -110,14 +110,14 @@ private extension PersonalInfoListViewCell {
         ])
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,constant: 14),
-            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor,constant: 17),
-            titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,constant: -17),
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor,constant: 14),
+            titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,constant: -14),
             titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentLabel.leadingAnchor,constant: -14),
-            contentLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            contentLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             contentLabel.trailingAnchor.constraint(equalTo: iconImageView.leadingAnchor,constant: -6),
             iconWidth,
             iconHeight,
-            iconImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             iconImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -12)
             
 
