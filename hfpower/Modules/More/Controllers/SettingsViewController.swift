@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UIGestureRecognizerDelegate {
+class SettingsViewController: BaseViewController {
     
     // MARK: - Accessor
     var hasLogoutBlock:(()->Void)?
@@ -102,17 +102,7 @@ private extension SettingsViewController {
     
     private func setupNavbar() {
         self.title = "设置"
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
-        // 自定义返回按钮
-        let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "customer_service_back")?.colorized(with: UIColor.black)?.resized(toSize: CGSize.init(width: 12, height: 20)), for: .normal)  // 设置自定义图片
-        backButton.setTitle("", for: .normal)  // 设置标题
-        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        let backBarButtonItem = UIBarButtonItem(customView: backButton)
-        self.navigationItem.leftBarButtonItem = backBarButtonItem
     }
     
     private func setupSubviews() {
@@ -220,10 +210,7 @@ private extension SettingsViewController {
 
 // MARK: - Action
 @objc private extension SettingsViewController {
-    @objc func backButtonTapped() {
-        // 返回按钮的点击事件处理
-        self.navigationController?.popViewController(animated: true)
-    }
+
 }
 
 // MARK: - Private

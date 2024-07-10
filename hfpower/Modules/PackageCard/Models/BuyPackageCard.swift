@@ -1,15 +1,16 @@
 //
-//  BuyPackageCardModel.swift
+//  BuyPackageCard.swift
 //  hfpower
 //
 //  Created by EDY on 2024/6/28.
 //
 
 import Foundation
-struct BuyPackageCardModel{
-    var title: String
+import KakaJSON
+struct BuyPackageCard:Convertible{
+    var title: String?
     var subtitle: String?
     var cellHeight: CGFloat?
     var identifier: String?
-    var icon: UIImage?
+    var icon: String?
 }

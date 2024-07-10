@@ -7,10 +7,15 @@
 
 import UIKit
 
-class BuyPackageCardViewController: UIViewController {
+class BuyPackageCardViewController: BaseViewController {
     
     // MARK: - Accessor
-    var items = [BuyPackageCardModel]()
+    var items = [BuyPackageCard](){
+        didSet{
+            self.tableView.reloadData()
+
+        }
+    }
     // MARK: - Subviews
     // 懒加载的 TableView
     lazy var tableView: UITableView = {
@@ -27,6 +32,8 @@ class BuyPackageCardViewController: UIViewController {
         tableView.register(RecommendViewCell.self, forCellReuseIdentifier: RecommendViewCell.cellIdentifier())
         tableView.register(UserIntroductionsViewCell.self, forCellReuseIdentifier: UserIntroductionsViewCell.cellIdentifier())
         tableView.register(DepositServiceViewCell.self, forCellReuseIdentifier: DepositServiceViewCell.cellIdentifier())
+        tableView.register(NewComersPackageCardViewCell.self, forCellReuseIdentifier: NewComersPackageCardViewCell.cellIdentifier())
+        tableView.register(LimitedTimePackageCardViewCell.self, forCellReuseIdentifier: LimitedTimePackageCardViewCell.cellIdentifier())
 
         return tableView
     }()
@@ -42,8 +49,15 @@ class BuyPackageCardViewController: UIViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [BuyPackageCardModel(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon: UIImage(named: "battery_type")),BuyPackageCardModel(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),BuyPackageCardModel(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier()),BuyPackageCardModel(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),BuyPackageCardModel(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),BuyPackageCardModel(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier())]
-        self.tableView.reloadData()
+        self.items = [
+            BuyPackageCard(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"),
+            BuyPackageCard(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),
+            BuyPackageCard(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),
+            BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier()),
+            BuyPackageCard(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),
+            BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+            BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier())
+        ]
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -92,7 +106,7 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         if let cellx = cell as? BatteryTypeViewCell{
-            cellx.iconImageView.image = item.icon
+            cellx.iconImageView.image = UIImage(named: item.icon ?? "")
             cellx.titleLabel.text = item.title
             cellx.contentLabel.text = item.subtitle
             
