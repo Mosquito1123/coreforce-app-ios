@@ -17,4 +17,6 @@ struct PackageCard:Convertible{
     var saleToDate: String?
     var tag: String?
     var originalPrice: NSNumber?
+    var selected:Bool = false
+    var type:Int = 0
 }

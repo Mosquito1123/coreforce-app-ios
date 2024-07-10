@@ -6,7 +6,13 @@
 //
 
 import UIKit
-
+enum BuyPackageCardPlanCellType:Int{
+    case common
+    case limitedTime
+    case newComers
+    
+    
+}
 class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
@@ -58,7 +64,7 @@ class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICo
 
         // 初始化 UICollectionView
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -159,6 +165,8 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
     var model: PackageCard? {
         didSet {
             guard let model = model else { return }
+           
+            
             if model.tag == nil || model.tag?.isEmpty == true {
                 leftTopView.isHidden = true
                 leftTopLabel.isHidden = true
@@ -181,6 +189,58 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
             originAmountLabel.attributedText = attributedText
             let perMonthNumber = (model.price?.doubleValue  ?? 0)/(model.days?.doubleValue ?? 0)
             planPerMonthLabel.text = "\(nf.string(from: NSNumber(value: perMonthNumber)) ?? "0")元/天"
+            guard let type = BuyPackageCardPlanCellType(rawValue: model.type) else {return}
+            switch type {
+            case .common:
+                if model.selected {
+                    backgroundColor = UIColor(red: 0.94, green: 0.96, blue: 1, alpha: 1)
+                    layer.borderWidth = 1.5
+                    layer.borderColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1).cgColor
+                    planUnitLabel.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
+                    planAmountLabel.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
+                } else {
+                    backgroundColor = UIColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1)
+                    layer.borderWidth = 0.0
+                    layer.borderColor = UIColor.clear.cgColor
+                    planUnitLabel.textColor = UIColor(white: 51/255, alpha: 1)
+                    planAmountLabel.textColor = UIColor(white: 51/255, alpha: 1)
+                }
+            case .limitedTime:
+                if model.selected {
+                    backgroundColor = UIColor(rgba: 0xFFF3E3FF)
+                    layer.borderWidth = 1.5
+                    layer.borderColor = UIColor(rgba: 0xF97B02FF).cgColor
+                    planUnitLabel.textColor = UIColor(rgba: 0xF97602FF)
+                    planAmountLabel.textColor = UIColor(rgba: 0xF97602FF)
+                    planPerMonthLabel.textColor = UIColor(rgba: 0xF97602FF)
+                } else {
+                    backgroundColor = UIColor(rgba: 0xFFF3E3FF)
+                    layer.borderWidth = 0.0
+                    layer.borderColor = UIColor.clear.cgColor
+                    planUnitLabel.textColor = UIColor(white: 51/255, alpha: 1)
+                    planAmountLabel.textColor = UIColor(white: 51/255, alpha: 1)
+                    planPerMonthLabel.textColor = UIColor(rgba: 0xF97602FF)
+
+                }
+            case .newComers:
+                if model.selected {
+                    backgroundColor = UIColor(rgba:0xFFF1F0FF)
+                    layer.borderWidth = 1.5
+                    layer.borderColor =  UIColor(rgba:0xEC5259FF).cgColor
+                    planUnitLabel.textColor =  UIColor(rgba:0xEC5259FF)
+                    planAmountLabel.textColor =  UIColor(rgba:0xEC5259FF)
+                    planPerMonthLabel.textColor = UIColor(rgba: 0xF5746BFF)
+
+                } else {
+                    backgroundColor = UIColor(rgba:0xFFF1F0FF)
+                    layer.borderWidth = 0.0
+                    layer.borderColor = UIColor.clear.cgColor
+                    planUnitLabel.textColor = UIColor(white: 51/255, alpha: 1)
+                    planAmountLabel.textColor = UIColor(white: 51/255, alpha: 1)
+                    planPerMonthLabel.textColor = UIColor(rgba: 0xF5746BFF)
+
+                }
+            }
         }
     }
 
@@ -330,19 +390,7 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
 
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                backgroundColor = UIColor(red: 0.94, green: 0.96, blue: 1, alpha: 1)
-                layer.borderWidth = 1.5
-                layer.borderColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1).cgColor
-                planUnitLabel.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
-                planAmountLabel.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
-            } else {
-                backgroundColor = UIColor(red: 0.96, green: 0.97, blue: 0.98, alpha: 1)
-                layer.borderWidth = 0.0
-                layer.borderColor = UIColor.clear.cgColor
-                planUnitLabel.textColor = UIColor(white: 51/255, alpha: 1)
-                planAmountLabel.textColor = UIColor(white: 51/255, alpha: 1)
-            }
+            
         }
     }
 }

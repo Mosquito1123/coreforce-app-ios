@@ -34,6 +34,7 @@ class BuyPackageCardViewController: BaseViewController {
         tableView.register(DepositServiceViewCell.self, forCellReuseIdentifier: DepositServiceViewCell.cellIdentifier())
         tableView.register(NewComersPackageCardViewCell.self, forCellReuseIdentifier: NewComersPackageCardViewCell.cellIdentifier())
         tableView.register(LimitedTimePackageCardViewCell.self, forCellReuseIdentifier: LimitedTimePackageCardViewCell.cellIdentifier())
+        tableView.register(NewComersPackageCardViewCell.self, forCellReuseIdentifier: NewComersPackageCardViewCell.cellIdentifier())
 
         return tableView
     }()
@@ -56,7 +57,10 @@ class BuyPackageCardViewController: BaseViewController {
             BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier()),
             BuyPackageCard(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),
             BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
-            BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier())
+            BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
+            BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier()),
+            BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier())
+
         ]
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -136,6 +140,18 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             cellx.titleLabel.text = item.title
             cellx.items = [DepositService(),DepositService()]
 
+        }else if let cellx = cell as? LimitedTimePackageCardViewCell{
+            cellx.headerLabel.text = item.title
+            cellx.items = [PackageCard(type: 1),PackageCard(type: 1)]
+            cellx.didSelectItemBlock = {(collectionView,indexPath) in
+                self.bottomView.model = [PackageCard(),PackageCard()][indexPath.item]
+            }
+        }else if let cellx = cell as? NewComersPackageCardViewCell{
+            cellx.headerLabel.text = item.title
+            cellx.items = [PackageCard(type: 2),PackageCard(type: 2)]
+            cellx.didSelectItemBlock = {(collectionView,indexPath) in
+                self.bottomView.model = [PackageCard(),PackageCard()][indexPath.item]
+            }
         }
         return cell
     }
