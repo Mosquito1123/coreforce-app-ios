@@ -144,13 +144,13 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             cellx.headerLabel.text = item.title
             cellx.items = [PackageCard(type: 1),PackageCard(type: 1)]
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                self.bottomView.model = [PackageCard(),PackageCard()][indexPath.item]
+                self.bottomView.model = [PackageCard(type: 1),PackageCard(type: 1)][indexPath.item]
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
             cellx.headerLabel.text = item.title
             cellx.items = [PackageCard(type: 2),PackageCard(type: 2)]
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                self.bottomView.model = [PackageCard(),PackageCard()][indexPath.item]
+                self.bottomView.model = [PackageCard(type: 2),PackageCard(type: 2)][indexPath.item]
             }
         }
         return cell

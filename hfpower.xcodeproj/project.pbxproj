@@ -173,6 +173,9 @@
 		048EE7732C3E3DA20094A0CB /* BatteryReplacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7722C3E3DA20094A0CB /* BatteryReplacementViewController.swift */; };
 		048EE7752C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7742C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift */; };
 		048EE7772C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7762C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift */; };
+		048EE7792C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7782C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift */; };
+		048EE77B2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE77A2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift */; };
+		048EE77D2C3E8E800094A0CB /* PackageCardChooseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE77C2C3E8E800094A0CB /* PackageCardChooseService.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -432,6 +435,9 @@
 		048EE7722C3E3DA20094A0CB /* BatteryReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementViewController.swift; sourceTree = "<group>"; };
 		048EE7742C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedTimePackageCardViewCell.swift; sourceTree = "<group>"; };
 		048EE7762C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewComersPackageCardViewCell.swift; sourceTree = "<group>"; };
+		048EE7782C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCardChooseServiceViewController.swift; sourceTree = "<group>"; };
+		048EE77A2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCardChooseServiceViewCell.swift; sourceTree = "<group>"; };
+		048EE77C2C3E8E800094A0CB /* PackageCardChooseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCardChooseService.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -892,6 +898,7 @@
 				043C4C122C2EA51700E887B9 /* PackageCard.swift */,
 				043C4C1C2C2EBFAE00E887B9 /* BuyPackageCard.swift */,
 				04B2DFE42C3564470032B14D /* DepositService.swift */,
+				048EE77C2C3E8E800094A0CB /* PackageCardChooseService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -900,6 +907,7 @@
 			isa = PBXGroup;
 			children = (
 				043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */,
+				048EE7782C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -917,6 +925,7 @@
 				0460AD6A2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift */,
 				048EE7742C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift */,
 				048EE7762C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift */,
+				048EE77A2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1800,6 +1809,7 @@
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
+				048EE77D2C3E8E800094A0CB /* PackageCardChooseService.swift in Sources */,
 				045215402C3CE46C0091FD1A /* LogoffBottomView.swift in Sources */,
 				048EE7622C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift in Sources */,
 				0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */,
@@ -1817,6 +1827,7 @@
 				043C4C152C2EAF5B00E887B9 /* BuyPackageCardViewController.swift in Sources */,
 				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
+				048EE7792C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift in Sources */,
 				04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */,
 				042849172C2437290011032F /* CabinetDetailContentView.swift in Sources */,
 				045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */,
@@ -1849,6 +1860,7 @@
 				04FB1C0C2C295D2D00F47E79 /* AuthorityViewCell.swift in Sources */,
 				331C90C22BC6C60000BB534F /* ViewController.swift in Sources */,
 				043DEC912C0971F9003FD6AD /* CabinetListViewCell.swift in Sources */,
+				048EE77B2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift in Sources */,
 				04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
 				0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */,

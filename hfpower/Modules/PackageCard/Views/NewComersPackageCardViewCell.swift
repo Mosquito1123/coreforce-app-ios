@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewComersPackageCardViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
+class NewComersPackageCardViewCell:UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
     }
@@ -54,7 +54,7 @@ class NewComersPackageCardViewCell: UITableViewCell,UICollectionViewDelegate,UIC
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = UIColor(rgba: 0x724A17FF)
+        label.textColor = UIColor(rgba: 0xFFFFFFFF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -67,7 +67,7 @@ class NewComersPackageCardViewCell: UITableViewCell,UICollectionViewDelegate,UIC
         collectionViewLayout.itemSize = CGSize(width: itemWidth, height: 150)
         collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
         collectionViewLayout.scrollDirection = .vertical
-
+        
         // 初始化 UICollectionView
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .clear
@@ -77,7 +77,7 @@ class NewComersPackageCardViewCell: UITableViewCell,UICollectionViewDelegate,UIC
         // 注册 UICollectionView 的 cell
         collectionView.register(BuyPackageCardPlanCell.self, forCellWithReuseIdentifier: BuyPackageCardPlanCell.cellIdentifier())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-                                                                                            
+        
         return collectionView
     }()
     
@@ -105,8 +105,8 @@ class NewComersPackageCardViewCell: UITableViewCell,UICollectionViewDelegate,UIC
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-
-
+        
+        
         // fillCode
         let bgLayer1 = CAGradientLayer()
         bgLayer1.colors = [UIColor(red: 1, green: 0.98, blue: 0.97, alpha: 1).cgColor, UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
@@ -114,9 +114,9 @@ class NewComersPackageCardViewCell: UITableViewCell,UICollectionViewDelegate,UIC
         bgLayer1.frame = containerView.bounds
         bgLayer1.startPoint = CGPoint(x: 0.5, y: 0)
         bgLayer1.endPoint = CGPoint(x: 1, y: 1)
-        containerView.layer.addSublayer(bgLayer1)
+        containerView.layer.insertSublayer(bgLayer1, at: 0)
     }
-
+    
 }
 
 // MARK: - Setup
@@ -134,7 +134,7 @@ private extension NewComersPackageCardViewCell {
     
     private func setupLayout() {
         containerViewHeight = containerView.heightAnchor.constraint(equalToConstant: 220)
-    
+        
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 14),
             containerView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -14),
@@ -144,7 +144,7 @@ private extension NewComersPackageCardViewCell {
         ])
         NSLayoutConstraint.activate([
             headerBackgroundImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
-
+            
             headerBackgroundImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             headerBackgroundImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             headerBackgroundImageView.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: -13.5),
@@ -159,7 +159,7 @@ private extension NewComersPackageCardViewCell {
             headerIconImageView.heightAnchor.constraint(equalToConstant: 13),
             headerIconImageView.trailingAnchor.constraint(equalTo: self.headerLabel.leadingAnchor,constant: -6.5),
             headerLabel.centerYAnchor.constraint(equalTo: headerIconImageView.centerYAnchor)
-
+            
         ])
     }
     
