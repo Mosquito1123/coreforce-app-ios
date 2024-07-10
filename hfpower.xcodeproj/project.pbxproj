@@ -168,6 +168,9 @@
 		048EE75E2C3D47D30094A0CB /* PersonalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE75D2C3D47D30094A0CB /* PersonalInfo.swift */; };
 		048EE7602C3D481C0094A0CB /* PersonalInfoListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE75F2C3D481C0094A0CB /* PersonalInfoListViewCell.swift */; };
 		048EE7622C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7612C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift */; };
+		048EE76F2C3E37E80094A0CB /* CustomPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE76E2C3E37E80094A0CB /* CustomPresentationController.swift */; };
+		048EE7712C3E3A540094A0CB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7702C3E3A540094A0CB /* BaseViewController.swift */; };
+		048EE7732C3E3DA20094A0CB /* BatteryReplacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7722C3E3DA20094A0CB /* BatteryReplacementViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -422,6 +425,9 @@
 		048EE75D2C3D47D30094A0CB /* PersonalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfo.swift; sourceTree = "<group>"; };
 		048EE75F2C3D481C0094A0CB /* PersonalInfoListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoListViewCell.swift; sourceTree = "<group>"; };
 		048EE7612C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoTableHeaderView.swift; sourceTree = "<group>"; };
+		048EE76E2C3E37E80094A0CB /* CustomPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentationController.swift; sourceTree = "<group>"; };
+		048EE7702C3E3A540094A0CB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		048EE7722C3E3DA20094A0CB /* BatteryReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -625,6 +631,8 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				048EE7672C3E341E0094A0CB /* BatteryRental */,
+				048EE7632C3E33920094A0CB /* BatteryReplacement */,
 				043C4C0E2C2EA46B00E887B9 /* PackageCard */,
 				04A5E51A2C1C24CA00787551 /* Scan */,
 				045165382C1AA38F00ABE7F1 /* RealName */,
@@ -1281,8 +1289,97 @@
 		048EE75C2C3D477B0094A0CB /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				048EE76D2C3E37BC0094A0CB /* Controllers */,
+				048EE76C2C3E37B60094A0CB /* Models */,
+				048EE76B2C3E37AD0094A0CB /* Views */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		048EE7632C3E33920094A0CB /* BatteryReplacement */ = {
+			isa = PBXGroup;
+			children = (
+				048EE7662C3E33B20094A0CB /* Views */,
+				048EE7652C3E33AB0094A0CB /* Controllers */,
+				048EE7642C3E33A20094A0CB /* Models */,
+			);
+			path = BatteryReplacement;
+			sourceTree = "<group>";
+		};
+		048EE7642C3E33A20094A0CB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		048EE7652C3E33AB0094A0CB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				048EE7722C3E3DA20094A0CB /* BatteryReplacementViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		048EE7662C3E33B20094A0CB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		048EE7672C3E341E0094A0CB /* BatteryRental */ = {
+			isa = PBXGroup;
+			children = (
+				048EE76A2C3E347C0094A0CB /* Models */,
+				048EE7692C3E34760094A0CB /* Controllers */,
+				048EE7682C3E34720094A0CB /* VIews */,
+			);
+			path = BatteryRental;
+			sourceTree = "<group>";
+		};
+		048EE7682C3E34720094A0CB /* VIews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VIews;
+			sourceTree = "<group>";
+		};
+		048EE7692C3E34760094A0CB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		048EE76A2C3E347C0094A0CB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		048EE76B2C3E37AD0094A0CB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		048EE76C2C3E37B60094A0CB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		048EE76D2C3E37BC0094A0CB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				048EE76E2C3E37E80094A0CB /* CustomPresentationController.swift */,
+				048EE7702C3E3A540094A0CB /* BaseViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		04A5E51A2C1C24CA00787551 /* Scan */ = {
@@ -1628,6 +1725,7 @@
 				043C4C132C2EA51700E887B9 /* PackageCard.swift in Sources */,
 				0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */,
 				043C4C192C2EBB1200E887B9 /* UIView+Extension.swift in Sources */,
+				048EE7712C3E3A540094A0CB /* BaseViewController.swift in Sources */,
 				04FB1C0A2C29576C00F47E79 /* PersonalPackageCardViewCell.swift in Sources */,
 				048EE75B2C3D47400094A0CB /* PersonalInfoViewController.swift in Sources */,
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
@@ -1665,6 +1763,7 @@
 				049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */,
 				048EE7532C3D3A5D0094A0CB /* AboutViewController.swift in Sources */,
 				048EE74D2C3D25630094A0CB /* LowPowerReminderViewController.swift in Sources */,
+				048EE7732C3E3DA20094A0CB /* BatteryReplacementViewController.swift in Sources */,
 				043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */,
 				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
 				04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */,
@@ -1761,6 +1860,7 @@
 				045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */,
 				042849132C240A1C0011032F /* MapRect+Extension.swift in Sources */,
 				04EBBB042C185D1300AFD14B /* BatteryDetail.swift in Sources */,
+				048EE76F2C3E37E80094A0CB /* CustomPresentationController.swift in Sources */,
 				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
 				0451657D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m in Sources */,
 				043DEC892C089930003FD6AD /* SearchCabinetListViewController.swift in Sources */,

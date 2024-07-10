@@ -183,8 +183,7 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
         }else if item.title == "关于我们"{
             let aboutViewController = AboutViewController()
             self.navigationController?.pushViewController(aboutViewController, animated: true)
-        }
-        if item.type == 3 {
+        }else if item.title == "退出登录" {
             tableView.deselectRow(at: indexPath, animated: true)
             if self.isViewLoaded{
                 self.debounce?.call {
