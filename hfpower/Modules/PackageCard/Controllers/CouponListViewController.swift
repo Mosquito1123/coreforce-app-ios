@@ -76,7 +76,10 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupo
         setupSubviews()
         setupLayout()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 }
 
 // MARK: - Setup

@@ -143,6 +143,20 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             }
             
             self.present(nav, animated: true, completion: nil)
+        }else if item.title == "费用结算"{
+            let couponListViewController = CouponListViewController()
+            let nav = UINavigationController(rootViewController: couponListViewController)
+            nav.modalPresentationStyle = .custom
+            let delegate =  CustomTransitioningDelegate()
+            nav.transitioningDelegate = delegate
+            
+            if #available(iOS 13.0, *) {
+                nav.isModalInPresentation = true
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            self.present(nav, animated: true, completion: nil)
         }
     }
     
