@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LimitedTimePackageCardViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
+class LimitedTimePackageCardViewCell: BaseTableViewCell<BuyPackageCard>,UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
     }
@@ -22,6 +22,11 @@ class LimitedTimePackageCardViewCell: UITableViewCell,UICollectionViewDelegate,U
     }
     
     // MARK: - Accessor
+    override func configure() {
+        self.headerLabel.text = element?.title
+        self.items = element?.items ?? []
+
+    }
     var containerViewHeight:NSLayoutConstraint!
     var items = [PackageCard](){
         didSet{
@@ -81,11 +86,11 @@ class LimitedTimePackageCardViewCell: UITableViewCell,UICollectionViewDelegate,U
         return collectionView
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> LimitedTimePackageCardViewCell {
+    override class func cell(with tableView: UITableView) -> LimitedTimePackageCardViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? LimitedTimePackageCardViewCell { return cell }
         return LimitedTimePackageCardViewCell(style: .default, reuseIdentifier: identifier)

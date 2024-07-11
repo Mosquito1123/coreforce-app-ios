@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DepositServiceViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
+class DepositServiceViewCell: BaseTableViewCell<BuyPackageCard>,UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
     }
@@ -20,6 +20,10 @@ class DepositServiceViewCell: UITableViewCell,UICollectionViewDelegate,UICollect
     
     
     // MARK: - Accessor
+    override func configure() {
+        self.titleLabel.text = element?.title
+        self.items = element?.depositServices ?? []
+    }
     var containerViewHeight:NSLayoutConstraint!
     var items = [DepositService](){
         didSet{
@@ -66,11 +70,11 @@ class DepositServiceViewCell: UITableViewCell,UICollectionViewDelegate,UICollect
         return collectionView
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> DepositServiceViewCell {
+    override class func cell(with tableView: UITableView) -> DepositServiceViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? DepositServiceViewCell { return cell }
         return DepositServiceViewCell(style: .default, reuseIdentifier: identifier)

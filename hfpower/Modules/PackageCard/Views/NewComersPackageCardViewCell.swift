@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewComersPackageCardViewCell:UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
+class NewComersPackageCardViewCell:BaseTableViewCell<BuyPackageCard>,UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
     }
@@ -22,6 +22,11 @@ class NewComersPackageCardViewCell:UITableViewCell,UICollectionViewDelegate,UICo
     }
     
     // MARK: - Accessor
+    override func configure() {
+        self.headerLabel.text = element?.title
+        self.items = element?.items ?? []
+
+    }
     var containerViewHeight:NSLayoutConstraint!
     var items = [PackageCard](){
         didSet{
@@ -82,11 +87,11 @@ class NewComersPackageCardViewCell:UITableViewCell,UICollectionViewDelegate,UICo
     }()
     
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> NewComersPackageCardViewCell {
+    override class func cell(with tableView: UITableView) -> NewComersPackageCardViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? NewComersPackageCardViewCell { return cell }
         return NewComersPackageCardViewCell(style: .default, reuseIdentifier: identifier)

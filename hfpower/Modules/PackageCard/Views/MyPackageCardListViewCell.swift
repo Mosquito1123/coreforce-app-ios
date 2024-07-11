@@ -11,7 +11,8 @@ class MyPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     
     // MARK: - Accessor
     override func configure() {
-        
+        guard let item = element else {return}
+    
     }
     // MARK: - Subviews
     lazy var containerView: UIImageView = {

@@ -7,10 +7,12 @@
 
 import UIKit
 
-class UserIntroductionsViewCell: UITableViewCell {
+class UserIntroductionsViewCell: BaseTableViewCell<BuyPackageCard> {
     
     // MARK: - Accessor
-    
+    override func configure() {
+        self.titleLabel.text = element?.title
+    }
     // MARK: - Subviews
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -104,11 +106,11 @@ class UserIntroductionsViewCell: UITableViewCell {
         return label
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> UserIntroductionsViewCell {
+    override class func cell(with tableView: UITableView) -> UserIntroductionsViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UserIntroductionsViewCell { return cell }
         return UserIntroductionsViewCell(style: .default, reuseIdentifier: identifier)

@@ -7,10 +7,19 @@
 
 import UIKit
 
-class RecommendViewCell: UITableViewCell,UITextFieldDelegate {
+class RecommendViewCell: BaseTableViewCell<BuyPackageCard>,UITextFieldDelegate {
     
     // MARK: - Accessor
-    
+    override func configure() {
+        self.titleLabel.text = element?.title
+        self.textField.attributedPlaceholder = NSAttributedString(
+            string: element?.subtitle ?? "",
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 16),
+                .foregroundColor: UIColor(rgba: 0xA0A0A0FF)
+            ]
+        )
+    }
     
     private var scanButtonHeight: NSLayoutConstraint!
     private var scanButtonWidth: NSLayoutConstraint!
@@ -89,11 +98,11 @@ class RecommendViewCell: UITableViewCell,UITextFieldDelegate {
         return button
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> RecommendViewCell {
+    override class func cell(with tableView: UITableView) -> RecommendViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? RecommendViewCell { return cell }
         return RecommendViewCell(style: .default, reuseIdentifier: identifier)

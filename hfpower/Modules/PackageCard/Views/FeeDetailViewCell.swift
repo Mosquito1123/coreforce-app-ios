@@ -7,10 +7,12 @@
 
 import UIKit
 
-class FeeDetailViewCell: UITableViewCell {
+class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     // MARK: - Accessor
-    
+    override func configure() {
+        self.titleLabel.text = element?.title
+    }
     // MARK: - Subviews
     lazy var containerView: UIView = {
         let view = UIView()
@@ -122,11 +124,11 @@ class FeeDetailViewCell: UITableViewCell {
         return imageView
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> FeeDetailViewCell {
+    override class func cell(with tableView: UITableView) -> FeeDetailViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? FeeDetailViewCell { return cell }
         return FeeDetailViewCell(style: .default, reuseIdentifier: identifier)

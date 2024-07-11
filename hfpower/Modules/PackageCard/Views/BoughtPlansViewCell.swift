@@ -7,10 +7,13 @@
 
 import UIKit
 
-class BoughtPlansViewCell: UITableViewCell {
+class BoughtPlansViewCell: BaseTableViewCell<BuyPackageCard> {
     
     // MARK: - Accessor
-    
+    override func configure() {
+        self.titleLabel.text = element?.title
+        self.contentLabel.text = element?.subtitle
+    }
     // MARK: - Subviews
     lazy var containerView: UIView = {
         let view = UIView()
@@ -44,11 +47,11 @@ class BoughtPlansViewCell: UITableViewCell {
         return imageView
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> BoughtPlansViewCell {
+    override class func cell(with tableView: UITableView) -> BoughtPlansViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? BoughtPlansViewCell { return cell }
         return BoughtPlansViewCell(style: .default, reuseIdentifier: identifier)

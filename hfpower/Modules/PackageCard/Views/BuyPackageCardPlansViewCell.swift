@@ -13,7 +13,7 @@ enum BuyPackageCardPlanCellType:Int{
     
     
 }
-class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICollectionViewDataSource {
+class BuyPackageCardPlansViewCell: BaseTableViewCell<BuyPackageCard>,UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
     }
@@ -29,6 +29,10 @@ class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICo
     
     
     // MARK: - Accessor
+    override func configure() {
+        self.titleLabel.text = element?.title
+        self.items = element?.items ?? []
+    }
     var didSelectItemBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
     var containerViewHeight:NSLayoutConstraint!
     var items = [PackageCard](){
@@ -76,11 +80,11 @@ class BuyPackageCardPlansViewCell: UITableViewCell,UICollectionViewDelegate,UICo
     }()
 
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> BuyPackageCardPlansViewCell {
+    override class func cell(with tableView: UITableView) -> BuyPackageCardPlansViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? BuyPackageCardPlansViewCell { return cell }
         return BuyPackageCardPlansViewCell(style: .default, reuseIdentifier: identifier)

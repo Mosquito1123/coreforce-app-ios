@@ -52,14 +52,14 @@ class BuyPackageCardViewController: BaseViewController {
         setupLayout()
         self.items = [
             BuyPackageCard(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"),
-            BuyPackageCard(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier()),
+            BuyPackageCard(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: [PackageCard(type: 0),PackageCard(type: 0)]),
             BuyPackageCard(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),
-            BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier()),
+            BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [DepositService(),DepositService()]),
             BuyPackageCard(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),
             BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
             BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
-            BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier()),
-            BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier())
+            BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 1),PackageCard(type: 1)]),
+            BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 2),PackageCard(type: 2)])
             
         ]
     }
@@ -108,49 +108,21 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
         let item = self.items[indexPath.row]
         guard let identifier = item.identifier else {return UITableViewCell()}
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        if let cellx = cell as? BatteryTypeViewCell{
-            cellx.iconImageView.image = UIImage(named: item.icon ?? "")
-            cellx.titleLabel.text = item.title
-            cellx.contentLabel.text = item.subtitle
-            
-        }else if let cellx = cell as? BuyPackageCardPlansViewCell{
-            cellx.titleLabel.text = item.title
-            cellx.items = [PackageCard(),PackageCard()]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? BaseTableViewCell<BuyPackageCard> else {return BaseTableViewCell<BuyPackageCard>()}
+        cell.element = item
+    
+        if let cellx = cell as? BuyPackageCardPlansViewCell{
+           
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
                 self.bottomView.model = [PackageCard(),PackageCard()][indexPath.item]
             }
-        }else if let cellx = cell as? BoughtPlansViewCell{
-            cellx.titleLabel.text = item.title
-            cellx.contentLabel.text = item.subtitle
-        }else if let cellx = cell as? FeeDetailViewCell{
-            cellx.titleLabel.text = item.title
-        }else if let cellx = cell as? RecommendViewCell{
-            cellx.titleLabel.text = item.title
-            cellx.textField.attributedPlaceholder = NSAttributedString(
-                string: item.subtitle ?? "",
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 16),
-                    .foregroundColor: UIColor(rgba: 0xA0A0A0FF)
-                ]
-            )
-        }else if let cellx = cell as? UserIntroductionsViewCell{
-            cellx.titleLabel.text = item.title
-        }else if let cellx = cell as? DepositServiceViewCell{
-            cellx.titleLabel.text = item.title
-            cellx.items = [DepositService(),DepositService()]
-            
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
-            cellx.headerLabel.text = item.title
-            cellx.items = [PackageCard(type: 1),PackageCard(type: 1)]
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                self.bottomView.model = [PackageCard(type: 1),PackageCard(type: 1)][indexPath.item]
+                self.bottomView.model = item.items?[indexPath.item]
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
-            cellx.headerLabel.text = item.title
-            cellx.items = [PackageCard(type: 2),PackageCard(type: 2)]
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                self.bottomView.model = [PackageCard(type: 2),PackageCard(type: 2)][indexPath.item]
+                self.bottomView.model = item.items?[indexPath.item]
             }
         }
         return cell
@@ -161,7 +133,7 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             let myPackageCardListViewController = MyPackageCardListViewController()
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
             nav.modalPresentationStyle = .custom
-            var delegate =  CustomTransitioningDelegate()
+            let delegate =  CustomTransitioningDelegate()
             nav.transitioningDelegate = delegate
             
             if #available(iOS 13.0, *) {

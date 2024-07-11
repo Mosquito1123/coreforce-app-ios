@@ -7,10 +7,14 @@
 
 import UIKit
 
-class BatteryTypeViewCell: UITableViewCell {
+class BatteryTypeViewCell: BaseTableViewCell<BuyPackageCard> {
     
     // MARK: - Accessor
-    
+    override func configure() {
+        self.iconImageView.image = UIImage(named: element?.icon ?? "")
+        self.titleLabel.text = element?.title
+        self.contentLabel.text = element?.subtitle
+    }
     // MARK: - Subviews
     lazy var containerView: UIView = {
         let view = UIView()
@@ -43,11 +47,11 @@ class BatteryTypeViewCell: UITableViewCell {
         return label
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> BatteryTypeViewCell {
+    override class func cell(with tableView: UITableView) -> BatteryTypeViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? BatteryTypeViewCell { return cell }
         return BatteryTypeViewCell(style: .default, reuseIdentifier: identifier)

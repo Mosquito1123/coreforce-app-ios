@@ -13,4 +13,6 @@ struct BuyPackageCard:Convertible{
     var cellHeight: CGFloat?
     var identifier: String?
     var icon: String?
+    var items:[PackageCard]?
+    var depositServices:[DepositService]?
 }
