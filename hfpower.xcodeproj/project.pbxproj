@@ -44,6 +44,7 @@
 		043893642C3FCB6C00E61C0D /* CouponListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893632C3FCB6C00E61C0D /* CouponListViewController.swift */; };
 		043893662C3FCB9100E61C0D /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893652C3FCB9100E61C0D /* Coupon.swift */; };
 		0438936A2C3FCC5800E61C0D /* CouponListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893692C3FCC5800E61C0D /* CouponListViewCell.swift */; };
+		0438936E2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */; };
 		043C4C132C2EA51700E887B9 /* PackageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C122C2EA51700E887B9 /* PackageCard.swift */; };
 		043C4C152C2EAF5B00E887B9 /* BuyPackageCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */; };
 		043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */; };
@@ -294,6 +295,7 @@
 		043893632C3FCB6C00E61C0D /* CouponListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewController.swift; sourceTree = "<group>"; };
 		043893652C3FCB9100E61C0D /* Coupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 		043893692C3FCC5800E61C0D /* CouponListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewCell.swift; sourceTree = "<group>"; };
+		0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBatteryTypeViewController.swift; sourceTree = "<group>"; };
 		043C4C122C2EA51700E887B9 /* PackageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCard.swift; sourceTree = "<group>"; };
 		043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardViewController.swift; sourceTree = "<group>"; };
 		043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeViewCell.swift; sourceTree = "<group>"; };
@@ -925,6 +927,7 @@
 				048EE7782C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift */,
 				048EE7802C3F74B10094A0CB /* MyPackageCardListViewController.swift */,
 				043893632C3FCB6C00E61C0D /* CouponListViewController.swift */,
+				0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1779,6 +1782,7 @@
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
 				042D84FD2C2987130049DDB5 /* PersonalMileageViewCell.swift in Sources */,
+				0438936E2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift in Sources */,
 				04DE268B2C32A21C0052D056 /* DepositServiceViewCell.swift in Sources */,
 				04A5E51F2C1C253400787551 /* HFScanViewController.swift in Sources */,
 				04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */,

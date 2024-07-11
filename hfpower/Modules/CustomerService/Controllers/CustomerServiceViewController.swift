@@ -7,15 +7,15 @@
 
 import UIKit
 import JXSegmentedView
-class CustomerServiceViewController: UIViewController, UIGestureRecognizerDelegate {
+class CustomerServiceViewController: BaseViewController {
     
     // MARK: - Accessor
     var contactAction:ButtonActionBlock?
     var segmentedDataSource: JXSegmentedBaseDataSource?
-        let segmentedView = JXSegmentedView()
-        lazy var listContainerView: JXSegmentedListContainerView! = {
-            return JXSegmentedListContainerView(dataSource: self)
-        }()
+    let segmentedView = JXSegmentedView()
+    lazy var listContainerView: JXSegmentedListContainerView! = {
+        return JXSegmentedListContainerView(dataSource: self)
+    }()
     // MARK: - Subviews
     lazy var backgroundImageView: UIImageView = {
         let view = UIImageView()
@@ -46,7 +46,6 @@ class CustomerServiceViewController: UIViewController, UIGestureRecognizerDelega
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -108,12 +107,10 @@ private extension CustomerServiceViewController {
         self.navigationItem.leftBarButtonItem = backBarButtonItem
     }
 
-    @objc func backButtonTapped() {
-        // 返回按钮的点击事件处理
-        self.navigationController?.popViewController(animated: true)
-    }
+    
    
     private func setupSubviews() {
+        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
         self.view.addSubview(self.backgroundImageView)
         let dataSource = JXSegmentedDotDataSource()
         dataSource.isTitleColorGradientEnabled = true

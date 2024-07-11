@@ -90,11 +90,13 @@ private extension BaseViewController {
 }
 
 // MARK: - Action
-@objc private extension BaseViewController {
+@objc extension BaseViewController {
     @objc func backButtonTapped() {
         // 返回按钮的点击事件处理
         self.navigationController?.popViewController(animated: true)
     }
+}
+@objc private extension BaseViewController {
 }
 
 // MARK: - Private
