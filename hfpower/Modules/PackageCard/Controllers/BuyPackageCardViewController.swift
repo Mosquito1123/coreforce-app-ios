@@ -13,7 +13,7 @@ class BuyPackageCardViewController: BaseViewController {
     var items = [BuyPackageCard](){
         didSet{
             self.tableView.reloadData()
-
+            
         }
     }
     // MARK: - Subviews
@@ -35,7 +35,7 @@ class BuyPackageCardViewController: BaseViewController {
         tableView.register(NewComersPackageCardViewCell.self, forCellReuseIdentifier: NewComersPackageCardViewCell.cellIdentifier())
         tableView.register(LimitedTimePackageCardViewCell.self, forCellReuseIdentifier: LimitedTimePackageCardViewCell.cellIdentifier())
         tableView.register(NewComersPackageCardViewCell.self, forCellReuseIdentifier: NewComersPackageCardViewCell.cellIdentifier())
-
+        
         return tableView
     }()
     lazy var bottomView: BuyPackageCardBottomView = {
@@ -60,7 +60,7 @@ class BuyPackageCardViewController: BaseViewController {
             BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
             BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier()),
             BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier())
-
+            
         ]
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +139,7 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
         }else if let cellx = cell as? DepositServiceViewCell{
             cellx.titleLabel.text = item.title
             cellx.items = [DepositService(),DepositService()]
-
+            
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.headerLabel.text = item.title
             cellx.items = [PackageCard(type: 1),PackageCard(type: 1)]
@@ -154,6 +154,24 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             }
         }
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = self.items[indexPath.row]
+        if item.title  == "已购套餐"{
+            let myPackageCardListViewController = MyPackageCardListViewController()
+            let nav = UINavigationController(rootViewController: myPackageCardListViewController)
+            nav.modalPresentationStyle = .custom
+            var delegate =  CustomTransitioningDelegate()
+            nav.transitioningDelegate = delegate
+            
+            if #available(iOS 13.0, *) {
+                nav.isModalInPresentation = true
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            self.present(nav, animated: true, completion: nil)
+        }
     }
     
     

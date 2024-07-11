@@ -176,6 +176,10 @@
 		048EE7792C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7782C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift */; };
 		048EE77B2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE77A2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift */; };
 		048EE77D2C3E8E800094A0CB /* PackageCardChooseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE77C2C3E8E800094A0CB /* PackageCardChooseService.swift */; };
+		048EE77F2C3F73B00094A0CB /* MyPackageCardListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE77E2C3F73B00094A0CB /* MyPackageCardListViewCell.swift */; };
+		048EE7812C3F74B10094A0CB /* MyPackageCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7802C3F74B10094A0CB /* MyPackageCardListViewController.swift */; };
+		048EE7832C3F7A720094A0CB /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7822C3F7A720094A0CB /* BaseTableViewController.swift */; };
+		048EE7852C3F7ACB0094A0CB /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7842C3F7ACB0094A0CB /* BaseTableViewCell.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -438,6 +442,10 @@
 		048EE7782C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCardChooseServiceViewController.swift; sourceTree = "<group>"; };
 		048EE77A2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCardChooseServiceViewCell.swift; sourceTree = "<group>"; };
 		048EE77C2C3E8E800094A0CB /* PackageCardChooseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCardChooseService.swift; sourceTree = "<group>"; };
+		048EE77E2C3F73B00094A0CB /* MyPackageCardListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPackageCardListViewCell.swift; sourceTree = "<group>"; };
+		048EE7802C3F74B10094A0CB /* MyPackageCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPackageCardListViewController.swift; sourceTree = "<group>"; };
+		048EE7822C3F7A720094A0CB /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		048EE7842C3F7ACB0094A0CB /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -908,6 +916,7 @@
 			children = (
 				043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */,
 				048EE7782C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift */,
+				048EE7802C3F74B10094A0CB /* MyPackageCardListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -926,6 +935,7 @@
 				048EE7742C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift */,
 				048EE7762C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift */,
 				048EE77A2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift */,
+				048EE77E2C3F73B00094A0CB /* MyPackageCardListViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1377,6 +1387,7 @@
 		048EE76B2C3E37AD0094A0CB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				048EE7842C3F7ACB0094A0CB /* BaseTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1393,6 +1404,7 @@
 			children = (
 				048EE76E2C3E37E80094A0CB /* CustomPresentationController.swift */,
 				048EE7702C3E3A540094A0CB /* BaseViewController.swift */,
+				048EE7822C3F7A720094A0CB /* BaseTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1745,6 +1757,7 @@
 				048EE75B2C3D47400094A0CB /* PersonalInfoViewController.swift in Sources */,
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
+				048EE7812C3F74B10094A0CB /* MyPackageCardListViewController.swift in Sources */,
 				04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */,
 				0428491B2C245B990011032F /* CabinetNumberView.swift in Sources */,
 				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
@@ -1816,6 +1829,7 @@
 				047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */,
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
 				04FB1C062C2922FD00F47E79 /* PersonalViewBackgroundView.swift in Sources */,
+				048EE7832C3F7A720094A0CB /* BaseTableViewController.swift in Sources */,
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
 				043C4C1D2C2EBFAE00E887B9 /* BuyPackageCard.swift in Sources */,
 				04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */,
@@ -1874,6 +1888,7 @@
 				043DEC772C074850003FD6AD /* MapPackageCardView.swift in Sources */,
 				04DE268F2C32B64A0052D056 /* RecommendViewCell.swift in Sources */,
 				0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */,
+				048EE7852C3F7ACB0094A0CB /* BaseTableViewCell.swift in Sources */,
 				04B2DFE52C3564470032B14D /* DepositService.swift in Sources */,
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
@@ -1898,6 +1913,7 @@
 				048EE7552C3D3B7C0094A0CB /* About.swift in Sources */,
 				04001C4C2C071FF6000A040F /* CustomerServiceViewController.swift in Sources */,
 				0451657B2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m in Sources */,
+				048EE77F2C3F73B00094A0CB /* MyPackageCardListViewCell.swift in Sources */,
 				045215382C3CD97B0091FD1A /* Logoff.swift in Sources */,
 				048EE7512C3D277B0094A0CB /* LowPowerReminder.swift in Sources */,
 				04BE42AD2C11D583002B78EA /* SectionIndexViewItemIndicator.swift in Sources */,

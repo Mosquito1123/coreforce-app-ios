@@ -7,14 +7,9 @@
 
 import UIKit
 
-class PackageCardChooseServiceViewController: BaseViewController {
+class PackageCardChooseServiceViewController: BaseTableViewController<PackageCardChooseServiceViewCell,PackageCardChooseService> {
     
     // MARK: - Accessor
-    var items:[PackageCardChooseService] = [PackageCardChooseService](){
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
     var titleAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var titleButton:UIButton = {
@@ -34,21 +29,7 @@ class PackageCardChooseServiceViewController: BaseViewController {
         return button
     }()
     // 懒加载的 TableView
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
-        // 添加头视图
-        let headerView = PackageCardChooseServiceViewCell.TableHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
-        tableView.tableHeaderView = headerView
-        tableView.backgroundColor = .white
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(PackageCardChooseServiceViewCell.self, forCellReuseIdentifier: PackageCardChooseServiceViewCell.cellIdentifier())
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-
-
-        return tableView
-    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +51,11 @@ class PackageCardChooseServiceViewController: BaseViewController {
         titleButton.setImagePosition(type: .imageLeft, Space: 6)
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc=BuyPackageCardViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 // MARK: - Setup
@@ -81,6 +67,9 @@ private extension PackageCardChooseServiceViewController {
    
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
+        self.tableView.backgroundColor = .white
+        let headerView = PackageCardChooseServiceViewCell.TableHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+        self.tableView.tableHeaderView = headerView
         self.view.addSubview(self.tableView)
         
     }
@@ -96,20 +85,9 @@ private extension PackageCardChooseServiceViewController {
 }
 
 // MARK: - Public
-extension PackageCardChooseServiceViewController:UITableViewDataSource,UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
+extension PackageCardChooseServiceViewController{
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PackageCardChooseServiceViewCell.cellIdentifier(), for: indexPath) as? PackageCardChooseServiceViewCell else {return PackageCardChooseServiceViewCell()}
-        cell.element = self.items[indexPath.row]
-        return cell
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc=BuyPackageCardViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+    
 }
 
 // MARK: - Request

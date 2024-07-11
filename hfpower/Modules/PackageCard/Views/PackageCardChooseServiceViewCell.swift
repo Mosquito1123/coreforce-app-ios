@@ -10,7 +10,7 @@ enum PackageCardServiceType:Int{
     case battery
     case bike
 }
-class PackageCardChooseServiceViewCell: UITableViewCell {
+class PackageCardChooseServiceViewCell: BaseTableViewCell<PackageCardChooseService> {
     class TableHeaderView: UIView {
         
         // 懒加载标签
@@ -46,35 +46,32 @@ class PackageCardChooseServiceViewCell: UITableViewCell {
     }
     // MARK: - Accessor
     var sureAction:ButtonActionBlock?
-    var element:PackageCardChooseService?{
-        didSet{
-            self.titleLabel.text = element?.title
-            self.contentLabel.text = element?.content
-            if let type = PackageCardServiceType(rawValue: element?.type ?? 0){
-                switch type {
-                case .battery:
-                    self.containerView.backgroundColor = UIColor(rgba: 0xEBFBF1FF)
-                    self.titleLabel.textColor = UIColor(rgba:0x12B858FF)
-                    self.contentLabel.textColor = UIColor(rgba:0x12B858FF)
-                    self.iconImageView.image = UIImage(named: "battery_type")
-                    self.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).toImage(), for: .normal)
-                    self.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
-                case .bike:
-                    self.containerView.backgroundColor = UIColor(rgba: 0xECF1FEFF)
-                    self.titleLabel.textColor = UIColor(rgba:0x447AFEFF)
-                    self.contentLabel.textColor = UIColor(rgba:0x447AFEFF)
-                    self.iconImageView.image = UIImage(named: "motorcycle")
-                    self.sureButton.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-                    self.sureButton.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+    override func configure() {
+        self.titleLabel.text = element?.title
+        self.contentLabel.text = element?.content
+        if let type = PackageCardServiceType(rawValue: element?.type ?? 0){
+            switch type {
+            case .battery:
+                self.containerView.backgroundColor = UIColor(rgba: 0xEBFBF1FF)
+                self.titleLabel.textColor = UIColor(rgba:0x12B858FF)
+                self.contentLabel.textColor = UIColor(rgba:0x12B858FF)
+                self.iconImageView.image = UIImage(named: "battery_type")
+                self.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).toImage(), for: .normal)
+                self.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+            case .bike:
+                self.containerView.backgroundColor = UIColor(rgba: 0xECF1FEFF)
+                self.titleLabel.textColor = UIColor(rgba:0x447AFEFF)
+                self.contentLabel.textColor = UIColor(rgba:0x447AFEFF)
+                self.iconImageView.image = UIImage(named: "motorcycle")
+                self.sureButton.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
+                self.sureButton.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
 
 
-            
-                }
+        
             }
-            
-            
         }
     }
+    
     // MARK: - Subviews
     lazy var containerView: UIView = {
         let view = UIView()
@@ -124,11 +121,11 @@ class PackageCardChooseServiceViewCell: UITableViewCell {
         return button
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> PackageCardChooseServiceViewCell {
+    override class func cell(with tableView: UITableView) -> PackageCardChooseServiceViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? PackageCardChooseServiceViewCell { return cell }
         return PackageCardChooseServiceViewCell(style: .default, reuseIdentifier: identifier)
