@@ -344,7 +344,7 @@ private extension HomeViewController {
         //        let batteryOfflineView = BatteryOfflineView()
         //        headerStackView.addArrangedSubview(batteryOfflineView)
         packageCardView.goToBuyPackageCardAction = { sender in
-            let vc=BuyPackageCardViewController()
+            let vc=PackageCardChooseServiceViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
         headerStackView.addArrangedSubview(packageCardView)

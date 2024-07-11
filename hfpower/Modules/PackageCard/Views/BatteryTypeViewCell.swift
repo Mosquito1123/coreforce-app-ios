@@ -29,6 +29,7 @@ class BatteryTypeViewCell: UITableViewCell {
         label.text = "电池型号"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(rgba:0x333333FF)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -37,6 +38,7 @@ class BatteryTypeViewCell: UITableViewCell {
         label.text = "64V36AH"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textColor = UIColor(rgba:0x333333FF)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

@@ -11,5 +11,6 @@ struct PackageCardChooseService:Convertible{
     var id:Int?
     var title:String?
     var content:String?
+    var type:Int = 0
     
 }

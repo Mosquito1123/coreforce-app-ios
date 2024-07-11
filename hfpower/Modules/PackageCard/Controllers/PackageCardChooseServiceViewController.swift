@@ -37,12 +37,15 @@ class PackageCardChooseServiceViewController: BaseViewController {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        // 添加头视图
+        let headerView = PackageCardChooseServiceViewCell.TableHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+        tableView.tableHeaderView = headerView
+        tableView.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(PackageCardChooseServiceViewCell.self, forCellReuseIdentifier: PackageCardChooseServiceViewCell.cellIdentifier())
-       
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
 
         return tableView
     }()
@@ -53,6 +56,14 @@ class PackageCardChooseServiceViewController: BaseViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
+        self.items = [
+            PackageCardChooseService(id: 0,title: "换电套餐",content: "不限次数，随取随换，全年至高可省1800",type: 0),
+            PackageCardChooseService(id: 1,title: "租车套餐",content: "各种车型，任你挑选",type: 1),
+        ]
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -96,7 +107,8 @@ extension PackageCardChooseServiceViewController:UITableViewDataSource,UITableVi
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc=BuyPackageCardViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
