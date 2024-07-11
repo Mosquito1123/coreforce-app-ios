@@ -1,5 +1,5 @@
 //
-//  MyPackageCardListViewController.swift
+//  CouponListViewController.swift
 //  hfpower
 //
 //  Created by EDY on 2024/7/11.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPackageCardListViewController: BaseTableViewController<MyPackageCardListViewCell,PackageCard> {
+class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupon> {
     
     // MARK: - Accessor
     override var title: String?{
@@ -76,17 +76,14 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
         setupSubviews()
         setupLayout()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
+    
 }
 
 // MARK: - Setup
-private extension MyPackageCardListViewController {
+private extension CouponListViewController {
     
     private func setupNavbar() {
-        self.title = "我的套餐"
+        self.title = "我的优惠券"
         
     }
    
@@ -98,9 +95,10 @@ private extension MyPackageCardListViewController {
         mainView.addSubview(closeButton)
         mainView.addSubview(titleLabel)
         mainView.addSubview(tableView)
+        tableView.backgroundColor = UIColor(rgba: 0xF8F8F8FF)
         mainView.addSubview(submitButtonBackgroundView)
         submitButtonBackgroundView.addSubview(submitButton)
-        self.items = [PackageCard()]
+        self.items = [Coupon()]
     }
     
     private func setupLayout() {
@@ -146,17 +144,17 @@ private extension MyPackageCardListViewController {
 }
 
 // MARK: - Public
-extension MyPackageCardListViewController {
+extension CouponListViewController {
     
 }
 
 // MARK: - Request
-private extension MyPackageCardListViewController {
+private extension CouponListViewController {
     
 }
 
 // MARK: - Action
-@objc private extension MyPackageCardListViewController {
+@objc private extension CouponListViewController {
     @objc func close(_ sender:UIButton){
         self.dismiss(animated: true)
     }
@@ -166,6 +164,6 @@ private extension MyPackageCardListViewController {
 }
 
 // MARK: - Private
-private extension MyPackageCardListViewController {
+private extension CouponListViewController {
     
 }
