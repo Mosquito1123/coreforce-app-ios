@@ -6,21 +6,54 @@
 //
 
 import UIKit
-import JXSegmentedView
-class ChooseBatteryTypeViewController: BaseViewController {
-    
-    // MARK: - Accessor
-    var segmentedDataSource: JXSegmentedBaseDataSource?
-    let segmentedView = JXSegmentedView()
-    lazy var listContainerView: JXSegmentedListContainerView! = {
-        return JXSegmentedListContainerView(dataSource: self)
-    }()
-    // MARK: - Subviews
-
-    // MARK: - Lifecycle
+import Tabman
+import Pageboy
+class ChooseBatteryTypeViewController:BaseViewController{
+    public let content = ChooseBatteryTypeContentViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "选择电池型号"
+        addChild(content)
+        
+        self.view.addSubview(content.view)
+        content.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            content.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            content.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            content.view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            content.view.bottomAnchor.constraint(equalTo:self.view.bottomAnchor) // 示例：设置固定高度
+        ])
+        
+        content.didMove(toParent: self)
+    }
+}
+class ChooseBatteryTypeContentViewController: TabmanViewController {
+    
+    // MARK: - Accessor
+    // initializes on code
+    
+    
+    
+    let items: [(menu: String, content: UIViewController)] = ["全部","48V","60V"].map {
+        let title = $0
+        let vc = BatteryTypeListViewController()
+        return (menu: title, content: vc)
+    }
+    
+ 
+    
+    
+    
+    // MARK: - Subviews
+    
+    // MARK: - Lifecycle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -29,119 +62,103 @@ class ChooseBatteryTypeViewController: BaseViewController {
 }
 
 // MARK: - Setup
-private extension ChooseBatteryTypeViewController {
+private extension ChooseBatteryTypeContentViewController {
     
     private func setupNavbar() {
         self.title = "选择电池型号"
+        
+        // 自定义返回按钮
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(named: "customer_service_back")?.colorized(with: UIColor.black)?.resized(toSize: CGSize.init(width: 12, height: 20)), for: .normal)  // 设置自定义图片
+        backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
+        backButton.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
+        
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        
     }
-   
+    
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
-        let dataSource = JXSegmentedDotDataSource()
-        dataSource.isTitleColorGradientEnabled = true
-        dataSource.titleSelectedColor = UIColor(rgba: 0x3171EFFF)
-        dataSource.titleNormalColor = UIColor(rgba: 0x666666FF)
-        dataSource.titleSelectedFont = UIFont.systemFont(ofSize: 16, weight: .medium)
-        dataSource.titleNormalFont = UIFont.systemFont(ofSize: 15)
+        self.dataSource = self
         
-        dataSource.isTitleStrokeWidthEnabled = true
-        dataSource.isSelectedAnimable = true
-        dataSource.titles = ["全部","48V","60V"]
-        dataSource.dotStates = [false,false, false]
-        let indicator = JXSegmentedIndicatorLineView()
-        indicator.indicatorColor = .clear
-        indicator.indicatorWidth = JXSegmentedViewAutomaticDimension
-        segmentedView.indicators = [indicator]
-        segmentedDataSource = dataSource
-        segmentedView.dataSource = segmentedDataSource
-        segmentedView.delegate = self
-        segmentedView.backgroundColor = .white
-        segmentedView.defaultSelectedIndex = 0
-        segmentedView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(segmentedView)
-        listContainerView.translatesAutoresizingMaskIntoConstraints = false
-        segmentedView.listContainer = listContainerView
-        view.addSubview(listContainerView)
+        // Create bar
+        let bar = TMBar.ButtonBar()
+        bar.backgroundView.style = .flat(color: .white)
+        bar.layout.transitionStyle = .snap // Customize
+        bar.layout.contentMode = .fit
+        bar.indicator.cornerStyle = .rounded
+        bar.indicator.tintColor = .clear
+        bar.buttons.customize { button in
+     
+            button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+            button.font = UIFont.systemFont(ofSize: 15)
+            button.tintColor = UIColor(rgba: 0x666666FF)
+            button.selectedTintColor = UIColor(rgba: 0x3171EFFF)
 
+        }
+        // Add to view
+        addBar(bar, dataSource: self, at: .top)
     }
     
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            self.segmentedView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.segmentedView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.segmentedView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.segmentedView.heightAnchor.constraint(equalToConstant: 50),
-            self.listContainerView.topAnchor.constraint(equalTo: self.segmentedView.bottomAnchor),
-            self.listContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.listContainerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.listContainerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-
-
-
-        ])
+        
     }
 }
 
 // MARK: - Public
-extension ChooseBatteryTypeViewController: JXSegmentedViewDelegate {
-    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        if let dotDataSource = segmentedDataSource as? JXSegmentedDotDataSource {
-            //先更新数据源的数据
-            dotDataSource.dotStates[index] = false
-            //再调用reloadItem(at: index)
-            segmentedView.reloadItem(at: index)
-        }
+extension ChooseBatteryTypeContentViewController: PageboyViewControllerDataSource, TMBarDataSource {
 
-//        navigationController?.interactivePopGestureRecognizer?.isEnabled = (segmentedView.selectedIndex == 0)
+    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
+        return items.count
+    }
+
+    func viewController(for pageboyViewController: PageboyViewController,
+                        at index: PageboyViewController.PageIndex) -> UIViewController? {
+        return items[index].content
+    }
+
+    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+        return nil
+    }
+
+    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        let title = items[index].menu
+        return TMBarItem(title: title)
     }
 }
-
-extension ChooseBatteryTypeViewController: JXSegmentedListContainerViewDataSource {
-    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
-        if let titleDataSource = segmentedView.dataSource as? JXSegmentedBaseDataSource {
-            return titleDataSource.dataSource.count
-        }
-        return 0
-    }
-
-    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let pager = BatteryTypeListViewController()
-        pager.index = index
-        return pager
-    }
-}
-
 // MARK: - Request
-private extension ChooseBatteryTypeViewController {
+private extension ChooseBatteryTypeContentViewController {
     
 }
 
 // MARK: - Action
-@objc private extension ChooseBatteryTypeViewController {
-    
+@objc private extension ChooseBatteryTypeContentViewController {
+    @objc func backButtonTapped(_ sender:UIButton){
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - Private
-private extension ChooseBatteryTypeViewController {
+private extension ChooseBatteryTypeContentViewController {
     
 }
 
-class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewCell,BatteryType>,JXSegmentedListContainerViewListDelegate{
-    func listView() -> UIView {
-        return self.view
-    }
+class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewCell,BatteryType>{
+    
     
     
     // MARK: - Accessor
     var index = 0
     // MARK: - Subviews
-  
+    
     // 懒加载的 TableView
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -150,13 +167,9 @@ class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewC
             BatteryType(id: 1,title: "60V36AH",content: "电池适用描述，电池适用描述电池适用描述，"),
         ]
     }
- 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
+        
     }
     
 }
@@ -166,7 +179,7 @@ private extension BatteryTypeListViewController {
     
     private func setupNavbar() {
     }
-   
+    
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
         self.tableView.backgroundColor = UIColor(rgba: 0xF6F6F6FF)

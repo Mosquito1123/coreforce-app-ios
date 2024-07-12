@@ -6,16 +6,74 @@
 //
 
 import UIKit
-import JXSegmentedView
-class CustomerServiceViewController: BaseViewController {
+import Tabman
+import Pageboy
+class CustomerServiceViewController:BaseViewController{
+    public let content = CustomerServiceContentViewController()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .white
+        self.title = "核蜂客服"
+        addChild(content)
+        
+        self.view.addSubview(content.view)
+        content.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            content.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            content.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            content.view.topAnchor.constraint(equalTo: self.view.topAnchor),
+            content.view.bottomAnchor.constraint(equalTo:self.view.bottomAnchor) // 示例：设置固定高度
+        ])
+        
+        content.didMove(toParent: self)
+        
+    }
+    func setupNavbar(){
+        // 自定义返回按钮
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(named: "customer_service_back"), for: .normal)  // 设置自定义图片
+        backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitleColor(.white, for: .normal)  // 设置标题颜色
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+
+        appearance.configureWithTransparentBackground()
+
+        // 设置背景色为白色
+
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white,.font:UIFont.systemFont(ofSize: 18, weight: .semibold)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+      
+       
+    }
+  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        setupNavbar()
+
+    }
+}
+class CustomerServiceContentViewController: TabmanViewController {
     
     // MARK: - Accessor
+    let items: [(menu: String, content: UIViewController)] = ["常见问题","换电操作","电池问题","电柜问题","其他"].map {
+        let title = $0
+        let vc = CustomerServicePagerViewController()
+        return (menu: title, content: vc)
+    }
+
     var contactAction:ButtonActionBlock?
-    var segmentedDataSource: JXSegmentedBaseDataSource?
-    let segmentedView = JXSegmentedView()
-    lazy var listContainerView: JXSegmentedListContainerView! = {
-        return JXSegmentedListContainerView(dataSource: self)
-    }()
+    
     // MARK: - Subviews
     lazy var backgroundImageView: UIImageView = {
         let view = UIImageView()
@@ -44,98 +102,53 @@ class CustomerServiceViewController: BaseViewController {
         return button
     }()
     // MARK: - Lifecycle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contactButton.setImagePosition(type: .imageLeft, Space: 2)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavbar()
         setupSubviews()
         setupLayout()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        // 设置导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationBar.shadowImage = UIImage()
-            navigationBar.tintColor = UIColor.white  // 设置导航栏按钮颜色
-            
-            // 设置标题字体和颜色
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.white,
-                .font: UIFont.systemFont(ofSize: 18,weight: .semibold)
-            ]
-            navigationBar.titleTextAttributes = titleAttributes
-        }
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-
-        // 恢复导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(nil, for: .default)
-            navigationBar.shadowImage = nil
-            navigationBar.tintColor = nil  // 恢复默认按钮颜色
-            
-            // 恢复标题字体和颜色
-            navigationBar.titleTextAttributes = nil
-        }
-    }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        contactButton.setImagePosition(type: .imageLeft, Space: 2)
-    }
 }
 
 // MARK: - Setup
-private extension CustomerServiceViewController {
+private extension CustomerServiceContentViewController {
     
     private func setupNavbar() {
         self.title = "核蜂客服"
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
 
-        // 自定义返回按钮
-        let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "customer_service_back"), for: .normal)  // 设置自定义图片
-        backButton.setTitle("", for: .normal)  // 设置标题
-        backButton.setTitleColor(.white, for: .normal)  // 设置标题颜色
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        let backBarButtonItem = UIBarButtonItem(customView: backButton)
-        self.navigationItem.leftBarButtonItem = backBarButtonItem
+       
     }
 
     
    
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
-        self.view.addSubview(self.backgroundImageView)
-        let dataSource = JXSegmentedDotDataSource()
-        dataSource.isTitleColorGradientEnabled = true
-        dataSource.titleSelectedColor = UIColor.white
-        dataSource.titleNormalColor = UIColor.white.withAlphaComponent(0.7)
-        dataSource.titleSelectedFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        dataSource.titleNormalFont = UIFont.systemFont(ofSize: 15)
+        self.view.insertSubview(backgroundImageView, at: 0)
+        self.dataSource = self
+        
+        // Create bar
+        let bar = TMBar.ButtonBar()
+        bar.layout.transitionStyle = .snap // Customize
+        bar.backgroundView.style = .flat(color: .clear)
+        bar.layout.contentMode = .intrinsic
+        bar.layout.alignment = .centerDistributed
+        bar.indicator.cornerStyle = .rounded
+        bar.indicator.tintColor = .white
+        bar.buttons.customize { button in
+     
+            button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            button.font = UIFont.systemFont(ofSize: 15)
+            button.tintColor = UIColor(rgba: 0xFFFFFFFF).withAlphaComponent(0.7)
+            button.selectedTintColor = UIColor(rgba: 0xFFFFFFFF)
 
-        dataSource.isTitleStrokeWidthEnabled = true
-        dataSource.isSelectedAnimable = true
-        dataSource.titles = ["常见问题","换电操作","电池问题","电柜问题","其他"]
-        dataSource.dotStates = [false,false, false,false,false]
-        let indicator = JXSegmentedIndicatorLineView()
-        indicator.indicatorColor = .white
-        indicator.indicatorWidth = JXSegmentedViewAutomaticDimension
-        segmentedView.indicators = [indicator]
-        segmentedDataSource = dataSource
-        segmentedView.dataSource = segmentedDataSource
-        segmentedView.delegate = self
-        segmentedView.defaultSelectedIndex = 0
-        segmentedView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(segmentedView)
-        listContainerView.translatesAutoresizingMaskIntoConstraints = false
-        segmentedView.listContainer = listContainerView
-        view.addSubview(listContainerView)
+        }
+        // Add to view
+        addBar(bar, dataSource: self, at: .top)
         view.addSubview(contactButton)
         self.view.bringSubviewToFront(contactButton)
     }
@@ -146,14 +159,7 @@ private extension CustomerServiceViewController {
             self.backgroundImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.backgroundImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.backgroundImageView.heightAnchor.constraint(equalToConstant: 300),
-            self.segmentedView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.segmentedView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.segmentedView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.segmentedView.heightAnchor.constraint(equalToConstant: 50),
-            self.listContainerView.topAnchor.constraint(equalTo: self.segmentedView.bottomAnchor),
-            self.listContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.listContainerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.listContainerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+           
             self.contactButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
             self.contactButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -16),
             self.contactButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -29),
@@ -165,57 +171,54 @@ private extension CustomerServiceViewController {
 }
 
 // MARK: - Public
-extension CustomerServiceViewController: JXSegmentedViewDelegate {
-    func segmentedView(_ segmentedView: JXSegmentedView, didSelectedItemAt index: Int) {
-        if let dotDataSource = segmentedDataSource as? JXSegmentedDotDataSource {
-            //先更新数据源的数据
-            dotDataSource.dotStates[index] = false
-            //再调用reloadItem(at: index)
-            segmentedView.reloadItem(at: index)
-        }
 
-//        navigationController?.interactivePopGestureRecognizer?.isEnabled = (segmentedView.selectedIndex == 0)
+extension CustomerServiceContentViewController: PageboyViewControllerDataSource, TMBarDataSource {
+
+    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
+        return items.count
+    }
+
+    func viewController(for pageboyViewController: PageboyViewController,
+                        at index: PageboyViewController.PageIndex) -> UIViewController? {
+        return items[index].content
+    }
+
+    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+        return nil
+    }
+
+    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        let title = items[index].menu
+        return TMBarItem(title: title)
     }
 }
-
-extension CustomerServiceViewController: JXSegmentedListContainerViewDataSource {
-    func numberOfLists(in listContainerView: JXSegmentedListContainerView) -> Int {
-        if let titleDataSource = segmentedView.dataSource as? JXSegmentedBaseDataSource {
-            return titleDataSource.dataSource.count
-        }
-        return 0
-    }
-
-    func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let pager = CustomerServicePagerView()
-        pager.title = (segmentedView.dataSource as? JXSegmentedDotDataSource)?.titles[index]
-        return pager
-    }
-}
-extension CustomerServiceViewController {
+extension CustomerServiceContentViewController {
     
 }
 
 // MARK: - Request
-private extension CustomerServiceViewController {
+private extension CustomerServiceContentViewController {
     
 }
 
 // MARK: - Action
-@objc private extension CustomerServiceViewController {
+@objc private extension CustomerServiceContentViewController {
     @objc func onCalled(_ sender:UIButton){
         if let phoneURL = URL(string: "tel://400-6789-509"), UIApplication.shared.canOpenURL(phoneURL) {
             UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
         }
         self.contactAction?(sender)
     }
+    @objc func backButtonTapped(_ sender:UIButton){
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - Private
-private extension CustomerServiceViewController {
+private extension CustomerServiceContentViewController {
     
 }
-class CustomerServicePagerView:UIView,JXSegmentedListContainerViewListDelegate,UITableViewDelegate,UITableViewDataSource{
+class CustomerServicePagerViewController:UIViewController,UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -226,10 +229,7 @@ class CustomerServicePagerView:UIView,JXSegmentedListContainerViewListDelegate,U
         return cell
     }
     
-    func listView() -> UIView {
-        return self
-    }
-    var title:String?
+   
     // MARK: - Subviews
     
     // 懒加载的 TableView
@@ -244,31 +244,28 @@ class CustomerServicePagerView:UIView,JXSegmentedListContainerViewListDelegate,U
 
         return tableView
     }()
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setupNavbar()
         setupSubviews()
         setupLayout()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder:coder)
-    }
 }
-private extension CustomerServicePagerView{
+private extension CustomerServicePagerViewController{
     private func setupNavbar() {
     }
     private func setupSubviews() {
-        self.addSubview(self.tableView)
+        self.view.backgroundColor = UIColor.clear
+        self.view.addSubview(self.tableView)
       
     }
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: self.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
 }

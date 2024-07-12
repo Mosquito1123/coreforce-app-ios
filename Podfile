@@ -10,8 +10,8 @@ target 'hfpower' do
   pod 'SnapKit'
   #  调试工具，配合Lookin使用（下载地址：https://lookin.work）
   pod 'LookinServer', :subspecs => ['Swift'], :configurations => ['Debug']
-  #  分栏 https://github.com/pujiaxin33/JXSegmentedView
-  pod 'JXSegmentedView'
+  #  分栏 https://github.com/uias/Tabman
+  pod "Tabman"
   #  网络 https://github.com/Alamofire/Alamofire
   pod 'Alamofire'
   # 筛选视图 https://github.com/younatics/YNDropDownMenu.git

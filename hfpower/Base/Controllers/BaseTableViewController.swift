@@ -32,7 +32,6 @@ class BaseTableViewController<CellType:BaseTableViewCell<ItemType>,ItemType>: Ba
     // MARK: - Subviews
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.isHidden = false
         tableView.register(CellType.self, forCellReuseIdentifier: CellType.cellIdentifier())
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10))
         tableView.tableHeaderView = headerView

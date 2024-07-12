@@ -12,45 +12,23 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Accessor
     
     // MARK: - Subviews
-
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // 设置导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(UIColor.white.toImage(), for: .default)
-            navigationBar.shadowImage = UIColor.white.toImage()
-            
-            // 设置标题字体和颜色
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor(rgba:0x333333FF),
-                .font: UIFont.systemFont(ofSize: 18,weight: .medium)
-            ]
-            navigationBar.titleTextAttributes = titleAttributes
+    // 实现 UIGestureRecognizerDelegate 方法，允许多个手势同时识别
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UIScreenEdgePanGestureRecognizer || otherGestureRecognizer is UIScreenEdgePanGestureRecognizer {
+            return true
         }
+        return false
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // 恢复导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(nil, for: .default)
-            navigationBar.shadowImage = nil
-            
-            // 恢复标题字体和颜色
-            navigationBar.titleTextAttributes = nil
-        }
-    }
-    
+
 }
 
 // MARK: - Setup
@@ -68,8 +46,22 @@ private extension BaseViewController {
         
         let backBarButtonItem = UIBarButtonItem(customView: backButton)
         self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色为白色
+        appearance.backgroundImage = UIColor.white.toImage()
+        appearance.shadowImage = UIColor.white.toImage()
+        
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        
     }
-   
+    
     private func setupSubviews() {
         
     }
