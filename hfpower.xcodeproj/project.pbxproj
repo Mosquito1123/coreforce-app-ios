@@ -45,6 +45,8 @@
 		043893662C3FCB9100E61C0D /* Coupon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893652C3FCB9100E61C0D /* Coupon.swift */; };
 		0438936A2C3FCC5800E61C0D /* CouponListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893692C3FCC5800E61C0D /* CouponListViewCell.swift */; };
 		0438936E2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */; };
+		043893702C40CF1000E61C0D /* BatteryTypeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438936F2C40CF1000E61C0D /* BatteryTypeListViewCell.swift */; };
+		043893722C40CF3800E61C0D /* BatteryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893712C40CF3800E61C0D /* BatteryType.swift */; };
 		043C4C132C2EA51700E887B9 /* PackageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C122C2EA51700E887B9 /* PackageCard.swift */; };
 		043C4C152C2EAF5B00E887B9 /* BuyPackageCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */; };
 		043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */; };
@@ -296,6 +298,8 @@
 		043893652C3FCB9100E61C0D /* Coupon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coupon.swift; sourceTree = "<group>"; };
 		043893692C3FCC5800E61C0D /* CouponListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewCell.swift; sourceTree = "<group>"; };
 		0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBatteryTypeViewController.swift; sourceTree = "<group>"; };
+		0438936F2C40CF1000E61C0D /* BatteryTypeListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeListViewCell.swift; sourceTree = "<group>"; };
+		043893712C40CF3800E61C0D /* BatteryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryType.swift; sourceTree = "<group>"; };
 		043C4C122C2EA51700E887B9 /* PackageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCard.swift; sourceTree = "<group>"; };
 		043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardViewController.swift; sourceTree = "<group>"; };
 		043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeViewCell.swift; sourceTree = "<group>"; };
@@ -916,6 +920,7 @@
 				04B2DFE42C3564470032B14D /* DepositService.swift */,
 				048EE77C2C3E8E800094A0CB /* PackageCardChooseService.swift */,
 				043893652C3FCB9100E61C0D /* Coupon.swift */,
+				043893712C40CF3800E61C0D /* BatteryType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -948,6 +953,7 @@
 				048EE77A2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift */,
 				048EE77E2C3F73B00094A0CB /* MyPackageCardListViewCell.swift */,
 				043893692C3FCC5800E61C0D /* CouponListViewCell.swift */,
+				0438936F2C40CF1000E61C0D /* BatteryTypeListViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1854,6 +1860,7 @@
 				043C4C152C2EAF5B00E887B9 /* BuyPackageCardViewController.swift in Sources */,
 				043DEC852C085B79003FD6AD /* ExpirationView.swift in Sources */,
 				04001C3A2C05C603000A040F /* NotificationViewController.swift in Sources */,
+				043893722C40CF3800E61C0D /* BatteryType.swift in Sources */,
 				048EE7792C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift in Sources */,
 				04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */,
 				042849172C2437290011032F /* CabinetDetailContentView.swift in Sources */,
@@ -1929,6 +1936,7 @@
 				048EE7552C3D3B7C0094A0CB /* About.swift in Sources */,
 				04001C4C2C071FF6000A040F /* CustomerServiceViewController.swift in Sources */,
 				0451657B2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m in Sources */,
+				043893702C40CF1000E61C0D /* BatteryTypeListViewCell.swift in Sources */,
 				048EE77F2C3F73B00094A0CB /* MyPackageCardListViewCell.swift in Sources */,
 				045215382C3CD97B0091FD1A /* Logoff.swift in Sources */,
 				048EE7512C3D277B0094A0CB /* LowPowerReminder.swift in Sources */,

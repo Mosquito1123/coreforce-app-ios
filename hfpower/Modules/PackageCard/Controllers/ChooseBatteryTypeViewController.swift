@@ -105,8 +105,8 @@ extension ChooseBatteryTypeViewController: JXSegmentedListContainerViewDataSourc
     }
 
     func listContainerView(_ listContainerView: JXSegmentedListContainerView, initListAt index: Int) -> JXSegmentedListContainerViewListDelegate {
-        let pager = CustomerServicePagerView()
-        pager.title = (segmentedView.dataSource as? JXSegmentedDotDataSource)?.titles[index]
+        let pager = BatteryTypeListViewController()
+        pager.index = index
         return pager
     }
 }
@@ -124,4 +124,65 @@ private extension ChooseBatteryTypeViewController {
 // MARK: - Private
 private extension ChooseBatteryTypeViewController {
     
+}
+
+class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewCell,BatteryType>,JXSegmentedListContainerViewListDelegate{
+    func listView() -> UIView {
+        return self.view
+    }
+    
+    
+    // MARK: - Accessor
+    var index = 0
+    // MARK: - Subviews
+  
+    // 懒加载的 TableView
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupNavbar()
+        setupSubviews()
+        setupLayout()
+        self.items = [
+            BatteryType(id: 0,title: "60V36AH",content: "续航60-80公里，适合全职及众包骑手"),
+            BatteryType(id: 1,title: "60V36AH",content: "电池适用描述，电池适用描述电池适用描述，"),
+        ]
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
+    }
+    
+}
+
+// MARK: - Setup
+private extension BatteryTypeListViewController {
+    
+    private func setupNavbar() {
+    }
+   
+    private func setupSubviews() {
+        self.view.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
+        self.tableView.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
+        self.view.addSubview(self.tableView)
+        
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+        ])
+    }
 }
