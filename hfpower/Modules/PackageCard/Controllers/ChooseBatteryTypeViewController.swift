@@ -150,10 +150,7 @@ class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewC
             BatteryType(id: 1,title: "60V36AH",content: "电池适用描述，电池适用描述电池适用描述，"),
         ]
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
+ 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
