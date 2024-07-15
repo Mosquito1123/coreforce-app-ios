@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import EmptyStateKit
 class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupon> {
     
     // MARK: - Accessor
@@ -15,6 +15,7 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupo
             self.titleLabel.text = title
         }
     }
+    var noCoupon = TableState.noCoupon
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -75,6 +76,11 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupo
         setupNavbar()
         setupSubviews()
         setupLayout()
+        /*空白页占位
+                 tableView.emptyState.format = noCoupon.format
+                 tableView.emptyState.show(noCoupon)
+         */
+
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

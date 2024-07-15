@@ -47,6 +47,7 @@
 		0438936E2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */; };
 		043893702C40CF1000E61C0D /* BatteryTypeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0438936F2C40CF1000E61C0D /* BatteryTypeListViewCell.swift */; };
 		043893722C40CF3800E61C0D /* BatteryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893712C40CF3800E61C0D /* BatteryType.swift */; };
+		043893742C44C1D400E61C0D /* TableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043893732C44C1D400E61C0D /* TableState.swift */; };
 		043C4C132C2EA51700E887B9 /* PackageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C122C2EA51700E887B9 /* PackageCard.swift */; };
 		043C4C152C2EAF5B00E887B9 /* BuyPackageCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */; };
 		043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */; };
@@ -300,6 +301,7 @@
 		0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBatteryTypeViewController.swift; sourceTree = "<group>"; };
 		0438936F2C40CF1000E61C0D /* BatteryTypeListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeListViewCell.swift; sourceTree = "<group>"; };
 		043893712C40CF3800E61C0D /* BatteryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryType.swift; sourceTree = "<group>"; };
+		043893732C44C1D400E61C0D /* TableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableState.swift; sourceTree = "<group>"; };
 		043C4C122C2EA51700E887B9 /* PackageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageCard.swift; sourceTree = "<group>"; };
 		043C4C142C2EAF5B00E887B9 /* BuyPackageCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardViewController.swift; sourceTree = "<group>"; };
 		043C4C162C2EAFC600E887B9 /* BatteryTypeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeViewCell.swift; sourceTree = "<group>"; };
@@ -1413,6 +1415,7 @@
 		048EE76C2C3E37B60094A0CB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				043893732C44C1D400E61C0D /* TableState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1807,6 +1810,7 @@
 				045165892C1AC0E000ABE7F1 /* IDCardRectManager.m in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
+				043893742C44C1D400E61C0D /* TableState.swift in Sources */,
 				049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */,
 				048EE7532C3D3A5D0094A0CB /* AboutViewController.swift in Sources */,
 				048EE74D2C3D25630094A0CB /* LowPowerReminderViewController.swift in Sources */,

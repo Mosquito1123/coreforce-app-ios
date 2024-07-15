@@ -3,6 +3,7 @@ PODS:
   - DGCharts (5.1.0):
     - DGCharts/Core (= 5.1.0)
   - DGCharts/Core (5.1.0)
+  - EmptyStateKit (1.1.0)
   - ESTabBarController-swift (2.8.0)
   - FloatingPanel (2.8.3)
   - FSPagerView (0.8.3)
@@ -36,6 +37,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - DGCharts
+  - EmptyStateKit
   - ESTabBarController-swift
   - FloatingPanel
   - FSPagerView
@@ -59,6 +61,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - DGCharts
+    - EmptyStateKit
     - ESTabBarController-swift
     - FloatingPanel
     - FSPagerView
@@ -82,6 +85,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
+  EmptyStateKit: dc41e9ce5c6089f67a49d063bce73ade9f2ba73f
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   FloatingPanel: 0f9b89c6d4318842311bec6f6026fb18ca2a2c90
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
@@ -102,6 +106,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: a74ccec53916a2f84dbdc1359c4a423e67fb9b76
+PODFILE CHECKSUM: 1c63381e7c8a20f4944f71392aaabb98726aa336
 
 COCOAPODS: 1.15.2

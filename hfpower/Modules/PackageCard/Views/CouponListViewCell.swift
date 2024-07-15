@@ -138,7 +138,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
     }()
     lazy var statusImageView:UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "unselected")
+        imageView.image = UIImage(named: "unselected_c")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

@@ -38,5 +38,5 @@ target 'hfpower' do
   pod 'FSPagerView'
   pod 'DGCharts'
   pod 'Kingfisher'
-
+  pod 'EmptyStateKit'
 end
