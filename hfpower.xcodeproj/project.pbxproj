@@ -161,6 +161,8 @@
 		045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */; };
 		045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */; };
 		0460AD6B2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AD6A2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift */; };
+		0460D6522C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6512C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift */; };
+		0460D6542C44FA5400B7DD21 /* BatteryReplacementStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6532C44FA5400B7DD21 /* BatteryReplacementStatus.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -434,6 +436,8 @@
 		045C17552C2BEB550082AF5B /* PersonalElementIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconView.swift; sourceTree = "<group>"; };
 		045C17572C2C07330082AF5B /* PersonalElementIconViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalElementIconViewCell.swift; sourceTree = "<group>"; };
 		0460AD6A2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardBottomView.swift; sourceTree = "<group>"; };
+		0460D6512C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementStatusViewCell.swift; sourceTree = "<group>"; };
+		0460D6532C44FA5400B7DD21 /* BatteryReplacementStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementStatus.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -1354,6 +1358,7 @@
 		048EE7642C3E33A20094A0CB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0460D6532C44FA5400B7DD21 /* BatteryReplacementStatus.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1369,6 +1374,7 @@
 		048EE7662C3E33B20094A0CB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0460D6512C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1776,6 +1782,7 @@
 				048EE7712C3E3A540094A0CB /* BaseViewController.swift in Sources */,
 				04FB1C0A2C29576C00F47E79 /* PersonalPackageCardViewCell.swift in Sources */,
 				048EE75B2C3D47400094A0CB /* PersonalInfoViewController.swift in Sources */,
+				0460D6522C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift in Sources */,
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				048EE7812C3F74B10094A0CB /* MyPackageCardListViewController.swift in Sources */,
@@ -1841,6 +1848,7 @@
 				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
 				045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
+				0460D6542C44FA5400B7DD21 /* BatteryReplacementStatus.swift in Sources */,
 				045215362C3CD6270091FD1A /* LogOffViewController.swift in Sources */,
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */,
