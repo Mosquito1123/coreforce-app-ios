@@ -127,12 +127,13 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
         
     }
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let item = self.items[indexPath.row]
+//        let 5item = self.items[indexPath.row]
 //        return item.cellHeight ?? 0
 //    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
+        let vc = BatteryReplacementViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     

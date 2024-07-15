@@ -163,6 +163,8 @@
 		0460AD6B2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460AD6A2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift */; };
 		0460D6522C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6512C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift */; };
 		0460D6542C44FA5400B7DD21 /* BatteryReplacementStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6532C44FA5400B7DD21 /* BatteryReplacementStatus.swift */; };
+		0460D6562C4514C900B7DD21 /* BatteryReplacementBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6552C4514C900B7DD21 /* BatteryReplacementBottomView.swift */; };
+		0460D6582C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6572C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -438,6 +440,8 @@
 		0460AD6A2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPackageCardBottomView.swift; sourceTree = "<group>"; };
 		0460D6512C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementStatusViewCell.swift; sourceTree = "<group>"; };
 		0460D6532C44FA5400B7DD21 /* BatteryReplacementStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementStatus.swift; sourceTree = "<group>"; };
+		0460D6552C4514C900B7DD21 /* BatteryReplacementBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementBottomView.swift; sourceTree = "<group>"; };
+		0460D6572C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementTableFooterView.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -1375,6 +1379,8 @@
 			isa = PBXGroup;
 			children = (
 				0460D6512C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift */,
+				0460D6552C4514C900B7DD21 /* BatteryReplacementBottomView.swift */,
+				0460D6572C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1786,6 +1792,7 @@
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				048EE7812C3F74B10094A0CB /* MyPackageCardListViewController.swift in Sources */,
+				0460D6562C4514C900B7DD21 /* BatteryReplacementBottomView.swift in Sources */,
 				04FFEE2F2C00454400939B46 /* LoginViewController.swift in Sources */,
 				0428491B2C245B990011032F /* CabinetNumberView.swift in Sources */,
 				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
@@ -1840,6 +1847,7 @@
 				045165432C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift in Sources */,
 				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
 				0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */,
+				0460D6582C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift in Sources */,
 				0460AD6B2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift in Sources */,
 				04EBBAFE2C1858B700AFD14B /* ActivityListResponse.swift in Sources */,
 				04A5E5212C1C25B000787551 /* MyCodeViewController.swift in Sources */,
