@@ -28,6 +28,7 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
             BatteryReplacementStatus(),
             BatteryReplacementStatus(),
             BatteryReplacementStatus()]
+        self.presentCustomAlert(withImage: "selected", titleText: "支付成功", messageText: "您已租电成功，是否立马开仓取电？")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

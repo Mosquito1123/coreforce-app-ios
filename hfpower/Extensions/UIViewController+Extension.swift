@@ -100,6 +100,36 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
+    func presentCustomAlert(withImage imageName: String, titleText: String, messageText: String,_ cancelBlock:((AlertAction)->Void)? = nil,_ sureBlock:((AlertAction) -> Void)? = nil) {
+           // Create a mutable attributed string
+           let attributedString = NSMutableAttributedString()
+           
+           // Create an NSTextAttachment with an image
+           let imageAttachment = NSTextAttachment()
+           imageAttachment.image = UIImage(named: imageName)
+           let imageString = NSAttributedString(attachment: imageAttachment)
+           
+           // Create attributed text
+        let title = NSAttributedString(string: titleText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16,weight: .medium),.foregroundColor:UIColor.black])
+        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(rgba: 0x1D2129FF)])
+           
+           // Append the text and image to the attributed string
+           attributedString.append(imageString)
+           attributedString.append(NSAttributedString(string: " ")) // Line break
+           attributedString.append(title)
+           attributedString.append(NSAttributedString(string: " ")) // Line break
+       
+           
+           // Create the alert
+        let alert = AlertController(attributedTitle: attributedString, attributedMessage: message, preferredStyle: .alert)
+           // Add buttons
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "开仓取电",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
+           
+           
+           // Present the alert
+           alert.present()
+       }
     /// 获取最底层window
     static func ex_rootWindow() -> UIWindow? {
         var rootWindow: UIWindow? = nil
