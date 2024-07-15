@@ -24,6 +24,10 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
         setupNavbar()
         setupSubviews()
         setupLayout()
+        self.items = [
+            BatteryReplacementStatus(),
+            BatteryReplacementStatus(),
+            BatteryReplacementStatus()]
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

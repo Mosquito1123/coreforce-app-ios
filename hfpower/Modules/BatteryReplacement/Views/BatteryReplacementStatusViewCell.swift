@@ -10,13 +10,18 @@ import UIKit
 class BatteryReplacementStatusViewCell: BaseTableViewCell<BatteryReplacementStatus> {
     
     // MARK: - Accessor
+    override func configure() {
+        
+    }
     lazy var topLineView: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var bottomLineView: UIView = {
         let view = UIView()
+        view.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -97,7 +102,8 @@ private extension BatteryReplacementStatusViewCell {
         NSLayoutConstraint.activate([
             self.statusButton.widthAnchor.constraint(equalToConstant: 20),
             self.statusButton.heightAnchor.constraint(equalToConstant: 20),
-            self.statusButton.leadingAnchor.constraint(equalToSystemSpacingAfter: self.contentView.leadingAnchor, multiplier: 20),
+            self.statusButton.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
+            self.statusButton.topAnchor.constraint(equalTo: self.titleLabel.topAnchor),
             self.titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: 24),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.statusButton.trailingAnchor, constant: 10),
             self.titleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -22),
