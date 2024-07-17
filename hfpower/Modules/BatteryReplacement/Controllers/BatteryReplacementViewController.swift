@@ -28,13 +28,19 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
             BatteryReplacementStatus(),
             BatteryReplacementStatus(),
             BatteryReplacementStatus()]
-        self.presentCustomAlert(withImage: "icon_success", titleText: "支付成功", messageText: "您已租电成功，是否立马开仓取电？", cancel: "取消", {
+//        self.presentCustomAlert(withImage: "icon_success", titleText: "支付成功", messageText: "您已租电成功，是否立马开仓取电？", cancel: "取消", {
+//            
+//        }, sure: "开仓取电") {
+//            
+//        }
+       
+        self.showActionSheet(["wechat","alipay"], ["微信","支付宝"], [{
             
-        }, sure: "开仓取电") {
+        },{
+            
+        }], "取消") {
             
         }
-       
-
         
     }
     override func viewWillAppear(_ animated: Bool) {
