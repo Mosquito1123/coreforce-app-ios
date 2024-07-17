@@ -59,3 +59,23 @@ func setImagePosition(type:ButtonImagePosition,Space space:CGFloat)  {
   
 }
 
+// Helper function to add action for UIButton
+extension UIButton {
+    private class ActionClosureWrapper: NSObject {
+        var closure: (() -> Void)
+        
+        init(_ closure: @escaping (() -> Void)) {
+            self.closure = closure
+        }
+        
+        @objc func invoke() {
+            closure()
+        }
+    }
+    
+    func addAction(for controlEvents: UIControl.Event, action: @escaping () -> Void) {
+        let wrapper = ActionClosureWrapper(action)
+        addTarget(wrapper, action: #selector(wrapper.invoke), for: controlEvents)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), wrapper, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+}

@@ -73,7 +73,7 @@ extension UIViewController{
         textView.backgroundColor = .clear
         let attributedString = NSMutableAttributedString(string: "阅读并同意《核蜂换电隐私政策》和《租赁协议》", attributes: [
             .font: UIFont.systemFont(ofSize: 15),
-            .foregroundColor: UIColor(rgba:0x666666FF) 
+            .foregroundColor: UIColor(rgba:0x666666FF)
         ])
         
         let privacyPolicyRange = (attributedString.string as NSString).range(of: "《核蜂换电隐私政策》")
@@ -100,36 +100,86 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
-    func presentCustomAlert(withImage imageName: String, titleText: String, messageText: String,_ cancelBlock:((AlertAction)->Void)? = nil,_ sureBlock:((AlertAction) -> Void)? = nil) {
-           // Create a mutable attributed string
-           let attributedString = NSMutableAttributedString()
-           
-           // Create an NSTextAttachment with an image
-           let imageAttachment = NSTextAttachment()
-           imageAttachment.image = UIImage(named: imageName)
-           let imageString = NSAttributedString(attachment: imageAttachment)
-           
-           // Create attributed text
+    func presentCustomAlert(withImage imageName: String, titleText: String, messageText: String,_ cancelBlock:(@escaping ()->Void),_ sureBlock:(@escaping () -> Void)) {
+        // Create a mutable attributed string
+        let attributedString = NSMutableAttributedString()
+        
+        // Create an NSTextAttachment with an image
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(named: imageName)
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        
+        // Create attributed text
         let title = NSAttributedString(string: titleText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16,weight: .medium),.foregroundColor:UIColor.black])
-        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(rgba: 0x1D2129FF)])
-           
-           // Append the text and image to the attributed string
-           attributedString.append(imageString)
-           attributedString.append(NSAttributedString(string: " ")) // Line break
-           attributedString.append(title)
-           attributedString.append(NSAttributedString(string: " ")) // Line break
-       
-           
-           // Create the alert
+        let p = NSMutableParagraphStyle()
+        p.alignment = .center
+        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(rgba: 0x1D2129FF),.paragraphStyle:p])
+        
+        // Append the text and image to the attributed string
+        attributedString.append(imageString)
+        attributedString.append(NSAttributedString(string: " ")) // Line break
+        attributedString.append(title)
+        attributedString.append(NSAttributedString(string: " ")) // Line break
+        
+        
+        // Create the alert
         let alert = AlertController(attributedTitle: attributedString, attributedMessage: message, preferredStyle: .alert)
-           // Add buttons
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "开仓取电",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
-           
-           
-           // Present the alert
-           alert.present()
-       }
+        alert.visualStyle.width = UIScreen.main.bounds.size.width * (311.0/375.0)
+        // Add buttons
+        let cancelButton = UIButton(type: .custom)
+        cancelButton.layer.cornerRadius = 20
+        cancelButton.layer.masksToBounds = true
+        cancelButton.layer.borderColor = UIColor(rgba:0xC9CDD4FF).cgColor
+        cancelButton.layer.borderWidth = 1
+        cancelButton.setTitle("取消", for: .normal)
+        cancelButton.setTitle("取消", for: .highlighted)
+        cancelButton.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .normal)
+        cancelButton.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .highlighted)
+        cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        cancelButton.setBackgroundImage(UIColor.white.toImage(), for: .normal)
+        cancelButton.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
+        cancelButton.addAction(for: .touchUpInside) {
+            alert.dismiss()
+            cancelBlock()
+        }
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        alert.contentView.addSubview(cancelButton)
+        let sureButton = UIButton(type: .custom)
+        sureButton.layer.cornerRadius = 20
+        sureButton.layer.masksToBounds = true
+        sureButton.layer.borderColor = UIColor(rgba:0x447AFEFF).cgColor
+        sureButton.layer.borderWidth = 1
+        sureButton.setTitle("开仓取电", for: .normal)
+        sureButton.setTitle("开仓取电", for: .highlighted)
+        sureButton.setTitleColor(UIColor.white, for: .normal)
+        sureButton.setTitleColor(UIColor.white, for: .highlighted)
+        sureButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        sureButton.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
+        sureButton.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        sureButton.addAction(for: .touchUpInside) {
+            alert.dismiss()
+            sureBlock()
+        }
+        sureButton.translatesAutoresizingMaskIntoConstraints = false
+        alert.contentView.addSubview(sureButton)
+        
+        NSLayoutConstraint.activate([
+            cancelButton.leadingAnchor.constraint(equalTo: alert.contentView.leadingAnchor,constant: 32),
+            cancelButton.trailingAnchor.constraint(equalTo: sureButton.leadingAnchor,constant: -23),
+            sureButton.trailingAnchor.constraint(equalTo: alert.contentView.trailingAnchor, constant: -32),
+            cancelButton.widthAnchor.constraint(equalTo: sureButton.widthAnchor),
+            cancelButton.heightAnchor.constraint(equalToConstant: 40),
+            sureButton.heightAnchor.constraint(equalToConstant: 40),
+            cancelButton.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor, constant: -20),
+            sureButton.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor, constant: -20),
+            cancelButton.topAnchor.constraint(equalTo: alert.contentView.topAnchor, constant: 20),
+
+
+        ])
+        
+        // Present the alert
+        alert.present()
+    }
     /// 获取最底层window
     static func ex_rootWindow() -> UIWindow? {
         var rootWindow: UIWindow? = nil
