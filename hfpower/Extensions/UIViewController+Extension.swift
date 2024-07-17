@@ -100,13 +100,19 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
-    func presentCustomAlert(withImage imageName: String, titleText: String, messageText: String,_ cancelBlock:(@escaping ()->Void),_ sureBlock:(@escaping () -> Void)) {
+    func presentCustomAlert(withImage imageName: String, titleText: String, messageText: String,cancel cancelTitle:String,_ cancelBlock:(@escaping ()->Void),sure sureTitle:String,_ sureBlock:(@escaping () -> Void)) {
         // Create a mutable attributed string
         let attributedString = NSMutableAttributedString()
         
         // Create an NSTextAttachment with an image
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(named: imageName)
+        // Set the bounds for the attachment (width, height, x offset, y offset)
+        let imageWidth: CGFloat = 20 // Desired width
+        let imageHeight: CGFloat = 20 // Desired height
+        let yOffset: CGFloat = -5 // Vertical offset
+
+        imageAttachment.bounds = CGRect(x: 0, y: yOffset, width: imageWidth, height: imageHeight)
         let imageString = NSAttributedString(attachment: imageAttachment)
         
         // Create attributed text
@@ -131,8 +137,8 @@ extension UIViewController{
         cancelButton.layer.masksToBounds = true
         cancelButton.layer.borderColor = UIColor(rgba:0xC9CDD4FF).cgColor
         cancelButton.layer.borderWidth = 1
-        cancelButton.setTitle("取消", for: .normal)
-        cancelButton.setTitle("取消", for: .highlighted)
+        cancelButton.setTitle(cancelTitle, for: .normal)
+        cancelButton.setTitle(cancelTitle, for: .highlighted)
         cancelButton.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .normal)
         cancelButton.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .highlighted)
         cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -149,8 +155,8 @@ extension UIViewController{
         sureButton.layer.masksToBounds = true
         sureButton.layer.borderColor = UIColor(rgba:0x447AFEFF).cgColor
         sureButton.layer.borderWidth = 1
-        sureButton.setTitle("开仓取电", for: .normal)
-        sureButton.setTitle("开仓取电", for: .highlighted)
+        sureButton.setTitle(sureTitle, for: .normal)
+        sureButton.setTitle(sureTitle, for: .highlighted)
         sureButton.setTitleColor(UIColor.white, for: .normal)
         sureButton.setTitleColor(UIColor.white, for: .highlighted)
         sureButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)

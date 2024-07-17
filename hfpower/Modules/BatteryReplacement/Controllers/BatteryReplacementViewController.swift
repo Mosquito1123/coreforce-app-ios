@@ -28,11 +28,12 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
             BatteryReplacementStatus(),
             BatteryReplacementStatus(),
             BatteryReplacementStatus()]
-        self.presentCustomAlert(withImage: "selected", titleText: "支付成功", messageText: "您已租电成功，是否立马开仓取电？") {
+        self.presentCustomAlert(withImage: "icon_success", titleText: "支付成功", messageText: "您已租电成功，是否立马开仓取电？", cancel: "取消", {
             
-        } _: {
+        }, sure: "开仓取电") {
             
         }
+       
 
         
     }
