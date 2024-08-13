@@ -10,8 +10,27 @@ import UIKit
 class BatteryReplacementTableFooterView: UIView {
 
     // MARK: - Accessor
-    
+    var fetchCellBlock:ButtonActionBlock?
     // MARK: - Subviews
+    lazy var submitButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.layer.cornerRadius = 25
+        button.layer.masksToBounds = true
+        button.tintAdjustmentMode = .automatic
+        button.setTitle("卡仓取电", for: .normal)
+        button.setTitle("卡仓取电", for: .highlighted)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white.withAlphaComponent(0.5), for: .highlighted)
+        button.setBackgroundImage(UIColor(rgba: 0x8178F0FF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(rgba: 0x8178F0FF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setImage(UIImage(named: "fetch_cell"), for: .normal)
+        button.setImage(UIImage(named: "fetch_cell"), for: .selected)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
+        button.addTarget(self, action: #selector(fetchErrorBattery(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     lazy var groupView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
@@ -67,6 +86,7 @@ class BatteryReplacementTableFooterView: UIView {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
+        submitButton.setImagePosition(type: .imageLeft, Space: 6)
         phoneNumberButton.setImagePosition(type: .imageLeft, Space: 2)
     }
 }
@@ -76,6 +96,7 @@ private extension BatteryReplacementTableFooterView {
     
     private func setupSubviews() {
         backgroundColor = .white
+        addSubview(submitButton)
         addSubview(groupView)
         
         groupView.addSubview(tipLabel)
@@ -87,8 +108,13 @@ private extension BatteryReplacementTableFooterView {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
+            submitButton.heightAnchor.constraint(equalToConstant: 50),
+            submitButton.widthAnchor.constraint(equalToConstant: 165),
+            submitButton.topAnchor.constraint(equalTo: topAnchor, constant: 50),
+            submitButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+
             // Group View Constraints
-            groupView.topAnchor.constraint(equalTo: topAnchor, constant: 50),
+            groupView.topAnchor.constraint(equalTo: submitButton.bottomAnchor, constant: 30),
             groupView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 20),
             groupView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width - 40),
             
@@ -120,6 +146,9 @@ extension BatteryReplacementTableFooterView {
         if let url = URL(string: "tel://4006789509") {
             UIApplication.shared.open(url)
         }
+    }
+    @objc func fetchErrorBattery(_ sender:UIButton){
+        self.fetchCellBlock?(sender)
     }
 }
 
