@@ -39,5 +39,4 @@ target 'hfpower' do
   pod 'DGCharts'
   pod 'Kingfisher'
   pod 'EmptyStateKit'
-  pod 'JFPopup'
 end

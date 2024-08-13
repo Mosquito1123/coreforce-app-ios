@@ -8,9 +8,6 @@ PODS:
   - FloatingPanel (2.8.3)
   - FSPagerView (0.8.3)
   - IQKeyboardManagerSwift (7.0.3)
-  - JFPopup (1.5.7):
-    - JRBaseKit (~> 1.1.1)
-  - JRBaseKit (1.1.2)
   - KakaJSON (1.1.2)
   - Kingfisher (7.12.0)
   - LookinServer/Core (1.2.8)
@@ -45,7 +42,6 @@ DEPENDENCIES:
   - FloatingPanel
   - FSPagerView
   - IQKeyboardManagerSwift
-  - JFPopup
   - KakaJSON (~> 1.1.2)
   - Kingfisher
   - LookinServer/Swift
@@ -70,8 +66,6 @@ SPEC REPOS:
     - FloatingPanel
     - FSPagerView
     - IQKeyboardManagerSwift
-    - JFPopup
-    - JRBaseKit
     - KakaJSON
     - Kingfisher
     - LookinServer
@@ -96,8 +90,6 @@ SPEC CHECKSUMS:
   FloatingPanel: 0f9b89c6d4318842311bec6f6026fb18ca2a2c90
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   IQKeyboardManagerSwift: f9c5dc36cba16ddd2e51fa7d51c34a2e083029b5
-  JFPopup: e53721abbf9d3aea3650ce7ea72e97f12d9d91b9
-  JRBaseKit: 825cca458a73990f6019deaaaaff75840dea477f
   KakaJSON: cc5ff50a8c1cfbb09413db8496cb709a209e6137
   Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
   LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
@@ -114,6 +106,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: de8690f6d98cd07b92f24310d111bd65dbb362a5
+PODFILE CHECKSUM: 1c63381e7c8a20f4944f71392aaabb98726aa336
 
 COCOAPODS: 1.15.2

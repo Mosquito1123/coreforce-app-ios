@@ -34,13 +34,8 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
 //            
 //        }
        
-        self.showActionSheet(["wechat","alipay"], ["微信","支付宝"], [{
-            
-        },{
-            
-        }], "取消") {
-            
-        }
+        self.showActionSheet(["wechat","alipay"], ["微信","支付宝"],"取消",{section,row in
+        })
         
     }
     override func viewWillAppear(_ animated: Bool) {

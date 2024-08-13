@@ -72,6 +72,7 @@
 		0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F12C1068BF00834069 /* BlankResponse.swift */; };
 		0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F32C10691C00834069 /* TokenResponse.swift */; };
 		0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F52C10694D00834069 /* BaseResponse.swift */; };
+		0450E5D42C48C59D00EBA7D4 /* CustomActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450E5D32C48C59D00EBA7D4 /* CustomActionSheetViewController.swift */; };
 		045164F02C1A9ECD00ABE7F1 /* DTFUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E42C1A9EC500ABE7F1 /* DTFUtility.framework */; };
 		045164F12C1A9ECD00ABE7F1 /* APPSecuritySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E52C1A9EC600ABE7F1 /* APPSecuritySDK.framework */; };
 		045164F22C1A9ECD00ABE7F1 /* MultiFactorFacade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E62C1A9EC700ABE7F1 /* MultiFactorFacade.framework */; };
@@ -330,6 +331,7 @@
 		0443B9F12C1068BF00834069 /* BlankResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankResponse.swift; sourceTree = "<group>"; };
 		0443B9F32C10691C00834069 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		0443B9F52C10694D00834069 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		0450E5D32C48C59D00EBA7D4 /* CustomActionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheetViewController.swift; sourceTree = "<group>"; };
 		045164E32C1A9C5600ABE7F1 /* SwiftiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftiOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		045164E42C1A9EC500ABE7F1 /* DTFUtility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DTFUtility.framework; sourceTree = "<group>"; };
 		045164E52C1A9EC600ABE7F1 /* APPSecuritySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = APPSecuritySDK.framework; sourceTree = "<group>"; };
@@ -1302,9 +1304,18 @@
 		045165952C1AC0F400ABE7F1 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				04665D6D2C48AC880041B3AA /* HFActionSheet */,
 				045165442C1AC0DF00ABE7F1 /* JYBD_IDCardRecognition */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		04665D6D2C48AC880041B3AA /* HFActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				0450E5D32C48C59D00EBA7D4 /* CustomActionSheetViewController.swift */,
+			);
+			path = HFActionSheet;
 			sourceTree = "<group>";
 		};
 		04777D722C19B96F0025ACEC /* Guide */ = {
@@ -1852,6 +1863,7 @@
 				04EBBAFE2C1858B700AFD14B /* ActivityListResponse.swift in Sources */,
 				04A5E5212C1C25B000787551 /* MyCodeViewController.swift in Sources */,
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
+				0450E5D42C48C59D00EBA7D4 /* CustomActionSheetViewController.swift in Sources */,
 				048EE7772C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift in Sources */,
 				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
 				045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */,

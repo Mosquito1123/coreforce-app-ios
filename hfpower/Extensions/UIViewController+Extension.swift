@@ -8,7 +8,6 @@
 import UIKit
 import SDCAlertView
 import MapKit
-import JFPopup
 extension UIViewController{
     func mapNavigation(lat: Double, lng: Double, address: String?, currentController: UIViewController?) {
         let urlScheme = "hefenghuandian://" // 设置本APPurlScheme 可修改
@@ -187,41 +186,49 @@ extension UIViewController{
         // Present the alert
         alert.present()
     }
-    func showActionSheet(_ iconNames:[String],_ methods:[String], _ methodBlocks:[(() -> Void)],_ cancelTitle:String,_ cancelBlock: @escaping () -> Void){
-        JFPopupView.popup.actionSheet(with: false) {
-            var list = [JFPopupAction]()
-            for i in 0..<methods.count{
-                let attributedString = NSMutableAttributedString()
-                // Create an NSTextAttachment with an image
-                let imageAttachment = NSTextAttachment()
-                imageAttachment.image = UIImage(named: iconNames[i])
-                // Set the bounds for the attachment (width, height, x offset, y offset)
-                let imageWidth: CGFloat = 20 // Desired width
-                let imageHeight: CGFloat = 20 // Desired height
-                let yOffset: CGFloat = -5 // Vertical offset
+    func showActionSheet(_ iconNames:[String],_ methods:[String],_ cancelTitle:String,_ handler:HandlerAction?){
+        var list = [NSAttributedString]()
+        for i in 0..<methods.count{
+            let attributedString = NSMutableAttributedString()
+            // Create an NSTextAttachment with an image
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = UIImage(named: iconNames[i])
+            // Set the bounds for the attachment (width, height, x offset, y offset)
+            let imageWidth: CGFloat = 20 // Desired width
+            let imageHeight: CGFloat = 20 // Desired height
+            let yOffset: CGFloat = -5 // Vertical offset
+            
+            imageAttachment.bounds = CGRect(x: 0, y: yOffset, width: imageWidth, height: imageHeight)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            
+            // Create attributed text
+            let methodTitle = NSAttributedString(string: methods[i], attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)])
+            attributedString.append(imageString)
+            attributedString.append(NSAttributedString(string: " ")) // Line break
+            attributedString.append(methodTitle)
+            attributedString.append(NSAttributedString(string: " ")) // Line break
+            list.append(attributedString)
+        }
+        var cancelList = [NSAttributedString]()
+        let cancelATitle = NSAttributedString(string: cancelTitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x1D2129FF)])
+        cancelList.append(cancelATitle)
 
-                imageAttachment.bounds = CGRect(x: 0, y: yOffset, width: imageWidth, height: imageHeight)
-                let imageString = NSAttributedString(attachment: imageAttachment)
-                
-                // Create attributed text
-                let methodTitle = NSAttributedString(string: methods[i], attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)])
-                attributedString.append(imageString)
-                attributedString.append(NSAttributedString(string: " ")) // Line break
-                attributedString.append(methodTitle)
-                attributedString.append(NSAttributedString(string: " ")) // Line break
-                let methodAction = JFPopupAction(with: nil, subAttributedTitle: attributedString, autoDismiss: true, clickActionCallBack: methodBlocks[i])
-                list.append(methodAction)
-            }
-            let cancelATitle = NSAttributedString(string: cancelTitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x1D2129FF)])
-
-            let cancelAction = JFPopupAction(with: nil, subAttributedTitle: cancelATitle, clickActionCallBack: cancelBlock)
-            list.append(cancelAction)
-            return list
-            
-            
-            
+        
+        let actionSheet = CustomActionSheetViewController()
+        actionSheet.items = [list,cancelList]
+        actionSheet.handler = handler
+        let nav = UINavigationController(rootViewController: actionSheet)
+        nav.modalPresentationStyle = .custom
+        let delegate =  CustomTransitioningDelegate()
+        nav.transitioningDelegate = delegate
+        
+        if #available(iOS 13.0, *) {
+            nav.isModalInPresentation = true
+        } else {
+            // Fallback on earlier versions
         }
         
+        self.present(nav, animated: true, completion: nil)
     }
     /// 获取最底层window
     static func ex_rootWindow() -> UIWindow? {
