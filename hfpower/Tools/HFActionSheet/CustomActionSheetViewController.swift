@@ -61,7 +61,7 @@ class CustomActionSheetViewController: BaseViewController{
 private extension CustomActionSheetViewController {
     
     private func setupNavbar() {
-        
+        self.title = "支付方式"
     }
    
     private func setupSubviews() {

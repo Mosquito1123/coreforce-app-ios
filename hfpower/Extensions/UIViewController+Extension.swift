@@ -228,7 +228,9 @@ extension UIViewController{
             // Fallback on earlier versions
         }
         
-        self.present(nav, animated: true, completion: nil)
+        self.present(nav, animated: false) {
+            
+        }
     }
     /// 获取最底层window
     static func ex_rootWindow() -> UIWindow? {

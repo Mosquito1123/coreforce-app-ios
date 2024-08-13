@@ -35,12 +35,17 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
 //        }
        
         self.showActionSheet(["wechat","alipay"], ["微信","支付宝"],"取消",{section,row in
+            self.dismiss(animated: true)
         })
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setupNavbar()
     }
 }
@@ -78,7 +83,7 @@ private extension BatteryReplacementViewController {
     private func setupSubviews() {
         self.view.backgroundColor = .white
         self.tableView.backgroundColor = .white
-        let footerView = BatteryReplacementTableFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 200))
+        let footerView = BatteryReplacementTableFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 280))
         self.tableView.tableFooterView = footerView
         self.view.addSubview(self.tableView)
         self.view.addSubview(bottomView)
