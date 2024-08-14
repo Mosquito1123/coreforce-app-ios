@@ -21,16 +21,25 @@ class ChangePasswordViewController: UIViewController {
     }()
     lazy var oldPasswordInputView:LoginPasswordInputView = {
         let view = LoginPasswordInputView()
+        view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+        view.placeholder = "请输入旧密码"
+        view.logoView.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var newPasswordInputView:LoginPasswordInputView = {
         let view = LoginPasswordInputView()
+        view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+        view.placeholder = "请设置新密码"
+        view.logoView.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var confirmPasswordInputView:LoginPasswordInputView = {
         let view = LoginPasswordInputView()
+        view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+        view.placeholder = "请再次输入新密码"
+        view.logoView.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -131,20 +140,11 @@ private extension ChangePasswordViewController {
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.subtitleLabel)
         self.view.addSubview(oldPasswordInputView)
-        oldPasswordInputView.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
-        oldPasswordInputView.logoView.isHidden = true
         oldPasswordInputView.passwordTextFieldLeading.constant = 20
-        oldPasswordInputView.placeholder = "请输入旧密码"
         self.view.addSubview(newPasswordInputView)
-        newPasswordInputView.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
-        newPasswordInputView.logoView.isHidden = true
         newPasswordInputView.passwordTextFieldLeading.constant = 20
-        newPasswordInputView.placeholder = "请设置新密码"
         self.view.addSubview(confirmPasswordInputView)
-        confirmPasswordInputView.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
-        confirmPasswordInputView.logoView.isHidden = true
         confirmPasswordInputView.passwordTextFieldLeading.constant = 20
-        confirmPasswordInputView.placeholder = "请再次输入新密码"
         self.view.addSubview(self.submitButton)
         self.view.addSubview(self.forgetPasswordButton)
         self.view.bringSubviewToFront(self.backButton)
@@ -205,7 +205,7 @@ private extension ChangePasswordViewController {
         self.navigationController?.popViewController(animated: true)
     }
     @objc func submit(_ sender:UIButton){
-        
+        self.navigationController?.popViewController(animated: true)
     }
     @objc func goToForgetPassword(_ sender:UIButton){
         let forgetPasswordVPhoneNumberViewController = ForgetPasswordVPhoneNumberViewController()
