@@ -10,7 +10,12 @@ import UIKit
 class LoginAccountInputView: UIView {
 
     // MARK: - Accessor
-    
+    var account:String?{
+        didSet{
+            phoneNumberTextField.attributedPlaceholder = NSAttributedString(string: account ?? "请输入您的手机号码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0xA0A0A0FF)])
+
+        }
+    }
     // MARK: - Subviews
     lazy var logoView :UIImageView = {
         let imageView = UIImageView()

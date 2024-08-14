@@ -173,6 +173,7 @@
 		046B4EC92C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EC82C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift */; };
 		046B4ECB2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ECA2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift */; };
 		046B4ECD2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ECC2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift */; };
+		046B4ECF2C6CBB4100DCD5CB /* ChangePhoneNumberFinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ECE2C6CBB4100DCD5CB /* ChangePhoneNumberFinalViewController.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -458,6 +459,7 @@
 		046B4EC82C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		046B4ECA2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberVPasswordViewController.swift; sourceTree = "<group>"; };
 		046B4ECC2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberVIdentityCodeViewController.swift; sourceTree = "<group>"; };
+		046B4ECE2C6CBB4100DCD5CB /* ChangePhoneNumberFinalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberFinalViewController.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 				046B4EC82C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift */,
 				046B4ECA2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift */,
 				046B4ECC2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift */,
+				046B4ECE2C6CBB4100DCD5CB /* ChangePhoneNumberFinalViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1972,6 +1975,7 @@
 				048EE7852C3F7ACB0094A0CB /* BaseTableViewCell.swift in Sources */,
 				04B2DFE52C3564470032B14D /* DepositService.swift in Sources */,
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
+				046B4ECF2C6CBB4100DCD5CB /* ChangePhoneNumberFinalViewController.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
 				045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */,
 				043893662C3FCB9100E61C0D /* Coupon.swift in Sources */,

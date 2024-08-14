@@ -1,5 +1,5 @@
 //
-//  ChangePhoneNumberViewController.swift
+//  ChangePhoneNumberFinalViewController.swift
 //  hfpower
 //
 //  Created by EDY on 2024/8/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChangePhoneNumberViewController: UIViewController,UITextViewDelegate {
+class ChangePhoneNumberFinalViewController: UIViewController {
     
     // MARK: - Accessor
     
@@ -27,7 +27,7 @@ class ChangePhoneNumberViewController: UIViewController,UITextViewDelegate {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "手机号验证"
+        label.text = "设置新手机号"
         label.font = UIFont.systemFont(ofSize: 26,weight: .medium)
         label.textColor = UIColor(rgba:0x333333FF)
         label.numberOfLines = 0
@@ -36,12 +36,18 @@ class ChangePhoneNumberViewController: UIViewController,UITextViewDelegate {
     }()
     lazy var subtitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "当前手机号：132****1234"
+        label.text = "请输入新的可用手机号"
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor(rgba:0x4D4D4DFF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    lazy var accountInputView:LoginAccountInputView = {
+        let view = LoginAccountInputView()
+        view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     lazy var vCodeInputView:LoginVCodeInputView = {
         let view = LoginVCodeInputView()
@@ -49,59 +55,12 @@ class ChangePhoneNumberViewController: UIViewController,UITextViewDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // 懒加载创建UITextView
-    private lazy var textView: UITextView = {
-        let tv = UITextView()
-        tv.isEditable = false
-        tv.isScrollEnabled = false
-        tv.delegate = self
-        tv.backgroundColor = .clear
-        
-        // 原始字符串
-        let text = "无法接收短信，选择 密码验证 或 身份验证"
-        
-        // 创建一个可变的富文本字符串
-        let attributedString = NSMutableAttributedString(string: text)
-        
-        // 设置普通文本的属性
-        let defaultAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor(rgba: 0x4D4D4DFF),
-            .font: UIFont.systemFont(ofSize: 14)
-        ]
-        attributedString.addAttributes(defaultAttributes, range: NSRange(location: 0, length: text.count))
-        
-        // 设置链接文本的属性
-        let linkAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor(rgba: 0x447AFEFF),
-            .font: UIFont.systemFont(ofSize: 14),
-            .link: "hfpower://"
-        ]
-        
-        // 设置“密码验证”和“身份验证”部分为链接
-        let passwordRange = (text as NSString).range(of: "密码验证")
-        let identityRange = (text as NSString).range(of: "身份验证")
-        
-        attributedString.addAttributes(linkAttributes, range: passwordRange)
-        attributedString.addAttributes(linkAttributes, range: identityRange)
-        
-        // 赋值给UITextView的富文本属性
-        tv.attributedText = attributedString
-        
-        // 设置可点击部分的链接属性
-        tv.linkTextAttributes = [
-            .foregroundColor: UIColor(rgba: 0x447AFEFF),
-            .font: UIFont.systemFont(ofSize: 14),
-        ]
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        return tv
-    }()
-        
     lazy var submitButton : UIButton = {
         let button = UIButton(type: .custom)
         // 登录按钮
         button.tintAdjustmentMode = .automatic
-        button.setTitle("下一步，设置新手机号", for: .normal)
-        button.setTitle("下一步，设置新手机号", for: .highlighted)
+        button.setTitle("确认修改", for: .normal)
+        button.setTitle("确认修改", for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
         let imageEnabled = UIColor(rgba:0x447AFEFF).toImage()
@@ -113,7 +72,7 @@ class ChangePhoneNumberViewController: UIViewController,UITextViewDelegate {
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         button.isEnabled = false
-        button.addTarget(self, action: #selector(next(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(submit(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         
@@ -126,6 +85,7 @@ class ChangePhoneNumberViewController: UIViewController,UITextViewDelegate {
         setupNavbar()
         setupSubviews()
         setupLayout()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateButtonState), name: UITextField.textDidChangeNotification, object: self.accountInputView.phoneNumberTextField)
         NotificationCenter.default.addObserver(self, selector: #selector(updateButtonState), name: UITextField.textDidChangeNotification, object: self.vCodeInputView.vCodeTextField)
     }
     deinit {
@@ -133,40 +93,20 @@ class ChangePhoneNumberViewController: UIViewController,UITextViewDelegate {
     }
     
     @objc func updateButtonState() {
-        self.submitButton.isEnabled = !(self.vCodeInputView.vCodeTextField.text?.isEmpty ?? true)
+        self.submitButton.isEnabled = !(self.accountInputView.phoneNumberTextField.text?.isEmpty ?? true) && !(self.vCodeInputView.vCodeTextField.text?.isEmpty ?? true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    // UITextView点击链接时的回调
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        let text = (textView.text ?? "") as NSString
-        let passwordRange = text.range(of: "密码验证")
-        let identityRange = text.range(of: "身份验证")
-        
-        if NSLocationInRange(characterRange.location, passwordRange) {
-            print("点击了密码验证")
-            // 跳转到密码验证页面
-            let vPassword = ChangePhoneNumberVPasswordViewController()
-            self.navigationController?.pushViewController(vPassword, animated: true)
-            return false
-        } else if NSLocationInRange(characterRange.location, identityRange) {
-            print("点击了身份验证")
-            // 跳转到身份验证页面
-            let vIdentityCode = ChangePhoneNumberVIdentityCodeViewController()
-            self.navigationController?.pushViewController(vIdentityCode, animated: true)
-            return false
-        }
-        return true
-    }
 }
 
 // MARK: - Setup
-private extension ChangePhoneNumberViewController {
+private extension ChangePhoneNumberFinalViewController {
     
     private func setupNavbar() {
+        
     }
    
     private func setupSubviews() {
@@ -175,8 +115,8 @@ private extension ChangePhoneNumberViewController {
         self.view.addSubview(self.backButton)
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.subtitleLabel)
+        self.view.addSubview(self.accountInputView)
         self.view.addSubview(self.vCodeInputView)
-        self.view.addSubview(self.textView)
         self.view.addSubview(self.submitButton)
         self.view.bringSubviewToFront(self.backButton)
     }
@@ -195,15 +135,16 @@ private extension ChangePhoneNumberViewController {
             titleLabel.bottomAnchor.constraint(equalTo: subtitleLabel.topAnchor, constant: -12),
             subtitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 22),
-            subtitleLabel.bottomAnchor.constraint(equalTo: vCodeInputView.topAnchor, constant: -34),
+            subtitleLabel.bottomAnchor.constraint(equalTo: accountInputView.topAnchor, constant: -48),
+            accountInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 22),
+            accountInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+            accountInputView.heightAnchor.constraint(equalToConstant: 50),
+            accountInputView.bottomAnchor.constraint(equalTo: vCodeInputView.topAnchor, constant: -10),
             vCodeInputView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 22),
             vCodeInputView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             vCodeInputView.heightAnchor.constraint(equalToConstant: 50),
-            vCodeInputView.bottomAnchor.constraint(equalTo: textView.topAnchor, constant: -24),
-            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 22),
-            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
-            textView.heightAnchor.constraint(equalToConstant: 30),
-            textView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -198),
+            vCodeInputView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -167.5),
+            
             submitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 22),
             submitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             submitButton.heightAnchor.constraint(equalToConstant: 50),
@@ -214,27 +155,26 @@ private extension ChangePhoneNumberViewController {
 }
 
 // MARK: - Public
-extension ChangePhoneNumberViewController {
+extension ChangePhoneNumberFinalViewController {
     
 }
 
 // MARK: - Request
-private extension ChangePhoneNumberViewController {
+private extension ChangePhoneNumberFinalViewController {
     
 }
 
 // MARK: - Action
-@objc private extension ChangePhoneNumberViewController {
+@objc private extension ChangePhoneNumberFinalViewController {
     @objc func back(_ sender:UIButton){
         self.navigationController?.popViewController(animated: true)
     }
-    @objc func next(_ sender:UIButton){
-        let changePhoneNumberFinalController = ChangePhoneNumberFinalViewController()
-        self.navigationController?.pushViewController(changePhoneNumberFinalController, animated: true)
+    @objc func submit(_ sender:UIButton){
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 
 // MARK: - Private
-private extension ChangePhoneNumberViewController {
+private extension ChangePhoneNumberFinalViewController {
     
 }
