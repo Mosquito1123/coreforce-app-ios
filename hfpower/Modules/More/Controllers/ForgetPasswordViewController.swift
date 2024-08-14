@@ -14,7 +14,7 @@ class ForgetPasswordViewController: UIViewController {
     // MARK: - Subviews
     lazy var backButton:UIButton = {
         let button = UIButton(type:.custom)
-        button.setImage(UIImage(named: "close")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
+        button.setImage(UIImage(named: "back_arrow"), for: .normal)
         button.addTarget(self, action: #selector(back(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -65,6 +65,7 @@ private extension ForgetPasswordViewController {
     }
    
     private func setupSubviews() {
+        self.view.backgroundColor = .white
         self.view.addSubview(self.headerBackgroundView)
         self.view.addSubview(self.backButton)
         self.view.addSubview(self.titleLabel)
