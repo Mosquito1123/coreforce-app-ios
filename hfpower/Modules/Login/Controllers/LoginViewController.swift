@@ -55,8 +55,9 @@ class LoginViewController:UIViewController, UITextViewDelegate {
         return view
     }()
     lazy var loginButton : UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         // 登录按钮
+        button.tintAdjustmentMode = .automatic
         button.setTitle("立即登录", for: .normal)
         button.setTitle("立即登录", for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)

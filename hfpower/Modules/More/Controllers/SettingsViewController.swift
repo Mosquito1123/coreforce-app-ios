@@ -181,6 +181,11 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
                     
                 }
             }
+        }else if item.title == "修改密码" {
+            let changePasswordController = ChangePasswordViewController()
+            self.navigationController?.pushViewController(changePasswordController, animated: true)
+            
+            
         }
         
         

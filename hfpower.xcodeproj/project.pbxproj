@@ -166,6 +166,10 @@
 		0460D6542C44FA5400B7DD21 /* BatteryReplacementStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6532C44FA5400B7DD21 /* BatteryReplacementStatus.swift */; };
 		0460D6562C4514C900B7DD21 /* BatteryReplacementBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6552C4514C900B7DD21 /* BatteryReplacementBottomView.swift */; };
 		0460D6582C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0460D6572C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift */; };
+		046956772C6B7CA900E3A7B8 /* ChangeIdentityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046956762C6B7CA900E3A7B8 /* ChangeIdentityCodeViewController.swift */; };
+		046956792C6B859700E3A7B8 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046956782C6B859700E3A7B8 /* ChangePasswordViewController.swift */; };
+		0469567B2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469567A2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift */; };
+		046B4EC72C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EC62C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -444,6 +448,10 @@
 		0460D6532C44FA5400B7DD21 /* BatteryReplacementStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementStatus.swift; sourceTree = "<group>"; };
 		0460D6552C4514C900B7DD21 /* BatteryReplacementBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementBottomView.swift; sourceTree = "<group>"; };
 		0460D6572C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryReplacementTableFooterView.swift; sourceTree = "<group>"; };
+		046956762C6B7CA900E3A7B8 /* ChangeIdentityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeIdentityCodeViewController.swift; sourceTree = "<group>"; };
+		046956782C6B859700E3A7B8 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		0469567A2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		046B4EC62C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberViewController.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -776,6 +784,10 @@
 				048EE74C2C3D25630094A0CB /* LowPowerReminderViewController.swift */,
 				048EE7522C3D3A5D0094A0CB /* AboutViewController.swift */,
 				048EE75A2C3D47400094A0CB /* PersonalInfoViewController.swift */,
+				046956762C6B7CA900E3A7B8 /* ChangeIdentityCodeViewController.swift */,
+				046956782C6B859700E3A7B8 /* ChangePasswordViewController.swift */,
+				0469567A2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift */,
+				046B4EC62C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1812,8 +1824,10 @@
 				045215302C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift in Sources */,
 				042D84FF2C2987300049DDB5 /* PersonalOthersViewCell.swift in Sources */,
 				048EE74F2C3D26640094A0CB /* LowPowerReminderListViewCell.swift in Sources */,
+				046956772C6B7CA900E3A7B8 /* ChangeIdentityCodeViewController.swift in Sources */,
 				04A5E5172C1AD53E00787551 /* MemberRpResponse.swift in Sources */,
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
+				0469567B2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
 				042D84FD2C2987130049DDB5 /* PersonalMileageViewCell.swift in Sources */,
 				0438936E2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift in Sources */,
@@ -1823,6 +1837,7 @@
 				04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */,
 				042D84F92C2985B90049DDB5 /* PersonalContentViewCell.swift in Sources */,
 				043C4C1B2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift in Sources */,
+				046B4EC72C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift in Sources */,
 				048EE7592C3D425E0094A0CB /* AboutTableHeaderView.swift in Sources */,
 				045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */,
 				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
@@ -1963,6 +1978,7 @@
 				0452152C2C37DF680091FD1A /* CabinetFilterViewController.swift in Sources */,
 				043DEC7D2C085253003FD6AD /* MapViewController.swift in Sources */,
 				331C90BE2BC6C60000BB534F /* AppDelegate.swift in Sources */,
+				046956792C6B859700E3A7B8 /* ChangePasswordViewController.swift in Sources */,
 				043DEC792C074889003FD6AD /* MapInviteView.swift in Sources */,
 				0415AF432BCCDCFE00E9290D /* MemberAPI.swift in Sources */,
 				048EE7552C3D3B7C0094A0CB /* About.swift in Sources */,

@@ -10,7 +10,12 @@ import UIKit
 class LoginPasswordInputView: UIView {
 
     // MARK: - Accessor
-    
+    var placeholder:String?{
+        didSet{
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: placeholder ?? "", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0xA0A0A0FF)])
+        }
+    }
+    var passwordTextFieldLeading:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var logoView :UIImageView = {
         let imageView = UIImageView()
@@ -29,7 +34,6 @@ class LoginPasswordInputView: UIView {
     lazy var passwordTextField :UITextField = {
         let textField = UITextField()
         // 密码输入框
-        textField.placeholder = "请输入密码"
         textField.isSecureTextEntry = true
         textField.borderStyle = .none
         textField.enablesReturnKeyAutomatically = true
@@ -70,13 +74,13 @@ private extension LoginPasswordInputView {
     }
     
     private func setupLayout() {
+        self.passwordTextFieldLeading = passwordTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20+18+14)
         NSLayoutConstraint.activate([
             logoView.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             logoView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            logoView.trailingAnchor.constraint(equalTo: passwordTextField.leadingAnchor, constant: -14),
             logoView.widthAnchor.constraint(equalToConstant: 18),
             logoView.heightAnchor.constraint(equalToConstant: 18),
-
+            self.passwordTextFieldLeading,
             passwordTextField.centerYAnchor.constraint(equalTo:self.centerYAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: toggleButton.leadingAnchor,constant: -20),
             toggleButton.centerYAnchor.constraint(equalTo:self.centerYAnchor),
