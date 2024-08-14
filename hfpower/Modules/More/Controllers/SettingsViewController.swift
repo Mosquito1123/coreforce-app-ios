@@ -186,6 +186,9 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
             self.navigationController?.pushViewController(changePasswordController, animated: true)
             
             
+        }else if item.title == "修改手机号"{
+            let changePhoneNumberController = ChangePhoneNumberViewController()
+            self.navigationController?.pushViewController(changePhoneNumberController, animated: true)
         }
         
         

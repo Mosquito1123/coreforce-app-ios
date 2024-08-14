@@ -171,6 +171,8 @@
 		0469567B2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0469567A2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift */; };
 		046B4EC72C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EC62C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift */; };
 		046B4EC92C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EC82C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift */; };
+		046B4ECB2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ECA2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift */; };
+		046B4ECD2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ECC2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -454,6 +456,8 @@
 		0469567A2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		046B4EC62C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberViewController.swift; sourceTree = "<group>"; };
 		046B4EC82C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVPhoneNumberViewController.swift; sourceTree = "<group>"; };
+		046B4ECA2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberVPasswordViewController.swift; sourceTree = "<group>"; };
+		046B4ECC2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberVIdentityCodeViewController.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -791,6 +795,8 @@
 				0469567A2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift */,
 				046B4EC62C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift */,
 				046B4EC82C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift */,
+				046B4ECA2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift */,
+				046B4ECC2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1844,6 +1850,7 @@
 				048EE7592C3D425E0094A0CB /* AboutTableHeaderView.swift in Sources */,
 				045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */,
 				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
+				046B4ECD2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift in Sources */,
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
@@ -1887,6 +1894,7 @@
 				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
 				045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
+				046B4ECB2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift in Sources */,
 				0460D6542C44FA5400B7DD21 /* BatteryReplacementStatus.swift in Sources */,
 				045215362C3CD6270091FD1A /* LogOffViewController.swift in Sources */,
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
