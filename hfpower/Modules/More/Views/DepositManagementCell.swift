@@ -15,7 +15,30 @@ enum DepositManagementCellCornerType{
 class DepositManagementCell: UITableViewCell {
     
     // MARK: - Accessor
-    var element:DepositManagementItem?
+    var cornerType:DepositManagementCellCornerType = .none{
+        didSet{
+            switch cornerType {
+            case .first:
+                self.containerView.layer.cornerRadius = 12
+                self.containerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            case .last:
+                self.containerView.layer.cornerRadius = 12
+                self.containerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            case .all:
+                self.containerView.layer.cornerRadius = 12
+                self.containerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner,.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            case .none:
+                self.containerView.layer.cornerRadius = 0
+                
+            }
+        }
+    }
+    var element:DepositManagementItem?{
+        didSet{
+            self.titleLabel.text = element?.title
+            self.contentLabel.text = element?.content
+        }
+    }
     // MARK: - Subviews
     lazy var containerView: UIView = {
         let view = UIView()
@@ -114,4 +137,33 @@ extension DepositManagementCell {
 // MARK: - Private
 private extension DepositManagementCell {
     
+}
+class DepositManagementHeaderView:UITableViewHeaderFooterView{
+    class func viewIdentifier() -> String {
+        return String(describing: self)
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+    }
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        setupSubviews()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    private func setupSubviews() {
+//        self.contentView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        
+    }
+    private func setupLayout() {
+//        NSLayoutConstraint.activate([
+//            self.contentView.heightAnchor.constraint(equalToConstant: 16)
+//        ])
+        
+    }
 }

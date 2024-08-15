@@ -20,7 +20,37 @@ class DepositManagementViewController: BaseViewController,UITableViewDelegate,UI
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.items.count
     }
-    var items = [DepositManagement]()
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cellx = cell as? DepositManagementCell{
+            if indexPath.row == 0 && indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+                cellx.cornerType = .all
+            } else {
+                if indexPath.row == 0 {
+                    cellx.cornerType = .first
+                    
+                } else if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+                    cellx.cornerType = .last
+                    
+                }else{
+                    cellx.cornerType = .none
+                    
+                }
+            }
+        }
+        
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsHeaderView.viewIdentifier()) as? SettingsHeaderView else {return UIView()}
+        return view
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        16
+    }
+    var items = [DepositManagement](){
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
 
     
     // MARK: - Accessor
@@ -29,10 +59,10 @@ class DepositManagementViewController: BaseViewController,UITableViewDelegate,UI
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(DepositManagementCell.self, forCellReuseIdentifier: DepositManagementCell.cellIdentifier())
+        tableView.register(DepositManagementHeaderView.self, forHeaderFooterViewReuseIdentifier: DepositManagementHeaderView.viewIdentifier())
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
-        tableView.backgroundView = UIView()
-        tableView.backgroundColor = UIColor(rgba:0xF7F8FAFF)
+        tableView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +76,18 @@ class DepositManagementViewController: BaseViewController,UITableViewDelegate,UI
         setupNavbar()
         setupSubviews()
         setupLayout()
+        self.items = [
+            DepositManagement(id: 0,title: "",items: [
+                DepositManagementItem(id: 0, title: "租赁中的电池", content: "0",type: 0),
+                DepositManagementItem(id: 1, title: "押金", content: "0", selected: true,type: 1),
+
+            ]),
+            DepositManagement(id: 1,title: "",items: [
+                DepositManagementItem(id: 0, title: "租赁中的电车", content: "1",type: 0),
+                DepositManagementItem(id: 1, title: "押金", content: "0", selected: true,type: 2),
+
+            ]),
+        ]
     }
     
 }
@@ -58,6 +100,7 @@ private extension DepositManagementViewController {
     }
    
     private func setupSubviews() {
+        view.backgroundColor = .white
         view.addSubview(tableView)
         
     }

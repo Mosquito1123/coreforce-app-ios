@@ -177,6 +177,8 @@
 		046B4ED12C6CCCA600DCD5CB /* DepositManagementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED02C6CCCA600DCD5CB /* DepositManagementCell.swift */; };
 		046B4ED32C6CCCE100DCD5CB /* DepositManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED22C6CCCE100DCD5CB /* DepositManagement.swift */; };
 		046B4ED52C6CD0AB00DCD5CB /* DepositManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED42C6CD0AB00DCD5CB /* DepositManagementViewController.swift */; };
+		046B4ED72C6D9B3700DCD5CB /* AllPackageCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */; };
+		046B4ED92C6D9B4F00DCD5CB /* AllCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -466,6 +468,8 @@
 		046B4ED02C6CCCA600DCD5CB /* DepositManagementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManagementCell.swift; sourceTree = "<group>"; };
 		046B4ED22C6CCCE100DCD5CB /* DepositManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManagement.swift; sourceTree = "<group>"; };
 		046B4ED42C6CD0AB00DCD5CB /* DepositManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManagementViewController.swift; sourceTree = "<group>"; };
+		046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPackageCardViewController.swift; sourceTree = "<group>"; };
+		046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponViewController.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -978,6 +982,8 @@
 				048EE7802C3F74B10094A0CB /* MyPackageCardListViewController.swift */,
 				043893632C3FCB6C00E61C0D /* CouponListViewController.swift */,
 				0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */,
+				046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */,
+				046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1878,6 +1884,7 @@
 				048EE74D2C3D25630094A0CB /* LowPowerReminderViewController.swift in Sources */,
 				048EE7732C3E3DA20094A0CB /* BatteryReplacementViewController.swift in Sources */,
 				043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */,
+				046B4ED92C6D9B4F00DCD5CB /* AllCouponViewController.swift in Sources */,
 				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
 				04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */,
 				04BE42AA2C11D1EA002B78EA /* CityChooseViewCell.swift in Sources */,
@@ -1888,6 +1895,7 @@
 				0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */,
 				0451653D2C1AA40100ABE7F1 /* RealNameAuthViewController.swift in Sources */,
 				045215282C368A120091FD1A /* CustomerServicePagerItemViewCell.swift in Sources */,
+				046B4ED72C6D9B3700DCD5CB /* AllPackageCardViewController.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
 				0452152E2C37E1E80091FD1A /* CabinetFilterViewCell.swift in Sources */,

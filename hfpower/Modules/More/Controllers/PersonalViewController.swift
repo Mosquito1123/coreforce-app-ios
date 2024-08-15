@@ -115,6 +115,18 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.titleLabel.text = item.title
         }else if let contentCell = cell as? PersonalAssetsViewCell{
             contentCell.titleLabel.text = item.title
+            contentCell.packageCardBlock = { tap in
+                let allPackageCardViewController = AllPackageCardViewController()
+                self.navigationController?.pushViewController(allPackageCardViewController, animated: true)
+            }
+            contentCell.depositBlock = { tap in
+                let depositManagementViewController = DepositManagementViewController()
+                self.navigationController?.pushViewController(depositManagementViewController, animated: true)
+            }
+            contentCell.couponBlock = { tap in
+                let allCouponViewController = AllCouponViewController()
+                self.navigationController?.pushViewController(allCouponViewController, animated: true)
+            }
         }else if let contentCell = cell as? PersonalMileageViewCell{
             contentCell.titleLabel.text = item.title
         }else if let contentCell = cell as? PersonalOthersViewCell{

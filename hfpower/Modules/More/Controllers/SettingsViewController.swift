@@ -11,7 +11,11 @@ class SettingsViewController: BaseViewController {
     
     // MARK: - Accessor
     var hasLogoutBlock:(()->Void)?
-    var items = [Settings]()
+    var items = [Settings](){
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
     private var debounce:Debounce?
     
     // MARK: - Subviews
@@ -63,7 +67,6 @@ class SettingsViewController: BaseViewController {
             Settings(id: 4,title: "",items: [
                 SettingsItem(id: 0, title: "退出登录", content: "",type: 3),
             ]),]
-        self.tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
