@@ -31,11 +31,12 @@ class PersonalOthersViewCell: PersonalContentViewCell,UICollectionViewDelegate,U
         return CGSize(width: individualWidth, height: individualWidth)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.didSelectItemAtBlock?(collectionView,indexPath)
     }
     
     
     // MARK: - Accessor
+    var didSelectItemAtBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
     var items = [PersonalListModel](){
         didSet{
             self.collectionView.reloadData()
