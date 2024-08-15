@@ -60,7 +60,9 @@ class DepositManagementViewController: BaseViewController,UITableViewDelegate,UI
         let tableView = UITableView()
         tableView.register(DepositManagementCell.self, forCellReuseIdentifier: DepositManagementCell.cellIdentifier())
         tableView.register(DepositManagementHeaderView.self, forHeaderFooterViewReuseIdentifier: DepositManagementHeaderView.viewIdentifier())
-        tableView.tableFooterView = UIView()
+        let tableFooterView = DepositManagementTableFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 280))
+
+        tableView.tableFooterView = tableFooterView
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
         tableView.delegate = self

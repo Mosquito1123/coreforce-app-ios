@@ -179,6 +179,7 @@
 		046B4ED52C6CD0AB00DCD5CB /* DepositManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED42C6CD0AB00DCD5CB /* DepositManagementViewController.swift */; };
 		046B4ED72C6D9B3700DCD5CB /* AllPackageCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */; };
 		046B4ED92C6D9B4F00DCD5CB /* AllCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */; };
+		046B4EDB2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EDA2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -470,6 +471,7 @@
 		046B4ED42C6CD0AB00DCD5CB /* DepositManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManagementViewController.swift; sourceTree = "<group>"; };
 		046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPackageCardViewController.swift; sourceTree = "<group>"; };
 		046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponViewController.swift; sourceTree = "<group>"; };
+		046B4EDA2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManagementTableFooterView.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 				048EE75F2C3D481C0094A0CB /* PersonalInfoListViewCell.swift */,
 				048EE7612C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift */,
 				046B4ED02C6CCCA600DCD5CB /* DepositManagementCell.swift */,
+				046B4EDA2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1849,6 +1852,7 @@
 				0451657F2C1AC0DF00ABE7F1 /* JYBDBankCardVC.m in Sources */,
 				04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */,
 				045215302C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift in Sources */,
+				046B4EDB2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift in Sources */,
 				042D84FF2C2987300049DDB5 /* PersonalOthersViewCell.swift in Sources */,
 				048EE74F2C3D26640094A0CB /* LowPowerReminderListViewCell.swift in Sources */,
 				046956772C6B7CA900E3A7B8 /* ChangeIdentityCodeViewController.swift in Sources */,
