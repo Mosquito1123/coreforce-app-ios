@@ -142,7 +142,7 @@ private extension DepositManagementTableFooterView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
             containerView.topAnchor.constraint(equalTo: topAnchor,constant: 24),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -6),
-            containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14)
+            containerView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width - 28)
         ])
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: containerView.topAnchor),

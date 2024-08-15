@@ -57,10 +57,14 @@ class AllPackageCardViewController:BaseViewController{
         
     }
 }
-class AllPackageCardContentViewController: UIViewController {
+class AllPackageCardContentViewController: TabmanViewController {
     
     // MARK: - Accessor
-    
+    let items: [(menu: String, content: UIViewController)] = ["可用","已用","已过期"].map {
+        let title = $0
+        let vc = AllPackageCardListViewController()
+        return (menu: title, content: vc)
+    }
     // MARK: - Subviews
 
     // MARK: - Lifecycle
@@ -82,7 +86,26 @@ private extension AllPackageCardContentViewController {
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.dataSource = self
+        
+        // Create bar
+        let bar = TMBar.ButtonBar()
+        bar.backgroundView.style = .flat(color: .white)
+        bar.layout.transitionStyle = .snap // Customize
+        bar.layout.contentMode = .fit
+        bar.indicator.cornerStyle = .rounded
+        bar.indicator.tintColor = .clear
+        bar.buttons.customize { button in
+     
+            button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+            button.font = UIFont.systemFont(ofSize: 15)
+            button.tintColor = UIColor(rgba: 0x666666FF)
+            button.selectedTintColor = UIColor(rgba: 0x3171EFFF)
+
+        }
+        // Add to view
+        addBar(bar, dataSource: self, at: .top)
     }
     
     private func setupLayout() {
@@ -91,8 +114,25 @@ private extension AllPackageCardContentViewController {
 }
 
 // MARK: - Public
-extension AllPackageCardContentViewController {
-    
+extension AllPackageCardContentViewController: PageboyViewControllerDataSource, TMBarDataSource {
+
+    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
+        return items.count
+    }
+
+    func viewController(for pageboyViewController: PageboyViewController,
+                        at index: PageboyViewController.PageIndex) -> UIViewController? {
+        return items[index].content
+    }
+
+    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+        return nil
+    }
+
+    func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
+        let title = items[index].menu
+        return TMBarItem(title: title)
+    }
 }
 
 // MARK: - Request
@@ -108,4 +148,55 @@ private extension AllPackageCardContentViewController {
 // MARK: - Private
 private extension AllPackageCardContentViewController {
     
+}
+class AllPackageCardListViewController:BaseTableViewController<AllPackageCardListViewCell,PackageCard>{
+    
+    
+    
+    // MARK: - Accessor
+    var index = 0
+    // MARK: - Subviews
+    
+    // 懒加载的 TableView
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupNavbar()
+        setupSubviews()
+        setupLayout()
+        self.items = [
+            PackageCard(),
+            PackageCard(),
+        ]
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+}
+
+// MARK: - Setup
+private extension AllPackageCardListViewController {
+    
+    private func setupNavbar() {
+    }
+    
+    private func setupSubviews() {
+        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.tableView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.addSubview(self.tableView)
+        
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+        ])
+    }
 }

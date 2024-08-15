@@ -180,6 +180,8 @@
 		046B4ED72C6D9B3700DCD5CB /* AllPackageCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */; };
 		046B4ED92C6D9B4F00DCD5CB /* AllCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */; };
 		046B4EDB2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EDA2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift */; };
+		046B4EDD2C6DDC4C00DCD5CB /* AllCouponListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EDC2C6DDC4C00DCD5CB /* AllCouponListViewCell.swift */; };
+		046B4EDF2C6DDCB100DCD5CB /* AllPackageCardListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EDE2C6DDCB100DCD5CB /* AllPackageCardListViewCell.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -472,6 +474,8 @@
 		046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPackageCardViewController.swift; sourceTree = "<group>"; };
 		046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponViewController.swift; sourceTree = "<group>"; };
 		046B4EDA2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositManagementTableFooterView.swift; sourceTree = "<group>"; };
+		046B4EDC2C6DDC4C00DCD5CB /* AllCouponListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCouponListViewCell.swift; sourceTree = "<group>"; };
+		046B4EDE2C6DDCB100DCD5CB /* AllPackageCardListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPackageCardListViewCell.swift; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -1008,6 +1012,8 @@
 				048EE77E2C3F73B00094A0CB /* MyPackageCardListViewCell.swift */,
 				043893692C3FCC5800E61C0D /* CouponListViewCell.swift */,
 				0438936F2C40CF1000E61C0D /* BatteryTypeListViewCell.swift */,
+				046B4EDC2C6DDC4C00DCD5CB /* AllCouponListViewCell.swift */,
+				046B4EDE2C6DDCB100DCD5CB /* AllPackageCardListViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1985,6 +1991,7 @@
 				04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
 				0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */,
+				046B4EDD2C6DDC4C00DCD5CB /* AllCouponListViewCell.swift in Sources */,
 				04FFEE372C00975B00939B46 /* LoginVCodeInputView.swift in Sources */,
 				0415AF3F2BCCD97400E9290D /* BatteryDepositAPI.swift in Sources */,
 				04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */,
@@ -2043,6 +2050,7 @@
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
 				045215322C37E3130091FD1A /* CabinetFilter.swift in Sources */,
+				046B4EDF2C6DDCB100DCD5CB /* AllPackageCardListViewCell.swift in Sources */,
 				045165412C1AA5B700ABE7F1 /* HFAuthNameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
