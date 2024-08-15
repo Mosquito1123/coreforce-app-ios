@@ -10,12 +10,14 @@ import UIKit
 class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     
     // MARK: - Accessor
+    override func configure() {
+        guard let item = element else {return}
     
+    }
     // MARK: - Subviews
     lazy var containerView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "my_package_card_background_unselected")
-        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return  view
     }()

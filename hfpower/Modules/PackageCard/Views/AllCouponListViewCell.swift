@@ -102,11 +102,29 @@ class AllCouponListViewCell: BaseTableViewCell<Coupon> {
         }
     }
     // MARK: - Accessor
+    override func configure() {
+        guard let item = element else {return}
+        let status = item.status ?? 0
+        if status == 0{
+            statusButton.isHidden = false
+            statusButton.setTitle("已使用", for: .normal)
+            markView.updateGradientColors(startColor: UIColor(rgba: 0xD2D2D2FF), endColor: UIColor(rgba: 0xD2D2D2FF))
+        }else if status == 1{
+            statusButton.isHidden = true
+        }else if status == 2{
+            statusButton.isHidden = false
+            statusButton.setTitle("已过期", for: .normal)
+            markView.updateGradientColors(startColor: UIColor(rgba: 0xD2D2D2FF), endColor: UIColor(rgba: 0xD2D2D2FF))
+
+
+        }
     
+    }
     // MARK: - Subviews
     lazy var containerView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 12
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return  view
     }()
@@ -135,11 +153,23 @@ class AllCouponListViewCell: BaseTableViewCell<Coupon> {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    lazy var statusImageView:UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "unselected_c")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    
+    lazy var statusButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintAdjustmentMode = .automatic
+        button.setTitle("已过期", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        button.setTitleColor(.lightGray, for: .normal)
+        button.layer.borderColor = UIColor(rgba: 0xA0A0A0FF).cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 15
+        button.layer.masksToBounds = true
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        // 添加点击事件（可选）
+        
+        
+        return button
     }()
     lazy var periodView:PeriodView = {
         let view = PeriodView()
@@ -182,7 +212,7 @@ private extension AllCouponListViewCell {
         self.containerView.addSubview(self.titleLabel)
         self.containerView.addSubview(self.contentLabel)
         self.containerView.addSubview(self.periodView)
-        self.containerView.addSubview(self.statusImageView)
+        self.containerView.addSubview(self.statusButton)
     }
     
     private func setupLayout() {
@@ -205,10 +235,10 @@ private extension AllCouponListViewCell {
             periodView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -12),
             periodView.topAnchor.constraint(equalTo: contentLabel.bottomAnchor,constant: 9),
             periodView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,constant: -12),
-            self.statusImageView.widthAnchor.constraint(equalToConstant: 20),
-            self.statusImageView.heightAnchor.constraint(equalToConstant: 20),
-            self.statusImageView.topAnchor.constraint(equalTo: self.containerView.topAnchor,constant: 14),
-            self.statusImageView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor,constant: -16),
+            statusButton.widthAnchor.constraint(equalToConstant: 60),
+            statusButton.heightAnchor.constraint(equalToConstant: 30),
+            statusButton.topAnchor.constraint(equalTo: self.containerView.topAnchor,constant: 12),
+            statusButton.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor,constant: -14),
 
         ])
     }

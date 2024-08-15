@@ -10,4 +10,6 @@ import KakaJSON
 struct Coupon:Convertible{
     var id:Int?
     var title:String?
+    var status:Int?
+    var type:Int?
 }
