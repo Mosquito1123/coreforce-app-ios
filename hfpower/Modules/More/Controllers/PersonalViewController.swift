@@ -10,8 +10,11 @@ import UIKit
 class PersonalViewController: UIViewController {
     
     // MARK: - Accessor
-    var items = [PersonalListModel]()
-    var accountObservation:NSKeyValueObservation?
+    var items = [PersonalList](){
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
     
     // MARK: - Subviews
     lazy var tableView: UITableView = {
@@ -40,33 +43,29 @@ class PersonalViewController: UIViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        accountObservation = AccountManager.shared.observe(\.phoneNum, options: [.old,.new,.initial], changeHandler: { accountManager, change in
-            if let newName = change.newValue,let x = newName {
-                //                print("Name changed to \(x)")
-                debugPrint(x)
+        loadMemberData()
+        self.items = [PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier()),PersonalList(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier()),PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier()),PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
+            PersonalListItem(title: "我的订单",icon: "order"),PersonalListItem(title: "购买套餐",icon: "buy"),PersonalListItem(title: "电池寄存",icon: "post"),PersonalListItem(title: "卡仓取电",icon: "fetch_b"),PersonalListItem(title: "邀请有礼",icon: "invite"),PersonalListItem(title: "用户反馈",icon:"remark"),PersonalListItem(title: "用户指南",icon: "guide"),PersonalListItem(title: "消息通知",icon: "message"),PersonalListItem(title: "常见问题",icon:"qa"),PersonalListItem(title: "领券中心",icon: "coupon")
+        ])]
+    }
+    func loadMemberData(){
+        NetworkService<MemberAPI,MemberResponse>().request(.member) { result in
+            switch result {
+            case.success(let response):
+                
+                AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
+                if  AccountManager.shared.isAuth == 1{
+                    NotificationCenter.default.post(name: .userAuthenticated, object: nil)
+                    
+                }
+                
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                
             }
-        })
-        self.items = [PersonalListModel(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),action: { sender in
-            let settings = SettingsViewController()
-            settings.hasLogoutBlock = {
-                self.tabBarController?.selectedIndex = 0
-            }
-            self.navigationController?.pushViewController(settings, animated: true)
-        }),PersonalListModel(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier(),action: { sender in
-            
-        }),PersonalListModel(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier(),action: { sender in
-            
-        }),PersonalListModel(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),action: { sender in
-            
-        }),PersonalListModel(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier(),action: { sender in
-            
-        }),PersonalListModel(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),action: { sender in
-            
-        })]
-        self.tableView.reloadData()
+        }
     }
     deinit {
-        accountObservation?.invalidate()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -106,11 +105,16 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.items[indexPath.row]
-        let action = item.action
         guard let identifier = item.identifier else {return UITableViewCell()}
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         if let headerCell = cell as? PersonalHeaderViewCell{
-            headerCell.settingsAction = action
+            headerCell.settingsAction = {button in
+                let settings = SettingsViewController()
+                settings.hasLogoutBlock = {
+                    self.tabBarController?.selectedIndex = 0
+                }
+                self.navigationController?.pushViewController(settings, animated: true)
+            }
         }else if let contentCell = cell as? PersonalDevicesViewCell{
             contentCell.titleLabel.text = item.title
         }else if let contentCell = cell as? PersonalAssetsViewCell{
@@ -137,9 +141,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                 }
             }
             contentCell.titleLabel.text = item.title
-            contentCell.items = [
-                PersonalListModel(title: "我的订单",icon: UIImage(named: "order")),PersonalListModel(title: "购买套餐",icon: UIImage(named: "buy")),PersonalListModel(title: "电池寄存",icon: UIImage(named: "post")),PersonalListModel(title: "卡仓取电",icon: UIImage(named: "fetch_b")),PersonalListModel(title: "邀请有礼",icon: UIImage(named: "invite")),PersonalListModel(title: "用户反馈",icon: UIImage(named: "remark")),PersonalListModel(title: "用户指南",icon: UIImage(named: "guide")),PersonalListModel(title: "消息通知",icon: UIImage(named: "message")),PersonalListModel(title: "常见问题",icon: UIImage(named: "qa")),PersonalListModel(title: "领券中心",icon: UIImage(named: "coupon"))
-            ]
+            contentCell.items = item.items ?? []
         }
         
         return cell
@@ -151,9 +153,16 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
 //        return item.cellHeight ?? 0
 //    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = self.items[indexPath.row]
+        if item.title == "套餐卡"{
+            let vc=PackageCardChooseServiceViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if item.title == "我的设备"{
+            let vc = BatteryReplacementViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
-        let vc = BatteryReplacementViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+       
         
     }
     

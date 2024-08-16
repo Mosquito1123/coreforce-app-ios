@@ -15,7 +15,7 @@ class PersonalOthersViewCell: PersonalContentViewCell,UICollectionViewDelegate,U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PersonalElementIconViewCell.self), for: indexPath) as? PersonalElementIconViewCell else {return UICollectionViewCell()}
         cell.elementIconView.titleLabel.text = self.items[indexPath.item].title
-        cell.elementIconView.iconImageView.image = self.items[indexPath.item].icon
+        cell.elementIconView.iconImageView.image = UIImage(named: self.items[indexPath.item].icon ?? "")
 
         return cell
     }
@@ -37,7 +37,7 @@ class PersonalOthersViewCell: PersonalContentViewCell,UICollectionViewDelegate,U
     
     // MARK: - Accessor
     var didSelectItemAtBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
-    var items = [PersonalListModel](){
+    var items = [PersonalListItem](){
         didSet{
             self.collectionView.reloadData()
         }

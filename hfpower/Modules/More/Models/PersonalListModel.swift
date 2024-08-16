@@ -1,17 +1,24 @@
 //
-//  PersonalListModel.swift
+//  PersonalList.swift
 //  hfpower
 //
 //  Created by EDY on 2024/6/24.
 //
 
 import Foundation
-struct PersonalListModel{
-    var title: String
+import KakaJSON
+struct PersonalList:Convertible{
+    var id:Int?
+    var title: String?
     var subtitle: String?
     var cellHeight: CGFloat?
     var identifier: String?
-    var icon: UIImage?
     var detail: String?
-    var action: ((_ sender:UIButton) -> Void)?
+    var items:[PersonalListItem]?
+}
+struct PersonalListItem:Convertible{
+    var id:Int?
+    var title: String?
+    var subtitle: String?
+    var icon:String?
 }
