@@ -10,6 +10,10 @@ import UIKit
 class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     
     // MARK: - Accessor
+    var useNowBlock:ButtonActionBlock?
+    var perDayLabelLeading:NSLayoutConstraint!
+    var perDayLabelTop:NSLayoutConstraint!
+
     override func configure() {
         guard let item = element else {return}
     
@@ -46,11 +50,49 @@ class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    lazy var originAmountLabel: UILabel = {
+        let label = UILabel()
+        let attributedText = NSAttributedString(string: "￥1698",
+                                                attributes: [
+                                                    .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                                                    .foregroundColor: UIColor(rgba: 0xA0A0A0FF),
+                                                    .font: UIFont.systemFont(ofSize: 12)
+                                                ])
+        label.attributedText = attributedText
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    lazy var planPerDayLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.text = ""
+        label.textColor = UIColor(rgba: 0x333333FF)
+        label.font = UIFont.systemFont(ofSize: 11)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     lazy var statusImageView:UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "unselected")
+        imageView.image = UIImage(named: "package_card_used")
+        imageView.isHidden = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    lazy var refundButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.tintAdjustmentMode = .automatic
+        button.setTitle("已退款", for: .normal)
+        button.setTitle("已退款", for: .highlighted)
+        button.setTitleColor(UIColor(rgba: 0xFF6565FF), for: .normal)
+        button.setTitleColor(UIColor(rgba: 0xFF6565FF).withAlphaComponent(0.5), for: .highlighted)
+        button.setImage(UIImage(named: "refund_warning"), for: .normal)
+        button.setImage(UIImage(named: "refund_warning"), for: .selected)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     lazy var periodImageView:UIImageView = {
         let imageView = UIImageView()
@@ -81,6 +123,26 @@ class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    lazy var useNowButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.layer.cornerRadius = 25
+        button.layer.masksToBounds = true
+        button.tintAdjustmentMode = .automatic
+        button.setTitle("立即使用", for: .normal)
+        button.setTitle("立即使用", for: .highlighted)
+        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white.withAlphaComponent(0.5), for: .highlighted)
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setImage(UIImage(named: "ic_arrow_right"), for: .normal)
+        button.setImage(UIImage(named: "ic_arrow_right"), for: .selected)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .medium)
+        button.addTarget(self, action: #selector(useNow(_:)), for: .touchUpInside)
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     // MARK: - Static
     override class func cellIdentifier() -> String {
         return String(describing: self)
@@ -103,6 +165,11 @@ class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        refundButton.setImagePosition(type: .imageLeft, Space: 2)
+        useNowButton.setImagePosition(type: .imageRight, Space: 6)
+    }
 
 }
 
@@ -120,10 +187,16 @@ private extension AllPackageCardListViewCell {
         self.containerView.addSubview(self.periodLabel)
         self.containerView.addSubview(self.dashedLineView)
         self.containerView.addSubview(self.statusImageView)
+        self.containerView.addSubview(self.useNowButton)
+        self.containerView.addSubview(self.refundButton)
+        self.containerView.addSubview(self.originAmountLabel)
+        self.containerView.addSubview(self.planPerDayLabel)
         self.containerView.addSubview(self.tipsLabel)
     }
     
     private func setupLayout() {
+        perDayLabelTop = planPerDayLabel.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 20)
+        perDayLabelLeading = planPerDayLabel.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor,constant: 10)
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 14),
             containerView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -14),
@@ -157,10 +230,27 @@ private extension AllPackageCardListViewCell {
             self.statusImageView.heightAnchor.constraint(equalToConstant: 20),
             self.statusImageView.topAnchor.constraint(equalTo: self.containerView.topAnchor,constant: 21),
             self.statusImageView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor,constant: -13),
+            self.originAmountLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),
+            self.originAmountLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            perDayLabelTop,
+            perDayLabelLeading,
 
+            refundButton.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 6),
+            refundButton.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -12),
+            refundButton.widthAnchor.constraint(equalToConstant: 47),
+            refundButton.heightAnchor.constraint(equalToConstant: 12),
 
+            //立即使用按钮
+            useNowButton.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 26),
+            useNowButton.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -10),
+            useNowButton.widthAnchor.constraint(equalToConstant: 82),
+            useNowButton.heightAnchor.constraint(equalToConstant: 30),
             
-
+            //使用状态图标
+            statusImageView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 30),
+            statusImageView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -11),
+            statusImageView.widthAnchor.constraint(equalToConstant: 61.5),
+            statusImageView.heightAnchor.constraint(equalToConstant: 47),
 
 
         ])
@@ -175,7 +265,9 @@ extension AllPackageCardListViewCell {
 
 // MARK: - Action
 @objc private extension AllPackageCardListViewCell {
-    
+    @objc func useNow(_ sender:UIButton){
+        self.useNowBlock?(sender)
+    }
 }
 
 // MARK: - Private
