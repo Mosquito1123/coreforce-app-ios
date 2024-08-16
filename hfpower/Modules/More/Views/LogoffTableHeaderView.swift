@@ -14,7 +14,7 @@ class LogoffTableHeaderView: UIView {
     // MARK: - Subviews
     lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "")
+        imageView.image = UIImage(named: "logoff_warning")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

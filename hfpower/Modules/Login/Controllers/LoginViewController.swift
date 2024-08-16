@@ -8,7 +8,6 @@
 import UIKit
 
 class LoginViewController:UIViewController, UITextViewDelegate {
-    let networkingClient = NetworkingClient(apiKey: "")
     // MARK: - Accessor
     
     // MARK: - Subviews
