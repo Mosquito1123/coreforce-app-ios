@@ -107,6 +107,15 @@ class AllCouponViewController:BaseViewController{
         self.view.addSubview(content.view)
         self.view.addSubview(bottomView)
         self.view.bringSubviewToFront(bottomView)
+        bottomView.getCouponBlock = { button in
+            self.presentGetCouponController { text in
+                
+            } buttonAction: {
+                
+            }
+
+            
+        }
         content.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

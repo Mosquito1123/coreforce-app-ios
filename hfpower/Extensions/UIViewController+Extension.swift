@@ -100,6 +100,28 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
+    func presentGetCouponController(textAction:((String) -> Void)?,buttonAction:(()->Void)?,cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction) -> Void)? = nil){
+        let getCouponAlertView = GetCouponAlertView()
+        getCouponAlertView.commonInputView.textField.action = textAction
+        getCouponAlertView.submitButton.action = buttonAction
+        getCouponAlertView.translatesAutoresizingMaskIntoConstraints = false
+        let alert = AlertController(attributedTitle: NSAttributedString(string: "获取优惠券",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)]), attributedMessage: nil)
+        alert.visualStyle.width = UIScreen.main.bounds.size.width - 64
+        alert.visualStyle.backgroundColor = .white
+        alert.visualStyle.verticalElementSpacing = 12
+        alert.contentView.addSubview(getCouponAlertView)
+        
+        getCouponAlertView.leadingAnchor.constraint(equalTo: alert.contentView.leadingAnchor).isActive = true
+        getCouponAlertView.trailingAnchor.constraint(equalTo: alert.contentView.trailingAnchor).isActive = true
+        
+        getCouponAlertView.topAnchor.constraint(equalTo: alert.contentView.topAnchor).isActive = true
+        getCouponAlertView.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor).isActive = true
+        
+        
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "提取",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
+        alert.present()
+    }
     func presentCustomAlert(withImage imageName: String, titleText: String, messageText: String,cancel cancelTitle:String,_ cancelBlock:(@escaping ()->Void),sure sureTitle:String,_ sureBlock:(@escaping () -> Void)) {
         // Create a mutable attributed string
         let attributedString = NSMutableAttributedString()
@@ -292,3 +314,113 @@ extension UIViewController{
     
     
 }
+class GetCouponAlertView: UIView {
+
+    // MARK: - Accessor
+    
+    // MARK: - Subviews
+    lazy var titleLabel1: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "输入优惠券券码"
+        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    lazy var titleLabel2: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "或扫码优惠券二维码"
+        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    lazy var submitButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.tintAdjustmentMode = .automatic
+        button.setImage(UIImage(named: "scan"), for: .normal)
+        button.setImage(UIImage(named: "scan"), for: .highlighted)
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.layer.cornerRadius = 20
+        button.layer.masksToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    lazy var commonInputView: CommonInputView = {
+        let view = CommonInputView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // MARK: - Lifecycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupSubviews()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+}
+
+// MARK: - Setup
+private extension GetCouponAlertView {
+    
+    private func setupSubviews() {
+        self.backgroundColor = .white
+        self.addSubview(self.titleLabel1)
+        self.addSubview(self.titleLabel2)
+        self.addSubview(self.commonInputView)
+        self.addSubview(self.submitButton)
+
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            
+            titleLabel1.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 24),
+            titleLabel1.topAnchor.constraint(equalTo: self.topAnchor,constant: 20),
+            titleLabel1.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -24),
+            titleLabel1.bottomAnchor.constraint(equalTo: commonInputView.topAnchor,constant: -12),
+            commonInputView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 24),
+            commonInputView.bottomAnchor.constraint(equalTo: titleLabel2.topAnchor,constant: -22),
+            commonInputView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -24),
+            commonInputView.heightAnchor.constraint(equalToConstant: 44),
+            titleLabel2.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 24),
+            titleLabel2.bottomAnchor.constraint(equalTo: submitButton.topAnchor,constant: -12),
+            titleLabel2.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -24),
+            
+            submitButton.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 24),
+            submitButton.bottomAnchor.constraint(equalTo:self.bottomAnchor,constant: -40),
+            submitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -24),
+            submitButton.heightAnchor.constraint(equalToConstant: 40),
+
+
+
+        ])
+        
+    }
+    
+}
+
+// MARK: - Public
+extension GetCouponAlertView {
+    
+}
+
+// MARK: - Action
+@objc private extension GetCouponAlertView {
+    
+}
+
+// MARK: - Private
+private extension GetCouponAlertView {
+    
+}
+

@@ -187,6 +187,8 @@
 		046B4EF22C6DFCA500DCD5CB /* OrderListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF12C6DFCA500DCD5CB /* OrderListViewCell.swift */; };
 		046B4EF42C6E02AF00DCD5CB /* OrderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF32C6E02AF00DCD5CB /* OrderListViewController.swift */; };
 		046B4EF62C6E032600DCD5CB /* OrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF52C6E032600DCD5CB /* OrderList.swift */; };
+		046B4EF82C6F264600DCD5CB /* CommonInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF72C6F264600DCD5CB /* CommonInputView.swift */; };
+		046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -486,6 +488,8 @@
 		046B4EF12C6DFCA500DCD5CB /* OrderListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListViewCell.swift; sourceTree = "<group>"; };
 		046B4EF32C6E02AF00DCD5CB /* OrderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListViewController.swift; sourceTree = "<group>"; };
 		046B4EF52C6E032600DCD5CB /* OrderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderList.swift; sourceTree = "<group>"; };
+		046B4EF72C6F264600DCD5CB /* CommonInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonInputView.swift; sourceTree = "<group>"; };
+		046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -699,6 +703,7 @@
 				0496C94D2C13094500B7884B /* UIResponder+Extension.swift */,
 				042849122C240A1C0011032F /* MapRect+Extension.swift */,
 				043C4C182C2EBB1200E887B9 /* UIView+Extension.swift */,
+				046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -945,6 +950,7 @@
 				04FFEE342C008CC500939B46 /* LoginPasswordInputView.swift */,
 				04FFEE362C00975A00939B46 /* LoginVCodeInputView.swift */,
 				04FFEE382C0097CE00939B46 /* LoginInviteCodeInputView.swift */,
+				046B4EF72C6F264600DCD5CB /* CommonInputView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2055,6 +2061,7 @@
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
 				043C4C1D2C2EBFAE00E887B9 /* BuyPackageCard.swift in Sources */,
 				04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */,
+				046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */,
 				045215422C3CEC170091FD1A /* LogoffTableFooterView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
 				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
@@ -2149,6 +2156,7 @@
 				0451657B2C1AC0DF00ABE7F1 /* UIImage+IDCardExtend.m in Sources */,
 				043893702C40CF1000E61C0D /* BatteryTypeListViewCell.swift in Sources */,
 				048EE77F2C3F73B00094A0CB /* MyPackageCardListViewCell.swift in Sources */,
+				046B4EF82C6F264600DCD5CB /* CommonInputView.swift in Sources */,
 				045215382C3CD97B0091FD1A /* Logoff.swift in Sources */,
 				048EE7512C3D277B0094A0CB /* LowPowerReminder.swift in Sources */,
 				04BE42AD2C11D583002B78EA /* SectionIndexViewItemIndicator.swift in Sources */,

@@ -79,3 +79,28 @@ extension UIButton {
         objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), wrapper, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 }
+extension UIButton {
+    typealias ButtonAction = () -> Void
+    
+    private struct AssociatedKeys {
+        static var actionHandler = "actionHandler"
+    }
+    
+    var action: ButtonAction? {
+        get {
+            return objc_getAssociatedObject(self, AssociatedKeys.actionHandler) as? ButtonAction
+        }
+        set {
+            objc_setAssociatedObject(self, AssociatedKeys.actionHandler, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        }
+    }
+    
+    func addAction(_ action: @escaping ButtonAction) {
+        self.action = action
+        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func buttonTapped() {
+        action?()
+    }
+}
