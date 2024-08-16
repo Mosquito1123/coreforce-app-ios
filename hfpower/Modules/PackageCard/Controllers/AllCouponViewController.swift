@@ -9,20 +9,116 @@ import UIKit
 import Tabman
 import Pageboy
 class AllCouponViewController:BaseViewController{
+    class BottomView:UIView{
+        var getCouponBlock:ButtonActionBlock?
+        lazy var titleLabel: UILabel = {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.text = "获取优惠券"
+            label.textColor = UIColor(rgba:0x333333FF)
+            label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        lazy var iconImageView: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(named: "get_coupon")
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        }()
+        lazy var submitButton: UIButton = {
+            let button = UIButton(type: .custom)
+            button.tintAdjustmentMode = .automatic
+            button.setTitle("立即兑换", for: .normal)
+            button.setTitle("立即兑换", for: .highlighted)
+            button.setTitleColor(UIColor(rgba: 0xA0A0A0FF), for: .normal)
+            button.setTitleColor(UIColor(rgba: 0xA0A0A0FF).withAlphaComponent(0.5), for: .highlighted)
+            button.setImage(UIImage(named: "get_coupon_arrow_right"), for: .normal)
+            button.setImage(UIImage(named: "get_coupon_arrow_right"), for: .selected)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 13,weight: .semibold)
+            button.addTarget(self, action: #selector(getCoupon(_:)), for: .touchUpInside)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            
+            return button
+        }()
+        @objc func getCoupon(_ sender:UIButton){
+            self.getCouponBlock?(sender)
+        }
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            submitButton.setImagePosition(type: .imageRight, Space: 7)
+            
+        }
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            let borderLayer1 = CALayer()
+            borderLayer1.frame = frame
+            borderLayer1.backgroundColor = UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor
+            self.layer.addSublayer(borderLayer1)
+            
+            // fillCode
+            self.backgroundColor = .white
+            
+            // shadowCode
+            self.layer.shadowColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 0.3).cgColor
+            self.layer.shadowOffset = CGSize(width: 0, height: 5)
+            self.layer.shadowOpacity = 1
+            self.layer.shadowRadius = 10
+            self.layer.cornerRadius = 10
+            self.addSubview(iconImageView)
+            self.addSubview(titleLabel)
+            self.addSubview(submitButton)
+            NSLayoutConstraint.activate([
+                iconImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 22),
+                iconImageView.widthAnchor.constraint(equalToConstant: 24),
+                iconImageView.heightAnchor.constraint(equalToConstant: 22.5),
+
+                iconImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+                titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor,constant: 6),
+                titleLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 17.5),
+                titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -16.5),
+                titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.submitButton.leadingAnchor,constant: -14),
+                submitButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+                submitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -19),
+                submitButton.widthAnchor.constraint(equalToConstant: 80),
+                submitButton.heightAnchor.constraint(equalToConstant: 20),
+
+
+
+            ])
+        }
+        
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+        }
+    }
     public let content = AllCouponContentViewController()
+    lazy var bottomView: BottomView = {
+        let view = BottomView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "优惠券"
         addChild(content)
         
         self.view.addSubview(content.view)
+        self.view.addSubview(bottomView)
+        self.view.bringSubviewToFront(bottomView)
         content.view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             content.view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             content.view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             content.view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            content.view.bottomAnchor.constraint(equalTo:self.view.bottomAnchor) // 示例：设置固定高度
+            content.view.bottomAnchor.constraint(equalTo:self.view.bottomAnchor), // 示例：设置固定高度
+            
+            
+            bottomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
+            bottomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
+            bottomView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -12)
         ])
         
         content.didMove(toParent: self)
