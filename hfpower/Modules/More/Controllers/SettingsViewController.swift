@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SafariServices
 class SettingsViewController: BaseViewController {
     
     // MARK: - Accessor
@@ -192,6 +192,14 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
         }else if item.title == "修改手机号"{
             let changePhoneNumberController = ChangePhoneNumberViewController()
             self.navigationController?.pushViewController(changePhoneNumberController, animated: true)
+        }else if item.title == "隐私政策" {
+            guard let url = URL(string: "http://www.coreforce.cn/privacy/index.html") else {return}
+            let safariVC = SFSafariViewController(url: url)
+            present(safariVC, animated: true, completion: nil)
+        }else if item.title == "租赁协议" {
+            guard let url = URL(string: "http://www.coreforce.cn/privacy/member.html") else {return}
+            let safariVC = SFSafariViewController(url: url)
+            present(safariVC, animated: true, completion: nil)
         }
         
         

@@ -40,10 +40,10 @@ class AboutViewController: BaseViewController {
             About(id: 0, title: "版权所有",content: "青岛铁骑网络科技有限公司"),
             About(id: 1, title: "微信公众号",content: "核蜂换电"),
             About(id: 2, title: "客服电话",content: "400 6789 509"),
-            About(id: 3, title: "ICP备案号",content: "123456789"),
-            About(id: 3, title: "网站",content: "123456789"),
+            About(id: 3, title: "ICP备案号",content: "鲁ICP备19025494号-2A"),
+            About(id: 4, title: "网站",content: "https://www.coreforce.cn"),
 
-            About(id: 3, title: "当前版本",content: majorVersion ?? ""),
+            About(id: 5, title: "当前版本",content: majorVersion ?? ""),
 
           
         ]
@@ -84,6 +84,17 @@ extension AboutViewController:UITableViewDelegate,UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2{
+            if let url = URL(string: "tel://4006789509") {
+                UIApplication.shared.open(url)
+            }
+        }else if indexPath.row == 4{
+            if let url = URL(string: "https://www.coreforce.cn") {
+                UIApplication.shared.open(url)
+            }
+        }
     }
     
 }
