@@ -8,6 +8,60 @@
 import UIKit
 
 class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource {
+    class BottomView:UIView{
+        lazy var submitButton: UIButton = {
+            let button = UIButton(type: .custom)
+            button.tintAdjustmentMode = .automatic
+            button.setTitle("立即支付", for: .normal)
+            button.setTitleColor(.white, for: .normal)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
+            button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
+            button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .selected)
+            button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+            button.layer.cornerRadius = 21
+            button.layer.masksToBounds = true
+            button.translatesAutoresizingMaskIntoConstraints = false
+            return button
+        }()
+        lazy var cancelButton: UIButton = {
+            let button = UIButton(type: .custom)
+            button.setTitle("取消支付", for: .normal)
+            button.tintAdjustmentMode = .automatic
+            button.setTitleColor(UIColor(rgba: 0x1D2129), for: .normal)
+            button.setTitleColor(UIColor(rgba: 0x1D2129).withAlphaComponent(0.5), for: .highlighted)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
+            button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
+            button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
+            button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .selected)
+            button.layer.borderColor = UIColor(rgba: 0xE5E6EBFF).cgColor
+            button.layer.borderWidth = 1
+            button.layer.cornerRadius = 21
+            button.layer.masksToBounds = true
+            button.translatesAutoresizingMaskIntoConstraints = false
+            return button
+        }()
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.backgroundColor = .white
+            self.addSubview(self.submitButton)
+            self.addSubview(self.cancelButton)
+            NSLayoutConstraint.activate([
+                submitButton.widthAnchor.constraint(equalTo: cancelButton.widthAnchor),
+                submitButton.heightAnchor.constraint(equalTo: cancelButton.heightAnchor),
+                submitButton.heightAnchor.constraint(equalToConstant: 42),
+                cancelButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+                cancelButton.trailingAnchor.constraint(equalTo: submitButton.leadingAnchor, constant: -13),
+                cancelButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 15.5),
+                cancelButton.topAnchor.constraint(equalTo: submitButton.topAnchor),
+                submitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+                
+
+            ])
+        }
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items[section].items.count
     }
@@ -54,7 +108,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
 
     
     // MARK: - Accessor
-    
+    var bottomViewHeight:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -71,9 +125,9 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
         
         return tableView
     }()
-    lazy var bottom: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
+    lazy var bottomView: BottomView = {
+        let view = BottomView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     // MARK: - Lifecycle
@@ -155,15 +209,21 @@ private extension OrderDetailViewController {
     private func setupSubviews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
+        view.addSubview(bottomView)
         
     }
     
     private func setupLayout() {
+        bottomViewHeight = bottomView.heightAnchor.constraint(equalToConstant: 107)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
+            bottomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            bottomViewHeight
             
         ])
     }
