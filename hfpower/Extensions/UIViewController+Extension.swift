@@ -100,6 +100,27 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
+    func presentReturnBatteryController(code:String?,buttonAction:(()->Void)?,cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction) -> Void)? = nil){
+        let returnBatteryView = ReturnBatteryAlertView()
+        returnBatteryView.code = code
+        returnBatteryView.translatesAutoresizingMaskIntoConstraints = false
+        let alert = AlertController(attributedTitle: NSAttributedString(string: "请携带电池到运营商处退电",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)]), attributedMessage: nil)
+        alert.visualStyle.width = UIScreen.main.bounds.size.width - 64
+        alert.visualStyle.backgroundColor = .white
+        alert.visualStyle.verticalElementSpacing = 12
+        alert.contentView.addSubview(returnBatteryView)
+        
+        returnBatteryView.leadingAnchor.constraint(equalTo: alert.contentView.leadingAnchor).isActive = true
+        returnBatteryView.trailingAnchor.constraint(equalTo: alert.contentView.trailingAnchor).isActive = true
+        
+        returnBatteryView.topAnchor.constraint(equalTo: alert.contentView.topAnchor).isActive = true
+        returnBatteryView.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor).isActive = true
+        
+        
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "确认已归还",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
+        alert.present()
+    }
     func presentGetCouponController(textAction:((String) -> Void)?,buttonAction:(()->Void)?,cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction) -> Void)? = nil){
         let getCouponAlertView = GetCouponAlertView()
         getCouponAlertView.commonInputView.textField.action = textAction
@@ -312,6 +333,153 @@ extension UIViewController{
         return keyWindow
     }
     
+    
+}
+
+class ReturnBatteryAlertView: UIView {
+
+    // MARK: - Accessor
+    var code:String?{
+        didSet{
+            guard let image =  generateQRCode(for: code ?? "", size: 115) else {return}
+            self.iconImageView.image = image
+        }
+    }
+    func generateQRCode(for code: String, size: CGFloat) -> UIImage? {
+        // 创建滤镜
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else {
+            return nil
+        }
+        
+        // 设置输入数据
+        let data = code.data(using: .utf8)
+        filter.setValue(data, forKey: "inputMessage")
+        
+        // 设置纠错级别 (可选)
+        // filter.setValue("Q", forKey: "inputCorrectionLevel")
+        
+        // 获取输出图像
+        guard let ciImage = filter.outputImage else {
+            return nil
+        }
+        
+        // 将 CIImage 转换为 UIImage
+        let context = CIContext()
+        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+            return nil
+        }
+        let uiImage = UIImage(cgImage: cgImage)
+        
+        //调整大小 (可选)
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: size, height: size), false, 0.0)
+        uiImage.draw(in: CGRect(x: 0, y: 0, width: size, height: size))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return resizedImage
+    }
+    // MARK: - Subviews
+    lazy var titleLabel1: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "或扫描柜子归还电池"
+        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    lazy var titleLabel2: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "请确认电池与换电柜是否连接良好,或点击确定后稍后确认\n\n或拨打客服电话"
+        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    lazy var submitButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.tintAdjustmentMode = .automatic
+        button.setImage(UIImage(named: "scan"), for: .normal)
+        button.setImage(UIImage(named: "scan"), for: .highlighted)
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.layer.cornerRadius = 20
+        button.layer.masksToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    // MARK: - Lifecycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupSubviews()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+}
+
+// MARK: - Setup
+private extension ReturnBatteryAlertView {
+    
+    private func setupSubviews() {
+        self.backgroundColor = .white
+        self.addSubview(self.titleLabel1)
+        self.addSubview(self.titleLabel2)
+        self.addSubview(self.iconImageView)
+        self.addSubview(self.submitButton)
+
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            
+            
+            iconImageView.topAnchor.constraint(equalTo: self.topAnchor,constant: 10.5),
+            iconImageView.bottomAnchor.constraint(equalTo: titleLabel1.topAnchor,constant: -20.5),
+            iconImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            iconImageView.heightAnchor.constraint(equalToConstant: 115),
+            iconImageView.widthAnchor.constraint(equalToConstant: 115),
+            titleLabel1.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            titleLabel1.bottomAnchor.constraint(equalTo: submitButton.topAnchor,constant: -10),
+            submitButton.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 24),
+            submitButton.bottomAnchor.constraint(equalTo:self.bottomAnchor,constant: -40),
+            submitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -24),
+            submitButton.heightAnchor.constraint(equalToConstant: 40),
+
+
+
+        ])
+        
+    }
+    
+}
+
+// MARK: - Public
+extension ReturnBatteryAlertView {
+    
+}
+
+// MARK: - Action
+@objc private extension ReturnBatteryAlertView {
+    
+}
+
+// MARK: - Private
+private extension ReturnBatteryAlertView {
     
 }
 class GetCouponAlertView: UIView {

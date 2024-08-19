@@ -90,17 +90,6 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         super.didReceiveMemoryWarning()
         
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
     func showFloatingPanel(_ contentVC:UIViewController){
         fpc.delegate = self
         fpc.isRemovalInteractionEnabled = true

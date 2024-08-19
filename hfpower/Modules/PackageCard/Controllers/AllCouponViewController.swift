@@ -108,11 +108,14 @@ class AllCouponViewController:BaseViewController{
         self.view.addSubview(bottomView)
         self.view.bringSubviewToFront(bottomView)
         bottomView.getCouponBlock = { button in
-            self.presentGetCouponController { text in
-                
-            } buttonAction: {
+            self.presentReturnBatteryController(code: "https://www.baidu.com") {
                 
             }
+//            self.presentGetCouponController { text in
+//                
+//            } buttonAction: {
+//                
+//            }
 
             
         }
