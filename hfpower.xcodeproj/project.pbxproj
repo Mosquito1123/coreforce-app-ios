@@ -257,6 +257,10 @@
 		04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB052C1861DF00AFD14B /* BikeDetail.swift */; };
 		04EBBB082C186F8900AFD14B /* CabinetListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */; };
 		04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */; };
+		04F4CFAD2C73188400F5F764 /* OrderDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFAC2C73188400F5F764 /* OrderDetailViewCell.swift */; };
+		04F4CFAF2C731CCD00F5F764 /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */; };
+		04F4CFB12C731EA100F5F764 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */; };
+		04F4CFB32C7323A900F5F764 /* OrderDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB22C7323A900F5F764 /* OrderDetailFooterView.swift */; };
 		04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */; };
 		04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C012C25877200F47E79 /* ChartMainView.swift */; };
 		04FB1C042C29135100F47E79 /* PersonalHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB1C032C29135100F47E79 /* PersonalHeaderViewCell.swift */; };
@@ -558,6 +562,10 @@
 		04EBBB052C1861DF00AFD14B /* BikeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetail.swift; sourceTree = "<group>"; };
 		04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetListResponse.swift; sourceTree = "<group>"; };
 		04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotation.swift; sourceTree = "<group>"; };
+		04F4CFAC2C73188400F5F764 /* OrderDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewCell.swift; sourceTree = "<group>"; };
+		04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
+		04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
+		04F4CFB22C7323A900F5F764 /* OrderDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailFooterView.swift; sourceTree = "<group>"; };
 		04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailResponse.swift; sourceTree = "<group>"; };
 		04FB1C012C25877200F47E79 /* ChartMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMainView.swift; sourceTree = "<group>"; };
 		04FB1C032C29135100F47E79 /* PersonalHeaderViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalHeaderViewCell.swift; sourceTree = "<group>"; };
@@ -1463,6 +1471,7 @@
 			isa = PBXGroup;
 			children = (
 				046B4EF52C6E032600DCD5CB /* OrderList.swift */,
+				04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1471,6 +1480,7 @@
 			isa = PBXGroup;
 			children = (
 				046B4EF32C6E02AF00DCD5CB /* OrderListViewController.swift */,
+				04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1479,6 +1489,8 @@
 			isa = PBXGroup;
 			children = (
 				046B4EF12C6DFCA500DCD5CB /* OrderListViewCell.swift */,
+				04F4CFAC2C73188400F5F764 /* OrderDetailViewCell.swift */,
+				04F4CFB22C7323A900F5F764 /* OrderDetailFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1967,6 +1979,7 @@
 				0460D6522C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift in Sources */,
 				046B4EF22C6DFCA500DCD5CB /* OrderListViewCell.swift in Sources */,
 				04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */,
+				04F4CFB12C731EA100F5F764 /* OrderDetailViewController.swift in Sources */,
 				04EBBB022C185BC500AFD14B /* BikeListManager.swift in Sources */,
 				048EE7812C3F74B10094A0CB /* MyPackageCardListViewController.swift in Sources */,
 				0460D6562C4514C900B7DD21 /* BatteryReplacementBottomView.swift in Sources */,
@@ -2113,6 +2126,7 @@
 				04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
 				0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */,
+				04F4CFAF2C731CCD00F5F764 /* OrderDetail.swift in Sources */,
 				046B4EDD2C6DDC4C00DCD5CB /* AllCouponListViewCell.swift in Sources */,
 				04FFEE372C00975B00939B46 /* LoginVCodeInputView.swift in Sources */,
 				0415AF3F2BCCD97400E9290D /* BatteryDepositAPI.swift in Sources */,
@@ -2132,6 +2146,7 @@
 				045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */,
 				043893662C3FCB9100E61C0D /* Coupon.swift in Sources */,
 				042849132C240A1C0011032F /* MapRect+Extension.swift in Sources */,
+				04F4CFAD2C73188400F5F764 /* OrderDetailViewCell.swift in Sources */,
 				04EBBB042C185D1300AFD14B /* BatteryDetail.swift in Sources */,
 				048EE76F2C3E37E80094A0CB /* CustomPresentationController.swift in Sources */,
 				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
@@ -2172,6 +2187,7 @@
 				04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
+				04F4CFB32C7323A900F5F764 /* OrderDetailFooterView.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
 				045215322C37E3130091FD1A /* CabinetFilter.swift in Sources */,
 				046B4EDF2C6DDCB100DCD5CB /* AllPackageCardListViewCell.swift in Sources */,

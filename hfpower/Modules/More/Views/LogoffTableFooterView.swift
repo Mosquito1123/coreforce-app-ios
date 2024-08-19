@@ -44,8 +44,8 @@ class LogoffTableFooterView: UIView {
         button.setTitle("400-6789-509", for: .normal)
         button.setTitle("400-6789-509", for: .highlighted)
 
-        button.setTitleColor(UIColor(red: 68/255, green: 122/255, blue: 254/255, alpha: 1.0), for: .normal)
-        button.setTitleColor(UIColor(red: 68/255, green: 122/255, blue: 254/255, alpha: 1.0), for: .highlighted)
+        button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5), for: .highlighted)
 
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(phoneNumberTapped(_:)), for: .touchUpInside)

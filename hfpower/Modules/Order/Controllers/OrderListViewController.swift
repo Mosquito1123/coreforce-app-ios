@@ -164,7 +164,10 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
         setupLayout()
         self.items = [OrderList(),OrderList()]
     }
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let orderDetailViewController = OrderDetailViewController()
+        self.navigationController?.pushViewController(orderDetailViewController, animated: true)
+    }
 }
 
 // MARK: - Setup
