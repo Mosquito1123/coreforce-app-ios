@@ -123,8 +123,12 @@ extension UIViewController{
     }
     func presentGetCouponController(textAction:((String) -> Void)?,buttonAction:(()->Void)?,cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction) -> Void)? = nil){
         let getCouponAlertView = GetCouponAlertView()
-        getCouponAlertView.commonInputView.textField.action = textAction
-        getCouponAlertView.submitButton.action = buttonAction
+        getCouponAlertView.commonInputView.textField.addTextChangedAction { text in
+            textAction?(text ?? "")
+        }
+        getCouponAlertView.submitButton.addAction(for: .touchUpInside) {
+            buttonAction?()
+        }
         getCouponAlertView.translatesAutoresizingMaskIntoConstraints = false
         let alert = AlertController(attributedTitle: NSAttributedString(string: "获取优惠券",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)]), attributedMessage: nil)
         alert.visualStyle.width = UIScreen.main.bounds.size.width - 64

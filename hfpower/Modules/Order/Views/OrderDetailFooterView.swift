@@ -30,7 +30,12 @@ class OrderDetailFooterView: UIView {
 
         button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .normal)
         button.setTitleColor(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5), for: .highlighted)
-
+       
+        button.addAction(for: .touchUpInside) {
+            if let phoneURL = URL(string: "tel://400-6789-509"), UIApplication.shared.canOpenURL(phoneURL) {
+                UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+            }
+        }
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -56,11 +61,7 @@ private extension OrderDetailFooterView {
         self.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
         self.addSubview(self.contactLabel)
         self.addSubview(self.phoneNumberButton)
-        phoneNumberButton.action = {
-            if let phoneURL = URL(string: "tel://400-6789-509"), UIApplication.shared.canOpenURL(phoneURL) {
-                UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-            }
-        }
+        phoneNumberButton.sizeToFit()
     }
     
     private func setupLayout() {
@@ -70,6 +71,7 @@ private extension OrderDetailFooterView {
             contactLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor,constant: -36),
             phoneNumberButton.centerYAnchor.constraint(equalTo: self.contactLabel.centerYAnchor),
             phoneNumberButton.leadingAnchor.constraint(equalTo: contactLabel.trailingAnchor,constant: 5.5),
+            
             
         
         ])

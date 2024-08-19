@@ -7,27 +7,21 @@
 
 import UIKit
 extension UITextField {
-    typealias TextFieldAction = (String) -> Void
-    
-    private struct AssociatedKeys {
-        static var actionHandler = "actionHandler"
-    }
-    
-    var action: TextFieldAction? {
-        get {
-            return objc_getAssociatedObject(self, AssociatedKeys.actionHandler) as? TextFieldAction
+    private class TextFieldActionClosureWrapper: NSObject {
+        var closure: ((String?) -> Void)
+        
+        init(_ closure: @escaping ((String?) -> Void)) {
+            self.closure = closure
         }
-        set {
-            objc_setAssociatedObject(self, AssociatedKeys.actionHandler, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        
+        @objc func invoke(_ textField: UITextField) {
+            closure(textField.text)
         }
     }
     
-    func addAction(_ action: @escaping TextFieldAction) {
-        self.action = action
-        addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-    }
-    
-    @objc private func textFieldDidChange() {
-        action?(text ?? "")
+    func addTextChangedAction(_ action: @escaping (String?) -> Void) {
+        let wrapper = TextFieldActionClosureWrapper(action)
+        addTarget(wrapper, action: #selector(wrapper.invoke(_:)), for: .editingChanged)
+        objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), wrapper, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 }

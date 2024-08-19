@@ -27,8 +27,8 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
             let button = UIButton(type: .custom)
             button.setTitle("取消支付", for: .normal)
             button.tintAdjustmentMode = .automatic
-            button.setTitleColor(UIColor(rgba: 0x1D2129), for: .normal)
-            button.setTitleColor(UIColor(rgba: 0x1D2129).withAlphaComponent(0.5), for: .highlighted)
+            button.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .normal)
+            button.setTitleColor(UIColor(rgba: 0x1D2129FF).withAlphaComponent(0.5), for: .highlighted)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
             button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
             button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
