@@ -30,3 +30,15 @@ extension UIColor{
            self.init(red: red, green: green, blue: blue, alpha: alpha)
        }
 }
+extension UIColor {
+    func circularImage(diameter: CGFloat) -> UIImage? {
+        let rect = CGRect(x: 0.0, y: 0.0, width: diameter, height: diameter)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        let path = UIBezierPath(ovalIn: rect)
+        self.setFill() // 使用 self 直接填充当前 UIColor
+        path.fill()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
