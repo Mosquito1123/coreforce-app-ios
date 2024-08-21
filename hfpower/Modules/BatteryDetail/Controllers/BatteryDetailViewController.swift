@@ -28,12 +28,19 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
             return BatterySiteSectionController()
         default:
             return ContactInfoSectionController()
-
+            
         }
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        return nil
+        let backgroundView = UIView(frame: self.view.bounds)
+        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        // 设置背景图
+        let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 383)
+        backgroundView.addSubview(backgroundImageView)
+        return backgroundView
     }
     
     
@@ -44,20 +51,31 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
-    lazy var collectionView: ListCollectionView = {
-        let layout = ListCollectionViewLayout(stickyHeaders: true, topContentInset: 0, stretchToEdge: true)
-        return ListCollectionView(frame: .zero, listCollectionViewLayout: layout)
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    var data: [ListDiffable] = []
-    
+    var data: [ListDiffable] = []{
+        didSet{
+            adapter.reloadData()
+        }
+    }
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
         self.navigationController?.isNavigationBarHidden = true
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.frame = view.bounds
     }
     func setupData(){
         self.data = [
@@ -78,7 +96,7 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
                 BatterySiteItem()
             ]),
             ContactInfo(id: 6, name: "", phoneNumber: "400-6789-509")
-
+            
         ]
     }
 }
@@ -99,37 +117,29 @@ private extension BatteryDetailViewController {
         }
         backButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backButton)
+        view.bringSubviewToFront(backButton)
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 18),
             backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 6),
             backButton.widthAnchor.constraint(equalToConstant: 28),
             backButton.heightAnchor.constraint(equalToConstant: 28),
-
+            
         ])
     }
-   
+    
     private func setupSubviews() {
-        let backgroundView = UIView(frame: self.view.bounds)
-        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
-        // 设置背景图
-        let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
-        backgroundImageView.contentMode = .scaleAspectFill
-        backgroundImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 383)
-        backgroundView.addSubview(backgroundImageView)
-        collectionView.backgroundView = backgroundView
+        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        
         
         view.addSubview(collectionView)
+        view.sendSubviewToBack(collectionView)
+        
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
     
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        
     }
 }
 
@@ -155,7 +165,9 @@ private extension BatteryDetailViewController {
 
 
 class BatteryStatusSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 300)
     }
@@ -167,7 +179,9 @@ class BatteryStatusSectionController: ListSectionController {
     }
 }
 class BatteryInfoSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 2
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -191,7 +205,9 @@ class BatteryRemainingTermSectionController: ListSectionController {
     }
 }
 class BatteryAgentSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -203,7 +219,9 @@ class BatteryAgentSectionController: ListSectionController {
     }
 }
 class BatteryActionSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 4
+    }
     override init() {
         super.init()
         inset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
@@ -216,7 +234,8 @@ class BatteryActionSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryActionViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryActionViewCell.self, for: self, at: index) else {
+            return UICollectionViewCell()}
         // 配置图片和状态
         return cell
     }
@@ -225,7 +244,9 @@ class BatteryActionSectionController: ListSectionController {
     }
 }
 class BatterySiteSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }

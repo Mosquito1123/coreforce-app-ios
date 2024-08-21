@@ -29,12 +29,19 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
             return BikeSiteSectionController()
         default:
             return ContactInfoSectionController()
-
+            
         }
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        return nil
+        let backgroundView = UIView(frame: self.view.bounds)
+        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        // 设置背景图
+        let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 383)
+        backgroundView.addSubview(backgroundImageView)
+        return backgroundView
     }
     
     
@@ -45,21 +52,33 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
         return ListAdapter(updater: ListAdapterUpdater(), viewController: self)
     }()
     
-    lazy var collectionView: ListCollectionView = {
-        let layout = ListCollectionViewLayout(stickyHeaders: true, topContentInset: 0, stretchToEdge: true)
-        return ListCollectionView(frame: .zero, listCollectionViewLayout: layout)
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    var data: [ListDiffable] = []
+    var data: [ListDiffable] = []{
+        didSet{
+            adapter.reloadData()
+        }
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
         self.navigationController?.isNavigationBarHidden = true
         
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.frame = view.bounds
     }
     func setupData(){
         self.data = [
@@ -80,7 +99,7 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
                 BikeSiteItem()
             ]),
             ContactInfo(id: 6, name: "", phoneNumber: "400-6789-509")
-
+            
         ]
     }
 }
@@ -101,38 +120,28 @@ private extension BikeDetailViewController {
         }
         backButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backButton)
+        view.bringSubviewToFront(backButton)
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 18),
             backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 6),
             backButton.widthAnchor.constraint(equalToConstant: 28),
             backButton.heightAnchor.constraint(equalToConstant: 28),
-
+            
         ])
     }
-   
+    
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
-        let backgroundView = UIView(frame: self.view.bounds)
-        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
-        // 设置背景图
-        let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
-        backgroundImageView.contentMode = .scaleAspectFill
-        backgroundImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 383)
-        backgroundView.addSubview(backgroundImageView)
-        collectionView.backgroundView = backgroundView
+        
         
         view.addSubview(collectionView)
+        view.sendSubviewToBack(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
     
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        
     }
 }
 
@@ -158,7 +167,9 @@ private extension BikeDetailViewController {
 
 
 class BikeStatusSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 300)
     }
@@ -170,7 +181,9 @@ class BikeStatusSectionController: ListSectionController {
     }
 }
 class BikeInfoSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 2
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -182,7 +195,9 @@ class BikeInfoSectionController: ListSectionController {
     }
 }
 class BikeRemainingTermSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -194,7 +209,9 @@ class BikeRemainingTermSectionController: ListSectionController {
     }
 }
 class BikeAgentSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -212,6 +229,9 @@ class BikeActionSectionController: ListSectionController {
         minimumLineSpacing = 12
         minimumInteritemSpacing = 15
     }
+    override func numberOfItems() -> Int {
+        return 2
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: (collectionContext?.containerSize.width ?? 0 - 24 - 15)/2, height: 64)
     }
@@ -226,7 +246,9 @@ class BikeActionSectionController: ListSectionController {
     }
 }
 class BikeSiteSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -238,7 +260,9 @@ class BikeSiteSectionController: ListSectionController {
     }
 }
 class ContactInfoSectionController: ListSectionController {
-    
+    override func numberOfItems() -> Int {
+        return 1
+    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 92)
     }

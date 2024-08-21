@@ -39,12 +39,13 @@ class HomeViewController: UIViewController{
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    lazy var headerStackBatteryView:HFStackView = {
-        let stackView = HFStackView()
+    lazy var headerStackBatteryView:UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 12
         stackView.alignment = .bottom
         stackView.distribution = .fill
+        stackView.isUserInteractionEnabled = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -95,10 +96,6 @@ class HomeViewController: UIViewController{
         homeObservation = MainManager.shared.observe(\.batteryDetail,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let temp = change.newValue,let batteryDetail = temp {
                 self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
-                self.batteryView.goToBatteryDetailBlock = { tap in
-                    let batteryDetailVC = BatteryDetailViewController()
-                    self.navigationController?.pushViewController(batteryDetailVC, animated: true)
-                }
                 self.headerStackBatteryView.addSubview(self.batteryView)
                 
             }else{
@@ -293,6 +290,10 @@ private extension HomeViewController {
         mapViewController.didMove(toParent: self)
         self.view.addSubview(headerStackView)
         self.view.addSubview(footerStackView)
+        self.batteryView.goToBatteryDetailBlock = { sender in
+            let batteryDetailVC = BatteryDetailViewController()
+            self.navigationController?.pushViewController(batteryDetailVC, animated: true)
+        }
         self.view.addSubview(headerStackBatteryView)
         
         needLoginView.loginAction = { (sender) -> Void in
@@ -397,7 +398,8 @@ private extension HomeViewController {
             headerStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             headerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             headerStackBatteryView.topAnchor.constraint(equalTo: self.headerStackView.bottomAnchor,constant: 10),
-            headerStackBatteryView.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14-38-14),
+            headerStackBatteryView.widthAnchor.constraint(equalToConstant: 52),
+            headerStackBatteryView.heightAnchor.constraint(equalToConstant: 70),
             headerStackBatteryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             footerStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -26),
             footerStackView.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14-38-14),

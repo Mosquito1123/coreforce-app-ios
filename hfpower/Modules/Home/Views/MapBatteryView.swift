@@ -14,7 +14,7 @@ enum MapBatteryType{
 class MapBatteryView: UIView {
 
     // MARK: - Accessor
-    var goToBatteryDetailBlock:((UITapGestureRecognizer)->Void)?
+    var goToBatteryDetailBlock:ButtonActionBlock?
     // MARK: - Subviews
     lazy var batteryView: MapBatteryContentView = {
         let view = MapBatteryContentView()
@@ -45,16 +45,14 @@ class MapBatteryView: UIView {
 private extension MapBatteryView {
     
     private func setupSubviews() {
-        batteryView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(goToBatteryDetail(_:)))
-        batteryView.addGestureRecognizer(tap)
+        batteryView.addTarget(self, action: #selector(goToBatteryDetail(_:)), for: .touchUpInside)
         addSubview(batteryView)
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 45),
-            self.heightAnchor.constraint(equalToConstant: 79),
+            batteryView.widthAnchor.constraint(equalToConstant: 35),
+            batteryView.heightAnchor.constraint(equalToConstant: 66),
             batteryView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             batteryView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             batteryView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
@@ -71,7 +69,7 @@ extension MapBatteryView {
 
 // MARK: - Action
 @objc private extension MapBatteryView {
-    @objc func goToBatteryDetail(_ sender:UITapGestureRecognizer){
+    @objc func goToBatteryDetail(_ sender:UIButton){
         self.goToBatteryDetailBlock?(sender)
     }
 }
@@ -81,7 +79,7 @@ private extension MapBatteryView {
     
 }
 
-class MapBatteryContentView: UIView {
+class MapBatteryContentView: UIButton {
     
     var batteryLevel: CGFloat = 0.1 {
         didSet{
