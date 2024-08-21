@@ -114,7 +114,10 @@ class BatteryStatusViewCell: UICollectionViewCell {
 private extension BatteryStatusViewCell {
     
     private func setupSubviews() {
-        self.contentView.backgroundColor = .clear
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        self.backgroundView = backgroundView
+
         self.contentView.addSubview(self.logoImageView)
         self.contentView.addSubview(self.statusButton)
         self.contentView.addSubview(self.locationButton)

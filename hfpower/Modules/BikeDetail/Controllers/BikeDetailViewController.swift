@@ -35,7 +35,7 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         let backgroundView = UIView(frame: self.view.bounds)
-        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        
         // 设置背景图
         let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
         backgroundImageView.contentMode = .scaleAspectFill
@@ -73,12 +73,21 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
         setupSubviews()
         setupLayout()
         self.navigationController?.isNavigationBarHidden = true
+        setupData()
         
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.frame = view.bounds
+        let backgroundView = UIView(frame: self.view.bounds)
+        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        // 设置背景图
+        let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 383)
+        backgroundView.addSubview(backgroundImageView)
+        collectionView.backgroundView = backgroundView
     }
     func setupData(){
         self.data = [

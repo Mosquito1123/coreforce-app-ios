@@ -71,11 +71,21 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
         setupSubviews()
         setupLayout()
         self.navigationController?.isNavigationBarHidden = true
+        setupData()
+
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.frame = view.bounds
+        let backgroundView = UIView(frame: self.view.bounds)
+        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        // 设置背景图
+        let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 383)
+        backgroundView.addSubview(backgroundImageView)
+        collectionView.backgroundView = backgroundView
     }
     func setupData(){
         self.data = [
@@ -165,6 +175,8 @@ private extension BatteryDetailViewController {
 
 
 class BatteryStatusSectionController: ListSectionController {
+    private var batteryStatus: BatteryStatus!
+    
     override func numberOfItems() -> Int {
         return 1
     }
@@ -177,8 +189,13 @@ class BatteryStatusSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        batteryStatus = object as? BatteryStatus
+    }
 }
 class BatteryInfoSectionController: ListSectionController {
+    private var batteryInfo: BatteryInfo!
+
     override func numberOfItems() -> Int {
         return 2
     }
@@ -190,6 +207,9 @@ class BatteryInfoSectionController: ListSectionController {
         guard let cell = collectionContext?.dequeueReusableCell(of: BatteryInfoViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
         // 配置图片和状态
         return cell
+    }
+    override func didUpdate(to object: Any) {
+        batteryInfo = object as? BatteryInfo
     }
 }
 class BatteryRemainingTermSectionController: ListSectionController {
