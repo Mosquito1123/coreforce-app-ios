@@ -7,17 +7,12 @@
 
 import UIKit
 
-enum BikeAgentViewCellCornerType{
-    case first
-    case last
-    case all
-    case none
-}
+
 
 class BikeAgentViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BikeAgentViewCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .none{
         didSet{
             switch cornerType {
             case .first:

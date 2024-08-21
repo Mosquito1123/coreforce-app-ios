@@ -6,18 +6,13 @@
 //
 
 import UIKit
-enum BatteryActionViewCellCornerType{
-    case first
-    case last
-    case all
-    case none
-}
+
 class BatteryActionViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
     
     // MARK: - Subviews
-    var cornerType:BatteryActionViewCellCornerType = .all{
+    var cornerType:BaseCellCornerType = .all{
         didSet{
             switch cornerType {
             case .first:
@@ -98,7 +93,7 @@ class BatteryActionViewCell: UICollectionViewCell {
 private extension BatteryActionViewCell {
     
     private func setupSubviews() {
-        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.contentView.backgroundColor = .clear
         contentView.addSubview(containerView)
         containerView.addSubview(submitButton)
         

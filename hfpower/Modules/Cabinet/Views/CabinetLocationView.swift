@@ -36,7 +36,7 @@ class CabinetLocationView: UIView {
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("重新定位", for: .normal)
-        button.setImage(UIImage(named: "search_list_icon_refresh"), for: .normal)
+        button.setImage(UIImage(named: "device_refresh"), for: .normal)
         button.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
         button.addTarget(self, action: #selector(actionButtonTapped(_:)), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)

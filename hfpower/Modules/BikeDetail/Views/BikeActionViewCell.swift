@@ -6,16 +6,11 @@
 //
 
 import UIKit
-enum BikeActionViewCellCornerType{
-    case first
-    case last
-    case all
-    case none
-}
+
 class BikeActionViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BikeActionViewCellCornerType = .all{
+    var cornerType:BaseCellCornerType = .all{
         didSet{
             switch cornerType {
             case .first:
@@ -101,7 +96,7 @@ class BikeActionViewCell: UICollectionViewCell {
 private extension BikeActionViewCell {
     
     private func setupSubviews() {
-        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.contentView.backgroundColor = .clear
         contentView.addSubview(containerView)
         containerView.addSubview(submitButton)
         

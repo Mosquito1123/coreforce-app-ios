@@ -6,16 +6,11 @@
 //
 
 import UIKit
-enum DepositManagementCellCornerType{
-    case first
-    case last
-    case all
-    case none
-}
+
 class DepositManagementCell: UITableViewCell {
     
     // MARK: - Accessor
-    var cornerType:DepositManagementCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .none{
         didSet{
             switch cornerType {
             case .first:

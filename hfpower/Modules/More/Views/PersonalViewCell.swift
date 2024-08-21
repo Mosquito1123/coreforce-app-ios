@@ -12,12 +12,7 @@ enum PersonalViewCellType:Int{
     case chooseContent
     case button
 }
-enum PersonalViewCellCornerType{
-    case first
-    case last
-    case all
-    case none
-}
+
 class PersonalViewCell: UITableViewCell {
     
     // MARK: - Accessor
@@ -67,7 +62,7 @@ class PersonalViewCell: UITableViewCell {
         }
     }
    
-    var cornerType:PersonalViewCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .none{
         didSet{
             switch cornerType {
             case .first:

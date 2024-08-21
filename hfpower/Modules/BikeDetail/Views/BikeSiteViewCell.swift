@@ -6,16 +6,11 @@
 //
 
 import UIKit
-enum BikeSiteViewCellCornerType{
-    case first
-    case last
-    case all
-    case none
-}
+
 class BikeSiteViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BikeSiteViewCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .none{
         didSet{
             switch cornerType {
             case .first:

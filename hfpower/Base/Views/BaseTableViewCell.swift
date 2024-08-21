@@ -6,7 +6,12 @@
 //
 
 import UIKit
-
+enum BaseCellCornerType{
+    case first
+    case last
+    case all
+    case none
+}
 class BaseTableViewCell<ItemType>: UITableViewCell {
     
     // MARK: - Accessor

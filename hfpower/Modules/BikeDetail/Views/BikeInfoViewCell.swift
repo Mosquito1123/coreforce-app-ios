@@ -7,17 +7,12 @@
 
 import UIKit
 
-enum BikeInfoViewCellCornerType{
-    case first
-    case last
-    case all
-    case none
-}
+
 
 class BikeInfoViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BikeInfoViewCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .none{
         didSet{
             switch cornerType {
             case .first:
@@ -108,7 +103,7 @@ class BikeInfoViewCell: UICollectionViewCell {
 private extension BikeInfoViewCell {
     
     private func setupSubviews() {
-        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.contentView.backgroundColor = .clear
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(contentLabel)

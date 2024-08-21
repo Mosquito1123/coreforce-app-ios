@@ -95,7 +95,7 @@ class CabinetListViewCell: UITableViewCell {
         button.setTitle("导航", for: .normal)
         button.setTitleColor(UIColor(rgba:0x333333FF), for: .normal)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
-        button.setImage(UIImage(named: "navigate"), for: .normal)
+        button.setImage(UIImage(named: "device_navigate"), for: .normal)
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.layer.cornerRadius = 15
