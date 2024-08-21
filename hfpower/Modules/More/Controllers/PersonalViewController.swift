@@ -39,7 +39,6 @@ class PersonalViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -81,6 +80,7 @@ private extension PersonalViewController {
     }
     
     private func setupSubviews() {
+        self.view.backgroundColor = UIColor.white
         let bgView = PersonalViewBackgroundView(frame: self.view.bounds)
         view.addSubview(bgView)
         view.addSubview(tableView)

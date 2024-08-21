@@ -1,21 +1,23 @@
 //
-//  BikeActionViewCell.swift
+//  BatteryActionViewCell.swift
 //  hfpower
 //
-//  Created by EDY on 2024/8/20.
+//  Created by EDY on 2024/8/21.
 //
 
 import UIKit
-enum BikeActionViewCellCornerType{
+enum BatteryActionViewCellCornerType{
     case first
     case last
     case all
     case none
 }
-class BikeActionViewCell: UICollectionViewCell {
+class BatteryActionViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BikeActionViewCellCornerType = .all{
+    
+    // MARK: - Subviews
+    var cornerType:BatteryActionViewCellCornerType = .all{
         didSet{
             switch cornerType {
             case .first:
@@ -67,16 +69,15 @@ class BikeActionViewCell: UICollectionViewCell {
         
         return button
     }()
-    
     // MARK: - Static
     class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with collectionView: UICollectionView, for indexPath: IndexPath) -> BikeActionViewCell {
+    class func cell(with collectionView: UICollectionView, for indexPath: IndexPath) -> BatteryActionViewCell {
         let identifier = cellIdentifier()
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? BikeActionViewCell { return cell }
-        return BikeActionViewCell()
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? BatteryActionViewCell { return cell }
+        return BatteryActionViewCell()
     }
     
     // MARK: - Lifecycle
@@ -90,15 +91,11 @@ class BikeActionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        submitButton.setImagePosition(type: .imageLeft, Space: 9)
-    }
 
 }
 
 // MARK: - Setup
-private extension BikeActionViewCell {
+private extension BatteryActionViewCell {
     
     private func setupSubviews() {
         self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
@@ -128,16 +125,16 @@ private extension BikeActionViewCell {
 }
 
 // MARK: - Public
-extension BikeActionViewCell {
+extension BatteryActionViewCell {
     
 }
 
 // MARK: - Action
-@objc private extension BikeActionViewCell {
+@objc private extension BatteryActionViewCell {
     
 }
 
 // MARK: - Private
-private extension BikeActionViewCell {
+private extension BatteryActionViewCell {
     
 }
