@@ -95,6 +95,10 @@ class HomeViewController: UIViewController{
         homeObservation = MainManager.shared.observe(\.batteryDetail,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let temp = change.newValue,let batteryDetail = temp {
                 self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
+                self.batteryView.goToBatteryDetailBlock = { tap in
+                    let batteryDetailVC = BatteryDetailViewController()
+                    self.navigationController?.pushViewController(batteryDetailVC, animated: true)
+                }
                 self.headerStackBatteryView.addSubview(self.batteryView)
                 
             }else{
@@ -379,13 +383,6 @@ private extension HomeViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            
-            
-            
-            
-            
-            
-            
             locationChooseView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             locationChooseView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             locationChooseView.heightAnchor.constraint(equalToConstant: 44),

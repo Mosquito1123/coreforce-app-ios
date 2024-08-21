@@ -14,7 +14,7 @@ enum MapBatteryType{
 class MapBatteryView: UIView {
 
     // MARK: - Accessor
-    
+    var goToBatteryDetailBlock:((UITapGestureRecognizer)->Void)?
     // MARK: - Subviews
     lazy var batteryView: MapBatteryContentView = {
         let view = MapBatteryContentView()
@@ -45,6 +45,9 @@ class MapBatteryView: UIView {
 private extension MapBatteryView {
     
     private func setupSubviews() {
+        batteryView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(goToBatteryDetail(_:)))
+        batteryView.addGestureRecognizer(tap)
         addSubview(batteryView)
     }
     
@@ -68,7 +71,9 @@ extension MapBatteryView {
 
 // MARK: - Action
 @objc private extension MapBatteryView {
-    
+    @objc func goToBatteryDetail(_ sender:UITapGestureRecognizer){
+        self.goToBatteryDetailBlock?(sender)
+    }
 }
 
 // MARK: - Private

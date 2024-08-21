@@ -1,5 +1,5 @@
 //
-//  BikeDetail.swift
+//  BikeDetailAll.swift
 //  hfpower
 //
 //  Created by EDY on 2024/8/20.

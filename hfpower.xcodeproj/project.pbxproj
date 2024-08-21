@@ -261,7 +261,7 @@
 		04F4CFAF2C731CCD00F5F764 /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */; };
 		04F4CFB12C731EA100F5F764 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */; };
 		04F4CFB32C7323A900F5F764 /* OrderDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB22C7323A900F5F764 /* OrderDetailFooterView.swift */; };
-		04F4CFB52C744A6F00F5F764 /* BikeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB42C744A6F00F5F764 /* BikeDetail.swift */; };
+		04F4CFB52C744A6F00F5F764 /* BikeDetailAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB42C744A6F00F5F764 /* BikeDetailAll.swift */; };
 		04F4CFB92C748A9100F5F764 /* BikeStatusViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB82C748A9100F5F764 /* BikeStatusViewCell.swift */; };
 		04F4CFBB2C74919800F5F764 /* BikeInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFBA2C74919800F5F764 /* BikeInfoViewCell.swift */; };
 		04F4CFBD2C7491BD00F5F764 /* BikeActionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFBC2C7491BD00F5F764 /* BikeActionViewCell.swift */; };
@@ -269,7 +269,7 @@
 		04F4CFC12C749EC500F5F764 /* BikeRemainingTermViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFC02C749EC500F5F764 /* BikeRemainingTermViewCell.swift */; };
 		04F4CFC32C74A18A00F5F764 /* BikeSiteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFC22C74A18A00F5F764 /* BikeSiteViewCell.swift */; };
 		04F4CFC52C74A38400F5F764 /* ContactInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFC42C74A38400F5F764 /* ContactInfoViewCell.swift */; };
-		04F4CFC72C75805C00F5F764 /* BatteryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFC62C75805C00F5F764 /* BatteryDetail.swift */; };
+		04F4CFC72C75805C00F5F764 /* BatteryDetailAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFC62C75805C00F5F764 /* BatteryDetailAll.swift */; };
 		04F4CFC92C75825400F5F764 /* BatteryStatusViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFC82C75825400F5F764 /* BatteryStatusViewCell.swift */; };
 		04F4CFCB2C75836900F5F764 /* BatteryInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFCA2C75836900F5F764 /* BatteryInfoViewCell.swift */; };
 		04F4CFCD2C75838100F5F764 /* BatteryActionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFCC2C75838100F5F764 /* BatteryActionViewCell.swift */; };
@@ -581,7 +581,7 @@
 		04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		04F4CFB22C7323A900F5F764 /* OrderDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailFooterView.swift; sourceTree = "<group>"; };
-		04F4CFB42C744A6F00F5F764 /* BikeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetail.swift; sourceTree = "<group>"; };
+		04F4CFB42C744A6F00F5F764 /* BikeDetailAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetailAll.swift; sourceTree = "<group>"; };
 		04F4CFB82C748A9100F5F764 /* BikeStatusViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStatusViewCell.swift; sourceTree = "<group>"; };
 		04F4CFBA2C74919800F5F764 /* BikeInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeInfoViewCell.swift; sourceTree = "<group>"; };
 		04F4CFBC2C7491BD00F5F764 /* BikeActionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeActionViewCell.swift; sourceTree = "<group>"; };
@@ -589,7 +589,7 @@
 		04F4CFC02C749EC500F5F764 /* BikeRemainingTermViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRemainingTermViewCell.swift; sourceTree = "<group>"; };
 		04F4CFC22C74A18A00F5F764 /* BikeSiteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeSiteViewCell.swift; sourceTree = "<group>"; };
 		04F4CFC42C74A38400F5F764 /* ContactInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoViewCell.swift; sourceTree = "<group>"; };
-		04F4CFC62C75805C00F5F764 /* BatteryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDetail.swift; sourceTree = "<group>"; };
+		04F4CFC62C75805C00F5F764 /* BatteryDetailAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDetailAll.swift; sourceTree = "<group>"; };
 		04F4CFC82C75825400F5F764 /* BatteryStatusViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryStatusViewCell.swift; sourceTree = "<group>"; };
 		04F4CFCA2C75836900F5F764 /* BatteryInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfoViewCell.swift; sourceTree = "<group>"; };
 		04F4CFCC2C75838100F5F764 /* BatteryActionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryActionViewCell.swift; sourceTree = "<group>"; };
@@ -1446,7 +1446,7 @@
 		046B4EE22C6DFAF400DCD5CB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				04F4CFC62C75805C00F5F764 /* BatteryDetail.swift */,
+				04F4CFC62C75805C00F5F764 /* BatteryDetailAll.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1497,7 +1497,7 @@
 		046B4EE72C6DFB1800DCD5CB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				04F4CFB42C744A6F00F5F764 /* BikeDetail.swift */,
+				04F4CFB42C744A6F00F5F764 /* BikeDetailAll.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2091,7 +2091,7 @@
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
 				0452152E2C37E1E80091FD1A /* CabinetFilterViewCell.swift in Sources */,
 				04BE429F2C11C4BC002B78EA /* CityCodeHelper.swift in Sources */,
-				04F4CFB52C744A6F00F5F764 /* BikeDetail.swift in Sources */,
+				04F4CFB52C744A6F00F5F764 /* BikeDetailAll.swift in Sources */,
 				04F4CFD12C75841600F5F764 /* BatteryRemainingTermViewCell.swift in Sources */,
 				045165432C1ABDB800ABE7F1 /* HFAuthIDNumberView.swift in Sources */,
 				04001C402C05E1EC000A040F /* Button+Extension.swift in Sources */,
@@ -2099,7 +2099,7 @@
 				046B4EF62C6E032600DCD5CB /* OrderList.swift in Sources */,
 				0460D6582C4519E900B7DD21 /* BatteryReplacementTableFooterView.swift in Sources */,
 				0460AD6B2C363BFF00AC9E2D /* BuyPackageCardBottomView.swift in Sources */,
-				04F4CFC72C75805C00F5F764 /* BatteryDetail.swift in Sources */,
+				04F4CFC72C75805C00F5F764 /* BatteryDetailAll.swift in Sources */,
 				04EBBAFE2C1858B700AFD14B /* ActivityListResponse.swift in Sources */,
 				04F4CFBB2C74919800F5F764 /* BikeInfoViewCell.swift in Sources */,
 				04A5E5212C1C25B000787551 /* MyCodeViewController.swift in Sources */,

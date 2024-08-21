@@ -1,5 +1,5 @@
 //
-//  BatteryDetail.swift
+//  BatteryDetailAll.swift
 //  hfpower
 //
 //  Created by EDY on 2024/8/21.
