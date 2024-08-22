@@ -221,7 +221,7 @@ class BatteryRemainingTermSectionController: ListSectionController {
     private var batteryRemainingTerm: BatteryRemainingTerm!
 
     override func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
+        return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 111)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
