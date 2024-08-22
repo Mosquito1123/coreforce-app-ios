@@ -10,7 +10,7 @@ import UIKit
 class BatteryAgentViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BaseCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .all{
         didSet{
             switch cornerType {
             case .first:
@@ -39,7 +39,7 @@ class BatteryAgentViewCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 12
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner,.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

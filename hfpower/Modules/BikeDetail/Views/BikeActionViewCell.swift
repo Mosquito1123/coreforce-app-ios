@@ -40,7 +40,7 @@ class BikeActionViewCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 12
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner,.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -112,8 +112,7 @@ private extension BikeActionViewCell {
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             // Submit button constraints
-            submitButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 24),
-            submitButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -24),
+            submitButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             submitButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
 
            

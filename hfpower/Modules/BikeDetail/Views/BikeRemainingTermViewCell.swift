@@ -12,7 +12,7 @@ import UIKit
 class BikeRemainingTermViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BaseCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .all{
         didSet{
             switch cornerType {
             case .first:
@@ -41,7 +41,7 @@ class BikeRemainingTermViewCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 12
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner,.layerMinXMaxYCorner, .layerMaxXMaxYCorner]    
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -96,7 +96,7 @@ class BikeRemainingTermViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
 }
 
 // MARK: - Setup
@@ -126,7 +126,7 @@ private extension BikeRemainingTermViewCell {
             contentLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             contentLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
             contentLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,constant: -16),
-             
+            
             extraLabel.trailingAnchor.constraint(equalTo: contentLabel.leadingAnchor, constant: -10),
             extraLabel.centerYAnchor.constraint(equalTo: contentLabel.centerYAnchor),
         ])

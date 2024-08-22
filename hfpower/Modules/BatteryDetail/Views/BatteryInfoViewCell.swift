@@ -10,7 +10,7 @@ import UIKit
 class BatteryInfoViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    var cornerType:BaseCellCornerType = .none{
+    var cornerType:BaseCellCornerType = .all{
         didSet{
             switch cornerType {
             case .first:
