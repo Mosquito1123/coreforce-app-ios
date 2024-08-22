@@ -179,6 +179,8 @@ private extension BikeDetailViewController {
 
 
 class BikeStatusSectionController: ListSectionController {
+    private var bikeStatus: BikeStatus!
+
     override init() {
         super.init()
         inset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
@@ -195,10 +197,15 @@ class BikeStatusSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        bikeStatus = object as? BikeStatus
+    }
 }
 class BikeInfoSectionController: ListSectionController {
+    private var bikeInfo: BikeInfo!
+
     override func numberOfItems() -> Int {
-        return 2
+        return bikeInfo.items.count
     }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
@@ -209,11 +216,13 @@ class BikeInfoSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        bikeInfo = object as? BikeInfo
+    }
 }
 class BikeRemainingTermSectionController: ListSectionController {
-    override func numberOfItems() -> Int {
-        return 1
-    }
+    private var bikeRemainingTerm: BikeRemainingTerm!
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -223,11 +232,13 @@ class BikeRemainingTermSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        bikeRemainingTerm = object as? BikeRemainingTerm
+    }
 }
 class BikeAgentSectionController: ListSectionController {
-    override func numberOfItems() -> Int {
-        return 1
-    }
+    private var bikeAgent: BikeAgent!
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -237,8 +248,13 @@ class BikeAgentSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        bikeAgent = object as? BikeAgent
+    }
 }
 class BikeActionSectionController: ListSectionController {
+    private var bikeAction: BikeAction!
+
     override init() {
         super.init()
         inset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
@@ -246,7 +262,7 @@ class BikeActionSectionController: ListSectionController {
         minimumInteritemSpacing = 15
     }
     override func numberOfItems() -> Int {
-        return 2
+        return bikeAction.items.count
     }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: ((collectionContext?.containerSize.width ?? 0) - 24 - 15)/2, height: 64)
@@ -260,11 +276,13 @@ class BikeActionSectionController: ListSectionController {
     override func didSelectItem(at index: Int) {
         
     }
+    override func didUpdate(to object: Any) {
+        bikeAction = object as? BikeAction
+    }
 }
 class BikeSiteSectionController: ListSectionController {
-    override func numberOfItems() -> Int {
-        return 1
-    }
+    private var bikeSite: BikeSite!
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -274,11 +292,13 @@ class BikeSiteSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        bikeSite = object as? BikeSite
+    }
 }
 class ContactInfoSectionController: ListSectionController {
-    override func numberOfItems() -> Int {
-        return 1
-    }
+    private var contactInfo: ContactInfo!
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 92)
     }
@@ -287,5 +307,8 @@ class ContactInfoSectionController: ListSectionController {
         guard let cell = collectionContext?.dequeueReusableCell(of: ContactInfoViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
         // 配置图片和状态
         return cell
+    }
+    override func didUpdate(to object: Any) {
+        contactInfo = object as? ContactInfo
     }
 }

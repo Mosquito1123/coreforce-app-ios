@@ -185,9 +185,6 @@ class BatteryStatusSectionController: ListSectionController {
     }
     private var batteryStatus: BatteryStatus!
     
-    override func numberOfItems() -> Int {
-        return 1
-    }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 300)
     }
@@ -205,7 +202,7 @@ class BatteryInfoSectionController: ListSectionController {
     private var batteryInfo: BatteryInfo!
 
     override func numberOfItems() -> Int {
-        return 2
+        return batteryInfo.items.count
     }
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
@@ -221,7 +218,8 @@ class BatteryInfoSectionController: ListSectionController {
     }
 }
 class BatteryRemainingTermSectionController: ListSectionController {
-    
+    private var batteryRemainingTerm: BatteryRemainingTerm!
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -231,11 +229,13 @@ class BatteryRemainingTermSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        batteryRemainingTerm = object as? BatteryRemainingTerm
+    }
 }
 class BatteryAgentSectionController: ListSectionController {
-    override func numberOfItems() -> Int {
-        return 1
-    }
+    private var batteryAgent: BatteryAgent!
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -245,10 +245,15 @@ class BatteryAgentSectionController: ListSectionController {
         // 配置图片和状态
         return cell
     }
+    override func didUpdate(to object: Any) {
+        batteryAgent = object as? BatteryAgent
+    }
 }
 class BatteryActionSectionController: ListSectionController {
+    private var batteryAction: BatteryAction!
+
     override func numberOfItems() -> Int {
-        return 4
+        return batteryAction.items.count
     }
     override init() {
         super.init()
@@ -270,11 +275,14 @@ class BatteryActionSectionController: ListSectionController {
     override func didSelectItem(at index: Int) {
         
     }
+    override func didUpdate(to object: Any) {
+        batteryAction = object as? BatteryAction
+    }
 }
 class BatterySiteSectionController: ListSectionController {
-    override func numberOfItems() -> Int {
-        return 1
-    }
+    private var batterySite: BatterySite!
+
+
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 54)
     }
@@ -283,5 +291,8 @@ class BatterySiteSectionController: ListSectionController {
         guard let cell = collectionContext?.dequeueReusableCell(of: BatterySiteViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
         // 配置图片和状态
         return cell
+    }
+    override func didUpdate(to object: Any) {
+        batterySite = object as? BatterySite
     }
 }
