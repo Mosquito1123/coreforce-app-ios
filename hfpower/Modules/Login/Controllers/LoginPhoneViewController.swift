@@ -276,8 +276,9 @@ private extension LoginPhoneViewController {
                 TokenManager.shared.refreshToken = response?.refreshToken
                 TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
                 AccountManager.shared.phoneNum = phoneNum
-                NotificationCenter.default.post(name: .userLoggedIn, object: nil)
-                self.navigationController?.dismiss(animated: true)
+                let mainController = MainTabBarController.defaultMainController()
+                mainController.modalPresentationStyle = .fullScreen
+                self.navigationController?.present(mainController, animated: true)
                 
                 
             case .failure(let error):

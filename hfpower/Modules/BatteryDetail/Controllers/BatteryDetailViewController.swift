@@ -90,7 +90,11 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
     func setupData(){
         self.data = [
             BatteryStatus(id:0, value: "", status: 0, address: "李沧区青山路700号"),
-            BatteryInfo(id: 1, num:"", vin: ""),
+            BatteryInfo(id: 1, items: [
+                BatteryInfoItem(),
+                BatteryInfoItem(),
+
+            ]),
             BatteryRemainingTerm(id: 2, remainingTerm: ""),
             BatteryAgent(id: 3, agentName: ""),
             BatteryAction(id: 4, items: [
@@ -118,7 +122,7 @@ private extension BatteryDetailViewController {
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
         backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 20, height: 20)), for: .highlighted)
-        backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .highlighted)  // 设置自定义图片
+        backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .normal)  // 设置自定义图片
         backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .highlighted)  // 设置自定义图片
         backButton.setTitle("", for: .normal)  // 设置标题
         backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
@@ -175,6 +179,10 @@ private extension BatteryDetailViewController {
 
 
 class BatteryStatusSectionController: ListSectionController {
+    override init() {
+        super.init()
+        inset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+    }
     private var batteryStatus: BatteryStatus!
     
     override func numberOfItems() -> Int {
@@ -250,7 +258,7 @@ class BatteryActionSectionController: ListSectionController {
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: (collectionContext?.containerSize.width ?? 0 - 24 - 15)/2, height: 64)
+        return CGSize(width: ((collectionContext?.containerSize.width ?? 0) - 24 - 15)/2, height: 64)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {

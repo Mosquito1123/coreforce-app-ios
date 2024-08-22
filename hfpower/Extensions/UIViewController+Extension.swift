@@ -147,6 +147,29 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "提取",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
+    func showAlertController(titleText: String, messageText: String, okAction: @escaping () -> Void, isCancelAlert: Bool = false, cancelAction: @escaping () -> Void = {}) {
+        // Create attributed text
+        let title = NSAttributedString(string: titleText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16,weight: .medium),.foregroundColor:UIColor.black])
+        let p = NSMutableParagraphStyle()
+        p.alignment = .center
+        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(rgba: 0x1D2129FF),.paragraphStyle:p])
+        let alert = AlertController(attributedTitle: title, attributedMessage: message, preferredStyle: .alert)
+        
+        let okAction = AlertAction(title: "确定", style: .preferred) { alertAction in
+            okAction()
+        }
+        alert.addAction(okAction)
+        
+        if isCancelAlert {
+            let cancelAction = AlertAction(title: "取消", style: .normal) { _ in
+                cancelAction()
+            }
+            alert.addAction(cancelAction)
+        }
+        
+        alert.present()
+    }
+
     func presentCustomAlert(withImage imageName: String, titleText: String, messageText: String,cancel cancelTitle:String,_ cancelBlock:(@escaping ()->Void),sure sureTitle:String,_ sureBlock:(@escaping () -> Void)) {
         // Create a mutable attributed string
         let attributedString = NSMutableAttributedString()

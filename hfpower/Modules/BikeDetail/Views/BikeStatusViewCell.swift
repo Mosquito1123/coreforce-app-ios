@@ -50,6 +50,7 @@ class BikeStatusViewCell: UICollectionViewCell {
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(rgba:0xE5E6EBFF).cgColor
+        button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -92,6 +93,7 @@ class BikeStatusViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         locationButton.setImagePosition(type: .imageLeft, Space: 2)
+        statusButton.setImagePosition(type: .imageLeft, Space: 9)
     }
 }
 

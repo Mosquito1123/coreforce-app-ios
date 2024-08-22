@@ -46,8 +46,6 @@ class BikeActionViewCell: UICollectionViewCell {
     }()
     lazy var submitButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.layer.cornerRadius = 25
-        button.layer.masksToBounds = true
         button.tintAdjustmentMode = .automatic
         button.setTitle("续费", for: .normal)
         button.setTitle("续费", for: .highlighted)

@@ -33,14 +33,17 @@ class BatteryStatus:ListDiffable{
     
     
 }
+struct BatteryInfoItem:Convertible{
+    var id:Int?
+    var title:String?
+    var content:String?
+}
 class BatteryInfo:ListDiffable{
     let id: Int
-    let num: String
-    let vin:String
-    init(id: Int, num: String,vin:String) {
+    let items:[BatteryInfoItem]
+    init(id: Int, items:[BatteryInfoItem]) {
         self.id = id
-        self.num = num
-        self.vin = vin
+        self.items = items
     }
     // MARK: - ListDiffable
     
@@ -50,7 +53,7 @@ class BatteryInfo:ListDiffable{
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let object = object as? BatteryInfo else { return false }
-        return vin == object.vin
+        return id == object.id
     }
 }
 

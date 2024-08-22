@@ -33,14 +33,17 @@ class BikeStatus:ListDiffable{
     
     
 }
+struct BikeInfoItem:Convertible{
+    var id:Int?
+    var title:String?
+    var content:String?
+}
 class BikeInfo:ListDiffable{
     let id: Int
-    let num: String
-    let vin:String
-    init(id: Int, num: String,vin:String) {
+    let items: [BikeInfoItem]
+    init(id: Int, items:[BikeInfoItem]) {
         self.id = id
-        self.num = num
-        self.vin = vin
+        self.items = items
     }
     // MARK: - ListDiffable
     
@@ -50,7 +53,7 @@ class BikeInfo:ListDiffable{
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let object = object as? BikeInfo else { return false }
-        return vin == object.vin
+        return id == object.id
     }
 }
 

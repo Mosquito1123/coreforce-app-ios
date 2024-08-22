@@ -32,7 +32,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             mainController = GuideViewController()
                    
         }else{
-            mainController = MainTabBarController.defaultMainController()
+            if let _ = AccountManager.shared.phoneNum{
+                mainController = MainTabBarController.defaultMainController()
+                mainController.modalPresentationStyle = .fullScreen
+            }else{
+                let loginVC = LoginViewController()
+                let nav = UINavigationController(rootViewController: loginVC)
+                nav.modalPresentationStyle = .fullScreen
+                nav.modalTransitionStyle = .coverVertical
+                mainController = nav
+                
+            }
 
         }
         

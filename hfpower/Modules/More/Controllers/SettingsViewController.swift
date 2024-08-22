@@ -178,11 +178,10 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
             self.navigationController?.pushViewController(aboutViewController, animated: true)
         }else if item.title == "退出登录" {
             tableView.deselectRow(at: indexPath, animated: true)
-            if self.isViewLoaded{
-                self.debounce?.call {
-                    self.logoutBehavior()
-                    
-                }
+            self.showAlertController(titleText: "提示", messageText: "确定要退出吗？",okAction: {
+                self.logoutBehavior()
+            },isCancelAlert: true) {
+                
             }
         }else if item.title == "修改密码" {
             let changePasswordController = ChangePasswordViewController()
@@ -214,8 +213,15 @@ private extension SettingsViewController {
         NetworkService<AuthAPI,BlankResponse>().request(.logout) { result in
             switch result {
             case.success:
-                NotificationCenter.default.post(name: .userLoggedOut, object: nil)
-                self.navigationController?.popViewController(animated: true)
+                TokenManager.shared.clearTokens()
+                AccountManager.shared.clearAccount()
+                MainManager.shared.resetAll()
+                let loginVC = LoginViewController()
+                let nav = UINavigationController(rootViewController: loginVC)
+                nav.modalPresentationStyle = .fullScreen
+                nav.modalTransitionStyle = .coverVertical
+                let mainController = nav
+                UIViewController.ex_keyWindow()?.rootViewController = mainController
                 self.hasLogoutBlock?()
                 
             case .failure(let error):

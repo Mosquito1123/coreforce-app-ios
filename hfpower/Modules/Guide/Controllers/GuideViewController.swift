@@ -154,8 +154,19 @@ private extension GuideViewController {
 // MARK: - Action
 @objc private extension GuideViewController {
     @objc func buttonTapped(_ sender:UIButton){
-        let mainController = MainTabBarController.defaultMainController()
-        mainController.modalPresentationStyle = .fullScreen
+        let mainController:UIViewController
+        if let _ = AccountManager.shared.phoneNum{
+            mainController = MainTabBarController.defaultMainController()
+            mainController.modalPresentationStyle = .fullScreen
+
+        }else{
+            let loginVC = LoginViewController()
+            let nav = UINavigationController(rootViewController: loginVC)
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .coverVertical
+            mainController = nav
+            
+        }
         self.present(mainController, animated: true)
     }
 }

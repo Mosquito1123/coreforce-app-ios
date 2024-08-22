@@ -12,7 +12,6 @@ class HomeViewController: UIViewController{
     
     // MARK: - Accessor
     var homeObservation:NSKeyValueObservation?
-    var accountObservation:NSKeyValueObservation?
     var accountIsAuthObservation:NSKeyValueObservation?
     var cityCodeObservation:NSKeyValueObservation?
     let mapViewController = MapViewController()
@@ -104,27 +103,7 @@ class HomeViewController: UIViewController{
                 
             }
         })
-        accountObservation = AccountManager.shared.observe(\.phoneNum,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
-            if let newName = change.newValue,let _ = newName {
-                self.headerStackView.removeArrangedSubview(self.needLoginView)
-                self.needLoginView.removeFromSuperview()
-            }else{
-                if self.headerStackView.arrangedSubviews.contains(self.needAuthView){
-                    self.headerStackView.removeArrangedSubview(self.needAuthView)
-                    self.needAuthView.removeFromSuperview()
-                }
-                self.headerStackView.insertArrangedSubview(self.needLoginView, at: 0)
-                if let oldNum = change.newValue,let _ = oldNum{
-                    if self.isViewLoaded{
-                        let loginVC = LoginViewController()
-                        let nav = UINavigationController(rootViewController: loginVC)
-                        nav.modalPresentationStyle = .fullScreen
-                        nav.modalTransitionStyle = .coverVertical
-                        self.present(nav, animated: true)
-                    }
-                }
-            }
-        })
+        
         accountIsAuthObservation = AccountManager.shared.observe(\.isAuth,options: [.old,.new,.initial], changeHandler: { accountManager, change in
             if let tempAuth = change.newValue,let isAuth = tempAuth {
                 if  isAuth == 1 {
@@ -146,8 +125,7 @@ class HomeViewController: UIViewController{
         
     }
     func startObserving(){
-        NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: .userLoggedIn, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleLoginState(_:)), name: .userLoggedOut, object: nil)
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAuthState(_:)), name: .userAuthenticated, object: nil)
         
@@ -265,7 +243,6 @@ class HomeViewController: UIViewController{
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        accountObservation?.invalidate()
         accountIsAuthObservation?.invalidate()
         cityCodeObservation?.invalidate()
     }
@@ -296,14 +273,7 @@ private extension HomeViewController {
         }
         self.view.addSubview(headerStackBatteryView)
         
-        needLoginView.loginAction = { (sender) -> Void in
-            let loginVC = LoginViewController()
-            
-            let nav = UINavigationController(rootViewController: loginVC)
-            nav.modalPresentationStyle = .fullScreen
-            nav.modalTransitionStyle = .coverVertical
-            self.present(nav, animated: true)
-        }
+       
         self.view.addSubview(locationChooseView)
         locationChooseView.chooseCityAction = { (sender) -> Void in
             let cityChooseVC = CityChooseViewController()

@@ -92,7 +92,10 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
     func setupData(){
         self.data = [
             BikeStatus(id:0, value: "", status: 0, address: "李沧区青山路700号"),
-            BikeInfo(id: 1, num:"", vin: ""),
+            BikeInfo(id: 1, items:[
+                BikeInfoItem(),
+                BikeInfoItem(),
+            ]),
             BikeRemainingTerm(id: 2, remainingTerm: ""),
             BikeAgent(id: 3, agentName: ""),
             BikeAction(id: 4, items: [
@@ -120,7 +123,7 @@ private extension BikeDetailViewController {
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
         backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 20, height: 20)), for: .highlighted)
-        backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .highlighted)  // 设置自定义图片
+        backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .normal)  // 设置自定义图片
         backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .highlighted)  // 设置自定义图片
         backButton.setTitle("", for: .normal)  // 设置标题
         backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
@@ -176,6 +179,10 @@ private extension BikeDetailViewController {
 
 
 class BikeStatusSectionController: ListSectionController {
+    override init() {
+        super.init()
+        inset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+    }
     override func numberOfItems() -> Int {
         return 1
     }
@@ -242,7 +249,7 @@ class BikeActionSectionController: ListSectionController {
         return 2
     }
     override func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: (collectionContext?.containerSize.width ?? 0 - 24 - 15)/2, height: 64)
+        return CGSize(width: ((collectionContext?.containerSize.width ?? 0) - 24 - 15)/2, height: 64)
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
