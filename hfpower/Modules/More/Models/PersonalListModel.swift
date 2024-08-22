@@ -15,6 +15,7 @@ struct PersonalList:Convertible{
     var identifier: String?
     var detail: String?
     var items:[PersonalListItem]?
+    var extra:Any?
 }
 struct PersonalListItem:Convertible{
     var id:Int?

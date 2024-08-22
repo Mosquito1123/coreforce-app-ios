@@ -38,10 +38,10 @@ class SettingsViewController: BaseViewController {
         super.viewDidLoad()
         self.debounce  = Debounce(interval: 0.2)
         self.view.backgroundColor = UIColor.white
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         setupNavbar()
         setupSubviews()
         setupLayout()
+        self.navigationController?.isNavigationBarHidden = false
         self.items = [
             Settings(id: 0,title: "",items: [
                 SettingsItem(id: 0, title: "低电量提醒", content: "",type: 0),
@@ -68,36 +68,7 @@ class SettingsViewController: BaseViewController {
                 SettingsItem(id: 0, title: "退出登录", content: "",type: 3),
             ]),]
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-        // 设置导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(UIColor.white.toImage(), for: .default)
-            navigationBar.shadowImage = UIColor.white.toImage()
-            
-            // 设置标题字体和颜色
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.black,
-                .font: UIFont.systemFont(ofSize: 20)
-            ]
-            navigationBar.titleTextAttributes = titleAttributes
-        }
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // 恢复导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(nil, for: .default)
-            navigationBar.shadowImage = nil
-            
-            // 恢复标题字体和颜色
-            navigationBar.titleTextAttributes = nil
-        }
-    }
 }
 
 // MARK: - Setup

@@ -11,8 +11,6 @@ import MapKit
 class HomeViewController: UIViewController{
     
     // MARK: - Accessor
-    var homeObservation:NSKeyValueObservation?
-    var accountIsAuthObservation:NSKeyValueObservation?
     var cityCodeObservation:NSKeyValueObservation?
     let mapViewController = MapViewController()
     // MARK: - Subviews
@@ -91,30 +89,10 @@ class HomeViewController: UIViewController{
             self.fetchAuthData()
             self.fetchActivities()
         }
-       
-        homeObservation = MainManager.shared.observe(\.batteryDetail,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
-            if let temp = change.newValue,let batteryDetail = temp {
-                self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
-                self.headerStackBatteryView.addSubview(self.batteryView)
-                
-            }else{
-                self.headerStackBatteryView.removeArrangedSubview(self.batteryView)
-                self.batteryView.removeFromSuperview()
-                
-            }
-        })
         
-        accountIsAuthObservation = AccountManager.shared.observe(\.isAuth,options: [.old,.new,.initial], changeHandler: { accountManager, change in
-            if let tempAuth = change.newValue,let isAuth = tempAuth {
-                if  isAuth == 1 {
-                    self.headerStackView.removeArrangedSubview(self.needAuthView)
-                    self.needAuthView.removeFromSuperview()
-                }else{
-                    self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
-                    
-                }
-            }
-        })
+        
+        
+        
         
         cityCodeObservation = CityCodeManager.shared.observe(\.cityName,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
             if let newName = change.newValue,let x = newName {
@@ -127,7 +105,6 @@ class HomeViewController: UIViewController{
     func startObserving(){
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAuthState(_:)), name: .userAuthenticated, object: nil)
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -153,7 +130,12 @@ class HomeViewController: UIViewController{
                 
                 AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
                 if  AccountManager.shared.isAuth == 1{
-                    NotificationCenter.default.post(name: .userAuthenticated, object: nil)
+                    self.headerStackView.removeArrangedSubview(self.needAuthView)
+                    self.needAuthView.removeFromSuperview()
+                    self.fetchData()
+                }else{
+                    self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
+                    
                     
                 }
                 
@@ -198,6 +180,15 @@ class HomeViewController: UIViewController{
                 case.success(let response):
                     
                     MainManager.shared.batteryDetail = BatteryDetail.fromStruct(response?.pageResult?.dataList?.first)
+                    if let batteryDetail = MainManager.shared.batteryDetail {
+                        self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
+                        self.headerStackBatteryView.addSubview(self.batteryView)
+                        
+                    }else{
+                        self.headerStackBatteryView.removeArrangedSubview(self.batteryView)
+                        self.batteryView.removeFromSuperview()
+                        
+                    }
                     
                 case .failure(let error):
                     debugPrint(error)
@@ -242,8 +233,6 @@ class HomeViewController: UIViewController{
     
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
-        accountIsAuthObservation?.invalidate()
         cityCodeObservation?.invalidate()
     }
     
@@ -273,7 +262,7 @@ private extension HomeViewController {
         }
         self.view.addSubview(headerStackBatteryView)
         
-       
+        
         self.view.addSubview(locationChooseView)
         locationChooseView.chooseCityAction = { (sender) -> Void in
             let cityChooseVC = CityChooseViewController()
@@ -410,7 +399,7 @@ private extension HomeViewController {
                 self.fetchAuthData()
                 self.fetchActivities()
             }
-           
+            
         }
         
         

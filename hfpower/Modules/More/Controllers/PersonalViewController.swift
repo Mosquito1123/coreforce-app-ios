@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PersonalViewController: UIViewController {
+class PersonalViewController: BaseViewController {
     
     // MARK: - Accessor
     var items = [PersonalList](){
@@ -43,9 +43,12 @@ class PersonalViewController: UIViewController {
         setupSubviews()
         setupLayout()
         loadMemberData()
-        self.items = [PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier()),PersonalList(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier()),PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier()),PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
-            PersonalListItem(title: "我的订单",icon: "order"),PersonalListItem(title: "购买套餐",icon: "buy"),PersonalListItem(title: "电池寄存",icon: "post"),PersonalListItem(title: "卡仓取电",icon: "fetch_b"),PersonalListItem(title: "邀请有礼",icon: "invite"),PersonalListItem(title: "用户反馈",icon:"remark"),PersonalListItem(title: "用户指南",icon: "guide"),PersonalListItem(title: "消息通知",icon: "message"),PersonalListItem(title: "常见问题",icon:"qa"),PersonalListItem(title: "领券中心",icon: "coupon")
-        ])]
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
     }
     func loadMemberData(){
         NetworkService<MemberAPI,MemberResponse>().request(.member) { result in
@@ -54,8 +57,43 @@ class PersonalViewController: UIViewController {
                 
                 AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
                 if  AccountManager.shared.isAuth == 1{
-                    NotificationCenter.default.post(name: .userAuthenticated, object: nil)
-                    
+                    self.items = [
+                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: response?.member),
+                        PersonalList(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier()),
+                        PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
+                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier()),
+                        PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
+                        PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
+                        PersonalListItem(title: "我的订单",icon: "order"),
+                        PersonalListItem(title: "购买套餐",icon: "buy"),
+                        PersonalListItem(title: "电池寄存",icon: "post"),
+                        PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
+                        PersonalListItem(title: "邀请有礼",icon: "invite"),
+                        PersonalListItem(title: "用户反馈",icon:"remark"),
+                        PersonalListItem(title: "用户指南",icon: "guide"),
+                        PersonalListItem(title: "消息通知",icon: "message"),
+                        PersonalListItem(title: "常见问题",icon:"qa"),
+                        PersonalListItem(title: "领券中心",icon: "coupon")
+                    ])]
+                }else{
+                    self.items = [
+                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: response?.member),
+                        PersonalList(title: "立即实名",cellHeight: 55, identifier: AuthorityViewCell.cellIdentifier()),
+                        PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
+                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier()),
+                        PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
+                        PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
+                        PersonalListItem(title: "我的订单",icon: "order"),
+                        PersonalListItem(title: "购买套餐",icon: "buy"),
+                        PersonalListItem(title: "电池寄存",icon: "post"),
+                        PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
+                        PersonalListItem(title: "邀请有礼",icon: "invite"),
+                        PersonalListItem(title: "用户反馈",icon:"remark"),
+                        PersonalListItem(title: "用户指南",icon: "guide"),
+                        PersonalListItem(title: "消息通知",icon: "message"),
+                        PersonalListItem(title: "常见问题",icon:"qa"),
+                        PersonalListItem(title: "领券中心",icon: "coupon")
+                    ])]
                 }
                 
             case .failure(let error):
@@ -66,10 +104,7 @@ class PersonalViewController: UIViewController {
     }
     deinit {
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
+    
 }
 
 // MARK: - Setup
@@ -108,6 +143,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
         guard let identifier = item.identifier else {return UITableViewCell()}
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         if let headerCell = cell as? PersonalHeaderViewCell{
+            headerCell.element = item
             headerCell.settingsAction = {button in
                 let settings = SettingsViewController()
                 settings.hasLogoutBlock = {

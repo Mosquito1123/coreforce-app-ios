@@ -10,6 +10,15 @@ import UIKit
 class PersonalHeaderViewCell: UITableViewCell {
     
     // MARK: - Accessor
+    var element:PersonalList?{
+        didSet{
+            if let member = element?.extra as? Member{
+                titleLabel.text = member.nickname
+                subTitleLabel.text = member.phoneNum
+                authorityButton.isVerified = AccountManager.shared.isAuth == 1
+            }
+        }
+    }
     var settingsAction:ButtonActionBlock?
     // MARK: - Subviews
     lazy var settingsButton: UIButton = {
