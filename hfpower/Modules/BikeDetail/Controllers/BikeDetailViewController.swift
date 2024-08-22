@@ -93,16 +93,14 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
         self.data = [
             BikeStatus(id:0, value: "", status: 0, address: "李沧区青山路700号"),
             BikeInfo(id: 1, items:[
-                BikeInfoItem(),
-                BikeInfoItem(),
+                BikeInfoItem(id: 0,title: "电车编号",content: "TQ1234456"),
+                BikeInfoItem(id: 1,title: "车架编号",content: "QYN34445232"),
             ]),
-            BikeRemainingTerm(id: 2, remainingTerm: ""),
-            BikeAgent(id: 3, agentName: ""),
+            BikeRemainingTerm(id: 2, title: "剩余租期",content: "28天17小时"),
+            BikeAgent(id: 3, title: "代理商名称",content: "青岛片区"),
             BikeAction(id: 4, items: [
-                BikeActionItem(),
-                BikeActionItem(),
-                BikeActionItem(),
-                BikeActionItem()
+                BikeActionItem(id: 0, name: "退租", icon: "device_rent_out"),
+                BikeActionItem(id: 1, name: "续费", icon: "device_renewal"),
             ]),
             BikeSite(id: 5, sites: [
                 BikeSiteItem(),
@@ -212,15 +210,28 @@ class BikeInfoSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BikeInfoViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BikeInfoViewCell.self, for: self, at: index) as? BikeInfoViewCell else {return BikeInfoViewCell()}
         // 配置图片和状态
+        // 判断第一个和最后一个cell并设置圆角
+        if index == 0 {
+            cell.cornerType = .first
+        } else if index == bikeInfo.items.count - 1 {
+            cell.cornerType = .last
+        }
+        cell.element = bikeInfo.items[index]
         return cell
     }
+
     override func didUpdate(to object: Any) {
         bikeInfo = object as? BikeInfo
     }
 }
 class BikeRemainingTermSectionController: ListSectionController {
+    override init() {
+        super.init()
+        inset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+
+    }
     private var bikeRemainingTerm: BikeRemainingTerm!
 
     override func sizeForItem(at index: Int) -> CGSize {
@@ -228,8 +239,9 @@ class BikeRemainingTermSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BikeRemainingTermViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BikeRemainingTermViewCell.self, for: self, at: index) as? BikeRemainingTermViewCell else {return UICollectionViewCell()}
         // 配置图片和状态
+        cell.element = bikeRemainingTerm
         return cell
     }
     override func didUpdate(to object: Any) {
@@ -237,6 +249,11 @@ class BikeRemainingTermSectionController: ListSectionController {
     }
 }
 class BikeAgentSectionController: ListSectionController {
+    override init() {
+        super.init()
+        inset = UIEdgeInsets(top: 12, left: 0, bottom: 8, right: 0)
+
+    }
     private var bikeAgent: BikeAgent!
 
     override func sizeForItem(at index: Int) -> CGSize {
@@ -244,7 +261,8 @@ class BikeAgentSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BikeAgentViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BikeAgentViewCell.self, for: self, at: index) as? BikeAgentViewCell else {return BikeAgentViewCell()}
+        cell.element = bikeAgent
         // 配置图片和状态
         return cell
     }
@@ -257,7 +275,7 @@ class BikeActionSectionController: ListSectionController {
 
     override init() {
         super.init()
-        inset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        inset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         minimumLineSpacing = 12
         minimumInteritemSpacing = 15
     }
@@ -269,8 +287,9 @@ class BikeActionSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BikeActionViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BikeActionViewCell.self, for: self, at: index) as? BikeActionViewCell else {return UICollectionViewCell()}
         // 配置图片和状态
+        cell.element = bikeAction.items[index]
         return cell
     }
     override func didSelectItem(at index: Int) {

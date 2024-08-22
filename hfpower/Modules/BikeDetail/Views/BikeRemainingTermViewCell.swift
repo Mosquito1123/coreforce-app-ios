@@ -32,7 +32,8 @@ class BikeRemainingTermViewCell: UICollectionViewCell {
     }
     var element:BikeRemainingTerm?{
         didSet{
-            
+            self.titleLabel.text = element?.title
+            self.contentLabel.text = element?.content
             
         }
     }
@@ -47,9 +48,9 @@ class BikeRemainingTermViewCell: UICollectionViewCell {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
-        label.textColor = UIColor(rgba: 0x666666FF)
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.text = "剩余租期"
+        label.textColor = UIColor(rgba: 0x1D2129FF)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +58,7 @@ class BikeRemainingTermViewCell: UICollectionViewCell {
     }()
     lazy var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
+        label.text = "28天17小时"
         label.textColor = UIColor(rgba: 0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textAlignment = .right

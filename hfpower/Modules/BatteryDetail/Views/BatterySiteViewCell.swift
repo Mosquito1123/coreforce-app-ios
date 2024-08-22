@@ -45,34 +45,21 @@ class BatterySiteViewCell: UICollectionViewCell {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
-        label.textColor = UIColor(rgba: 0x666666FF)
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.text = "查看附近推荐站点"
+        label.textColor = UIColor(rgba: 0x1D2129FF)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    lazy var contentLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = UIColor(rgba: 0x333333FF)
-        label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textAlignment = .right
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    lazy var extraLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(rgba: 0xFF3A3AFF)
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textAlignment = .right
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     
+    lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "icon_arrow_right_gray")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     // MARK: - Static
     class func cellIdentifier() -> String {
         return String(describing: self)
@@ -105,8 +92,8 @@ private extension BatterySiteViewCell {
         self.contentView.backgroundColor = .clear
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(contentLabel)
-        containerView.addSubview(extraLabel)
+      
+        containerView.addSubview(iconImageView)
     }
     
     private func setupLayout() {
@@ -122,12 +109,11 @@ private extension BatterySiteViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
             titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,constant: -16),
             // Content label constraints
-            contentLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
-            contentLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
-            contentLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor,constant: -16),
-             
-            extraLabel.trailingAnchor.constraint(equalTo: contentLabel.leadingAnchor, constant: -10),
-            extraLabel.centerYAnchor.constraint(equalTo: contentLabel.centerYAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            iconImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            iconImageView.widthAnchor.constraint(equalToConstant: 18),
+            iconImageView.heightAnchor.constraint(equalToConstant: 18),
+
         ])
     }
     

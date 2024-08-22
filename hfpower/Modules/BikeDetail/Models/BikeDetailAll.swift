@@ -59,10 +59,12 @@ class BikeInfo:ListDiffable{
 
 class BikeRemainingTerm:ListDiffable{
     let id: Int
-    let remainingTerm: String
-    init(id: Int,remainingTerm:String) {
+    let title:String
+    let content: String
+    init(id: Int,title:String,content:String) {
         self.id = id
-        self.remainingTerm = remainingTerm
+        self.title = title
+        self.content = content
     }
     // MARK: - ListDiffable
     
@@ -77,10 +79,12 @@ class BikeRemainingTerm:ListDiffable{
 }
 class BikeAgent:ListDiffable{
     let id: Int
-    let agentName: String
-    init(id: Int,agentName:String) {
+    let title:String
+    let content: String
+    init(id: Int,title:String,content:String) {
         self.id = id
-        self.agentName = agentName
+        self.title = title
+        self.content = content
     }
     // MARK: - ListDiffable
     

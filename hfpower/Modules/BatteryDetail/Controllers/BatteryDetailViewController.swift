@@ -91,17 +91,16 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
         self.data = [
             BatteryStatus(id:0, value: "", status: 0, address: "李沧区青山路700号"),
             BatteryInfo(id: 1, items: [
-                BatteryInfoItem(),
-                BatteryInfoItem(),
+                BatteryInfoItem(id: 0,title: "电池编号",content: "TQ1234456"),
+                BatteryInfoItem(id: 1,title: "电池型号",content: "QYN34445232"),
 
             ]),
-            BatteryRemainingTerm(id: 2, remainingTerm: ""),
-            BatteryAgent(id: 3, agentName: ""),
+            BatteryRemainingTerm(id: 2,title: "", remainingTerm: ""),
             BatteryAction(id: 4, items: [
-                BatteryActionItem(),
-                BatteryActionItem(),
-                BatteryActionItem(),
-                BatteryActionItem()
+                BatteryActionItem(id: 0, name: "续费", icon: "device_renewal"),
+                BatteryActionItem(id: 1, name: "响铃", icon: "device_ring"),
+                BatteryActionItem(id: 2, name: "退租", icon: "device_rent_out"),
+                BatteryActionItem(id: 3, name: "寄存", icon: "device_post")
             ]),
             BatterySite(id: 5, sites: [
                 BatterySiteItem(),
@@ -209,8 +208,15 @@ class BatteryInfoSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryInfoViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryInfoViewCell.self, for: self, at: index) as? BatteryInfoViewCell else {return BatteryInfoViewCell()}
         // 配置图片和状态
+        // 判断第一个和最后一个cell并设置圆角
+        if index == 0 {
+            cell.cornerType = .first
+        } else if index == batteryInfo.items.count - 1 {
+            cell.cornerType = .last
+        }
+        cell.element = batteryInfo.items[index]
         return cell
     }
     override func didUpdate(to object: Any) {
@@ -218,6 +224,11 @@ class BatteryInfoSectionController: ListSectionController {
     }
 }
 class BatteryRemainingTermSectionController: ListSectionController {
+    override init() {
+        super.init()
+        inset = UIEdgeInsets(top: 12, left: 0, bottom: 8, right: 0)
+
+    }
     private var batteryRemainingTerm: BatteryRemainingTerm!
 
     override func sizeForItem(at index: Int) -> CGSize {
@@ -225,8 +236,9 @@ class BatteryRemainingTermSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryRemainingTermViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryRemainingTermViewCell.self, for: self, at: index) as? BatteryRemainingTermViewCell else {return UICollectionViewCell()}
         // 配置图片和状态
+        cell.element = batteryRemainingTerm
         return cell
     }
     override func didUpdate(to object: Any) {
@@ -257,7 +269,7 @@ class BatteryActionSectionController: ListSectionController {
     }
     override init() {
         super.init()
-        inset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        inset = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         minimumLineSpacing = 12
         minimumInteritemSpacing = 15
     }
@@ -267,9 +279,10 @@ class BatteryActionSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryActionViewCell.self, for: self, at: index) else {
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryActionViewCell.self, for: self, at: index) as? BatteryActionViewCell else {
             return UICollectionViewCell()}
         // 配置图片和状态
+        cell.element = batteryAction.items[index]
         return cell
     }
     override func didSelectItem(at index: Int) {

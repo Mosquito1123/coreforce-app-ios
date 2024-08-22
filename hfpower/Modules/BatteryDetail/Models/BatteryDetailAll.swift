@@ -59,9 +59,11 @@ class BatteryInfo:ListDiffable{
 
 class BatteryRemainingTerm:ListDiffable{
     let id: Int
+    let title:String
     let remainingTerm: String
-    init(id: Int,remainingTerm:String) {
+    init(id: Int,title:String,remainingTerm:String) {
         self.id = id
+        self.title = title
         self.remainingTerm = remainingTerm
     }
     // MARK: - ListDiffable
@@ -77,9 +79,11 @@ class BatteryRemainingTerm:ListDiffable{
 }
 class BatteryAgent:ListDiffable{
     let id: Int
+    let title:String
     let agentName: String
-    init(id: Int,agentName:String) {
+    init(id: Int,title:String,agentName:String) {
         self.id = id
+        self.title = title
         self.agentName = agentName
     }
     // MARK: - ListDiffable

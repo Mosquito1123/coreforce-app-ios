@@ -31,7 +31,10 @@ class BikeActionViewCell: UICollectionViewCell {
     var element:BikeActionItem?{
         didSet{
             
-            
+            submitButton.setTitle(element?.name, for: .normal)
+            submitButton.setTitle(element?.name, for: .highlighted)
+            submitButton.setImage(UIImage(named: element?.icon ?? "device_renewal"), for: .normal)
+            submitButton.setImage(UIImage(named: element?.icon ?? "device_renewal"), for: .highlighted)
         }
     }
     
@@ -54,7 +57,7 @@ class BikeActionViewCell: UICollectionViewCell {
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setImage(UIImage(named: "device_renewal"), for: .normal)
-        button.setImage(UIImage(named: "device_renewal"), for: .selected)
+        button.setImage(UIImage(named: "device_renewal"), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17,weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         
