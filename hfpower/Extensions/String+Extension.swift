@@ -50,3 +50,47 @@ extension Notification.Name {
     static let userLoggedOut = Notification.Name("UserLoggedOutNotification")
     static let userAuthenticated = Notification.Name("UserAuthenticatedNotification")
 }
+extension String {
+    func timeRemaining() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = Locale(identifier: "zh_Hans_CN")
+
+        guard let date = formatter.date(from: self) else {
+            return "Invalid date format"
+        }
+
+        let now = Date()
+        let timeDifference = date.timeIntervalSince1970 - now.timeIntervalSince1970
+
+        if timeDifference < 0 {
+            return "已过期"
+        } else if timeDifference < 24 * 60 * 60 {
+            let hours = Int(floor(timeDifference / (60 * 60)))
+            return "\(hours)小时"
+        } else {
+            let days = Int(floor(timeDifference / (24 * 60 * 60)))
+            return "\(days)天"
+        }
+    }
+    func overdueOrExpiringSoon() -> Bool {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = Locale(identifier: "zh_Hans_CN")
+        guard let date = formatter.date(from: self) else {
+            return true
+        }
+        let now = Date()
+        let timeDifference = date.timeIntervalSince1970 - now.timeIntervalSince1970
+
+        if timeDifference < 0 {
+            return true
+        } else if timeDifference < 24 * 60 * 60 {
+            let hours = Int(floor(timeDifference / (60 * 60)))
+            return true
+        } else {
+            let days = Int(floor(timeDifference / (24 * 60 * 60)))
+            return false
+        }
+    }
+}

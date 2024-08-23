@@ -41,7 +41,6 @@ class SettingsViewController: BaseViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.navigationController?.isNavigationBarHidden = false
         self.items = [
             Settings(id: 0,title: "",items: [
                 SettingsItem(id: 0, title: "低电量提醒", content: "",type: 0),
@@ -76,7 +75,32 @@ private extension SettingsViewController {
     
     private func setupNavbar() {
         self.title = "设置"
+        self.navigationController?.isNavigationBarHidden = false
+
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
+        // 自定义返回按钮
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(named: "customer_service_back")?.colorized(with: UIColor.black)?.resized(toSize: CGSize.init(width: 12, height: 20)), for: .normal)  // 设置自定义图片
+        backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色为白色
+        appearance.backgroundImage = UIColor.white.toImage()
+        appearance.shadowImage = UIColor.white.toImage()
+        
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
     }
     
     private func setupSubviews() {

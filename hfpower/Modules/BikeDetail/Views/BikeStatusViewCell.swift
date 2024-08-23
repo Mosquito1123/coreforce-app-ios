@@ -10,7 +10,32 @@ import UIKit
 class BikeStatusViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    
+    var bikeStatus:BikeStatus?{
+        didSet{
+            let status = bikeStatus?.bikeDetail.status ?? 0
+            switch status {
+            case 1:
+                statusButton.setTitle("未出租", for: .normal)
+                statusButton.setTitle("未出租", for: .highlighted)
+            case 2:
+                statusButton.setTitle("已出租", for: .normal)
+                statusButton.setTitle("已出租", for: .highlighted)
+            case 3:
+                statusButton.setTitle("已过期(未归还)", for: .normal)
+                statusButton.setTitle("已过期(未归还)", for: .highlighted)
+            case 4:
+                statusButton.setTitle("丢失", for: .normal)
+                statusButton.setTitle("丢失", for: .highlighted)
+            case 5:
+                statusButton.setTitle("损坏/报废", for: .normal)
+                statusButton.setTitle("损坏/报废", for: .highlighted)
+            default:
+                statusButton.setTitle("异常/停用", for: .normal)
+                statusButton.setTitle("异常/停用", for: .highlighted)
+            }
+
+        }
+    }
     // MARK: - Subviews
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()

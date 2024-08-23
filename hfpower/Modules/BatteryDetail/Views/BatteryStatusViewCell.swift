@@ -10,7 +10,27 @@ import UIKit
 class BatteryStatusViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    
+    var batteryStatus:BatteryStatus?{
+        didSet{
+            let percent = batteryStatus?.batteryDetail.mcuCapacityPercent?.doubleValue ?? 0
+
+              let imageName: String
+              switch percent {
+              case 80...100:
+                  imageName = "device_battery_high"
+              case 20..<80:
+                  imageName = "device_battery_medium"
+              case 0..<20:
+                  imageName = "device_battery_low"
+              default:
+                  imageName = "" // Handle unexpected values (optional)
+              }
+
+              logoImageView.image = UIImage(named: imageName)
+              titleLabel.text = "\(percent)%"
+
+        }
+    }
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()

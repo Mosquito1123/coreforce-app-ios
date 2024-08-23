@@ -88,29 +88,32 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
         collectionView.backgroundView = backgroundView
     }
     func setupData(){
-        self.data = [
-            BatteryStatus(id:0, value: "", status: 0, address: "李沧区青山路700号"),
-            BatteryInfo(id: 1, items: [
-                BatteryInfoItem(id: 0,title: "电池编号",content: "TQ1234456"),
-                BatteryInfoItem(id: 1,title: "电池型号",content: "QYN34445232"),
+        if let batteryDetail = MainManager.shared.batteryDetail {
+            self.data = [
+                BatteryStatus(id:0, batteryDetail: batteryDetail),
+                BatteryInfo(id: 1, items: [
+                    BatteryInfoItem(id: 0,title: "电池编号",content: batteryDetail.number),
+                    BatteryInfoItem(id: 1,title: "电池型号",content: batteryDetail.name),
 
-            ]),
-            BatteryRemainingTerm(id: 2,title: "", remainingTerm: ""),
-            BatteryAction(id: 4, items: [
-                BatteryActionItem(id: 0, name: "续费", icon: "device_renewal"),
-                BatteryActionItem(id: 1, name: "响铃", icon: "device_ring"),
-                BatteryActionItem(id: 2, name: "退租", icon: "device_rent_out"),
-                BatteryActionItem(id: 3, name: "寄存", icon: "device_post")
-            ]),
-            BatterySite(id: 5, sites: [
-                BatterySiteItem(),
-                BatterySiteItem(),
-                BatterySiteItem(),
-                BatterySiteItem()
-            ]),
-            ContactInfo(id: 6, name: "", phoneNumber: "400-6789-509")
-            
-        ]
+                ]),
+                BatteryRemainingTerm(id: 2,title: "剩余租期", remainingTerm: batteryDetail.batteryEndDate?.timeRemaining() ?? ""),
+                BatteryAction(id: 4, items: [
+                    BatteryActionItem(id: 0, name: "续费", icon: "device_renewal"),
+                    BatteryActionItem(id: 1, name: "响铃", icon: "device_ring"),
+                    BatteryActionItem(id: 2, name: "退租", icon: "device_rent_out"),
+                    BatteryActionItem(id: 3, name: "寄存", icon: "device_post")
+                ]),
+                BatterySite(id: 5, sites: [
+                    BatterySiteItem(),
+                    BatterySiteItem(),
+                    BatterySiteItem(),
+                    BatterySiteItem()
+                ]),
+                ContactInfo(id: 6, name: "", phoneNumber: "400-6789-509")
+                
+            ]
+        }
+        
     }
 }
 

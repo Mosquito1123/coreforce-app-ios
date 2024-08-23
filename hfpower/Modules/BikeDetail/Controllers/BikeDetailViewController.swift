@@ -90,27 +90,27 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
         collectionView.backgroundView = backgroundView
     }
     func setupData(){
-        self.data = [
-            BikeStatus(id:0, value: "", status: 0, address: "李沧区青山路700号"),
-            BikeInfo(id: 1, items:[
-                BikeInfoItem(id: 0,title: "电车编号",content: "TQ1234456"),
-                BikeInfoItem(id: 1,title: "车架编号",content: "QYN34445232"),
-            ]),
-            BikeRemainingTerm(id: 2, title: "剩余租期",content: "28天17小时"),
-            BikeAgent(id: 3, title: "代理商名称",content: "青岛片区"),
-            BikeAction(id: 4, items: [
-                BikeActionItem(id: 0, name: "退租", icon: "device_rent_out"),
-                BikeActionItem(id: 1, name: "续费", icon: "device_renewal"),
-            ]),
-            BikeSite(id: 5, sites: [
-                BikeSiteItem(),
-                BikeSiteItem(),
-                BikeSiteItem(),
-                BikeSiteItem()
-            ]),
-            ContactInfo(id: 6, name: "", phoneNumber: "400-6789-509")
-            
-        ]
+        if let bikeDetail = MainManager.shared.bikeDetail {
+            self.data = [
+                BikeStatus(id:0,bikeDetail: bikeDetail),
+                BikeInfo(id: 1, items:[
+                    BikeInfoItem(id: 0,title: "电车编号",content: bikeDetail.number),
+                    BikeInfoItem(id: 1,title: "车架编号",content: bikeDetail.vin),
+                ]),
+                BikeRemainingTerm(id: 2, title: "剩余租期",content: bikeDetail.locomotiveEndDate?.timeRemaining() ?? ""),
+                BikeAgent(id: 3, title: "代理商名称",content: bikeDetail.agentName ?? ""),
+                BikeAction(id: 4, items: [
+                    BikeActionItem(id: 0, name: "退租", icon: "device_rent_out"),
+                    BikeActionItem(id: 1, name: "续费", icon: "device_renewal"),
+                ]),
+                BikeSite(id: 5, sites: [
+                    BikeSiteItem(),
+                ]),
+                ContactInfo(id: 6, name: "", phoneNumber: "400-6789-509")
+                
+            ]
+        }
+        
     }
 }
 

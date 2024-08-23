@@ -10,14 +10,10 @@ import IGListKit
 import KakaJSON
 class BikeStatus:ListDiffable{
     let id: Int
-    let value: String
-    let status: Int
-    let address:String
-    init(id: Int, value: String,status:Int,address:String) {
+    let bikeDetail:BikeDetail
+    init(id: Int, bikeDetail:BikeDetail) {
         self.id = id
-        self.value = value
-        self.status = status
-        self.address = address
+        self.bikeDetail = bikeDetail
     }
     
     // MARK: - ListDiffable
@@ -28,7 +24,7 @@ class BikeStatus:ListDiffable{
     
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard let object = object as? BikeStatus else { return false }
-        return value == object.value
+        return bikeDetail.id == object.bikeDetail.id
     }
     
     
