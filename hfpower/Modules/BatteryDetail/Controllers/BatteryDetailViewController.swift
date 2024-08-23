@@ -197,6 +197,13 @@ class BatteryStatusSectionController: ListSectionController {
         guard let cell = collectionContext?.dequeueReusableCell(of: BatteryStatusViewCell.self, for: self, at: index) as? BatteryStatusViewCell else {return BatteryStatusViewCell()}
         // 配置图片和状态
         cell.batteryStatus = batteryStatus
+        cell.navigateAction = { [self] in
+           
+            guard let lat = self.batteryStatus.batteryDetail.lastLat?.doubleValue,let lon = self.batteryStatus.batteryDetail.lastLon?.doubleValue else {
+                self.viewController?.showError(withStatus: "该电池坐标数据有误")
+                return}
+            self.viewController?.mapNavigation(lat: lat, lng:lon, address: batteryStatus.batteryDetail.number, currentController: self.viewController)
+        }
         return cell
     }
     override func didUpdate(to object: Any) {

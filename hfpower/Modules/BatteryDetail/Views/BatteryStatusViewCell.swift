@@ -10,6 +10,7 @@ import UIKit
 class BatteryStatusViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
+    var navigateAction:(()->Void)?
     var batteryStatus:BatteryStatus?{
         didSet{
             let percent = batteryStatus?.batteryDetail.mcuCapacityPercent?.doubleValue ?? 0
@@ -89,6 +90,9 @@ class BatteryStatusViewCell: UICollectionViewCell {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(rgba:0xE5E6EBFF).cgColor
         button.layer.masksToBounds = true
+        button.addAction(for: .touchUpInside) {
+            self.navigateAction?()
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

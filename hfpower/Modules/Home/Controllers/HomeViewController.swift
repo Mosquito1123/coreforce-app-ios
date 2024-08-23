@@ -123,6 +123,7 @@ class HomeViewController: UIViewController{
             case.success(let response):
                 
                 AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
+                AccountManager.shared.memberResponse = response
                 if  AccountManager.shared.isAuth == 1{
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
                     self.needAuthView.removeFromSuperview()

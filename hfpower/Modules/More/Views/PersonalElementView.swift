@@ -16,7 +16,7 @@ class PersonalElementView: UIView {
         let label = UILabel()
         label.text = "- -"
         label.textColor = UIColor(rgba:0x333333FF)
-        label.font = UIFont.systemFont(ofSize: 12,weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 18,weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

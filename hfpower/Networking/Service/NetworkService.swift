@@ -41,7 +41,7 @@ class NetworkService<R:APIType,T: Convertible> {
             
         }
         
-        self.provider?.request(MultiTarget(target),callbackQueue: DispatchQueue.main) { result in
+        self.provider?.request(MultiTarget(target)) { result in
             if needHUD == true{
                 SVProgressHUD.dismiss() // 请求完成时隐藏 Toast
                 
@@ -69,9 +69,7 @@ class NetworkService<R:APIType,T: Convertible> {
                 
             case .failure(let error):
                 if needHUD == true{
-                    DispatchQueue.main.async {
-                        SVProgressHUD.showError(withStatus: error.localizedDescription)
-                    }
+                    SVProgressHUD.showError(withStatus: error.localizedDescription)
                 }
                 // 请求失败，调用失败的 completion 回调
                 if error.response?.statusCode == 401{

@@ -39,6 +39,7 @@ class AccountManager:NSObject{
             UserDefaults.standard.setValue(newValue, forKey: "nickName")
         }
     }
+    var memberResponse:MemberResponse?
     func clearAccount(){
         nickName = nil
         phoneNum = nil

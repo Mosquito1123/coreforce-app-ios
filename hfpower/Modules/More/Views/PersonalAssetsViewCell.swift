@@ -13,7 +13,39 @@ class PersonalAssetsViewCell: PersonalContentViewCell {
     var packageCardBlock:((UITapGestureRecognizer)->Void)?
     var depositBlock:((UITapGestureRecognizer)->Void)?
     var couponBlock:((UITapGestureRecognizer)->Void)?
-
+    var depositData: DepositData?{
+        didSet{
+            if let view12 = self.assetsStackView.viewWithTag(12) as? PersonalElementView{
+                let batteryDeposit = depositData?.batteryDeposit ?? 0
+                let locomotiveDeposit = depositData?.locomotiveDeposit ?? 0
+                let batteryRefundDeposit = depositData?.batteryRefundDeposit ?? 0
+                let locomotiveRefundDeposit = depositData?.locomotiveRefundDeposit ?? 0
+                view12.titleLabel.text = String(format: "%.2f", batteryDeposit + batteryRefundDeposit + locomotiveDeposit  + locomotiveRefundDeposit)
+                view12.subTitleLabel.text = "押金"
+                
+                
+            }
+            
+        }
+    }
+    var payVoucherCount: Int?{
+        didSet{
+            if let view11 = self.assetsStackView.viewWithTag(11) as? PersonalElementView{
+                view11.titleLabel.text = "\(payVoucherCount ?? 0)"
+                view11.subTitleLabel.text = "套餐已购"
+            }
+            
+        }
+    }
+    var couponData: CouponData?{
+        didSet{
+            if let view13 = self.assetsStackView.viewWithTag(13) as? PersonalElementView{
+                view13.titleLabel.text = "\(couponData?.usableCount ?? 0)"
+                view13.subTitleLabel.text = "优惠券"
+            }
+            
+        }
+    }
     // MARK: - Subviews
     lazy var assetsStackView: HFStackView = {
         let stackView = HFStackView()
@@ -45,7 +77,7 @@ class PersonalAssetsViewCell: PersonalContentViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
 }
 
 // MARK: - Setup
@@ -75,7 +107,7 @@ private extension PersonalAssetsViewCell {
         self.assetsStackView.addArrangedSubview(view12)
         self.assetsStackView.addArrangedSubview(view13)
         self.stackView.addArrangedSubview(self.assetsStackView)
-
+        
     }
     
     private func setupLayout() {
