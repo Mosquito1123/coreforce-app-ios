@@ -11,22 +11,13 @@ import ESTabBarController_swift
 class MainTabBarController: ESTabBarController {
     
     // MARK: - Accessor
-    var mainObservation:NSKeyValueObservation?
     // MARK: - Subviews
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(scanTypeChanged(_:)), name: .scanTypeChanged, object: nil)
         
-        mainObservation=MainManager.shared.observe(\.type, options: [.old,.new,.initial], changeHandler: { homeManager, change in
-            if let temp = change.newValue,let type = temp {
-                let type = MainScanItemType(rawValue: type.intValue)
-                if let tabBarItem = self.viewControllers?[1].tabBarItem as? ESTabBarItem,let itemView = tabBarItem.contentView as? MainScanItemView{
-                    itemView.mainScanItemType = type
-                    
-                }
-            }
-        })
         self.didHijackHandler = {
             [weak self] tabbarController, viewController, index in
             let fb =   UIImpactFeedbackGenerator(style: .heavy)
@@ -95,7 +86,7 @@ class MainTabBarController: ESTabBarController {
         tabBar.layer.insertSublayer(shapeLayer, at: 0)
     }
     deinit {
-        mainObservation?.invalidate()
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
@@ -156,7 +147,13 @@ private extension MainTabBarController {
 
 // MARK: - Action
 @objc private extension MainTabBarController {
-    
+    @objc func scanTypeChanged(_ notification:Notification){
+        let type = MainScanItemType(rawValue: MainManager.shared.type?.intValue ?? 0)
+        if let tabBarItem = self.viewControllers?[1].tabBarItem as? ESTabBarItem,let itemView = tabBarItem.contentView as? MainScanItemView{
+            itemView.mainScanItemType = type
+            
+        }
+    }
 }
 
 // MARK: - Private

@@ -11,7 +11,6 @@ import MapKit
 class HomeViewController: UIViewController{
     
     // MARK: - Accessor
-    var cityCodeObservation:NSKeyValueObservation?
     let mapViewController = MapViewController()
     // MARK: - Subviews
     lazy var batteryView:MapBatteryView = {
@@ -94,16 +93,11 @@ class HomeViewController: UIViewController{
         
         
         
-        cityCodeObservation = CityCodeManager.shared.observe(\.cityName,options: [.old,.new,.initial], changeHandler: { tokenManager, change in
-            if let newName = change.newValue,let x = newName {
-                self.locationChooseView.currentLocationButton.setTitle(x, for: .normal)
-                self.mapViewController.moveMap()
-            }
-        })
+        
         
     }
     func startObserving(){
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .cityChanged, object: nil)
         
         
     }
@@ -132,6 +126,7 @@ class HomeViewController: UIViewController{
                 if  AccountManager.shared.isAuth == 1{
                     self.headerStackView.removeArrangedSubview(self.needAuthView)
                     self.needAuthView.removeFromSuperview()
+                    self.mapViewController.locationManager.startUpdatingLocation()
                     self.fetchData()
                 }else{
                     self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
@@ -226,14 +221,14 @@ class HomeViewController: UIViewController{
         
         dispatchGroup.notify(queue: DispatchQueue.main) {
             MainManager.shared.refreshType()
-            
+            NotificationCenter.default.post(name: .scanTypeChanged, object: nil)
         }
     }
     
     
     
     deinit {
-        cityCodeObservation?.invalidate()
+        NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -384,6 +379,10 @@ private extension HomeViewController {
 
 // MARK: - Action
 @objc private extension HomeViewController {
+    @objc func handleCityChanged(_ notification:Notification){
+        self.locationChooseView.currentLocationButton.setTitle(CityCodeManager.shared.cityName, for: .normal)
+        self.mapViewController.moveMap()
+    }
     @objc func needLogin(_ sender:UIButton){
         
     }

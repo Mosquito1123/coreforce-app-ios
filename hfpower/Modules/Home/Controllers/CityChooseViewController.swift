@@ -134,6 +134,7 @@ extension CityChooseViewController:UITableViewDelegate,UITableViewDataSource {
         let citysInAGroup = cityGroups[firstLetter] ?? [[String:Any]]()
         CityCodeManager.shared.cityCode = citysInAGroup[indexPath.row]["code"] as? String
         CityCodeManager.shared.cityName = citysInAGroup[indexPath.row]["name"] as? String
+        NotificationCenter.default.post(name: .cityChanged, object: nil)
         self.navigationController?.dismiss(animated: true)
     }
     

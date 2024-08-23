@@ -48,7 +48,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         super.viewDidLoad()
         // Initialize debounce with a 0.5 second interval
         
-        locationManager.startUpdatingLocation()
+        
 
         setupNavbar()
         setupSubviews()
@@ -70,7 +70,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                         
                         let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
                         CityCodeManager.shared.cityCode = code
-                        
+                        NotificationCenter.default.post(name: .cityChanged, object: nil)
                         self.loadCabinetListData()
                         
                     }
@@ -212,7 +212,6 @@ extension MapViewController{
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            print("用户位置已更新: \(location.coordinate)")
             // 在这里可以执行需要用户位置的逻辑
             // 例如，设置地图的中心点为用户位置
             firstLoadData()
