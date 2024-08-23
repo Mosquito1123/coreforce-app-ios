@@ -57,10 +57,12 @@ class BikeRemainingTerm:ListDiffable{
     let id: Int
     let title:String
     let content: String
-    init(id: Int,title:String,content:String) {
+    let overdueOrExpiringSoon:Bool
+    init(id: Int,title:String,content:String,overdueOrExpiringSoon:Bool = false) {
         self.id = id
         self.title = title
         self.content = content
+        self.overdueOrExpiringSoon = overdueOrExpiringSoon
     }
     // MARK: - ListDiffable
     

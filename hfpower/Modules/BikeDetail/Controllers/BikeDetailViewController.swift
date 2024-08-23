@@ -97,7 +97,7 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
                     BikeInfoItem(id: 0,title: "电车编号",content: bikeDetail.number),
                     BikeInfoItem(id: 1,title: "车架编号",content: bikeDetail.vin),
                 ]),
-                BikeRemainingTerm(id: 2, title: "剩余租期",content: bikeDetail.locomotiveEndDate?.timeRemaining() ?? ""),
+                BikeRemainingTerm(id: 2, title: "剩余租期",content: bikeDetail.locomotiveEndDate?.timeRemaining() ?? "",overdueOrExpiringSoon: bikeDetail.locomotiveEndDate?.overdueOrExpiringSoon() ?? false),
                 BikeAgent(id: 3, title: "代理商名称",content: bikeDetail.agentName ?? ""),
                 BikeAction(id: 4, items: [
                     BikeActionItem(id: 0, name: "退租", icon: "device_rent_out"),
@@ -191,8 +191,9 @@ class BikeStatusSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BikeStatusViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BikeStatusViewCell.self, for: self, at: index) as? BikeStatusViewCell else {return BikeStatusViewCell()}
         // 配置图片和状态
+        cell.bikeStatus = bikeStatus
         return cell
     }
     override func didUpdate(to object: Any) {

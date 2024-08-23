@@ -56,11 +56,13 @@ class BatteryInfo:ListDiffable{
 class BatteryRemainingTerm:ListDiffable{
     let id: Int
     let title:String
-    let remainingTerm: String
-    init(id: Int,title:String,remainingTerm:String) {
+    let content: String
+    let overdueOrExpiringSoon:Bool
+    init(id: Int,title:String,content:String,overdueOrExpiringSoon:Bool) {
         self.id = id
         self.title = title
-        self.remainingTerm = remainingTerm
+        self.content = content
+        self.overdueOrExpiringSoon = overdueOrExpiringSoon
     }
     // MARK: - ListDiffable
     

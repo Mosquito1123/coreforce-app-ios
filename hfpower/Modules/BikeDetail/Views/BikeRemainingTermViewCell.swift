@@ -34,6 +34,7 @@ class BikeRemainingTermViewCell: UICollectionViewCell {
         didSet{
             self.titleLabel.text = element?.title
             self.contentLabel.text = element?.content
+            self.contentLabel.textColor = element?.overdueOrExpiringSoon == true ? UIColor(rgba: 0xFF2F1DFF):UIColor(rgba: 0x333333FF)
             
         }
     }

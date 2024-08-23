@@ -7,6 +7,8 @@
 
 import UIKit
 import IGListKit
+import CoreLocation
+import MapKit
 class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return data
@@ -96,7 +98,7 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
                     BatteryInfoItem(id: 1,title: "电池型号",content: batteryDetail.name),
 
                 ]),
-                BatteryRemainingTerm(id: 2,title: "剩余租期", remainingTerm: batteryDetail.batteryEndDate?.timeRemaining() ?? ""),
+                BatteryRemainingTerm(id: 2,title: "剩余租期", content: batteryDetail.batteryEndDate?.timeRemaining() ?? "",overdueOrExpiringSoon: batteryDetail.batteryEndDate?.overdueOrExpiringSoon() ?? false),
                 BatteryAction(id: 4, items: [
                     BatteryActionItem(id: 0, name: "续费", icon: "device_renewal"),
                     BatteryActionItem(id: 1, name: "响铃", icon: "device_ring"),
@@ -192,8 +194,9 @@ class BatteryStatusSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryStatusViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryStatusViewCell.self, for: self, at: index) as? BatteryStatusViewCell else {return BatteryStatusViewCell()}
         // 配置图片和状态
+        cell.batteryStatus = batteryStatus
         return cell
     }
     override func didUpdate(to object: Any) {
@@ -241,6 +244,8 @@ class BatteryRemainingTermSectionController: ListSectionController {
     override func cellForItem(at index: Int) -> UICollectionViewCell {
         guard let cell = collectionContext?.dequeueReusableCell(of: BatteryRemainingTermViewCell.self, for: self, at: index) as? BatteryRemainingTermViewCell else {return UICollectionViewCell()}
         // 配置图片和状态
+        cell.bottomView.getPackageCardBlock = { sender in
+        }
         cell.element = batteryRemainingTerm
         return cell
     }
@@ -256,7 +261,7 @@ class BatteryAgentSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryAgentViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryAgentViewCell.self, for: self, at: index) as? BatteryAgentViewCell else {return UICollectionViewCell()}
         // 配置图片和状态
         return cell
     }
@@ -304,11 +309,48 @@ class BatterySiteSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatterySiteViewCell.self, for: self, at: index) else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatterySiteViewCell.self, for: self, at: index) as? BatterySiteViewCell else {return BatterySiteViewCell()}
         // 配置图片和状态
         return cell
     }
     override func didUpdate(to object: Any) {
         batterySite = object as? BatterySite
+    }
+    override func didSelectItem(at index: Int) {
+        let lat = MainManager.shared.batteryDetail?.lastLat?.doubleValue ?? 0
+        let lon = MainManager.shared.batteryDetail?.lastLon?.doubleValue ?? 0
+
+        NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: nil, lat:nil)) { result in
+            switch result{
+            case .success(let response):
+                
+                let filteredArray = response?.list?.filter { $0.onLine == true && ($0.batteryCount ?? 0) > 0 } ?? [CabinetSummary]()
+
+                var locations = [CLLocation]()
+                for mapAnnotation in filteredArray {
+                    let location = CLLocation(latitude: mapAnnotation.gdLat?.doubleValue ?? 0, longitude: mapAnnotation.gdLon?.doubleValue ?? 0)
+                    locations.append(location)
+                }
+
+                var minDistance = CLLocationDistance.greatestFiniteMagnitude
+                var nearestLocation: CLLocation?
+
+                for loc in locations {
+                    let point1 = MKMapPoint(CLLocationCoordinate2DMake(lat, lon))
+                    let point2 = MKMapPoint(loc.coordinate)
+                    let distance = point1.distance(to: point2)
+
+                    if distance < minDistance {
+                        minDistance = distance
+                        nearestLocation = loc
+                    }
+                }
+                self.viewController?.mapNavigation(lat: nearestLocation?.coordinate.latitude ?? 0, lng: nearestLocation?.coordinate.longitude ?? 0, address: "换电柜", currentController: self.viewController)
+
+            case .failure(let error):
+                self.viewController?.showError(withStatus: error.localizedDescription)
+                
+            }
+        }
     }
 }

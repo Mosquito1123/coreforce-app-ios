@@ -78,6 +78,12 @@ class NetworkService<R:APIType,T: Convertible> {
                     TokenManager.shared.clearTokens()
                     AccountManager.shared.clearAccount()
                     MainManager.shared.resetAll()
+                    let loginVC = LoginViewController()
+                    let nav = UINavigationController(rootViewController: loginVC)
+                    nav.modalPresentationStyle = .fullScreen
+                    nav.modalTransitionStyle = .coverVertical
+                    let mainController = nav
+                    UIViewController.ex_keyWindow()?.rootViewController = mainController
                 }
                 completion(.failure(error))
             }
