@@ -147,6 +147,30 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "提取",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
+    func presentInputNumberAlertController(textAction:((String) -> Void)?,cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction) -> Void)? = nil){
+        let inputNumberAlertView = InputNumberAlertView()
+        inputNumberAlertView.commonInputView.textField.addTextChangedAction { text in
+            textAction?(text ?? "")
+        }
+        
+        inputNumberAlertView.translatesAutoresizingMaskIntoConstraints = false
+        let alert = AlertController(attributedTitle: NSAttributedString(string: "输码",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)]), attributedMessage: nil)
+        alert.visualStyle.width = UIScreen.main.bounds.size.width - 64
+        alert.visualStyle.backgroundColor = .white
+        alert.visualStyle.verticalElementSpacing = 12
+        alert.contentView.addSubview(inputNumberAlertView)
+        
+        inputNumberAlertView.leadingAnchor.constraint(equalTo: alert.contentView.leadingAnchor).isActive = true
+        inputNumberAlertView.trailingAnchor.constraint(equalTo: alert.contentView.trailingAnchor).isActive = true
+        
+        inputNumberAlertView.topAnchor.constraint(equalTo: alert.contentView.topAnchor).isActive = true
+        inputNumberAlertView.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor).isActive = true
+        
+        
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "确定",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
+        alert.present()
+    }
     func showAlertController(titleText: String, messageText: String, okAction: @escaping () -> Void, isCancelAlert: Bool = false, cancelAction: @escaping () -> Void = {}) {
         // Create attributed text
         let title = NSAttributedString(string: titleText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16,weight: .medium),.foregroundColor:UIColor.black])
@@ -155,17 +179,18 @@ extension UIViewController{
         let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(rgba: 0x1D2129FF),.paragraphStyle:p])
         let alert = AlertController(attributedTitle: title, attributedMessage: message, preferredStyle: .alert)
         
-        let okAction = AlertAction(title: "确定", style: .preferred) { alertAction in
-            okAction()
-        }
-        alert.addAction(okAction)
-        
         if isCancelAlert {
             let cancelAction = AlertAction(title: "取消", style: .normal) { _ in
                 cancelAction()
             }
             alert.addAction(cancelAction)
         }
+        let okAction = AlertAction(title: "确定", style: .preferred) { alertAction in
+            okAction()
+        }
+        alert.addAction(okAction)
+        
+       
         
         alert.present()
     }
@@ -619,3 +644,85 @@ private extension GetCouponAlertView {
     
 }
 
+class InputNumberAlertView: UIView {
+
+    // MARK: - Accessor
+    
+    // MARK: - Subviews
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "请输入电池或电柜上二维码旁边的字母数字编码"
+        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    lazy var commonInputView: CommonInputView = {
+        let view = CommonInputView()
+        view.placeholder = "请输入二维码编码"
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // MARK: - Lifecycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupSubviews()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+}
+
+// MARK: - Setup
+private extension InputNumberAlertView {
+    
+    private func setupSubviews() {
+        self.backgroundColor = .white
+        self.addSubview(self.titleLabel)
+        self.addSubview(self.commonInputView)
+
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 24),
+            titleLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -24),
+            titleLabel.bottomAnchor.constraint(equalTo: commonInputView.topAnchor,constant: -12),
+            commonInputView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 24),
+            commonInputView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -22),
+            commonInputView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -24),
+            commonInputView.heightAnchor.constraint(equalToConstant: 44),
+            
+
+
+
+        ])
+        
+    }
+    
+}
+
+// MARK: - Public
+extension InputNumberAlertView {
+    
+}
+
+// MARK: - Action
+@objc private extension InputNumberAlertView {
+    
+}
+
+// MARK: - Private
+private extension InputNumberAlertView {
+    
+}

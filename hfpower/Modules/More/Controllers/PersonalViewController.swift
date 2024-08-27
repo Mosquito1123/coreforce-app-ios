@@ -226,6 +226,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             }
             contentCell.depositBlock = { tap in
                 let depositManagementViewController = DepositManagementViewController()
+                depositManagementViewController.depositData = (item.extra as? MemberResponse)?.depositData
                 self.navigationController?.pushViewController(depositManagementViewController, animated: true)
             }
             contentCell.couponBlock = { tap in

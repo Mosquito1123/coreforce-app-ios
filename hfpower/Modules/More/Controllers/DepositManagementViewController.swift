@@ -52,7 +52,22 @@ class DepositManagementViewController: BaseViewController,UITableViewDelegate,UI
         }
     }
 
-    
+    var depositData:DepositData?{
+        didSet{
+            self.items = [
+                DepositManagement(id: 0,title: "",items: [
+                    DepositManagementItem(id: 0, title: "租赁中的电池", content: MainManager.shared.batteryDetail == nil ? "0":"1",type: 0),
+                    DepositManagementItem(id: 1, title: "押金", content: "\(String(format: "%.2f元", (depositData?.batteryDeposit ?? 0) + (depositData?.batteryRefundDeposit ?? 0)))", selected: true,type: 1),
+
+                ]),
+                DepositManagement(id: 1,title: "",items: [
+                    DepositManagementItem(id: 0, title: "租赁中的电车", content: MainManager.shared.bikeDetail == nil ? "0":"1",type: 0),
+                    DepositManagementItem(id: 1, title: "押金", content: "\(String(format: "%.2f元", (depositData?.locomotiveDeposit ?? 0) + (depositData?.locomotiveRefundDeposit ?? 0)))", selected: true,type: 2),
+
+                ]),
+            ]
+        }
+    }
     // MARK: - Accessor
     
     // MARK: - Subviews
@@ -79,18 +94,7 @@ class DepositManagementViewController: BaseViewController,UITableViewDelegate,UI
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            DepositManagement(id: 0,title: "",items: [
-                DepositManagementItem(id: 0, title: "租赁中的电池", content: "0",type: 0),
-                DepositManagementItem(id: 1, title: "押金", content: "0", selected: true,type: 1),
-
-            ]),
-            DepositManagement(id: 1,title: "",items: [
-                DepositManagementItem(id: 0, title: "租赁中的电车", content: "1",type: 0),
-                DepositManagementItem(id: 1, title: "押金", content: "0", selected: true,type: 2),
-
-            ]),
-        ]
+        
 
     }
     

@@ -8,8 +8,13 @@
 import UIKit
 import swiftScan
 import HMSegmentedControl
-class HFScanViewController: LBXScanViewController, UIGestureRecognizerDelegate{
+class HFScanViewController: LBXScanViewController{
     
+    var titles = ["扫码", "蓝牙", "输码"]{
+        didSet{
+            
+        }
+    }
     /**
      @brief  扫码区域上方提示文字
      */
@@ -36,6 +41,7 @@ class HFScanViewController: LBXScanViewController, UIGestureRecognizerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        edgesForExtendedLayout = .all
         setupNavbar()
         self.scanResultDelegate = self
         //需要识别后的图像
@@ -90,7 +96,7 @@ class HFScanViewController: LBXScanViewController, UIGestureRecognizerDelegate{
         
         view.addSubview(bottomItemsView ?? UIView())
         
-        let size = CGSize(width: 65, height: 87)
+        _ = CGSize(width: 65, height: 87)
         
         self.btnFlash = UIButton()
         // 获取屏幕宽高
@@ -113,7 +119,7 @@ class HFScanViewController: LBXScanViewController, UIGestureRecognizerDelegate{
         
         
         // 初始化 HMSegmentedControl
-        let segmentedControl = HMSegmentedControl(sectionTitles: ["扫码", "蓝牙", "输码"])
+        let segmentedControl = HMSegmentedControl(sectionTitles:titles )
         
         // 设置 frame
         segmentedControl.frame = CGRect(x: 68, y: yMax-100, width: self.view.frame.size.width - 68 * 2, height: 50)
@@ -136,7 +142,17 @@ class HFScanViewController: LBXScanViewController, UIGestureRecognizerDelegate{
         ]
         
         
-        
+        segmentedControl.indexChangeBlock = { index in
+            if index == 2 {
+                self.presentInputNumberAlertController { text in
+                    
+                } cancelBlock: { action in
+                    
+                } sureBlock: { action in
+                    
+                }
+            }
+        }
         
         
         segmentedControl.backgroundColor = .clear
@@ -167,26 +183,37 @@ class HFScanViewController: LBXScanViewController, UIGestureRecognizerDelegate{
 private extension HFScanViewController {
     
     private func setupNavbar() {
-        self.navigationController?.isNavigationBarHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "scan_back"), for: .normal)
         backButton.setImage(UIImage(named: "scan_back"), for: .highlighted)
         backButton.setTitle("", for: .normal)  // 设置标题
         backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
         backButton.addAction(for: .touchUpInside) {
-            self.navigationController?.popViewController(animated: true)
+            if let _ = self.navigationController{
+                self.navigationController?.popViewController(animated: true)
+            }else{
+                self.dismiss(animated: true)
+            }
         }
         backButton.tag = 10
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(backButton)
-        NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 18),
-            backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 6),
-            backButton.widthAnchor.constraint(equalToConstant: 28),
-            backButton.heightAnchor.constraint(equalToConstant: 28),
-            
-        ])
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundImage = UIImage()
+        appearance.shadowImage = UIImage()
+        // 设置背景色为白色
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.clear,.font:UIFont.systemFont(ofSize: 18, weight: .semibold)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.compactAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        
     }
     private func setupSubviews() {
         
