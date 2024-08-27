@@ -7,6 +7,7 @@ PODS:
   - ESTabBarController-swift (2.8.0)
   - FloatingPanel (2.8.3)
   - FSPagerView (0.8.3)
+  - HMSegmentedControl (1.5.6)
   - IGListDiffKit (5.0.0)
   - IGListKit (5.0.0):
     - IGListDiffKit (= 5.0.0)
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - ESTabBarController-swift
   - FloatingPanel
   - FSPagerView
+  - HMSegmentedControl
   - IGListKit (~> 5.0.0)
   - IQKeyboardManagerSwift
   - KakaJSON (~> 1.1.2)
@@ -71,6 +73,7 @@ SPEC REPOS:
     - ESTabBarController-swift
     - FloatingPanel
     - FSPagerView
+    - HMSegmentedControl
     - IGListDiffKit
     - IGListKit
     - IQKeyboardManagerSwift
@@ -98,6 +101,7 @@ SPEC CHECKSUMS:
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   FloatingPanel: 0f9b89c6d4318842311bec6f6026fb18ca2a2c90
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
   IGListDiffKit: 02d937d7e714d6f558771f284ed80668d483b522
   IGListKit: baf7e87b4c2262cd569c380e46ca5667a4a82c82
   IQKeyboardManagerSwift: f9c5dc36cba16ddd2e51fa7d51c34a2e083029b5
@@ -118,6 +122,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: 5c1d980492d213c50d89ad0b3986b8279c6b36e9
+PODFILE CHECKSUM: 703fe6450458f578834d9564fe107b167f2b26e5
 
 COCOAPODS: 1.15.2

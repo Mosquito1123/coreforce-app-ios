@@ -301,10 +301,7 @@ extension MapViewController{
             let contentVC = CabinetPanelViewController()
             contentVC.scanAction = { sender in
                 let scanVC = HFScanViewController()
-                let nav = UINavigationController(rootViewController: scanVC)
-                nav.modalPresentationStyle = .fullScreen
-                nav.modalTransitionStyle = .coverVertical
-                self.present(nav, animated: true)
+                self.navigationController?.pushViewController(scanVC, animated: true)
             }
             contentVC.detailAction = { sender in
          

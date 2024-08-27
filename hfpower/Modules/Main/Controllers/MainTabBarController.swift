@@ -51,10 +51,8 @@ class MainTabBarController: ESTabBarController {
                 return
             }
             let scanVC = HFScanViewController()
-            let nav = UINavigationController(rootViewController: scanVC)
-            nav.modalPresentationStyle = .fullScreen
-            nav.modalTransitionStyle = .coverVertical
-            self?.present(nav, animated: true)
+            self?.navigationController?.pushViewController(scanVC, animated: true)
+
             
         }
         setupNavbar()

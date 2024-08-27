@@ -41,4 +41,5 @@ target 'hfpower' do
   pod 'EmptyStateKit'
   pod 'SwipeCellKit'
   pod 'IGListKit', '~> 5.0.0'
+  pod 'HMSegmentedControl'
 end
