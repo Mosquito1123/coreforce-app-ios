@@ -11,7 +11,7 @@ enum MemberAPI{
     case member
     case memberAgreement
     case activityList
-    case headPic
+    case headPic(image: UIImage)
     case nickname
     case changePwd
     case memberBind
@@ -66,6 +66,8 @@ extension MemberAPI:APIType{
             return .post
         case .memberRpDescribe:
             return .post
+        case .headPic:
+            return .post
         default:
             return .post
             
@@ -85,6 +87,10 @@ extension MemberAPI:APIType{
         case .memberRpDescribe(certifyId:let certifyId):
             let params = ["head": appHeader,"body":["certifyId":certifyId]]
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+        case .headPic(image: let image):
+            return .uploadCompositeMultipart([
+                MultipartFormData(provider: .data(image.jpegData(compressionQuality: 1) ?? Data()), name: "file", fileName: "pic_image", mimeType: "image/jpeg"),
+            ], urlParameters: appHeader)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             

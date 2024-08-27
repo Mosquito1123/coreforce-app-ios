@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 class PersonalHeaderViewCell: UITableViewCell {
     
     // MARK: - Accessor
@@ -16,10 +16,12 @@ class PersonalHeaderViewCell: UITableViewCell {
                 titleLabel.text = member.nickname
                 subTitleLabel.text = member.phoneNum
                 authorityButton.isVerified = AccountManager.shared.isAuth == 1
+                headerImageView.kf.setImage(with: URL(string: "http://www.coreforce.cn/app/api/member/headPic?access_token=\(TokenManager.shared.accessToken ?? "")"),placeholder: UIImage(named: "setup-head-default"),options: [.fromMemoryCacheOrRefresh])
             }
         }
     }
     var settingsAction:ButtonActionBlock?
+    var headerImageBlock:((UITapGestureRecognizer)->Void)?
     // MARK: - Subviews
     lazy var settingsButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -61,6 +63,7 @@ class PersonalHeaderViewCell: UITableViewCell {
     }()
     lazy var headerImageView: CircularImageView = {
         let circularImageView = CircularImageView(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
+        circularImageView.image = UIImage(named: "setup-head-default")
         circularImageView.translatesAutoresizingMaskIntoConstraints = false
         return circularImageView
     }()
@@ -99,6 +102,9 @@ class PersonalHeaderViewCell: UITableViewCell {
 private extension PersonalHeaderViewCell {
     
     private func setupSubviews() {
+        headerImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(headerImageTapped(_:)))
+        headerImageView.addGestureRecognizer(tap)
         contentView.addSubview(headerImageView)
         contentView.addSubview(authorityButton)
         contentView.addSubview(titleLabel)
@@ -139,6 +145,9 @@ extension PersonalHeaderViewCell {
 @objc private extension PersonalHeaderViewCell {
     @objc func buttonTapped(_ sender:UIButton){
         self.settingsAction?(sender)
+    }
+    @objc func headerImageTapped(_ sender:UITapGestureRecognizer){
+        self.headerImageBlock?(sender)
     }
 }
 

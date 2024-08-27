@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ZLPhotoBrowser
 class PersonalViewController: BaseViewController {
     
     // MARK: - Accessor
@@ -186,6 +186,26 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         if let headerCell = cell as? PersonalHeaderViewCell{
             headerCell.element = item
+            headerCell.headerImageBlock = { tap in
+                let ps = ZLPhotoPreviewSheet()
+                ps.selectImageBlock = { [weak self] results, isOriginal in
+                    // your code
+                    if let image = results.first?.image{
+                        NetworkService<MemberAPI,BlankResponse>().request(.headPic(image: image)) { result in
+                            switch result {
+                            case .success:
+                                headerCell.headerImageView.image = image
+                            case .failure(let failure):
+                                self?.showError(withStatus: failure.localizedDescription)
+
+                            }
+                        }
+                    }
+                }
+                ps.showPreview(animate: true, sender: self)
+
+                
+            }
             headerCell.settingsAction = {button in
                 let settings = SettingsViewController()
                 settings.hasLogoutBlock = {
