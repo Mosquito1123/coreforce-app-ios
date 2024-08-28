@@ -115,9 +115,34 @@ class AllCouponViewController:BaseViewController{
             } buttonAction: {
                 self.presentedViewController?.dismiss(animated: true)
                 let scanVC = HFScanViewController()
+                scanVC.resultBlock = { result in
+                    if let stringScanned = result.strScanned{
+                        NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: stringScanned)) { result in
+                            switch result {
+                            case .success:
+                                scanVC.navigationController?.popViewController(animated: true)
+                                NotificationCenter.default.post(name: .refreshCouponList, object: nil)
+                                self.showSuccess(withStatus: "获取优惠券成功")
+                            case .failure(let failure):
+                                scanVC.navigationController?.popViewController(animated: true)
+                                self.showError(withStatus: failure.localizedDescription)
+
+                            }
+                        }
+                    }
+                }
                 self.navigationController?.pushViewController(scanVC, animated: true)
-            } sureBlock: { action in
-                
+            } sureBlock: { action,text in
+                NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: text)) { result in
+                    switch result {
+                    case .success:
+                        NotificationCenter.default.post(name: .refreshCouponList, object: nil)
+                        self.showSuccess(withStatus: "获取优惠券成功")
+                    case .failure(let failure):
+                        self.showError(withStatus: failure.localizedDescription)
+
+                    }
+                }
             }
 
             
@@ -282,7 +307,13 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
         setupSubviews()
         setupLayout()
         setupRefreshControl()
+        startObserving()
         loadData()
+        
+    }
+    func startObserving(){
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRefreshCouponList(_:)), name: .refreshCouponList, object: nil)
+        
         
     }
     func setupRefreshControl() {
@@ -362,7 +393,12 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
-    
+    @objc func handleRefreshCouponList(_ notification:Notification){
+        loadData()
+    }
+    deinit{
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 // MARK: - Setup

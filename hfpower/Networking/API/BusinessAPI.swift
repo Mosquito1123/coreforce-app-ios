@@ -39,7 +39,7 @@ enum BusinessAPI {
     case locomotiveCouponMatching(amount:Double,page:Int,locomotiveNumber:String?)
     case changeCardCouponMatching(amount:Double,page:Int,batteryNumber:String?)
     case couponList(page:Int)
-    case couponReceive
+    case couponReceive(code:String)
     case batteryTimeChangeCardPlanList
     case returnCheck
 }
@@ -117,7 +117,13 @@ extension BusinessAPI:APIType{
     
     var method: Moya.Method {
         // Define HTTP method for each endpoint if needed
-        return .get // Example: return .post for POST requests
+         // Example: return .post for POST requests
+        switch self {
+        case .couponReceive:
+            return .post
+        default:
+            return .get
+        }
     }
     
     var task: Task {
@@ -187,6 +193,9 @@ extension BusinessAPI:APIType{
                 params[item.key] = item.value
             }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .couponReceive(code: let code):
+            let params = ["head": appHeader,"body":["code":code]]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             

@@ -194,6 +194,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                         NetworkService<MemberAPI,BlankResponse>().request(.headPic(image: image)) { result in
                             switch result {
                             case .success:
+                                self?.showSuccess(withStatus: "修改成功")
                                 headerCell.headerImageView.image = image
                             case .failure(let failure):
                                 self?.showError(withStatus: failure.localizedDescription)

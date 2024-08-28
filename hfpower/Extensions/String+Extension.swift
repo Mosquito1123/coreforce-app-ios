@@ -43,6 +43,7 @@ extension Notification.Name {
     static let userAuthenticated = Notification.Name("UserAuthenticatedNotification")
     static let cityChanged = Notification.Name("CityChanged")
     static let scanTypeChanged = Notification.Name("ScanTypeChanged")
+    static let refreshCouponList = Notification.Name("refreshCouponList")
 }
 extension String {
     func timeRemaining() -> String {
@@ -87,4 +88,29 @@ extension String {
             return false
         }
     }
+}
+extension String {
+  func formattedDate(format: String = "yyyy-MM-dd") -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = format
+    guard let date = dateFormatter.date(from: self) else {
+      print("Error: Unable to parse date string: \(self)")
+      return nil
+    }
+    return dateFormatter.string(from: date)
+  }
+
+  // Specific formatting methods (optional)
+  func formattedAsChineseYearMonthDay() -> String? {
+    return formattedDate(format: "yyyy年MM月dd日")
+  }
+
+  func formattedAsWeekDay() -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "EEEE" // Get weekday name
+    guard let date = dateFormatter.date(from: self) else {
+      return nil
+    }
+    return dateFormatter.string(from: date)
+  }
 }

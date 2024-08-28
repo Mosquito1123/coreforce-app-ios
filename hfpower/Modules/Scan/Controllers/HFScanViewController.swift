@@ -9,7 +9,7 @@ import UIKit
 import swiftScan
 import HMSegmentedControl
 class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
-    
+    var resultBlock:((LBXScanResult)->Void)?
     var titles = ["扫码", "蓝牙", "输码"]{
         didSet{
             
@@ -78,7 +78,7 @@ class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
         }
         
         let result: LBXScanResult = arrayResult[0]
-        
+        self.resultBlock?(result)
         
     }
     
