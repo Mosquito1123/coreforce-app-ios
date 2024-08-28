@@ -21,3 +21,6 @@ struct ActivityResponse:Convertible{
     var type:Int?
 
 }
+struct InviteCodeResponse:Convertible{
+    var inviteCode:String?
+}

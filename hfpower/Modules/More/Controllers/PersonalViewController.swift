@@ -240,6 +240,10 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                 if indexPath.item == 0 {
                     let allOrderVC = AllOrderViewController()
                     self.navigationController?.pushViewController(allOrderVC, animated: true)
+                }else if indexPath.item == 4{
+                    let inviteVC = InviteCodeViewController()
+                    self.navigationController?.pushViewController(inviteVC, animated: true)
+
                 }
             }
             contentCell.titleLabel.text = item.title
