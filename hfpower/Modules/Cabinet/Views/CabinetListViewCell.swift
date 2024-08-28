@@ -7,13 +7,11 @@
 
 import UIKit
 
-class CabinetListViewCell: UITableViewCell {
+class CabinetListViewCell: BaseTableViewCell<CabinetSummary> {
     
     // MARK: - Accessor
-    var item:CabinetSummary?{
-        didSet{
-            
-        }
+    override func configure() {
+        
     }
     var navigateAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
@@ -117,11 +115,11 @@ class CabinetListViewCell: UITableViewCell {
         return view
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> CabinetListViewCell {
+    override class func cell(with tableView: UITableView) -> CabinetListViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? CabinetListViewCell { return cell }
         return CabinetListViewCell(style: .default, reuseIdentifier: identifier)

@@ -314,6 +314,7 @@ private extension HomeViewController {
         
         let listView = MapFeatureView(.list) { sender, mapFeatureType in
             let cabinetListViewController = CabinetListViewController()
+            cabinetListViewController.coordinate = self.mapViewController.mapView.centerCoordinate
             self.navigationController?.pushViewController(cabinetListViewController, animated: true)
         }
         footerStackView.addArrangedSubview(listView)

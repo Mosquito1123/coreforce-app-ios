@@ -6,37 +6,33 @@
 //
 
 import UIKit
-
-class CabinetListViewController: BaseViewController{
+import CoreLocation
+class CabinetListViewController: BaseTableViewController<CabinetListViewCell,CabinetSummary>{
     
     // MARK: - Accessor
-    var items:[CabinetSummary] = [CabinetSummary](){
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
+
     // MARK: - Subviews
-    lazy var tableView:UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
-        tableView.register(CabinetListViewCell.self, forCellReuseIdentifier: CabinetListViewCell.cellIdentifier())
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
         setupNavbar()
         setupSubviews()
         setupLayout()
-        
+        loadData()
     }
-    
+    func loadData(){
+        NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
+            switch result{
+            case .success(let response):
+                self.items = response?.list ?? []
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                
+            }
+        }
+    }
 }
 
 // MARK: - Setup
@@ -44,13 +40,34 @@ private extension CabinetListViewController {
     
     private func setupNavbar() {
         self.title = "电柜列表"
+        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
-
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(named: "customer_service_back")?.colorized(with: UIColor.black)?.resized(toSize: CGSize.init(width: 12, height: 20)), for: .normal)  // 设置自定义图片
+        backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色为白色
+        appearance.backgroundImage = UIColor.white.toImage()
+        appearance.shadowImage = UIColor.white.toImage()
+        
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
         
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
         self.view.addSubview(self.tableView)
         
     }
@@ -67,23 +84,7 @@ private extension CabinetListViewController {
 }
 
 // MARK: - Public
-extension CabinetListViewController:UITableViewDelegate,UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 返回单元格数量
-        return self.items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 配置单元格
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CabinetListViewCell.cellIdentifier(), for: indexPath) as? CabinetListViewCell else {return CabinetListViewCell()}
-        // 设置单元格的内容，如文本等
-//        cell.textLabel?.text = "Cabinet \(indexPath.row)"
-        cell.item = self.items[indexPath.row]
-        return cell
-    }
-    
-    
-}
+
 
 // MARK: - Request
 private extension CabinetListViewController {
