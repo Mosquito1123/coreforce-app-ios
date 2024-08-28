@@ -8,6 +8,7 @@
 import UIKit
 import Tabman
 import Pageboy
+import MJRefresh
 class AllCouponViewController:BaseViewController{
     class BottomView:UIView{
         var getCouponBlock:ButtonActionBlock?
@@ -170,9 +171,11 @@ class AllCouponViewController:BaseViewController{
 class AllCouponContentViewController: TabmanViewController {
     
     // MARK: - Accessor
-    let items: [(menu: String, content: UIViewController)] = ["可用","已用","已过期"].map {
-        let title = $0
+    //1可用2已用3已过期0不可用
+    let items: [(menu: String, content: UIViewController)] = [(status:1,title:"可用"),(status:2,title:"已用"),(status:3,title:"已过期")].map {
+        let title = $0.title
         let vc = AllCouponListViewController()
+        vc.status = $0.status
         return (menu: title, content: vc)
     }
     // MARK: - Subviews
@@ -264,7 +267,9 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
     
     
     // MARK: - Accessor
-    var index = 0
+    var status = 1 //1可用2已用3已过期0不可用
+    var pageNum = 1
+    var pageCount = 1
     // MARK: - Subviews
     
     // 懒加载的 TableView
@@ -276,12 +281,84 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            Coupon(),
-            Coupon(),
-        ]
+        setupRefreshControl()
+        loadData()
+        
     }
-    
+    func setupRefreshControl() {
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefreshing))
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefreshing))
+    }
+    @objc func headerRefreshing() {
+        // Implement your header refresh logic here
+        // ...
+        self.items.removeAll()
+        pageNum = 1
+        NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
+            switch result {
+            case.success(let response):
+                self.items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
+                self.pageNum = 1
+                let total = (Double)(response?.pageResult?.total ?? 1)
+                let size = (Double)(response?.pageResult?.size ?? 1)
+                self.pageCount = Int(ceil(total/size))
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                self.pageNum = 1
+                self.pageCount = 1
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+                
+            }
+        }
+    }
+
+    @objc func footerRefreshing() {
+        // Implement your footer refresh logic here
+        // ...
+        if pageNum + 1 > pageCount {
+            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+            return
+        }
+        pageNum = pageNum + 1
+        NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
+            switch result {
+            case.success(let response):
+                let items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
+                self.items.append(contentsOf: items)
+                self.tableView.mj_footer?.endRefreshing()
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                self.tableView.mj_footer?.endRefreshing()
+
+                
+            }
+        }
+    }
+    func loadData(){
+        pageNum = 1
+        NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
+            switch result {
+            case.success(let response):
+                self.items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
+                self.pageNum = 1
+                let total = (Double)(response?.pageResult?.total ?? 1)
+                let size = (Double)(response?.pageResult?.size ?? 1)
+                self.pageCount = Int(ceil(total/size))
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                self.pageNum = 1
+                self.pageCount = 1
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+                
+            }
+        }
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }

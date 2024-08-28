@@ -18,6 +18,7 @@
 		04001C4E2C073103000A040F /* HFStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C4D2C073103000A040F /* HFStackView.swift */; };
 		04001C502C073420000A040F /* MapFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04001C4F2C073420000A040F /* MapFeatureView.swift */; };
 		0411AD652C7EC8E300F30395 /* InviteCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411AD642C7EC8E300F30395 /* InviteCodeViewController.swift */; };
+		0411AD672C7F012000F30395 /* CouponListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0411AD662C7F012000F30395 /* CouponListResponse.swift */; };
 		0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF2F2BC91AB500E9290D /* AuthAPI.swift */; };
 		0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF312BC92A3700E9290D /* Date+Extension.swift */; };
 		0415AF342BC92BCE00E9290D /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0415AF332BC92BCE00E9290D /* Int+Extension.swift */; };
@@ -320,6 +321,7 @@
 		04001C4D2C073103000A040F /* HFStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFStackView.swift; sourceTree = "<group>"; };
 		04001C4F2C073420000A040F /* MapFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFeatureView.swift; sourceTree = "<group>"; };
 		0411AD642C7EC8E300F30395 /* InviteCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCodeViewController.swift; sourceTree = "<group>"; };
+		0411AD662C7F012000F30395 /* CouponListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListResponse.swift; sourceTree = "<group>"; };
 		0415AF2F2BC91AB500E9290D /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		0415AF312BC92A3700E9290D /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0415AF332BC92BCE00E9290D /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -1231,6 +1233,7 @@
 				04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */,
 				04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */,
 				04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */,
+				0411AD662C7F012000F30395 /* CouponListResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -2072,6 +2075,7 @@
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,
 				043893742C44C1D400E61C0D /* TableState.swift in Sources */,
+				0411AD672C7F012000F30395 /* CouponListResponse.swift in Sources */,
 				049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */,
 				048EE7532C3D3A5D0094A0CB /* AboutViewController.swift in Sources */,
 				048EE74D2C3D25630094A0CB /* LowPowerReminderViewController.swift in Sources */,

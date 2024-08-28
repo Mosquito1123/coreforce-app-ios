@@ -35,10 +35,10 @@ enum BusinessAPI {
     case batteryReturn
     case orderList
     case batteryTimeChangeCardList
-    case couponMatching
-    case locomotiveCouponMatching
-    case changeCardCouponMatching
-    case couponList
+    case couponMatching(amount:Double,page:Int,batteryNumber:String?)
+    case locomotiveCouponMatching(amount:Double,page:Int,locomotiveNumber:String?)
+    case changeCardCouponMatching(amount:Double,page:Int,batteryNumber:String?)
+    case couponList(page:Int)
     case couponReceive
     case batteryTimeChangeCardPlanList
     case returnCheck
@@ -147,6 +147,46 @@ extension BusinessAPI:APIType{
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         case .cabinet(id: let id, number: let number):
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        case .couponMatching(amount: let amount, page: let page, batteryNumber: let batteryNumber):
+            var params = [String:Any]()
+            params["amount"] = amount
+            params["page"] = page
+            if let bn = batteryNumber{
+                params["batteryNumber"] = bn
+            }
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .locomotiveCouponMatching(amount: let amount, page: let page, locomotiveNumber: let locomotiveNumber):
+            var params = [String:Any]()
+            params["amount"] = amount
+            params["page"] = page
+            if let bn = locomotiveNumber{
+                params["locomotiveNumber"] = bn
+            }
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .changeCardCouponMatching(amount: let amount, page: let page, batteryNumber: let batteryNumber):
+            var params = [String:Any]()
+            params["amount"] = amount
+            params["page"] = page
+            if let bn = batteryNumber{
+                params["batteryNumber"] = bn
+            }
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .couponList(page: let page):
+            var params = [String:Any]()
+            params["page"] = page
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             

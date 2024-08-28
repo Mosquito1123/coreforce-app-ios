@@ -27,7 +27,7 @@ public struct LoadingPlugin: PluginType {
             cachedRequest.cachePolicy = .returnCacheDataElseLoad
         }
         cachedRequest.addValue(TokenManager.shared.accessToken ?? "", forHTTPHeaderField: "access_token")
-        cachedRequest.addValue("keep-alive", forHTTPHeaderField: "Connection")
+//        cachedRequest.addValue("keep-alive", forHTTPHeaderField: "Connection")
         return cachedRequest
     }
     

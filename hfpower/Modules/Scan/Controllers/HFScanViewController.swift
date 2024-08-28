@@ -8,7 +8,7 @@
 import UIKit
 import swiftScan
 import HMSegmentedControl
-class HFScanViewController: LBXScanViewController{
+class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
     
     var titles = ["扫码", "蓝牙", "输码"]{
         didSet{
@@ -183,6 +183,9 @@ class HFScanViewController: LBXScanViewController{
 private extension HFScanViewController {
     
     private func setupNavbar() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
+
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "scan_back"), for: .normal)
         backButton.setImage(UIImage(named: "scan_back"), for: .highlighted)

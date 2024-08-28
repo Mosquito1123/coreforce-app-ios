@@ -44,11 +44,10 @@ class InviteCodeViewController: BaseViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupNavbar()
         setupSubviews()
         setupLayout()
         loadInviteCode()
-        setupNavbar()
     }
     
     func loadInviteCode(){
@@ -112,6 +111,9 @@ private extension InviteCodeViewController {
             titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             inviteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             inviteButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 10),
+            inviteButton.widthAnchor.constraint(equalToConstant: 120),
+            inviteButton.heightAnchor.constraint(equalToConstant: 44),
+
         ])
     }
 }
