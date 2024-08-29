@@ -272,7 +272,7 @@ private extension HomeViewController {
         searchView.goToSearchServiceBlock = { textField in
             let cabinetListVC = SearchCabinetListViewController()
             cabinetListVC.hidesBottomBarWhenPushed = true
-            
+            cabinetListVC.coordinate = self.mapViewController.mapView.centerCoordinate
             self.navigationController?.pushViewController(cabinetListVC, animated: true)
         }
         searchView.goToNotificationBlock = { (sender) -> Void in

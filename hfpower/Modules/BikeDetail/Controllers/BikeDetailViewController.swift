@@ -119,8 +119,8 @@ private extension BikeDetailViewController {
     
     private func setupNavbar() {
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
-        backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 20, height: 20)), for: .highlighted)
+        backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 18, height: 18)), for: .normal)
+        backButton.setImage(UIImage(named: "back_arrow")?.resized(toSize: CGSize(width: 18, height: 18)), for: .highlighted)
         backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .normal)  // 设置自定义图片
         backButton.setBackgroundImage(UIColor.white.circularImage(diameter: 28), for: .highlighted)  // 设置自定义图片
         backButton.setTitle("", for: .normal)  // 设置标题

@@ -61,7 +61,7 @@ private extension CabinetListViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "search_list_icon_arrow_back"), for: .normal)  // 设置自定义图片
+        backButton.setImage(UIImage(named: "back_arrow"), for: .normal)  // 设置自定义图片
         backButton.setTitle("", for: .normal)  // 设置标题
         backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)

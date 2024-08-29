@@ -6,11 +6,19 @@
 //
 
 import UIKit
-
-class SearchCabinetListViewController: UIViewController,UIGestureRecognizerDelegate {
+import CoreLocation
+class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCell,CabinetSummary>,CLLocationManagerDelegate {
     
     // MARK: - Accessor
-    
+    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
+    lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        // 在这里可以进行其他的配置
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        return manager
+    }()
     // MARK: - Subviews
     lazy var headerView: SearchCabinetListHeaderView = {
         let view = SearchCabinetListHeaderView()
@@ -22,16 +30,7 @@ class SearchCabinetListViewController: UIViewController,UIGestureRecognizerDeleg
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    lazy var tableView:UITableView = {
-        let tableView = UITableView()
-        tableView.register(CabinetListViewCell.self, forCellReuseIdentifier: CabinetListViewCell.cellIdentifier())
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,18 +38,52 @@ class SearchCabinetListViewController: UIViewController,UIGestureRecognizerDeleg
         setupNavbar()
         setupSubviews()
         setupLayout()
+        loadData()
     }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//
-//        
-//    }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        
-//    }
+    
+
+    // 根据阿拉伯数字返回对应的中文数字
+    func convertToChineseDate(dateString: String) -> String {
+        // 中文数字字典
+        let chineseNumbers: [String: String] = [
+            "0": "〇", "1": "一", "2": "二", "3": "三", "4": "四", "5": "五",
+            "6": "六", "7": "七", "8": "八", "9": "九","年":"年","月":"月","日":"日"
+        ]
+
+        // 拼接结果
+        return dateString.map { chineseNumbers[$0.description] ?? "" }.joined()
+    }
+
+    // 格式化日期为中文格式，并使用自定义的中文数字
+    func formatDateToChinese(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "zh_CN")
+        dateFormatter.dateFormat = "y年M月d日"
+        
+        let formattedDate = dateFormatter.string(from: date)
+        
+        // 使用正则表达式替换数字为中文数字
+        
+        let chineseFormattedDate = convertToChineseDate(dateString: formattedDate)
+        
+        return chineseFormattedDate
+    }
+    func loadData(){
+        
+
+        locationView.location = formatDateToChinese(date: Date())
+
+       
+        NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
+            switch result{
+            case .success(let response):
+                self.items = response?.list ?? []
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                
+            }
+        }
+    }
     
     
 }
@@ -69,7 +102,7 @@ private extension SearchCabinetListViewController {
         self.navigationItem.titleView = headerView
         // 自定义返回按钮
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "search_list_icon_arrow_back"), for: .normal)  // 设置自定义图片
+        backButton.setImage(UIImage(named: "back_arrow"), for: .normal)  // 设置自定义图片
         backButton.setTitle("", for: .normal)  // 设置标题
         backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -93,7 +126,9 @@ private extension SearchCabinetListViewController {
     private func setupSubviews() {
 //        view.addSubview(headerView)
         
-        
+        locationView.relocate = { bt in
+            self.locationManager.requestLocation()
+        }
         view.addSubview(locationView)
         view.addSubview(tableView)
        
@@ -120,21 +155,40 @@ private extension SearchCabinetListViewController {
 }
 
 // MARK: - Public
-extension SearchCabinetListViewController:UITableViewDelegate,UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 返回单元格数量
-        return 10
+extension SearchCabinetListViewController{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else
+         { return }
+        self.coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let _ = error{
+                
+            }else{
+                CityCodeManager.shared.placemark = placemarks?.first
+                CityCodeManager.shared.cityName = placemarks?.first?.locality
+                
+                let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
+                CityCodeManager.shared.cityCode = code
+                NotificationCenter.default.post(name: .cityChanged, object: nil)
+                self.locationView.location = self.formatDateToChinese(date: Date())
+
+                NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: self.coordinate.longitude, lat:self.coordinate.latitude)) { result in
+                    switch result{
+                    case .success(let response):
+                        self.items = response?.list ?? []
+                    case .failure(let error):
+                        self.showError(withStatus: error.localizedDescription)
+                        
+                    }
+                }
+            }
+        }
+
+       
+        
+        
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 配置单元格
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CabinetListViewCell.cellIdentifier(), for: indexPath) as? CabinetListViewCell else {return CabinetListViewCell()}
-        // 设置单元格的内容，如文本等
-//        cell.textLabel?.text = "Cabinet \(indexPath.row)"
-        return cell
-    }
-    
-    
 }
 
 // MARK: - Request
@@ -144,10 +198,7 @@ private extension SearchCabinetListViewController {
 
 // MARK: - Action
 @objc private extension SearchCabinetListViewController {
-    @objc func backButtonTapped() {
-        // 返回按钮的点击事件处理
-        self.navigationController?.popViewController(animated: true)
-    }
+    
 }
 
 // MARK: - Private

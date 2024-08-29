@@ -16,7 +16,7 @@ class SearchCabinetListHeaderView: UIView {
     // MARK: - Subviews
 //    lazy var backButton: UIButton = {
 //        let button = UIButton(type: .custom)
-//        button.setImage(UIImage(named: "search_list_icon_arrow_back"), for: .normal)
+//        button.setImage(UIImage(named: "back_arrow"), for: .normal)
 //        button.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
 //        button.translatesAutoresizingMaskIntoConstraints = false
 //        return button

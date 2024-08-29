@@ -32,9 +32,13 @@ class CustomerServiceViewController:BaseViewController{
     func setupNavbar(){
         // 自定义返回按钮
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "customer_service_back"), for: .normal)  // 设置自定义图片
+        backButton.tintAdjustmentMode = .automatic
+        backButton.setImage(UIImage(named: "back_arrow")?.colorized(with: UIColor.white)?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)  // 设置自定义图片
+        backButton.setImage(UIImage(named: "back_arrow")?.colorized(with: UIColor.white)?.resized(toSize: CGSize(width: 20, height: 20)), for: .highlighted)  // 设置自定义图片
         backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitle("", for: .highlighted)  // 设置标题
         backButton.setTitleColor(.white, for: .normal)  // 设置标题颜色
+        backButton.setTitleColor(.white, for: .highlighted)  // 设置标题颜色
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
         let backBarButtonItem = UIBarButtonItem(customView: backButton)

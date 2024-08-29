@@ -10,6 +10,11 @@ import UIKit
 class CabinetLocationView: UIView {
 
     // MARK: - Accessor
+    var location:String?{
+        didSet{
+            textLabel.text = "\(CityCodeManager.shared.cityName ?? "")\(location ?? "")"
+        }
+    }
     var relocate:ButtonActionBlock?
     // MARK: - Subviews
     // 使用懒加载创建图标

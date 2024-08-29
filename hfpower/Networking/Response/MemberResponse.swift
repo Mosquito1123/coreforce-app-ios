@@ -11,6 +11,7 @@ import KakaJSON
 struct MemberResponse: Convertible {
     var depositData: DepositData?
     var locomotive: Locomotive?
+    var battery:Battery?
     var member: Member?
     var payVoucherCount: Int?
     var orderData: OrderData?
@@ -27,6 +28,23 @@ struct DepositData: Convertible {
 }
 
 // MARK: - Locomotive
+struct Battery:Convertible{
+    var id: Int?
+    var number: String?
+    var batteryTypeId:Int?
+    var mileage:Int?
+    var lastStoreId:Int?
+    var batteryName:String?
+    var status:Int?
+    var mac:String?
+    var planId:Int?
+    var clientLock:Bool?
+    var mcuLock:Bool?
+    var onLine:Bool?
+    var batteryMcuStatusId:Int?
+    var gpsOnLine:Bool?
+    var lockStatus:Int?
+}
 struct Locomotive: Convertible {
     var id: Int?
     var vin: String?
