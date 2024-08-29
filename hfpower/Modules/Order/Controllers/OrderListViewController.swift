@@ -8,6 +8,7 @@
 import UIKit
 import Tabman
 import Pageboy
+import MJRefresh
 class AllOrderViewController:BaseViewController{
     public let content = AllOrderContentViewController()
     override func viewDidLoad() {
@@ -60,9 +61,10 @@ class AllOrderViewController:BaseViewController{
 class AllOrderContentViewController: TabmanViewController {
     
     // MARK: - Accessor
-    let items: [(menu: String, content: UIViewController)] = ["全部","已支付","已取消/过期"].map {
-        let title = $0
+    let items: [(menu: String, content: UIViewController)] = [(payStatus:999,title:"全部"),(payStatus:2,title:"已支付"),(payStatus:0,title:"已取消/过期")].map {
+        let title = $0.title
         let vc = OrderListViewController()
+        vc.payStatus = $0.payStatus
         return (menu: title, content: vc)
     }
     // MARK: - Subviews
@@ -152,7 +154,9 @@ private extension AllOrderContentViewController {
 class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderList> {
     
     // MARK: - Accessor
-    var index = 0
+    var payStatus = 999
+    var pageNum = 1
+    var pageCount = 1
     // MARK: - Subviews
 
     // MARK: - Lifecycle
@@ -162,7 +166,82 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [OrderList(),OrderList()]
+        setupRefreshControl()
+        loadData()
+    }
+    func setupRefreshControl() {
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefreshing))
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefreshing))
+    }
+    @objc func headerRefreshing() {
+        // Implement your header refresh logic here
+        // ...
+        self.items.removeAll()
+        pageNum = 1
+        NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
+            switch result {
+            case.success(let response):
+                self.items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+                self.pageNum = 1
+                let total = (Double)(response?.pageResult?.total ?? 1)
+                let size = (Double)(response?.pageResult?.size ?? 1)
+                self.pageCount = Int(ceil(total/size))
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                self.pageNum = 1
+                self.pageCount = 1
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+                
+            }
+        }
+    }
+
+    @objc func footerRefreshing() {
+        // Implement your footer refresh logic here
+        // ...
+        if pageNum + 1 > pageCount {
+            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+            return
+        }
+        pageNum = pageNum + 1
+        NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
+            switch result {
+            case.success(let response):
+                let items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+                self.items.append(contentsOf: items)
+                self.tableView.mj_footer?.endRefreshing()
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                self.tableView.mj_footer?.endRefreshing()
+
+                
+            }
+        }
+    }
+    func loadData(){
+        pageNum = 1
+        NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
+            switch result {
+            case.success(let response):
+                self.items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+                self.pageNum = 1
+                let total = (Double)(response?.pageResult?.total ?? 1)
+                let size = (Double)(response?.pageResult?.size ?? 1)
+                self.pageCount = Int(ceil(total/size))
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                self.pageNum = 1
+                self.pageCount = 1
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+                
+            }
+        }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let orderDetailViewController = OrderDetailViewController()

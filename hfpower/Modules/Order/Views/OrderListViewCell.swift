@@ -23,7 +23,7 @@ class OrderListViewCell: BaseTableViewCell<OrderList> {
             label.numberOfLines = 0
             label.textAlignment = .left
             label.text = "¥2000 "
-            label.textColor = UIColor(rgba:0xFF6565FF)
+            label.textColor = UIColor(rgba:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -61,7 +61,7 @@ class OrderListViewCell: BaseTableViewCell<OrderList> {
             label.numberOfLines = 0
             label.textAlignment = .left
             label.text = "¥2000 "
-            label.textColor = UIColor(rgba:0xFF6565FF)
+            label.textColor = UIColor(rgba:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -148,6 +148,70 @@ class OrderListViewCell: BaseTableViewCell<OrderList> {
         }
     }
     // MARK: - Accessor
+    override func configure() {
+        self.titleLabel.text = element?.orderNo
+        let payStatus = element?.payStatus ?? -1
+        switch payStatus {
+        case -1:
+            self.statusLabel.text = "异常"
+            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+
+        case 0:
+            self.statusLabel.text = "取消/过期"
+            self.statusLabel.textColor = UIColor(rgba:0xA0A0A0FF)
+            self.refundView.contentLabel.text = "￥\(element?.payableAmount ?? 0)"
+
+
+        case 1:
+            self.statusLabel.text = "待支付"
+            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+
+        case 2:
+            self.statusLabel.text = "已支付"
+            self.statusLabel.textColor = UIColor(rgba:0x447AFEFF)
+        case 3:
+            self.statusLabel.text = "无需支付"
+            self.statusLabel.textColor = UIColor(rgba:0xA0A0A0FF)
+
+        case 4:
+            self.statusLabel.text = "支付异常"
+            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+
+        default:
+            self.statusLabel.text = "异常"
+            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+
+        }
+        let deviceType = element?.deviceType ?? 0
+        switch deviceType{
+        case 1:
+            self.detailView.contentLabel1.text = "租电池订单"
+            self.detailView.contentLabel2.text = "￥\(element?.totalAmount ?? 0)"
+            self.detailView.contentLabel3.text = element?.createAt
+        case 2:
+            self.detailView.contentLabel1.text = "电池柜订单"
+            self.detailView.contentLabel2.text = "￥\(element?.totalAmount ?? 0)"
+            self.detailView.contentLabel3.text = element?.createAt
+        case 3:
+            self.detailView.contentLabel1.text = "充电柜订单"
+            self.detailView.contentLabel2.text = "￥\(element?.totalAmount ?? 0)"
+            self.detailView.contentLabel3.text = element?.createAt
+        case 4:
+            self.detailView.contentLabel1.text = "租车订单"
+            self.detailView.contentLabel2.text = "￥\(element?.totalAmount ?? 0)"
+            self.detailView.contentLabel3.text = element?.createAt
+        case 5:
+            self.detailView.contentLabel1.text = "换电柜格口订单"
+            self.detailView.contentLabel2.text = "￥\(element?.totalAmount ?? 0)"
+            self.detailView.contentLabel3.text = element?.createAt
+
+        default:
+            self.detailView.contentLabel1.text = "换电柜格口订单"
+            self.detailView.contentLabel2.text = "￥\(element?.totalAmount ?? 0)"
+            self.detailView.contentLabel3.text = element?.createAt
+
+        }
+    }
     var detailViewBottom:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var containerView: UIView = {

@@ -33,7 +33,7 @@ enum BusinessAPI {
     case locomotiveCouponCount
     case locomotive
     case batteryReturn
-    case orderList
+    case orderList(page:Int)
     case batteryTimeChangeCardList
     case couponMatching(amount:Double,page:Int,batteryNumber:String?)
     case locomotiveCouponMatching(amount:Double,page:Int,locomotiveNumber:String?)
@@ -196,6 +196,13 @@ extension BusinessAPI:APIType{
         case .couponReceive(code: let code):
             let params = ["head": appHeader,"body":["code":code]]
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+        case .orderList(page:let page):
+            var params = [String:Any]()
+            params["page"] = page
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             
