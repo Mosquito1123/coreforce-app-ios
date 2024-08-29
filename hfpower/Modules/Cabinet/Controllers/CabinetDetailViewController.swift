@@ -9,7 +9,7 @@ import UIKit
 import FSPagerView
 import FloatingPanel
 import Kingfisher
-
+import CoreLocation
 class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate, FSPagerViewDataSource, FSPagerViewDelegate {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return imageUrls.count
@@ -35,13 +35,13 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
             self.cabinetDetailContentController.cabinetExchangeForecastDatas = cabinetExchangeForecastDatas
         }
     }
-    var cabinetAnnotation:CabinetAnnotation?{
+    var cabinet:CabinetSummary?{
         didSet{
-            self.cabinetDetailContentController.cabinetDetailContentView.titleLabel.text = cabinetAnnotation?.cabinet?.number
-            self.cabinetDetailContentController.cabinetDetailContentView.cabinetNumberView.numberLabel.text = cabinetAnnotation?.cabinet?.number
-            self.cabinetDetailContentController.cabinetDetailContentView.locationLabel.text = cabinetAnnotation?.cabinet?.location
+            self.cabinetDetailContentController.cabinetDetailContentView.titleLabel.text = cabinet?.number
+            self.cabinetDetailContentController.cabinetDetailContentView.cabinetNumberView.numberLabel.text = cabinet?.number
+            self.cabinetDetailContentController.cabinetDetailContentView.locationLabel.text = cabinet?.location
             guard let sourceCoordinate = mapController.mapView.userLocation.location?.coordinate else {return} // 起点
-            guard let destinationCoordinate = cabinetAnnotation?.coordinate else {return}
+            let destinationCoordinate = CLLocationCoordinate2D(latitude: cabinet?.bdLat?.doubleValue ?? 0, longitude: cabinet?.bdLon?.doubleValue ?? 0)
             self.mapController.calculateCyclingTime(from: sourceCoordinate, to: destinationCoordinate, completion: { response, error in
                 guard let response = response, let route = response.routes.first else {
                     print("Error calculating directions: \(String(describing: error))")
@@ -59,16 +59,16 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
                 
             })
             var list = [String]()
-            if let _ = cabinetAnnotation?.cabinet?.photo1, let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id {
+            if let _ = cabinet?.photo1, let accessToken = TokenManager.shared.accessToken,let id = cabinet?.id {
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(1)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
             }
-            if let _ = cabinetAnnotation?.cabinet?.photo2,let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id{
+            if let _ = cabinet?.photo2,let accessToken = TokenManager.shared.accessToken,let id = cabinet?.id{
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(2)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
 
             }
-            if let _ = cabinetAnnotation?.cabinet?.photo3,let accessToken = TokenManager.shared.accessToken,let id = cabinetAnnotation?.cabinet?.id{
+            if let _ = cabinet?.photo3,let accessToken = TokenManager.shared.accessToken,let id = cabinet?.id{
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(3)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
             }
@@ -109,12 +109,11 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.view.backgroundColor = .white
         setupNavbar()
         setupSubviews()
         setupLayout()
-        loadCabinetDetail(id: cabinetAnnotation?.cabinet?.id?.description, number: cabinetAnnotation?.cabinet?.number)
+        loadCabinetDetail(id: cabinet?.id?.description, number: cabinet?.number)
     }
     func loadCabinetDetail(id:String?,number:String?){
         if let idx = id,let numberx = number{
@@ -136,7 +135,25 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
 private extension CabinetDetailViewController {
     
     private func setupNavbar() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+
+        let backBarButtonItem = UIBarButtonItem(customView: cancelButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
         
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundImage = UIImage()
+        appearance.shadowImage = UIImage()
+        // 设置背景色为白色
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.clear,.font:UIFont.systemFont(ofSize: 18, weight: .semibold)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.compactAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
     }
     
     private func setupSubviews() {
@@ -144,10 +161,10 @@ private extension CabinetDetailViewController {
 
         fpc.delegate = self
         self.cabinetDetailContentController.cabinetDetailContentView.navigateAction = { action in
-            guard let annotation = self.cabinetAnnotation else {
+            guard let lat = self.cabinet?.bdLat?.doubleValue,let lng = self.cabinet?.bdLon?.doubleValue,let number = self.cabinet?.number else {
                 self.showError(withStatus: "该电柜坐标数据有误")
                 return}
-            self.mapNavigation(lat: annotation.coordinate.latitude, lng: annotation.coordinate.longitude, address: annotation.cabinet?.number, currentController: self)
+            self.mapNavigation(lat: lat, lng: lng, address: number, currentController: self)
         }
         fpc.set(contentViewController: self.cabinetDetailContentController)
         fpc.contentInsetAdjustmentBehavior = .always
@@ -157,17 +174,19 @@ private extension CabinetDetailViewController {
             return appearance
         }()
         fpc.addPanel(toParent: self)
+        self.bottomView.scanAction = { bt in
+            let scanVC = HFScanViewController()
+            scanVC.resultBlock = { result in
+            }
+            self.navigationController?.pushViewController(scanVC, animated: true)
+        }
         self.view.addSubview(self.bottomView)
-        self.view.addSubview(self.cancelButton)
         self.view.bringSubviewToFront(self.cancelButton)
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 6),
-            cancelButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 34),
-            cancelButton.widthAnchor.constraint(equalToConstant: 24),
-            cancelButton.heightAnchor.constraint(equalToConstant: 24),
+            
             pagerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pagerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pagerView.topAnchor.constraint(equalTo: view.topAnchor),

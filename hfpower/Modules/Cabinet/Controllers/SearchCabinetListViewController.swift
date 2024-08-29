@@ -36,22 +36,21 @@ class SearchCabinetListViewController: UIViewController,UIGestureRecognizerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         setupNavbar()
         setupSubviews()
         setupLayout()
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//
+//        
+//    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        
+//    }
     
     
 }
@@ -60,15 +59,41 @@ class SearchCabinetListViewController: UIViewController,UIGestureRecognizerDeleg
 private extension SearchCabinetListViewController {
     
     private func setupNavbar() {
-        
-    }
-   
-    private func setupSubviews() {
-        view.addSubview(headerView)
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+
         headerView.backAction = {bt in
             self.navigationController?.popViewController(animated: true)
             
         }
+        self.navigationItem.titleView = headerView
+        // 自定义返回按钮
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(named: "search_list_icon_arrow_back"), for: .normal)  // 设置自定义图片
+        backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色为白色
+        appearance.backgroundImage = UIColor.white.toImage()
+        appearance.shadowImage = UIColor.white.toImage()
+        
+        
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+    }
+   
+    private func setupSubviews() {
+//        view.addSubview(headerView)
+        
+        
         view.addSubview(locationView)
         view.addSubview(tableView)
        
@@ -76,12 +101,12 @@ private extension SearchCabinetListViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+//            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+//            headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 44),
-            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+//            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             locationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            locationView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            locationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             locationView.heightAnchor.constraint(equalToConstant: 44),
             locationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             
@@ -119,7 +144,10 @@ private extension SearchCabinetListViewController {
 
 // MARK: - Action
 @objc private extension SearchCabinetListViewController {
-    
+    @objc func backButtonTapped() {
+        // 返回按钮的点击事件处理
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - Private

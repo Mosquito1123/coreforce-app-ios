@@ -33,6 +33,24 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,Cab
             }
         }
     }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let element = self.items[indexPath.row]
+        if let cellx = cell as? CabinetListViewCell {
+            cellx.detailAction = { sender in
+                let cabinetDetailVC = CabinetDetailViewController()
+                cabinetDetailVC.cabinet = element
+                self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
+            }
+            cellx.navigateAction = { sender in
+                
+                guard let lat = element.bdLat?.doubleValue,let lng = element.bdLon?.doubleValue,let number = element.number else {
+                    self.showError(withStatus: "该电柜坐标数据有误")
+                    return}
+                self.mapNavigation(lat: lat, lng: lng, address: number, currentController: self)
+            }
+        }
+        
+    }
 }
 
 // MARK: - Setup
@@ -43,7 +61,7 @@ private extension CabinetListViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "customer_service_back")?.colorized(with: UIColor.black)?.resized(toSize: CGSize.init(width: 12, height: 20)), for: .normal)  // 设置自定义图片
+        backButton.setImage(UIImage(named: "search_list_icon_arrow_back"), for: .normal)  // 设置自定义图片
         backButton.setTitle("", for: .normal)  // 设置标题
         backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -69,6 +87,7 @@ private extension CabinetListViewController {
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
         self.view.addSubview(self.tableView)
+       
         
     }
     

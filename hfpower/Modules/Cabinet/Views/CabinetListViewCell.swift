@@ -11,7 +11,8 @@ class CabinetListViewCell: BaseTableViewCell<CabinetSummary> {
     
     // MARK: - Accessor
     override func configure() {
-        
+        self.titleLabel.text = element?.number
+        self.locationLabel.text = element?.location
     }
     var navigateAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
@@ -169,7 +170,7 @@ private extension CabinetListViewCell {
             titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor,constant: 16),
             detailButton.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor,constant: -16),
             detailButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            detailButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 16),
+            detailButton.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 16),
             businessTimeLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             businessTimeLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5.5),
             businessTimeLabel.trailingAnchor.constraint(equalTo:rentStatusButton.leadingAnchor, constant: -14),

@@ -301,12 +301,14 @@ extension MapViewController{
             let contentVC = CabinetPanelViewController()
             contentVC.scanAction = { sender in
                 let scanVC = HFScanViewController()
+                scanVC.resultBlock = {result in
+                }
                 self.navigationController?.pushViewController(scanVC, animated: true)
             }
             contentVC.detailAction = { sender in
          
                 let cabinetDetailVC = CabinetDetailViewController()
-                cabinetDetailVC.cabinetAnnotation = annotation
+                cabinetDetailVC.cabinet = annotation.cabinet
                 self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
             }
             contentVC.navigateAction = { sender in
