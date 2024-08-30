@@ -35,7 +35,7 @@ class NetworkService<R:APIType,T: Convertible> {
         let needHUD = target.shouldShowLoadingView
         if needHUD == true{
             SVProgressHUD.setDefaultStyle(.dark)
-            SVProgressHUD.setMinimumDismissTimeInterval(2)
+            SVProgressHUD.setMinimumDismissTimeInterval(1)
             SVProgressHUD.show()
             
             

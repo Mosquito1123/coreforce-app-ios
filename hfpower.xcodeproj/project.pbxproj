@@ -229,6 +229,7 @@
 		04A5E5232C1C2A4A00787551 /* CodeScan.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 04A5E5222C1C2A4A00787551 /* CodeScan.bundle */; };
 		04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5E5242C1C564500787551 /* ActivityListManager.swift */; };
 		04B2DFE52C3564470032B14D /* DepositService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B2DFE42C3564470032B14D /* DepositService.swift */; };
+		04B586752C816F31008592A8 /* OrderDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B586742C816F31008592A8 /* OrderDetailResponse.swift */; };
 		04BE42992C118814002B78EA /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42982C118813002B78EA /* UIViewController+Extension.swift */; };
 		04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429A2C118F0F002B78EA /* LoginModel.swift */; };
 		04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */; };
@@ -551,6 +552,7 @@
 		04A5E5222C1C2A4A00787551 /* CodeScan.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CodeScan.bundle; sourceTree = "<group>"; };
 		04A5E5242C1C564500787551 /* ActivityListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityListManager.swift; sourceTree = "<group>"; };
 		04B2DFE42C3564470032B14D /* DepositService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositService.swift; sourceTree = "<group>"; };
+		04B586742C816F31008592A8 /* OrderDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailResponse.swift; sourceTree = "<group>"; };
 		04BE42982C118813002B78EA /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		04BE429A2C118F0F002B78EA /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		04BE429C2C11C2EF002B78EA /* CityCodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCodeManager.swift; sourceTree = "<group>"; };
@@ -1234,6 +1236,7 @@
 				04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */,
 				04FB1BFF2C25667A00F47E79 /* CabinetDetailResponse.swift */,
 				0411AD662C7F012000F30395 /* CouponListResponse.swift */,
+				04B586742C816F31008592A8 /* OrderDetailResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -2071,6 +2074,7 @@
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				048EE7602C3D481C0094A0CB /* PersonalInfoListViewCell.swift in Sources */,
 				048EE7572C3D3BB60094A0CB /* AboutListViewCell.swift in Sources */,
+				04B586752C816F31008592A8 /* OrderDetailResponse.swift in Sources */,
 				045165892C1AC0E000ABE7F1 /* IDCardRectManager.m in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,
 				04BE42AC2C11D580002B78EA /* SectionIndexViewItem.swift in Sources */,

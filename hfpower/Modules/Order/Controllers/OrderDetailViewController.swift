@@ -108,6 +108,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
 
     
     // MARK: - Accessor
+    var element:OrderList?
     var bottomViewHeight:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var tableView: UITableView = {
@@ -138,37 +139,233 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            OrderDetail(id: 0,title: "",items: [
-                OrderDetailItem(id: 0, title: "订单类型", content: "租电车"),
-                OrderDetailItem(id: 1, title: "订单状态", content: "待支付"),
-                OrderDetailItem(id: 2, title: "订单编号", content: "20000000000000333"),
-                OrderDetailItem(id: 3, title: "订单时间", content: "2024-07-21 17:53:21"),
+        loadData()
+    }
+    func payStatusString(orderDetail:OrderDetail?)->String{
+        let payStatus = orderDetail?.payStatus ?? 0
+        switch payStatus {
+        case -1:
+            return "异常"
+        case 0:
+            return "取消/过期"
+        case 1:
+            return "待支付"
+        case 2:
+            return "已支付"
+        case 3:
+            return "无需支付"
+        case 4:
+            return "支付异常"
+        default:
+            return ""
+        }
+    }
+    func payMethodString(orderDetail:OrderDetail?)->String{
+        let payMethod  = orderDetail?.payMethod ?? 0
+        switch payMethod {
+        case 1:
+            return "微信JSAPI"
+        case 2:
+            return "微信APP"
+        case 3:
+            return "微信NATIVE"
+        case 4:
+            return "微信"
+        case 5:
+            return "支付宝APP"
+        case 10:
+            return "钱包"
+        case 11:
+            return "寄存券"
+        case 12:
+            return "套餐卡"
+        default:
+            return ""
+        }
+    }
+    func authOrderStatusString(orderDetail:OrderDetail?)->String{
+        let authOrderStatus = orderDetail?.authOrderStatus ?? 0
+        switch authOrderStatus {
+        case 0:
+            return "支付宝预授权中"
+        case 1:
+            return "支付宝已授权"
+        case 2:
+            return "押金支付授权"
+        default:
+            return "无"
+        }
+    }
+    func configOrderDetail(orderDetail:OrderDetail?){
+        if let deviceType = orderDetail?.deviceType{
+            let orderNo = orderDetail?.orderNo ?? ""
+            
+            switch deviceType {
+            case 1:
+                let batteryNumber = orderDetail?.batteryNumber ?? ""
+                let batteryTypeName = orderDetail?.batteryTypeName ?? ""
+                let agentName = orderDetail?.agentName ?? ""
+                let createAt = orderDetail?.createAt ?? ""
+                let duration = orderDetail?.duration ?? 0
+                let rentString = String(format: "%.2f元", orderDetail?.rent ?? 0.0)
+                let depositString = String(format: "%.2f元", orderDetail?.deposit ?? 0.0)
+                let couponDiscountAmountString = String(format: "%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
+                let planString = orderDetail?.payMethod == 12 ? String(format: "租电套餐%d天", orderDetail?.payVoucherDays ?? 0.0):"无"
+                let rentDetailString = String(format: "¥%.2f/%d天x%d", orderDetail?.rent ?? 0, orderDetail?.duration ?? 0, orderDetail?.leaseDuration ?? 0)
+                let paidString = String(format: "%.2f元", (orderDetail?.totalAmount ?? 0.0) - (orderDetail?.couponDiscountAmount ?? 0.0))
+                self.items = [
+                    OrderDetail(id: 0,items: [
+                        OrderDetailItem(id: 0, title: "订单类型", content: "电池"),
+                        OrderDetailItem(id: 1, title: "订单状态", content: payStatusString(orderDetail: orderDetail)),
+                        OrderDetailItem(id: 2, title: "订单编号", content: orderNo),
+                        OrderDetailItem(id: 3, title: "订单时间", content: createAt),
 
-            ]),
-            OrderDetail(id: 1,title: "",items: [
-                OrderDetailItem(id: 0, title: "电池编号", content: "TQ343222"),
-                OrderDetailItem(id: 1, title: "电池型号", content: "60VMax"),
-                OrderDetailItem(id: 2, title: "电池租期", content: "33天"),
-                OrderDetailItem(id: 3, title: "服务网点", content: "青岛片区"),
+                    ]),
+                    OrderDetail(id: 1,items: [
+                        OrderDetailItem(id: 0, title: "电池编号", content: batteryNumber),
+                        OrderDetailItem(id: 1, title: "电池型号", content: batteryTypeName),
+                        OrderDetailItem(id: 2, title: "电池租期", content: "\(duration)"),
+                        OrderDetailItem(id: 3, title: "服务网点", content: agentName),
 
-            ]),
-            OrderDetail(id: 2,title: "",items: [
-                OrderDetailItem(id: 0, title: "电池租金", content: "299元",extra: "15元/天 x60"),
-                OrderDetailItem(id: 1, title: "电池押金", content: "0元"),
-                OrderDetailItem(id: 2, title: "优惠", content: "-33元"),
-                OrderDetailItem(id: 3, title: "套餐", content: "299元/30天"),
-                OrderDetailItem(id: 4, title: "合计", content: "299元"),
+                    ]),
+                    OrderDetail(id: 2,items: [
+                        OrderDetailItem(id: 0, title: "电池租金", content: rentString,extra: rentDetailString),
+                        OrderDetailItem(id: 1, title: "电池押金", content: depositString),
+                        OrderDetailItem(id: 2, title: "优惠", content: couponDiscountAmountString),
+                        OrderDetailItem(id: 3, title: "套餐", content: planString),
+                        OrderDetailItem(id: 4, title: "合计", content: paidString),
 
 
-            ]),
-            OrderDetail(id: 2,title: "",items: [
-                OrderDetailItem(id: 0, title: "押金授权", content: "支付宝信用免押"),
-                OrderDetailItem(id: 1, title: "支付方式", content: "微信支付"),
+                    ]),
+                    OrderDetail(id: 2,items: [
+                        OrderDetailItem(id: 0, title: "押金授权", content: authOrderStatusString(orderDetail: orderDetail)),
+                        OrderDetailItem(id: 1, title: "支付方式", content: payMethodString(orderDetail: orderDetail)),
 
-            ]),
-        ]
+                    ]),
+                ]
+            case 4:
+                let locomotiveNumber = orderDetail?.locomotiveNumber ?? ""
+                let agentName = orderDetail?.agentName ?? ""
+                let createAt = orderDetail?.createAt ?? ""
+                let duration = orderDetail?.duration ?? 0
+                let rentString = String(format: "%.2f元", orderDetail?.rent ?? 0.0)
+                let depositString = String(format: "%.2f元", orderDetail?.deposit ?? 0.0)
+                let couponDiscountAmountString = String(format: "%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
+                let planString = orderDetail?.payMethod == 12 ? String(format: "租电套餐%d天", orderDetail?.payVoucherDays ?? 0.0):"无"
+                let rentDetailString = String(format: "¥%.2f/%d天x%d", orderDetail?.rent ?? 0, orderDetail?.duration ?? 0, orderDetail?.leaseDuration ?? 0)
+                let paidString = String(format: "%.2f元", (orderDetail?.totalAmount ?? 0.0) - (orderDetail?.couponDiscountAmount ?? 0.0))
+                self.items = [
+                    OrderDetail(id: 0,items: [
+                        OrderDetailItem(id: 0, title: "订单类型", content: "电车"),
+                        OrderDetailItem(id: 1, title: "订单状态", content: payStatusString(orderDetail: orderDetail)),
+                        OrderDetailItem(id: 2, title: "订单编号", content: orderNo),
+                        OrderDetailItem(id: 3, title: "订单时间", content: createAt),
 
+                    ]),
+                    OrderDetail(id: 1,items: [
+                        OrderDetailItem(id: 0, title: "机车编号", content: locomotiveNumber),
+                        OrderDetailItem(id: 1, title: "机车租期", content: "\(duration)"),
+                        OrderDetailItem(id: 2, title: "机车服务网点", content: agentName),
+
+                    ]),
+                    OrderDetail(id: 2,items: [
+                        OrderDetailItem(id: 0, title: "机车租金", content: rentString,extra: rentDetailString),
+                        OrderDetailItem(id: 1, title: "机车押金", content: depositString),
+                        OrderDetailItem(id: 2, title: "优惠", content: couponDiscountAmountString),
+                        OrderDetailItem(id: 3, title: "套餐", content: planString),
+                        OrderDetailItem(id: 4, title: "合计", content: paidString),
+
+
+                    ]),
+                    OrderDetail(id: 2,items: [
+                        OrderDetailItem(id: 0, title: "押金授权", content: authOrderStatusString(orderDetail: orderDetail)),
+                        OrderDetailItem(id: 1, title: "支付方式", content: payMethodString(orderDetail: orderDetail)),
+
+                    ]),
+                ]
+            default:
+                let batteryNumber = orderDetail?.batteryNumber ?? ""
+                let batteryTypeName = orderDetail?.batteryTypeName ?? ""
+                let agentName = orderDetail?.agentName ?? ""
+                let createAt = orderDetail?.createAt ?? ""
+                let duration = orderDetail?.duration ?? 0
+                let rentString = String(format: "%.2f元", orderDetail?.rent ?? 0.0)
+                let depositString = String(format: "%.2f元", orderDetail?.deposit ?? 0.0)
+                let couponDiscountAmountString = String(format: "%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
+                let planString = orderDetail?.payMethod == 12 ? String(format: "租电套餐%d天", orderDetail?.payVoucherDays ?? 0.0):"无"
+                let rentDetailString = String(format: "¥%.2f/%d天x%d", orderDetail?.rent ?? 0, orderDetail?.duration ?? 0, orderDetail?.leaseDuration ?? 0)
+                let paidString = String(format: "%.2f元", (orderDetail?.totalAmount ?? 0.0) - (orderDetail?.couponDiscountAmount ?? 0.0))
+                self.items = [
+                    OrderDetail(id: 0,items: [
+                        OrderDetailItem(id: 0, title: "订单类型", content: "电池"),
+                        OrderDetailItem(id: 1, title: "订单状态", content: payStatusString(orderDetail: orderDetail)),
+                        OrderDetailItem(id: 2, title: "订单编号", content: orderNo),
+                        OrderDetailItem(id: 3, title: "订单时间", content: createAt),
+
+                    ]),
+                    OrderDetail(id: 1,items: [
+                        OrderDetailItem(id: 0, title: "电池编号", content: batteryNumber),
+                        OrderDetailItem(id: 1, title: "电池型号", content: batteryTypeName),
+                        OrderDetailItem(id: 2, title: "电池租期", content: "\(duration)"),
+                        OrderDetailItem(id: 3, title: "服务网点", content: agentName),
+
+                    ]),
+                    OrderDetail(id: 2,items: [
+                        OrderDetailItem(id: 0, title: "电池租金", content: rentString,extra: rentDetailString),
+                        OrderDetailItem(id: 1, title: "电池押金", content: depositString),
+                        OrderDetailItem(id: 2, title: "优惠", content: couponDiscountAmountString),
+                        OrderDetailItem(id: 3, title: "套餐", content: planString),
+                        OrderDetailItem(id: 4, title: "合计", content: paidString),
+
+
+                    ]),
+                    OrderDetail(id: 2,items: [
+                        OrderDetailItem(id: 0, title: "押金授权", content: authOrderStatusString(orderDetail: orderDetail)),
+                        OrderDetailItem(id: 1, title: "支付方式", content: payMethodString(orderDetail: orderDetail)),
+
+                    ]),
+                ]
+
+            }
+            
+        }
+        
+    }
+    func loadData(){
+        if let id = self.element?.id{
+            let payStatus = element?.payStatus ?? 0
+            switch payStatus {
+            case -1:
+                bottomViewHeight.constant = 0
+            case 0:
+                bottomViewHeight.constant = 0
+            case 1:
+                bottomViewHeight.constant = 107
+            case 2:
+                bottomViewHeight.constant = 0
+            case 3:
+                bottomViewHeight.constant = 0
+            case 4:
+                bottomViewHeight.constant = 0
+            default:
+                bottomViewHeight.constant = 0
+
+            }
+            NetworkService<BusinessAPI,OrderDetailResponse>().request(.order(id: id)) { result in
+                switch result {
+                case.success(let response):
+                    
+                    self.configOrderDetail(orderDetail: response?.order)
+
+                    
+                    
+                case .failure(let error):
+                    self.showError(withStatus: error.localizedDescription)
+                    
+                }
+            }
+        }
+        
     }
     
 }

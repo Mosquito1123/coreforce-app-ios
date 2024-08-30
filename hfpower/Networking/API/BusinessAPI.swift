@@ -25,7 +25,7 @@ enum BusinessAPI {
     case couponMatchingCount
     case battery
     case renewal
-    case order
+    case order(id:Int)
     case orderCancel
     case batteryTimeChangeCardCancel
     case orderPay
@@ -152,6 +152,12 @@ extension BusinessAPI:APIType{
         case .locomotiveList:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         case .cabinet(id: let id, number: let number):
+            var params = [String:Any]()
+            params["id"] = id
+            params["number"] = number
+            for item in appHeader {
+                params[item.key] = item.value
+            }
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         case .couponMatching(amount: let amount, page: let page, batteryNumber: let batteryNumber):
             var params = [String:Any]()
@@ -199,6 +205,13 @@ extension BusinessAPI:APIType{
         case .orderList(page:let page):
             var params = [String:Any]()
             params["page"] = page
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .order(id: let id):
+            var params = [String:Any]()
+            params["id"] = id
             for item in appHeader {
                 params[item.key] = item.value
             }

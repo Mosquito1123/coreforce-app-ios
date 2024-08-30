@@ -245,6 +245,9 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                     let inviteVC = InviteCodeViewController()
                     self.navigationController?.pushViewController(inviteVC, animated: true)
 
+                }else if indexPath.item == 9{
+                    let allCouponViewController = AllCouponViewController()
+                    self.navigationController?.pushViewController(allCouponViewController, animated: true)
                 }
             }
             contentCell.titleLabel.text = item.title
