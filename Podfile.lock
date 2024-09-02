@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.9.1)
+  - AlipaySDK-iOS (15.8.16)
   - DGCharts (5.1.0):
     - DGCharts/Core (= 5.1.0)
   - DGCharts/Core (5.1.0)
@@ -34,6 +35,7 @@ PODS:
   - SwipeCellKit (2.7.1)
   - Tabman (3.2.0):
     - Pageboy (~> 4.2.0)
+  - WechatOpenSDK-XCFramework (2.0.4)
   - YNDropDownMenu (3.1.0)
   - ZLPhotoBrowser (4.5.3):
     - ZLPhotoBrowser/Core (= 4.5.3)
@@ -41,6 +43,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - AlipaySDK-iOS
   - DGCharts
   - EmptyStateKit
   - ESTabBarController-swift
@@ -62,12 +65,14 @@ DEPENDENCIES:
   - SwiftyUserDefaults
   - SwipeCellKit
   - Tabman
+  - WechatOpenSDK-XCFramework
   - YNDropDownMenu
   - ZLPhotoBrowser
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AlipaySDK-iOS
     - DGCharts
     - EmptyStateKit
     - ESTabBarController-swift
@@ -91,11 +96,13 @@ SPEC REPOS:
     - SwiftyUserDefaults
     - SwipeCellKit
     - Tabman
+    - WechatOpenSDK-XCFramework
     - YNDropDownMenu
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  AlipaySDK-iOS: 5e6011fbd546e7db6b43c1f527d164ee63f3d7cb
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
   EmptyStateKit: dc41e9ce5c6089f67a49d063bce73ade9f2ba73f
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
@@ -119,9 +126,10 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 63f80248cf5bfb3458825d9a78f2eb7e1293a040
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
   Tabman: 49f9181a2bfe5c29d002864dac2de8e0b7ea9180
+  WechatOpenSDK-XCFramework: 36fb2bea0754266c17184adf4963d7e6ff98b69f
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: 703fe6450458f578834d9564fe107b167f2b26e5
+PODFILE CHECKSUM: 2bc195ca286587c9c715abf7b878776088a97039
 
 COCOAPODS: 1.15.2

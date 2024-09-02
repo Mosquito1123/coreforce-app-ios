@@ -42,4 +42,7 @@ target 'hfpower' do
   pod 'SwipeCellKit'
   pod 'IGListKit', '~> 5.0.0'
   pod 'HMSegmentedControl'
+  pod 'WechatOpenSDK-XCFramework'
+  pod 'AlipaySDK-iOS'
+
 end

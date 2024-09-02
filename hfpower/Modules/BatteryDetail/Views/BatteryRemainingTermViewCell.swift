@@ -21,7 +21,7 @@ class BatteryRemainingTermViewCell: UICollectionViewCell {
         }()
         lazy var iconImageView: UIImageView = {
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "device_gift")
+            imageView.image = UIImage(named: "gift_icon")
             imageView.translatesAutoresizingMaskIntoConstraints = false
             return imageView
         }()
@@ -32,8 +32,8 @@ class BatteryRemainingTermViewCell: UICollectionViewCell {
             button.setTitle("立即购买", for: .highlighted)
             button.setTitleColor(UIColor(rgba: 0xC96518FF), for: .normal)
             button.setTitleColor(UIColor(rgba: 0xC96518FF).withAlphaComponent(0.5), for: .highlighted)
-            button.setImage(UIImage(named: "device_ic_arrow"), for: .normal)
-            button.setImage(UIImage(named: "device_ic_arrow"), for: .selected)
+            button.setImage(UIImage(named: "gift_right_icon"), for: .normal)
+            button.setImage(UIImage(named: "gift_right_icon"), for: .selected)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .medium)
             button.addTarget(self, action: #selector(getCoupon(_:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false

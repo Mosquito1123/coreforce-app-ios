@@ -45,7 +45,7 @@ class NewComersPackageCardViewCell:BaseTableViewCell<BuyPackageCard>,UICollectio
     }()
     lazy var headerIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "new_comers_icon")
+        imageView.image = UIImage(named: "gift_icon")?.colorized(with: .white)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

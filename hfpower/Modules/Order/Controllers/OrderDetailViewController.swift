@@ -406,6 +406,19 @@ private extension OrderDetailViewController {
     private func setupSubviews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
+        bottomView.cancelButton.addAction(for: .touchUpInside) {
+            NetworkService<BusinessAPI,BlankResponse>().request(.orderCancel(orderId: self.element?.id ?? 0)) { result in
+                switch result {
+                case .success:
+                    self.navigationController?.popViewController(animated: true)
+                case .failure(let failure):
+                    self.showError(withStatus: failure.localizedDescription)
+                }
+            }
+        }
+        bottomView.submitButton.addAction(for: .touchUpInside) {
+            
+        }
         view.addSubview(bottomView)
         
     }

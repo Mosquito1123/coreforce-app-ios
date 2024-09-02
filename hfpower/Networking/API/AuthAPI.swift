@@ -14,6 +14,7 @@ enum AuthAPI {
     case logoff
     case sendSMSCode(phoneNumber: String)
     case login(username: String, password: String,type:String)
+    case wxLogin(code:String)
     case loginWithSMS(phoneNumber: String, code: String,inviteCode:String? = nil,type:String)
     case register(phoneNumber: String, inviteCode: String? = nil, code: String,type:String)
 }
@@ -34,6 +35,8 @@ extension AuthAPI:APIType{
             return "pin/send"
         case .login,.loginWithSMS:
             return "login"
+        case .wxLogin:
+            return "wxLogin"
         case .register:
             return "reg"
         case .logoff:
@@ -47,7 +50,7 @@ extension AuthAPI:APIType{
     
     var method: Moya.Method {
         switch self {
-        case .sendSMSCode, .login, .loginWithSMS, .register,.logoff,.logout:
+        case .sendSMSCode, .login, .loginWithSMS, .register,.logoff,.logout,.wxLogin:
             return .post
         case .refreshToken:
             return .post
@@ -85,6 +88,9 @@ extension AuthAPI:APIType{
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         case .refreshToken(let refreshToken):
             let params = ["refresh_token": refreshToken]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
+        case .wxLogin(code: let code):
+            let params = ["body": ["code":code]] as [String : Any]
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader["access_token"] == nil ? [:]:appHeader)
         }
     }

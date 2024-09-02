@@ -18,7 +18,7 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: String(describing: FSPagerViewCell.self), at: index)
         let url = imageUrls[index]
-        cell.imageView?.kf.setImage(with: url,placeholder: UIImage(named: "icon_default_cabinet"))
+        cell.imageView?.kf.setImage(with: url,placeholder: UIImage(named: "no_data"))
         
         return cell
     }

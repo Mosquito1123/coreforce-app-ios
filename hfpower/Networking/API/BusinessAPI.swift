@@ -26,7 +26,7 @@ enum BusinessAPI {
     case battery
     case renewal
     case order(id:Int)
-    case orderCancel
+    case orderCancel(orderId:Int)
     case batteryTimeChangeCardCancel
     case orderPay
     case batteryTimeChangeCardPay
@@ -120,6 +120,8 @@ extension BusinessAPI:APIType{
          // Example: return .post for POST requests
         switch self {
         case .couponReceive:
+            return .post
+        case .orderCancel:
             return .post
         default:
             return .get
@@ -216,6 +218,9 @@ extension BusinessAPI:APIType{
                 params[item.key] = item.value
             }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .orderCancel(orderId: let orderId):
+            let params = ["head": appHeader,"body":["orderId":orderId]] as [String : Any]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             
