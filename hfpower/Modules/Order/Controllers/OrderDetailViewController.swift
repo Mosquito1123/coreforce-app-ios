@@ -333,7 +333,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
     }
     func loadData(){
         if let id = self.element?.id{
-            let payStatus = element?.payStatus ?? 0
+            let payStatus = element?.payStatus ?? 1
             switch payStatus {
             case -1:
                 bottomViewHeight.constant = 0

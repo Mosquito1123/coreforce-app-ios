@@ -7,10 +7,15 @@
 
 import Foundation
 import KakaJSON
+struct CabinetScanResponse:Convertible{
+    var status:Int?
+    var opNo:String?
+}
 struct CabinetDetailResponse:Convertible{
     var cabinet:CabinetSummary?
     var gridList:[GridSummary]?
     var cabinetExchangeForecast:[CabinetExchangeForecast]?
+    var payingOrderId:Int?
 }
 struct CabinetExchangeForecast:Convertible{
     var count:NSNumber?

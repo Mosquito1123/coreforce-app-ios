@@ -248,6 +248,7 @@
 		04DE268B2C32A21C0052D056 /* DepositServiceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */; };
 		04DE268D2C32A5F90052D056 /* FeeDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */; };
 		04DE268F2C32B64A0052D056 /* RecommendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268E2C32B64A0052D056 /* RecommendViewCell.swift */; };
+		04DF8D432C85B0BC005F5BBA /* UserFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DF8D422C85B0BC005F5BBA /* UserFeedbackViewController.swift */; };
 		04EAF4512C22BC5100CD1434 /* CabinetPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */; };
 		04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */; };
 		04EBBAF82C181D6E00AFD14B /* LocomotiveListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */; };
@@ -571,6 +572,7 @@
 		04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositServiceViewCell.swift; sourceTree = "<group>"; };
 		04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeDetailViewCell.swift; sourceTree = "<group>"; };
 		04DE268E2C32B64A0052D056 /* RecommendViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewCell.swift; sourceTree = "<group>"; };
+		04DF8D422C85B0BC005F5BBA /* UserFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedbackViewController.swift; sourceTree = "<group>"; };
 		04EAF4502C22BC5100CD1434 /* CabinetPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelViewController.swift; sourceTree = "<group>"; };
 		04EAF4522C22BD2700CD1434 /* CabinetPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetPanelView.swift; sourceTree = "<group>"; };
 		04EBBAF72C181D6E00AFD14B /* LocomotiveListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocomotiveListResponse.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				04DF8D3E2C85A697005F5BBA /* Feedback */,
 				046B4EEC2C6DFC4D00DCD5CB /* Order */,
 				046B4EE12C6DFA6500DCD5CB /* BikeDetail */,
 				046B4EE02C6DFA5A00DCD5CB /* BatteryDetail */,
@@ -1728,6 +1731,38 @@
 			path = SectionIndexView;
 			sourceTree = "<group>";
 		};
+		04DF8D3E2C85A697005F5BBA /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				04DF8D412C85AD85005F5BBA /* Models */,
+				04DF8D402C85AD7D005F5BBA /* Controllers */,
+				04DF8D3F2C85AD74005F5BBA /* Views */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
+		04DF8D3F2C85AD74005F5BBA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		04DF8D402C85AD7D005F5BBA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04DF8D422C85B0BC005F5BBA /* UserFeedbackViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		04DF8D412C85AD85005F5BBA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		04FFEE452C05A6EE00939B46 /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -2061,6 +2096,7 @@
 				049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */,
 				0451657F2C1AC0DF00ABE7F1 /* JYBDBankCardVC.m in Sources */,
 				04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */,
+				04DF8D432C85B0BC005F5BBA /* UserFeedbackViewController.swift in Sources */,
 				045215302C37E2730091FD1A /* CabinetFilterHeaderReusableView.swift in Sources */,
 				046B4EDB2C6DAAE600DCD5CB /* DepositManagementTableFooterView.swift in Sources */,
 				042D84FF2C2987300049DDB5 /* PersonalOthersViewCell.swift in Sources */,

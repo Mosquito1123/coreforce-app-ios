@@ -19,7 +19,7 @@ enum MemberAPI{
     case memberMsgRead
     case memberRpInit(params:[String:Any])
     case memberRpDescribe(certifyId:String)
-    case feedback
+    case feedback(name:String,email:String,phoneNum:String,feedback:String)
     case memberInviteCode
 
 }
@@ -70,6 +70,8 @@ extension MemberAPI:APIType{
             return .post
         case .memberInviteCode:
             return .get
+        case .feedback:
+            return .post
         default:
             return .post
             
@@ -95,6 +97,9 @@ extension MemberAPI:APIType{
             ], urlParameters: appHeader)
         case .memberInviteCode:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+        case .feedback(name: let name, email: let email, phoneNum: let phoneNum, feedback: let feedback):
+            let params = ["head": appHeader,"body":["name":name,"email":email,"phoneNum":phoneNum,"feedback":feedback]]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         default:
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
             

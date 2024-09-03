@@ -11,10 +11,10 @@ import Moya
 enum BusinessAPI {
     case batteryList
     case locomotiveList
-    case cabinetScan
+    case cabinetScan(cabinetNumber:String?,batteryId:Int?)
     case cabinetScanReturn
     case replaceConfirm
-    case cabinet(id:String,number:String)
+    case cabinet(id:String?,number:String?)
     case cabinetList(tempStorageSw:NSNumber?,cityCode:String?,lon:Double?,lat:Double?)
     case cabinetScanRent
     case batteryLock
@@ -123,6 +123,10 @@ extension BusinessAPI:APIType{
             return .post
         case .orderCancel:
             return .post
+        case .cabinetScan:
+            return .post
+        case .cabinet:
+            return .get
         default:
             return .get
         }
@@ -155,12 +159,16 @@ extension BusinessAPI:APIType{
             return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
         case .cabinet(id: let id, number: let number):
             var params = [String:Any]()
-            params["id"] = id
-            params["number"] = number
+            if let idx = id{
+                params["id"] = idx
+            }
+            if let numberx = number{
+                params["number"] = numberx
+            }
             for item in appHeader {
                 params[item.key] = item.value
             }
-            return .requestParameters(parameters: appHeader, encoding: URLEncoding.default)
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .couponMatching(amount: let amount, page: let page, batteryNumber: let batteryNumber):
             var params = [String:Any]()
             params["amount"] = amount
@@ -203,6 +211,9 @@ extension BusinessAPI:APIType{
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .couponReceive(code: let code):
             let params = ["head": appHeader,"body":["code":code]]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+        case .cabinetScan(cabinetNumber: let cabinetNumber, batteryId: let batteryId):
+            let params = ["head": appHeader,"body":["cabinetNumber":cabinetNumber ?? "","batteryId":batteryId ?? 0]] as [String : Any]
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         case .orderList(page:let page):
             var params = [String:Any]()
