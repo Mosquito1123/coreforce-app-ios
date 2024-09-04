@@ -10,7 +10,7 @@ import UIKit
 class BatteryReplacementViewController: BaseTableViewController<BatteryReplacementStatusViewCell,BatteryReplacementStatus> {
     
     // MARK: - Accessor
-    
+    var opNo:String = ""
     // MARK: - Subviews
     lazy var bottomView: BatteryReplacementBottomView = {
         let view = BatteryReplacementBottomView()
@@ -24,29 +24,10 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            BatteryReplacementStatus(),
-            BatteryReplacementStatus(),
-            BatteryReplacementStatus()]
-//        self.presentCustomAlert(withImage: "icon_success", titleText: "支付成功", messageText: "您已租电成功，是否立马开仓取电？", cancel: "取消", {
-//            
-//        }, sure: "开仓取电") {
-//            
-//        }
-       
-        self.showActionSheet(["wechat","alipay"], ["微信","支付宝"],"取消",{section,row in
-            self.dismiss(animated: true)
-        })
+        
+        loadCabinetStatus()
         
         
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setupNavbar()
     }
 }
 
@@ -54,6 +35,8 @@ class BatteryReplacementViewController: BaseTableViewController<BatteryReplaceme
 private extension BatteryReplacementViewController {
     
     private func setupNavbar() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.title = "电池租赁"
         
         // 自定义返回按钮
@@ -115,7 +98,34 @@ private extension BatteryReplacementViewController {
 
 // MARK: - Action
 @objc private extension BatteryReplacementViewController {
-    
+    @objc func loadCabinetStatus(){
+        NetworkService<BusinessAPI,CabinetStatusResponse>().request(.cabinetStatus(opNo: self.opNo)) { result in
+            switch result {
+            case.success(let response):
+                if response?.finish == true{//换电请求提交成功
+                    
+                    if response?.errStatus == "E"{//换电失败，请重新扫码
+                        self.items = []
+
+                    }else if response?.errStatus == "F"{//换电完成
+                        self.items = []
+
+                    }else if response?.errStatus == "0"{//换电完成
+                        self.items = []
+
+                    }else{
+                        self.items = []
+                    }
+                }else{
+                    self.perform(#selector(self.loadCabinetStatus), with: nil, afterDelay: 3.0)
+                }
+            case .failure(let error):
+                self.showError(withStatus: error.localizedDescription)
+                
+                
+            }
+        }
+    }
 }
 
 // MARK: - Private

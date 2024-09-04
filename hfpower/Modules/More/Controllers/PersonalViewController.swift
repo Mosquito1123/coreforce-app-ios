@@ -245,6 +245,10 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                     let inviteVC = InviteCodeViewController()
                     self.navigationController?.pushViewController(inviteVC, animated: true)
 
+                }else if indexPath.item == 5{
+                    let userFeedbackVC = UserFeedbackViewController()
+                    self.navigationController?.pushViewController(userFeedbackVC, animated: true)
+
                 }else if indexPath.item == 9{
                     let allCouponViewController = AllCouponViewController()
                     self.navigationController?.pushViewController(allCouponViewController, animated: true)

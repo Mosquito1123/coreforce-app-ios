@@ -7,6 +7,10 @@
 
 import Foundation
 import KakaJSON
+struct CabinetStatusResponse:Convertible{
+    var errStatus:String?
+    var finish:Bool?
+}
 struct CabinetListResponse:Convertible{
     var list:[CabinetSummary]?
 }

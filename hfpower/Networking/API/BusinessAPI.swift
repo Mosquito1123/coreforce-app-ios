@@ -16,12 +16,12 @@ enum BusinessAPI {
     case replaceConfirm
     case cabinet(id:String?,number:String?)
     case cabinetList(tempStorageSw:NSNumber?,cityCode:String?,lon:Double?,lat:Double?)
-    case cabinetScanRent
+    case cabinetScanRent(cabinetNumber:String?)
     case batteryLock
     case batteryUnlock
-    case batteryRing
+    case batteryRing(batteryId:Int)
     case lockStatus
-    case cabinetStatus
+    case cabinetStatus(opNo:String)
     case couponMatchingCount
     case battery
     case renewal
@@ -125,8 +125,14 @@ extension BusinessAPI:APIType{
             return .post
         case .cabinetScan:
             return .post
+        case .cabinetScanRent:
+            return .post
         case .cabinet:
             return .get
+        case .cabinetStatus:
+            return .get
+        case .batteryRing:
+            return .post
         default:
             return .get
         }
@@ -165,6 +171,13 @@ extension BusinessAPI:APIType{
             if let numberx = number{
                 params["number"] = numberx
             }
+            for item in appHeader {
+                params[item.key] = item.value
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .cabinetStatus(opNo: let opNo):
+            var params = [String:Any]()
+            params["opNo"] = opNo
             for item in appHeader {
                 params[item.key] = item.value
             }
@@ -214,6 +227,12 @@ extension BusinessAPI:APIType{
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         case .cabinetScan(cabinetNumber: let cabinetNumber, batteryId: let batteryId):
             let params = ["head": appHeader,"body":["cabinetNumber":cabinetNumber ?? "","batteryId":batteryId ?? 0]] as [String : Any]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+        case .cabinetScanRent(cabinetNumber:let cabinetNumber):
+            let params = ["head": appHeader,"body":["cabinetNumber":cabinetNumber ?? ""]] as [String : Any]
+            return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
+        case .batteryRing(batteryId: let batteryId):
+            let params = ["head": appHeader,"body":["batteryId":batteryId]] as [String : Any]
             return .requestCompositeParameters(bodyParameters: params, bodyEncoding: JSONEncoding.default, urlParameters: appHeader)
         case .orderList(page:let page):
             var params = [String:Any]()
