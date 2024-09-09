@@ -263,25 +263,31 @@ private extension LoginViewController {
 // MARK: - Action
 @objc private extension LoginViewController {
     private func loginBehavior(){
-        NetworkService<AuthAPI,TokenResponse>().request(.login(username: accountInputView.phoneNumberTextField.text ?? "", password: passwordInputView.passwordTextField.text ?? "", type: "pw")) { result in
-            switch result{
-            case .success(let response):
-                TokenManager.shared.accessToken = response?.accessToken
-                TokenManager.shared.accessTokenExpiration = response?.accessTokenExpiration
-                TokenManager.shared.refreshToken = response?.refreshToken
-                TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
-                AccountManager.shared.phoneNum = self.accountInputView.phoneNumberTextField.text
+        let passwordMD5 = self.passwordInputView.passwordTextField.text?.md5 ?? ""
 
-                let mainController = MainTabBarController.defaultMainController()
-                mainController.modalPresentationStyle = .fullScreen
-                UIViewController.ex_keyWindow()?.rootViewController = mainController
-                
-            case .failure(let error):
-                
-                self.showError(withStatus: error.localizedDescription)
-                
+        postData(loginUrl, param: [
+            "account": self.accountInputView.phoneNumberTextField.text ?? "",
+            "password": passwordMD5,
+            "type": "pw"
+        ], isLoading: true, success: { (responseObject) in
+            // Save account name to UserDefaults
+            AccountManager.shared.phoneNum = self.accountInputView.phoneNumberTextField.text
+            
+            // Save account using HFKeyedArchiverTool
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let account = HFAccount.mj_object(withKeyValues: body) {
+                HFKeyedArchiverTool.saveAccount(account)
             }
-        }
+            
+            // Set the root view controller
+            let nav = UINavigationController(rootViewController: MainTabBarController())
+            UIViewController.ex_keyWindow()?.rootViewController = nav
+        }, error: { (error) in
+            // Handle error
+            self.showError(withStatus: error.localizedDescription)
+
+        })
+
+        
     }
     @objc func toggle(_ sender:UIButton){
         sender.isSelected = !sender.isSelected

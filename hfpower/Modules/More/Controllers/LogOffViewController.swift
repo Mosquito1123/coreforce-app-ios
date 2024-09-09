@@ -73,6 +73,24 @@ private extension LogOffViewController {
     private func setupSubviews() {
         self.view.backgroundColor = .white
         self.view.addSubview(self.tableView)
+        self.bottomView.sureAction = { action in
+            self.showAlertController(titleText: "提示", messageText: "确定要注销吗？",okAction: {
+                
+                self.postData(logoutUrl, param: [:], isLoading: true) { responseObject in
+                    let loginVC = LoginViewController()
+                    let nav = UINavigationController(rootViewController: loginVC)
+                    nav.modalPresentationStyle = .fullScreen
+                    nav.modalTransitionStyle = .coverVertical
+                    let mainController = nav
+                    UIViewController.ex_keyWindow()?.rootViewController = mainController
+                    HFKeyedArchiverTool.removeData()
+                } error: { error in
+                    self.showError(withStatus: error.localizedDescription)
+                }
+            },isCancelAlert: true) {
+                
+            }
+        }
         self.view.addSubview(self.bottomView)
 
     }

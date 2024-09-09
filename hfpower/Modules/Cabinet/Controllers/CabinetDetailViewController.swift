@@ -116,14 +116,15 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
         loadCabinetDetail(id: cabinet?.id?.description, number: cabinet?.number)
     }
     func loadCabinetDetail(id:String?,number:String?){
-        NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: id, number: number)) { result in
+        /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: id, number: number)) { result in
             switch result {
             case .success(let response):
                 self.cabinetExchangeForecastDatas = response?.cabinetExchangeForecast
             case .failure(let error):
                 debugPrint(error)
             }
-        }
+        }             */
+
         
         
     }

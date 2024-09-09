@@ -45,6 +45,7 @@ class ForgetPasswordVPhoneNumberViewController: UIViewController {
     }()
     lazy var vCodeInputView:LoginVCodeInputView = {
         let view = LoginVCodeInputView()
+        view.controller = self
         view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

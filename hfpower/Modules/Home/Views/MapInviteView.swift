@@ -11,7 +11,7 @@ typealias GoToInviteAction = (_ sender:UIButton)->Void
 class MapInviteView: UIView {
 
     // MARK: - Accessor
-    var goTInviteAction:GoToInviteAction?
+    var goToInviteAction:GoToInviteAction?
 
     // MARK: - Subviews
     lazy var inviteButton:UIButton = {
@@ -65,7 +65,7 @@ extension MapInviteView {
 // MARK: - Action
 @objc private extension MapInviteView {
     @objc func inviteAction(_ sender:UIButton){
-        self.goTInviteAction?(sender)
+        self.goToInviteAction?(sender)
     }
 }
 

@@ -44,6 +44,9 @@ extension Notification.Name {
     static let cityChanged = Notification.Name("CityChanged")
     static let scanTypeChanged = Notification.Name("ScanTypeChanged")
     static let refreshCouponList = Notification.Name("refreshCouponList")
+    static let refreshDeviceNotification = Notification.Name("refreshDeviceNotification")
+    static let floatButtonShowNotification = Notification.Name("floatButtonShowNotification")
+
 }
 extension String {
     func timeRemaining() -> String {

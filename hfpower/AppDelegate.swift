@@ -170,7 +170,7 @@ class WXPayTools: NSObject, WXApiDelegate {
     }
     
     private func doWXLogin(code: String) {
-        NetworkService<AuthAPI,TokenResponse>().request(.wxLogin(code: code)) { result in
+        /*NetworkService<AuthAPI,TokenResponse>().request(.wxLogin(code: code)) { result in
             switch result{
             case .success(let response):
                 TokenManager.shared.accessToken = response?.accessToken
@@ -178,7 +178,7 @@ class WXPayTools: NSObject, WXApiDelegate {
                 TokenManager.shared.refreshToken = response?.refreshToken
                 TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
                 AccountManager.shared.phoneNum = code
-                let mainController = MainTabBarController.defaultMainController()
+                let mainController = MainTabBarController()
                 mainController.modalPresentationStyle = .fullScreen
                 UIViewController.ex_keyWindow()?.rootViewController = mainController
                 
@@ -187,6 +187,7 @@ class WXPayTools: NSObject, WXApiDelegate {
                 
                 
             }
-        }
+        }             */
+
     }
 }

@@ -137,12 +137,7 @@ extension GuideViewController:UIScrollViewDelegate {
             self.okButton.isHidden = true
 
         }
-//        if(scrollView.contentOffset.x > twidth)
-//        {
-//            let mainController = MainTabBarController.defaultMainController()
-//            self.present(mainController, animated: true)
-//           
-//        }
+
     }
 }
 
@@ -156,7 +151,8 @@ private extension GuideViewController {
     @objc func buttonTapped(_ sender:UIButton){
         let mainController:UIViewController
         if let _ = AccountManager.shared.phoneNum{
-            mainController = MainTabBarController.defaultMainController()
+            let mainTabBarController = MainTabBarController()
+            mainController = UINavigationController(rootViewController: mainTabBarController)
             mainController.modalPresentationStyle = .fullScreen
 
         }else{

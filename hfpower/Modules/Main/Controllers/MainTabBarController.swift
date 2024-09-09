@@ -6,97 +6,252 @@
 //
 
 import UIKit
-import ESTabBarController_swift
 
-class MainTabBarController: ESTabBarController {
+class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
     
     // MARK: - Accessor
-    // MARK: - Subviews
-    
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(scanTypeChanged(_:)), name: .scanTypeChanged, object: nil)
+    lazy var centerButton: MainScanButton = {
+        let button = MainScanButton()
+        button.addTarget(self, action: #selector(centerButtonTapped(_:)), for: .touchUpInside)
         
-        self.didHijackHandler = {
-            [weak self] tabbarController, viewController, index in
-            let fb =   UIImpactFeedbackGenerator(style: .heavy)
-            fb.impactOccurred()
-            if  AccountManager.shared.phoneNum == nil{
-                if self?.isViewLoaded == true{
-                    let loginVC = LoginViewController()
-                    let nav = UINavigationController(rootViewController: loginVC)
-                    nav.modalPresentationStyle = .fullScreen
-                    nav.modalTransitionStyle = .coverVertical
-                    self?.present(nav, animated: true, completion: {
-                        self?.showWindowError(withStatus: "请登录~~")
-                        
-                    })
-                }
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    // MARK: - Subviews
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.refreshBatteryDataList {
+            
+        } bikeDataBlock: {
+            
+        } batteryDepositDataBlock: {
+            
+        } complete: { data in
+            self.updateCenterButton()
+        }
+        
+    }
+    // MARK: - Lifecycle
+    func updateCenterButton() {
+        let orderInfo =  HFKeyedArchiverTool.batteryDepositOrderInfo()
+        let batteryArray = HFKeyedArchiverTool.batteryDataList()
+        if orderInfo.id != nil{
+            self.centerButton.type = .battery_release
+            
+        }else{
+            if batteryArray.count > 0{
+                self.centerButton.type = .battery_change
                 
-                return
-            }
-            if  AccountManager.shared.isAuth != 1{
-                if self?.isViewLoaded == true{
-                    let realNameAuthVC = RealNameAuthViewController()
-                    let nav = UINavigationController(rootViewController: realNameAuthVC)
-                    nav.modalPresentationStyle = .fullScreen
-                    nav.modalTransitionStyle = .coverVertical
-                    self?.present(nav, animated: true, completion: {
-                        self?.showWindowError(withStatus: "请实名认证~~")
-                        
-                    })
-                }
+            }else{
+                self.centerButton.type = .battery_rent
                 
-                return
             }
-            let scanVC = HFScanViewController()
-            scanVC.resultBlock = { result in
-                guard let resultString = result.strScanned else {return}
-                if resultString.contains("www.coreforce.cn") {
-                    // 扫码获得类型
-                    guard let startRange = resultString.range(of: "cn/"),
-                          let endRange = resultString.range(of: "?n") else { return }
-                    
-                    let range = startRange.upperBound..<endRange.lowerBound
-                    let resultStr = String(resultString[range])
-                    
-                    // 获得 n= 型号字符串
-                    let resultArray = resultString.components(separatedBy: "n=")
-                    guard let typeName = resultArray.last else { return }
-                    
-                    if resultStr == "b" {//电池
-                        if let firstBatteryNumber = MainManager.shared.batteryDetail?.number, firstBatteryNumber == typeName {
-                            let batteryVC = BatteryDetailViewController()
-                            self?.navigationController?.pushViewController(batteryVC, animated: true)
-                            return
-                        } else if let firstBatteryNumber = MainManager.shared.batteryDetail?.number, firstBatteryNumber != typeName {
-                            self?.showError(withStatus: "已租电池，请扫柜换电")
-                            return
-                        }
-                    } else if resultStr == "c" {//电柜
-                        if let battery = MainManager.shared.batteryDetail{//换电
-                            self?.batteryReplacement(id: battery.id?.intValue, number: typeName)
-                        }else{//新租
-                            self?.rentBattery(number: typeName)
-                        }
-                    }else if resultStr == "l" {//机车
-                        
-                    }else{
-                        self?.showError(withStatus: "二维码错误，请扫核蜂换电有关二维码进行扫码")
-                    }
-                }
-            }
-            self?.navigationController?.pushViewController(scanVC, animated: true)
-
             
         }
+        
+    }
+    
+    func setupNavbarMore() {
+        self.navigationItem.titleView = nil
+        
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundImage = UIImage()
+            appearance.shadowImage = UIImage()
+            
+            appearance.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.clear,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)
+            ]
+            
+            self.navigationItem.standardAppearance = appearance
+            self.navigationItem.scrollEdgeAppearance = appearance
+        }
+    }
+    
+    func setupNavbarHome() {
+        let headerView = HomeHeaderView()
+        self.navigationItem.titleView = headerView
+        
+        headerView.locationChooseView.chooseCityAction = { sender in
+            // Handle city choose action
+            let cityChooseVC = CityChooseViewController()
+            
+            let nav = UINavigationController(rootViewController: cityChooseVC)
+            nav.modalPresentationStyle = .fullScreen
+            nav.modalTransitionStyle = .coverVertical
+            self.present(nav, animated: true)
+        }
+        
+        headerView.searchView.goToSearchServiceBlock = { textField in
+            // Handle search service action
+            let cabinetListVC = SearchCabinetListViewController()
+            cabinetListVC.hidesBottomBarWhenPushed = true
+//            cabinetListVC.coordinate = self.mapViewController.mapView.centerCoordinate
+            self.navigationController?.pushViewController(cabinetListVC, animated: true)
+        }
+        
+        headerView.searchView.goToNotificationBlock = { sender in
+            // Handle notification action
+            let notificationVC = NotificationViewController()
+            notificationVC.hidesBottomBarWhenPushed = true
+            
+            self.navigationController?.pushViewController(notificationVC, animated: true)
+        }
+        
+        headerView.searchView.goToCustomerServiceBlock = { sender in
+            // Handle customer service action
+            let customerVC = CustomerServiceViewController()
+            customerVC.hidesBottomBarWhenPushed = true
+            
+            self.navigationController?.pushViewController(customerVC, animated: true)
+        }
+        
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundImage = UIImage()
+            appearance.shadowImage = UIImage()
+            
+            appearance.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.clear,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)
+            ]
+            
+            self.navigationItem.standardAppearance = appearance
+            self.navigationItem.scrollEdgeAppearance = appearance
+        }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.delegate = self
+    
+        
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
+        setupTabbar()
+        setupCenterButton()
+    }
+    func setupTabbar() {
+        // Set background color
+        if #available(iOS 13.0, *) {
+            let appearance = UITabBarAppearance()
+            
+            // Critical line of code to handle the tabBar background color
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundImage = UIImage(named: "tab_bar_background")?.resized(toSize:  CGSize(width: UIScreen.main.bounds.size.width, height: 130))
+            appearance.shadowImage = UIColor.clear.toImage()
+            appearance.backgroundImageContentMode = .bottom
+            self.tabBar.standardAppearance = appearance
+            
+            // Ensures the background color doesn't change when switching items or scrolling
+            if #available(iOS 15.0, *) {
+                self.tabBar.scrollEdgeAppearance = self.tabBar.standardAppearance
+            }
+        } else {
+            // Fallback for earlier iOS versions
+            self.tabBar.isTranslucent = true
+            self.tabBar.shadowImage = UIColor.clear.toImage()
+            self.tabBar.backgroundImage = UIColor.clear.toImage()
+        }
+        
+        // Create view controllers for the tab bar
+        let home = HomeViewController()
+        home.tabBarItem.title = "首页"
+        home.tabBarItem.image = UIImage(named: "map")
+        
+        let blank = UIViewController()
+        blank.tabBarItem.isEnabled = false
+        
+        let more = PersonalViewController()
+        more.tabBarItem.title = "我的"
+        more.tabBarItem.image = UIImage(named: "my")
+        
+        self.viewControllers = [home, blank, more]
+    }
+    
+    // MARK: - Setup Center Button
+    
+    func setupCenterButton() {
+        // Create custom button
+        
+        
+        // Button tap event
+        
+        // Add button to the TabBar
+        self.tabBar.addSubview(centerButton)
+        
+        NSLayoutConstraint.activate([
+            centerButton.centerXAnchor.constraint(equalTo: self.tabBar.centerXAnchor),
+            centerButton.bottomAnchor.constraint(equalTo: self.tabBar.safeAreaLayoutGuide.bottomAnchor, constant: 14)
+        ])
+    }
+    
+    // MARK: - Button Action
+    
+    @objc func centerButtonTapped(_ sender: UIButton) {
+        // Custom button action, e.g., open scan page
+        let scanVC = HFScanViewController()
+        scanVC.resultBlock = { result in
+            guard let resultString = result.strScanned else {return}
+            if resultString.contains("www.coreforce.cn") {
+                // 扫码获得类型
+                guard let startRange = resultString.range(of: "cn/"),
+                      let endRange = resultString.range(of: "?n") else { return }
+                
+                let range = startRange.upperBound..<endRange.lowerBound
+                let resultStr = String(resultString[range])
+                
+                // 获得 n= 型号字符串
+                let resultArray = resultString.components(separatedBy: "n=")
+                guard let typeName = resultArray.last else { return }
+                
+                if resultStr == "b" {//电池
+                    if let firstBatteryNumber = MainManager.shared.batteryDetail?.number, firstBatteryNumber == typeName {
+                        let batteryVC = BatteryDetailViewController()
+                        self.navigationController?.pushViewController(batteryVC, animated: true)
+                        return
+                    } else if let firstBatteryNumber = MainManager.shared.batteryDetail?.number, firstBatteryNumber != typeName {
+                        self.showError(withStatus: "已租电池，请扫柜换电")
+                        return
+                    }
+                } else if resultStr == "c" {//电柜
+                    if let battery = MainManager.shared.batteryDetail{//换电
+                        self.batteryReplacement(id: battery.id?.intValue, number: typeName)
+                    }else{//新租
+                        self.rentBattery(number: typeName)
+                    }
+                }else if resultStr == "l" {//机车
+                    
+                }else{
+                    self.showError(withStatus: "二维码错误，请扫核蜂换电有关二维码进行扫码")
+                }
+            }
+        }
+        self.navigationController?.pushViewController(scanVC, animated: true)
+    }
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController is HomeViewController{
+            self.setupNavbarHome()
+        }else if viewController is PersonalViewController{
+            self.setupNavbarMore()
+        }
+    }
+    override var selectedIndex: Int{
+        didSet{
+            if selectedIndex == 0{
+                self.setupNavbarHome()
+            }else if selectedIndex == 2{
+                self.setupNavbarMore()
+            }
+        }
     }
     func rentBattery(number:String?){
-        NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: nil, number: number)) { result in
+        /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: nil, number: number)) { result in
             switch result {
             case .success(let response):
                 if  let payingOrderId = response?.payingOrderId{
@@ -106,30 +261,32 @@ class MainTabBarController: ESTabBarController {
                         orderDetailVC.element = OrderList(id: payingOrderId)
                         self.navigationController?.pushViewController(orderDetailVC, animated: true)
                     } cancelAction: {
-                        NetworkService<BusinessAPI,BlankResponse>().request(.orderCancel(orderId: payingOrderId)) { result in
+                        /*NetworkService<BusinessAPI,BlankResponse>().request(.orderCancel(orderId: payingOrderId)) { result in
                             switch result {
                             case .success:
                                 self.showSuccess(withStatus: "取消成功")
                             case .failure(let failure):
                                 self.showError(withStatus: failure.localizedDescription)
                             }
-                        }
+                        }             */
+
                     }
                 }else{
                     self.showAlertController(titleText: "温馨提示", messageText: "您确定要电池柜租电？") {
-
+                        
                     } cancelAction: {
-
+                        
                     }
                 }
-
+                
             case .failure(let error):
                 self.showError(withStatus: error.localizedDescription)
             }
-        }
+        }             */
+
     }
     func batteryReplacement(id:Int?,number:String?){
-        NetworkService<BusinessAPI,CabinetScanResponse>().request(.cabinetScan(cabinetNumber: number, batteryId: id)) { result in
+        /*NetworkService<BusinessAPI,CabinetScanResponse>().request(.cabinetScan(cabinetNumber: number, batteryId: id)) { result in
             switch result {
             case .success(let response):
                 
@@ -148,9 +305,10 @@ class MainTabBarController: ESTabBarController {
                 }
             case .failure(let failure):
                 self.showError(withStatus: failure.localizedDescription)
-
+                
             }
-        }
+        }             */
+
     }
     func addRoundedCorners() {
         
@@ -184,7 +342,7 @@ class MainTabBarController: ESTabBarController {
 private extension MainTabBarController {
     
     private func setupNavbar() {
-        addRoundedCorners()
+        //        addRoundedCorners()
         
     }
     
@@ -199,33 +357,7 @@ private extension MainTabBarController {
 
 // MARK: - Public
 extension MainTabBarController {
-    class func defaultMainController(_ centerItemType:MainScanItemType = .battery_rent) -> UIViewController {
-        let home = HomeViewController()
-        home.tabBarItem = UITabBarItem(title: "地图", image: UIImage(named: "map"), selectedImage: UIImage(named: "map"))
-        let center = UIViewController()
-        let mainScanItemView = MainScanItemView()
-        mainScanItemView.mainScanItemType = .battery_rent
-        center.tabBarItem = ESTabBarItem(mainScanItemView)
-        
-        //        let connection = UINavigationController(rootViewController: ConnectionViewController())
-        //        let message = UINavigationController(rootViewController: MessageViewController())
-        let personal = PersonalViewController()
-        personal.tabBarItem = UITabBarItem(title: "我的", image: UIImage(named: "my"), selectedImage: UIImage(named: "my"))
-        let viewControllers = [home,center, /*connection, message,*/ personal]
-        let mainTabBarController = MainTabBarController()
-        mainTabBarController.shouldHijackHandler = {
-            tabbarController, viewController, index in
-            if index == 1 {
-                return true
-            }
-            return false
-        }
-        
-        mainTabBarController.viewControllers = viewControllers
-        mainTabBarController.title = "Main"
-        let nav = UINavigationController.init(rootViewController: mainTabBarController)
-        return nav
-    }
+    
     
 }
 
@@ -236,13 +368,7 @@ private extension MainTabBarController {
 
 // MARK: - Action
 @objc private extension MainTabBarController {
-    @objc func scanTypeChanged(_ notification:Notification){
-        let type = MainScanItemType(rawValue: MainManager.shared.type?.intValue ?? 0)
-        if let tabBarItem = self.viewControllers?[1].tabBarItem as? ESTabBarItem,let itemView = tabBarItem.contentView as? MainScanItemView{
-            itemView.mainScanItemType = type
-            
-        }
-    }
+    
 }
 
 // MARK: - Private

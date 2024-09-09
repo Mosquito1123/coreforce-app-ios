@@ -74,6 +74,17 @@
 		0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F12C1068BF00834069 /* BlankResponse.swift */; };
 		0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F32C10691C00834069 /* TokenResponse.swift */; };
 		0443B9F62C10694D00834069 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0443B9F52C10694D00834069 /* BaseResponse.swift */; };
+		044632612C8F1A8100DB8D37 /* AuthStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044632602C8F1A8100DB8D37 /* AuthStatusView.swift */; };
+		044632632C8F211E00DB8D37 /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044632622C8F211E00DB8D37 /* InviteViewController.swift */; };
+		044E1F3B2C8EDCC100A8E626 /* HFHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F3A2C8EDCC100A8E626 /* HFHttpTool.m */; };
+		044E1F3F2C8EDE8000A8E626 /* HFKeyedArchiverTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F3E2C8EDE8000A8E626 /* HFKeyedArchiverTool.m */; };
+		044E1F422C8EDEE000A8E626 /* HFAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F412C8EDEE000A8E626 /* HFAccount.m */; };
+		044E1F452C8EDF0000A8E626 /* HFBatteryDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F442C8EDF0000A8E626 /* HFBatteryDetail.m */; };
+		044E1F482C8EE01A00A8E626 /* HFActivityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F472C8EE01A00A8E626 /* HFActivityListModel.m */; };
+		044E1F4B2C8EE02A00A8E626 /* HFBatteryDepositOrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F4A2C8EE02A00A8E626 /* HFBatteryDepositOrderInfo.m */; };
+		044E1F4E2C8EE03B00A8E626 /* HFBikeDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F4D2C8EE03B00A8E626 /* HFBikeDetail.m */; };
+		044E1F512C8EE41000A8E626 /* NetworkService.m in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F502C8EE41000A8E626 /* NetworkService.m */; };
+		044E1F532C8EECD200A8E626 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044E1F522C8EECD200A8E626 /* HomeHeaderView.swift */; };
 		0450E5D42C48C59D00EBA7D4 /* CustomActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450E5D32C48C59D00EBA7D4 /* CustomActionSheetViewController.swift */; };
 		045164F02C1A9ECD00ABE7F1 /* DTFUtility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E42C1A9EC500ABE7F1 /* DTFUtility.framework */; };
 		045164F12C1A9ECD00ABE7F1 /* APPSecuritySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045164E52C1A9EC600ABE7F1 /* APPSecuritySDK.framework */; };
@@ -379,6 +390,26 @@
 		0443B9F12C1068BF00834069 /* BlankResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankResponse.swift; sourceTree = "<group>"; };
 		0443B9F32C10691C00834069 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		0443B9F52C10694D00834069 /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		044632602C8F1A8100DB8D37 /* AuthStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStatusView.swift; sourceTree = "<group>"; };
+		044632622C8F211E00DB8D37 /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
+		044E1F392C8EDCC100A8E626 /* HFHttpTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFHttpTool.h; sourceTree = "<group>"; };
+		044E1F3A2C8EDCC100A8E626 /* HFHttpTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFHttpTool.m; sourceTree = "<group>"; };
+		044E1F3C2C8EDD3200A8E626 /* URLString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLString.h; sourceTree = "<group>"; };
+		044E1F3D2C8EDE8000A8E626 /* HFKeyedArchiverTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFKeyedArchiverTool.h; sourceTree = "<group>"; };
+		044E1F3E2C8EDE8000A8E626 /* HFKeyedArchiverTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFKeyedArchiverTool.m; sourceTree = "<group>"; };
+		044E1F402C8EDEE000A8E626 /* HFAccount.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFAccount.h; sourceTree = "<group>"; };
+		044E1F412C8EDEE000A8E626 /* HFAccount.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFAccount.m; sourceTree = "<group>"; };
+		044E1F432C8EDF0000A8E626 /* HFBatteryDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFBatteryDetail.h; sourceTree = "<group>"; };
+		044E1F442C8EDF0000A8E626 /* HFBatteryDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFBatteryDetail.m; sourceTree = "<group>"; };
+		044E1F462C8EE01A00A8E626 /* HFActivityListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFActivityListModel.h; sourceTree = "<group>"; };
+		044E1F472C8EE01A00A8E626 /* HFActivityListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFActivityListModel.m; sourceTree = "<group>"; };
+		044E1F492C8EE02A00A8E626 /* HFBatteryDepositOrderInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFBatteryDepositOrderInfo.h; sourceTree = "<group>"; };
+		044E1F4A2C8EE02A00A8E626 /* HFBatteryDepositOrderInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFBatteryDepositOrderInfo.m; sourceTree = "<group>"; };
+		044E1F4C2C8EE03B00A8E626 /* HFBikeDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFBikeDetail.h; sourceTree = "<group>"; };
+		044E1F4D2C8EE03B00A8E626 /* HFBikeDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFBikeDetail.m; sourceTree = "<group>"; };
+		044E1F4F2C8EE41000A8E626 /* NetworkService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkService.h; sourceTree = "<group>"; };
+		044E1F502C8EE41000A8E626 /* NetworkService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkService.m; sourceTree = "<group>"; };
+		044E1F522C8EECD200A8E626 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		0450E5D32C48C59D00EBA7D4 /* CustomActionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheetViewController.swift; sourceTree = "<group>"; };
 		045164E32C1A9C5600ABE7F1 /* SwiftiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftiOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		045164E42C1A9EC500ABE7F1 /* DTFUtility.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DTFUtility.framework; sourceTree = "<group>"; };
@@ -766,6 +797,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				044E1F382C8EDC6B00A8E626 /* NetworkV1 */,
 				04DF8D3E2C85A697005F5BBA /* Feedback */,
 				046B4EEC2C6DFC4D00DCD5CB /* Order */,
 				046B4EE12C6DFA6500DCD5CB /* BikeDetail */,
@@ -844,6 +876,7 @@
 			isa = PBXGroup;
 			children = (
 				04001C3B2C05DBF6000A040F /* MainScanItemView.swift */,
+				044E1F522C8EECD200A8E626 /* HomeHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1112,6 +1145,7 @@
 				043DEC842C085B79003FD6AD /* ExpirationView.swift */,
 				043DEC862C085C3F003FD6AD /* BatteryOfflineView.swift */,
 				04BE42A92C11D1EA002B78EA /* CityChooseViewCell.swift */,
+				044632602C8F1A8100DB8D37 /* AuthStatusView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1136,6 +1170,7 @@
 			children = (
 				04FFEE3D2C046FDF00939B46 /* HomeViewController.swift */,
 				04BE42A72C11D178002B78EA /* CityChooseViewController.swift */,
+				044632622C8F211E00DB8D37 /* InviteViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1242,6 +1277,30 @@
 				04B586742C816F31008592A8 /* OrderDetailResponse.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		044E1F382C8EDC6B00A8E626 /* NetworkV1 */ = {
+			isa = PBXGroup;
+			children = (
+				044E1F392C8EDCC100A8E626 /* HFHttpTool.h */,
+				044E1F3A2C8EDCC100A8E626 /* HFHttpTool.m */,
+				044E1F3C2C8EDD3200A8E626 /* URLString.h */,
+				044E1F3D2C8EDE8000A8E626 /* HFKeyedArchiverTool.h */,
+				044E1F3E2C8EDE8000A8E626 /* HFKeyedArchiverTool.m */,
+				044E1F402C8EDEE000A8E626 /* HFAccount.h */,
+				044E1F412C8EDEE000A8E626 /* HFAccount.m */,
+				044E1F432C8EDF0000A8E626 /* HFBatteryDetail.h */,
+				044E1F442C8EDF0000A8E626 /* HFBatteryDetail.m */,
+				044E1F462C8EE01A00A8E626 /* HFActivityListModel.h */,
+				044E1F472C8EE01A00A8E626 /* HFActivityListModel.m */,
+				044E1F492C8EE02A00A8E626 /* HFBatteryDepositOrderInfo.h */,
+				044E1F4A2C8EE02A00A8E626 /* HFBatteryDepositOrderInfo.m */,
+				044E1F4C2C8EE03B00A8E626 /* HFBikeDetail.h */,
+				044E1F4D2C8EE03B00A8E626 /* HFBikeDetail.m */,
+				044E1F4F2C8EE41000A8E626 /* NetworkService.h */,
+				044E1F502C8EE41000A8E626 /* NetworkService.m */,
+			);
+			path = NetworkV1;
 			sourceTree = "<group>";
 		};
 		045165382C1AA38F00ABE7F1 /* RealName */ = {
@@ -2148,6 +2207,7 @@
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
 				042849152C2436EC0011032F /* CabinetDetailContentViewController.swift in Sources */,
 				048EE7752C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift in Sources */,
+				044632612C8F1A8100DB8D37 /* AuthStatusView.swift in Sources */,
 				0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */,
 				0451653D2C1AA40100ABE7F1 /* RealNameAuthViewController.swift in Sources */,
 				045215282C368A120091FD1A /* CustomerServicePagerItemViewCell.swift in Sources */,
@@ -2171,6 +2231,7 @@
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
 				0450E5D42C48C59D00EBA7D4 /* CustomActionSheetViewController.swift in Sources */,
 				048EE7772C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift in Sources */,
+				044E1F512C8EE41000A8E626 /* NetworkService.m in Sources */,
 				046B4EC92C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift in Sources */,
 				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
 				045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */,
@@ -2184,7 +2245,9 @@
 				048EE77D2C3E8E800094A0CB /* PackageCardChooseService.swift in Sources */,
 				045215402C3CE46C0091FD1A /* LogoffBottomView.swift in Sources */,
 				048EE7622C3D4BEE0094A0CB /* PersonalInfoTableHeaderView.swift in Sources */,
+				044E1F452C8EDF0000A8E626 /* HFBatteryDetail.m in Sources */,
 				0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */,
+				044E1F4E2C8EE03B00A8E626 /* HFBikeDetail.m in Sources */,
 				047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */,
 				04BE42AE2C11D587002B78EA /* UITableView+SectionIndexView.swift in Sources */,
 				04FB1C062C2922FD00F47E79 /* PersonalViewBackgroundView.swift in Sources */,
@@ -2192,6 +2255,7 @@
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
 				043C4C1D2C2EBFAE00E887B9 /* BuyPackageCard.swift in Sources */,
 				04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */,
+				044E1F482C8EE01A00A8E626 /* HFActivityListModel.m in Sources */,
 				046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */,
 				045215422C3CEC170091FD1A /* LogoffTableFooterView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
@@ -2208,7 +2272,9 @@
 				045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */,
 				043893642C3FCB6C00E61C0D /* CouponListViewController.swift in Sources */,
 				0443B9EA2C10414100834069 /* TokenManager.swift in Sources */,
+				044E1F3B2C8EDCC100A8E626 /* HFHttpTool.m in Sources */,
 				046B4ED52C6CD0AB00DCD5CB /* DepositManagementViewController.swift in Sources */,
+				044E1F422C8EDEE000A8E626 /* HFAccount.m in Sources */,
 				04FB1C082C29537B00F47E79 /* PersonalListModel.swift in Sources */,
 				043DEC832C085A53003FD6AD /* CreditDepositFreeView.swift in Sources */,
 				0452152A2C37A5530091FD1A /* CabinetListViewController.swift in Sources */,
@@ -2226,6 +2292,7 @@
 				0452153C2C3CE2A50091FD1A /* LogoffTableHeaderView.swift in Sources */,
 				0415AF302BC91AB600E9290D /* AuthAPI.swift in Sources */,
 				046B4ED12C6CCCA600DCD5CB /* DepositManagementCell.swift in Sources */,
+				044E1F3F2C8EDE8000A8E626 /* HFKeyedArchiverTool.m in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				0443B9E72C10173100834069 /* String+Extension.swift in Sources */,
 				04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */,
@@ -2236,6 +2303,7 @@
 				04F4CFCD2C75838100F5F764 /* BatteryActionViewCell.swift in Sources */,
 				04BE42AB2C11D57C002B78EA /* SectionIndexView.swift in Sources */,
 				0443B9ED2C10486500834069 /* NetworkService.swift in Sources */,
+				044E1F532C8EECD200A8E626 /* HomeHeaderView.swift in Sources */,
 				04FFEE4E2C05AA2900939B46 /* NeedAuthView.swift in Sources */,
 				04FFEE312C0080FE00939B46 /* LoginAccountInputView.swift in Sources */,
 				04FB1C0C2C295D2D00F47E79 /* AuthorityViewCell.swift in Sources */,
@@ -2283,6 +2351,7 @@
 				045215342C3BEDE10091FD1A /* Settings.swift in Sources */,
 				045165812C1AC0DF00ABE7F1 /* JYBDBankCardSearch.m in Sources */,
 				046B4ED32C6CCCE100DCD5CB /* DepositManagement.swift in Sources */,
+				044E1F4B2C8EE02A00A8E626 /* HFBatteryDepositOrderInfo.m in Sources */,
 				0452152C2C37DF680091FD1A /* CabinetFilterViewController.swift in Sources */,
 				043DEC7D2C085253003FD6AD /* MapViewController.swift in Sources */,
 				331C90BE2BC6C60000BB534F /* AppDelegate.swift in Sources */,
@@ -2310,6 +2379,7 @@
 				0443B9F22C1068BF00834069 /* BlankResponse.swift in Sources */,
 				048EE75E2C3D47D30094A0CB /* PersonalInfo.swift in Sources */,
 				04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */,
+				044632632C8F211E00DB8D37 /* InviteViewController.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
 				04F4CFC12C749EC500F5F764 /* BikeRemainingTermViewCell.swift in Sources */,
@@ -2521,8 +2591,6 @@
 					"-framework",
 					"\"CoreMotion\"",
 					"-framework",
-					"\"ESTabBarController_swift\"",
-					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"IQKeyboardManagerSwift\"",
@@ -2626,8 +2694,6 @@
 					"\"CoreGraphics\"",
 					"-framework",
 					"\"CoreMotion\"",
-					"-framework",
-					"\"ESTabBarController_swift\"",
 					"-framework",
 					"\"Foundation\"",
 					"-framework",

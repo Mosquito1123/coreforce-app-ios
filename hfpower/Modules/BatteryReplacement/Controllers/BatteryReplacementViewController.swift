@@ -99,7 +99,7 @@ private extension BatteryReplacementViewController {
 // MARK: - Action
 @objc private extension BatteryReplacementViewController {
     @objc func loadCabinetStatus(){
-        NetworkService<BusinessAPI,CabinetStatusResponse>().request(.cabinetStatus(opNo: self.opNo)) { result in
+        /*NetworkService<BusinessAPI,CabinetStatusResponse>().request(.cabinetStatus(opNo: self.opNo)) { result in
             switch result {
             case.success(let response):
                 if response?.finish == true{//换电请求提交成功
@@ -125,6 +125,8 @@ private extension BatteryReplacementViewController {
                 
             }
         }
+         */
+
     }
 }
 

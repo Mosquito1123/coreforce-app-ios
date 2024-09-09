@@ -11,6 +11,7 @@ import UIKit
 class LoginVCodeInputView: UIView {
 
     // MARK: - Accessor
+    var controller:UIViewController?
     var phoneNum:String?
     var sendCodeAction:ButtonActionBlock?
     // MARK: - Subviews
@@ -120,17 +121,14 @@ extension LoginVCodeInputView :UITextFieldDelegate{
     }
     @objc func sendVCode(_ sender:UIButton){
         if self.isValidPhoneNumber(phoneNum ?? ""){
-            NetworkService<AuthAPI,BlankResponse>().request(.sendSMSCode(phoneNumber: phoneNum ?? "")) { result in
-                switch result{
-                case .success(_):
-                    self.sendCodeAction?(sender)
-                    self.startTimer()
-                    sender.isEnabled = false
-                case .failure(let error):
-                    self.showError(withStatus: error.localizedDescription)
-
-                }
-            }
+            self.controller?.postData(pinSendUrl, param: ["phoneNum": phoneNum ?? ""], isLoading: true, success: { (responseObject) in
+                self.sendCodeAction?(sender)
+                self.startTimer()
+                sender.isEnabled = false
+            }, error: { (error) in
+                self.showError(withStatus: error.localizedDescription)
+            })
+            
         }else{
             self.showInfo(withStatus: "请输入正确的手机号")
             

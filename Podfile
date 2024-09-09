@@ -30,7 +30,6 @@ target 'hfpower' do
   pod 'SwiftyUserDefaults'
   #  列表下拉刷新、上拉加载（OC） https://github.com/CoderMJLee/MJRefresh
   pod 'MJRefresh'
-  pod "ESTabBarController-swift"
   pod 'SVProgressHUD'
   pod 'SDCAlertView'
   pod 'swiftScan'
@@ -44,5 +43,6 @@ target 'hfpower' do
   pod 'HMSegmentedControl'
   pod 'WechatOpenSDK-XCFramework'
   pod 'AlipaySDK-iOS'
-
+  pod 'AFNetworking', '~> 4.0.1'
+  pod 'MJExtension', '~> 3.0.16'
 end

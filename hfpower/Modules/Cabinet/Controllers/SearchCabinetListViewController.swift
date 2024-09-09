@@ -74,7 +74,7 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         locationView.location = formatDateToChinese(date: Date())
 
        
-        NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
+        /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
             switch result{
             case .success(let response):
                 self.items = response?.list ?? []
@@ -82,7 +82,8 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
                 self.showError(withStatus: error.localizedDescription)
                 
             }
-        }
+        }             */
+
     }
     
     
@@ -173,7 +174,7 @@ extension SearchCabinetListViewController{
                 NotificationCenter.default.post(name: .cityChanged, object: nil)
                 self.locationView.location = self.formatDateToChinese(date: Date())
 
-                NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: self.coordinate.longitude, lat:self.coordinate.latitude)) { result in
+                /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: self.coordinate.longitude, lat:self.coordinate.latitude)) { result in
                     switch result{
                     case .success(let response):
                         self.items = response?.list ?? []
@@ -181,7 +182,8 @@ extension SearchCabinetListViewController{
                         self.showError(withStatus: error.localizedDescription)
                         
                     }
-                }
+                }             */
+
             }
         }
 

@@ -33,7 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                    
         }else{
             if let _ = AccountManager.shared.phoneNum{
-                mainController = MainTabBarController.defaultMainController()
+                let mainTabBarController = MainTabBarController()
+                mainController = UINavigationController(rootViewController: mainTabBarController)
                 mainController.modalPresentationStyle = .fullScreen
             }else{
                 let loginVC = LoginViewController()

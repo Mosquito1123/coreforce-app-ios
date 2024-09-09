@@ -23,7 +23,7 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,Cab
         loadData()
     }
     func loadData(){
-        NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
+        /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
             switch result{
             case .success(let response):
                 self.items = response?.list ?? []
@@ -31,7 +31,8 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,Cab
                 self.showError(withStatus: error.localizedDescription)
                 
             }
-        }
+        }             */
+
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let element = self.items[indexPath.row]

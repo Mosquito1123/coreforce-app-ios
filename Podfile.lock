@@ -1,11 +1,25 @@
 PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - Alamofire (5.9.1)
   - AlipaySDK-iOS (15.8.16)
   - DGCharts (5.1.0):
     - DGCharts/Core (= 5.1.0)
   - DGCharts/Core (5.1.0)
   - EmptyStateKit (1.1.0)
-  - ESTabBarController-swift (2.8.0)
   - FloatingPanel (2.8.3)
   - FSPagerView (0.8.3)
   - HMSegmentedControl (1.5.6)
@@ -18,6 +32,7 @@ PODS:
   - LookinServer/Core (1.2.8)
   - LookinServer/Swift (1.2.8):
     - LookinServer/Core
+  - MJExtension (3.0.17)
   - MJRefresh (3.7.9)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
@@ -42,11 +57,11 @@ PODS:
   - ZLPhotoBrowser/Core (4.5.3)
 
 DEPENDENCIES:
+  - AFNetworking (~> 4.0.1)
   - Alamofire
   - AlipaySDK-iOS
   - DGCharts
   - EmptyStateKit
-  - ESTabBarController-swift
   - FloatingPanel
   - FSPagerView
   - HMSegmentedControl
@@ -55,6 +70,7 @@ DEPENDENCIES:
   - KakaJSON (~> 1.1.2)
   - Kingfisher
   - LookinServer/Swift
+  - MJExtension (~> 3.0.16)
   - MJRefresh
   - Moya
   - SDCAlertView
@@ -71,11 +87,11 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AFNetworking
     - Alamofire
     - AlipaySDK-iOS
     - DGCharts
     - EmptyStateKit
-    - ESTabBarController-swift
     - FloatingPanel
     - FSPagerView
     - HMSegmentedControl
@@ -85,6 +101,7 @@ SPEC REPOS:
     - KakaJSON
     - Kingfisher
     - LookinServer
+    - MJExtension
     - MJRefresh
     - Moya
     - Pageboy
@@ -101,11 +118,11 @@ SPEC REPOS:
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
+  AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   AlipaySDK-iOS: 5e6011fbd546e7db6b43c1f527d164ee63f3d7cb
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
   EmptyStateKit: dc41e9ce5c6089f67a49d063bce73ade9f2ba73f
-  ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   FloatingPanel: 0f9b89c6d4318842311bec6f6026fb18ca2a2c90
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
@@ -115,6 +132,7 @@ SPEC CHECKSUMS:
   KakaJSON: cc5ff50a8c1cfbb09413db8496cb709a209e6137
   Kingfisher: 53a10ea35051a436b5fb626ca2dd8f3144d755e9
   LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
+  MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   Pageboy: 7f7886f61c76633df635861bf7839caf2cabdb3e
@@ -130,6 +148,6 @@ SPEC CHECKSUMS:
   YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: 2bc195ca286587c9c715abf7b878776088a97039
+PODFILE CHECKSUM: 57094cf93f49715130f190b88b8ccf5af61ffe3e
 
 COCOAPODS: 1.15.2

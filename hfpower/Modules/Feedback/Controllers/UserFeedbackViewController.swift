@@ -149,7 +149,7 @@ private extension UserFeedbackViewController {
         } else if detailTextView.text.isEmpty {
             self.showError(withStatus: "反馈内容不能为空")
         } else {
-            NetworkService<MemberAPI,BlankResponse>().request(.feedback(name: nameTextView.textField.text ?? "", email: emailTextView.textField.text ?? "", phoneNum: phoneNumTextView.textField.text ?? "", feedback: detailTextView.text ?? "")) { result in
+            /*NetworkService<MemberAPI,BlankResponse>().request(.feedback(name: nameTextView.textField.text ?? "", email: emailTextView.textField.text ?? "", phoneNum: phoneNumTextView.textField.text ?? "", feedback: detailTextView.text ?? "")) { result in
                 switch result{
                 case .success:
                     self.navigationController?.popViewController(animated: true)
@@ -157,6 +157,7 @@ private extension UserFeedbackViewController {
                     self.showError(withStatus: error.localizedDescription)
                 }
             }
+             */
         }
         
     }

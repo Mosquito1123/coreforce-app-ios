@@ -351,7 +351,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                 bottomViewHeight.constant = 0
 
             }
-            NetworkService<BusinessAPI,OrderDetailResponse>().request(.order(id: id)) { result in
+            /*NetworkService<BusinessAPI,OrderDetailResponse>().request(.order(id: id)) { result in
                 switch result {
                 case.success(let response):
                     
@@ -364,6 +364,8 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                     
                 }
             }
+             */
+
         }
         
     }
@@ -407,7 +409,7 @@ private extension OrderDetailViewController {
         view.backgroundColor = .white
         view.addSubview(tableView)
         bottomView.cancelButton.addAction(for: .touchUpInside) {
-            NetworkService<BusinessAPI,BlankResponse>().request(.orderCancel(orderId: self.element?.id ?? 0)) { result in
+            /*NetworkService<BusinessAPI,BlankResponse>().request(.orderCancel(orderId: self.element?.id ?? 0)) { result in
                 switch result {
                 case .success:
                     self.navigationController?.popViewController(animated: true)
@@ -415,6 +417,8 @@ private extension OrderDetailViewController {
                     self.showError(withStatus: failure.localizedDescription)
                 }
             }
+             */
+
         }
         bottomView.submitButton.addAction(for: .touchUpInside) {
             

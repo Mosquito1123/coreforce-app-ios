@@ -121,7 +121,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     func loadCabinetListData(){
         if let _ = self.mapView.userLocation.location{
             self.locationManager.stopUpdatingLocation()
-            NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: mapView.centerCoordinate.longitude, lat:mapView.centerCoordinate.latitude)) { result in
+            /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: mapView.centerCoordinate.longitude, lat:mapView.centerCoordinate.latitude)) { result in
                 switch result{
                 case .success(let response):
                     var tempAnnotations =  self.mapView.annotations
@@ -149,7 +149,8 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                     self.showError(withStatus: error.localizedDescription)
                     
                 }
-            }
+            }             */
+
         }
         
     }

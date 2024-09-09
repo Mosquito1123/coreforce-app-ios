@@ -72,7 +72,6 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.navigationController?.isNavigationBarHidden = true
         setupData()
 
     }
@@ -134,15 +133,22 @@ private extension BatteryDetailViewController {
             self.navigationController?.popViewController(animated: true)
         }
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(backButton)
-        view.bringSubviewToFront(backButton)
-        NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 18),
-            backButton.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 6),
-            backButton.widthAnchor.constraint(equalToConstant: 28),
-            backButton.heightAnchor.constraint(equalToConstant: 28),
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundImage = UIImage()
+            appearance.shadowImage = UIImage()
             
-        ])
+            appearance.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.clear,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)
+            ]
+            
+            self.navigationItem.standardAppearance = appearance
+            self.navigationItem.scrollEdgeAppearance = appearance
+        }
     }
     
     private func setupSubviews() {
@@ -327,7 +333,7 @@ class BatterySiteSectionController: ListSectionController {
         let lat = MainManager.shared.batteryDetail?.lastLat?.doubleValue ?? 0
         let lon = MainManager.shared.batteryDetail?.lastLon?.doubleValue ?? 0
 
-        NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: nil, lat:nil)) { result in
+        /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: nil, lat:nil)) { result in
             switch result{
             case .success(let response):
                 
@@ -359,5 +365,7 @@ class BatterySiteSectionController: ListSectionController {
                 
             }
         }
+         */
+
     }
 }

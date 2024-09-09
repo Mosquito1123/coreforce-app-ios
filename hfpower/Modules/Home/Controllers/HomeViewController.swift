@@ -20,6 +20,7 @@ class HomeViewController: UIViewController{
     }()
     lazy var inviteView:MapInviteView = {
         let view = MapInviteView()
+        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -53,24 +54,19 @@ class HomeViewController: UIViewController{
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    lazy var batteryOfflineView: BatteryOfflineView = {
+        let view = BatteryOfflineView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    lazy var locationChooseView:LocationChooseView = {
-        let view = LocationChooseView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    lazy var searchView:SearchView = {
-        let view = SearchView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     lazy var needLoginView:NeedLoginView = {
         let view = NeedLoginView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    lazy var needAuthView:NeedAuthView = {
-        let view = NeedAuthView()
+    lazy var authStatusView:AuthStatusView = {
+        let view = AuthStatusView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -79,152 +75,229 @@ class HomeViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.white
         setupNavbar()
         setupSubviews()
         setupLayout()
         startObserving()
-        if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
-            self.fetchAuthData()
-            self.fetchActivities()
-        }
-        
-        
-        
-        
-        
+        loadActivities()
         
         
     }
-    func startObserving(){
-        NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .cityChanged, object: nil)
-        
+    func eventViewController(_ modelList:[HFActivityListModel]){
         
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    func loadActivities() {
+        // Activity popup
+        weak var weakSelf = self
         
-    }
-    func fetchActivities(){
-        NetworkService<MemberAPI,ActivityListResponse<ActivityResponse>>().request(.activityList) { result in
-            switch result {
-            case .success(let response):
-                ActivityListManager.shared.activityList = response?.inviteList
-            case .failure(let error):
-                debugPrint(error)
-                
+        getData(activityListUrl, param: [:], isLoading: false, success: { responseObject in
+            guard let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                  let inviteList = body["inviteList"] as? [[String: Any]] else {
+                self.inviteView.isHidden = true
+                return
             }
-        }
-    }
-    func fetchAuthData(){
-        NetworkService<MemberAPI,MemberResponse>().request(.member) { result in
-            switch result {
-            case.success(let response):
+            
+            let modelList = HFActivityListModel.mj_objectArray(withKeyValuesArray: inviteList) as? [HFActivityListModel] ?? []
+            
+            if inviteList.count > 0 {
+                let now = Date()
+                let lastVisitDate = UserDefaults.lastDailyVisitDate()
                 
-                AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
-                AccountManager.shared.memberResponse = response
-                if  AccountManager.shared.isAuth == 1{
-                    self.headerStackView.removeArrangedSubview(self.needAuthView)
-                    self.needAuthView.removeFromSuperview()
-                    self.mapViewController.locationManager.startUpdatingLocation()
-                    self.fetchData()
-                }else{
-                    self.headerStackView.insertArrangedSubview(self.needAuthView, at: 0)
+                self.inviteView.inviteButton.setBackgroundImage(UIImage(named: "invite_button"), for: .normal)
+                self.inviteView.inviteButton.setBackgroundImage(UIImage(named: "invite_button"), for: .selected)
+                
+                if let vDate = lastVisitDate,Calendar.current.isDate(now, inSameDayAs: vDate) {
+                    // Show "first visit of the day" popup
+                    self.eventViewController(modelList)
+                    UserDefaults.setLastDailyVisit(now)
+                    UserDefaults.setHiddenFloatButton(true)
                     
+                } else {
+                    let predicate0 = NSPredicate(format: "type == %@", NSNumber(value: 0))
+                    let filteredArray0 = modelList.filter { predicate0.evaluate(with: $0) }
                     
-                }
-                
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                
-            }
-        }
-    }
-    func fetchBikeData(){
-        
-        
-        NetworkService<BusinessAPI,DataListResponse<LocomotiveSummary>>().request(.locomotiveList) { result in
-            switch result {
-            case.success(let response):
-                
-                MainManager.shared.bikeDetail = BikeDetail.fromStruct(response?.pageResult?.dataList?.first)
-                
-            case .failure(let error):
-                debugPrint(error)
-                
-                
-            }
-        }
-    }
-    func fetchData(){
-        // 创建一个 DispatchGroup
-        let dispatchGroup = DispatchGroup()
-        
-        // 创建一个并发队列
-        let concurrentQueue = DispatchQueue(label: "org.alamofire.session.home")
-        
-        
-        // 启动第一个异步任务
-        dispatchGroup.enter()
-        
-        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
-            NetworkService<BusinessAPI,DataListResponse<BatterySummary>>().request(.batteryList) { result in
-                dispatchGroup.leave()
-                
-                switch result {
-                case.success(let response):
-                    
-                    MainManager.shared.batteryDetail = BatteryDetail.fromStruct(response?.pageResult?.dataList?.first)
-                    if let batteryDetail = MainManager.shared.batteryDetail {
-                        self.batteryView.batteryView.batteryLevel = (batteryDetail.mcuCapacityPercent?.doubleValue ?? 0.00)/100.0
-                        self.headerStackBatteryView.addSubview(self.batteryView)
-                        
-                    }else{
-                        self.headerStackBatteryView.removeArrangedSubview(self.batteryView)
-                        self.batteryView.removeFromSuperview()
-                        
+                    if filteredArray0.first != nil {
+                        UserDefaults.setHiddenFloatButton(false)
+                    } else {
+                        UserDefaults.setHiddenFloatButton(true)
                     }
                     
-                case .failure(let error):
-                    debugPrint(error)
-                    
-                    
                 }
-            }
-        }))
-        
-        
-        
-        
-        
-        // 启动第三个异步任务
-        dispatchGroup.enter()
-        concurrentQueue.async(group: dispatchGroup, execute: DispatchWorkItem(block: {
-            // 模拟耗时任务
-            NetworkService<BatteryDepositAPI,BatteryDepositResponse>().request(.batteryTempOrderInfo) { result in
-                dispatchGroup.leave()
                 
-                switch result {
-                case.success(let response):
+                self.inviteView.isHidden = UserDefaults.hiddenFloatButton()
+                self.inviteView.goToInviteAction = { sender in
+                    let predicate0 = NSPredicate(format: "type == %@", NSNumber(value: 0))
+                    let filteredArray0 = modelList.filter { predicate0.evaluate(with: $0) }
                     
-                    MainManager.shared.batteryDeposit = BatteryDepositInfo.fromStruct(response)
-                    
-                case .failure(let error):
-                    debugPrint(error)
-                    
-                    
+                    if let firstObject = filteredArray0.first, weakSelf?.checkUrlWithString(firstObject.url ) == true {
+                        let inviteVC = InviteViewController()
+                        inviteVC.isInvite = true
+                        inviteVC.activityModel = firstObject
+                        weakSelf?.navigationController?.pushViewController(inviteVC, animated: false)
+                    }
                 }
             }
-        }))
+        }, error: { error in
+            // Handle error
+        })
+    }
+
+    func checkUrlWithString(_ url: String) -> Bool {
+        if url.count < 1 {
+            return false
+        }
         
-        // 在所有任务完成后执行
+        var updatedUrl = url
+        if url.count > 4 && url.prefix(4) == "www." {
+            updatedUrl = "http://\(url)"
+        }
         
-        dispatchGroup.notify(queue: DispatchQueue.main) {
-            MainManager.shared.refreshType()
-            NotificationCenter.default.post(name: .scanTypeChanged, object: nil)
+        // Regex pattern for URL matching
+        let urlRegex = "^[a-z][a-z0-9+.-]*:\\/\\/([a-zA-Z0-9\\-\\.]+\\.)+[a-zA-Z]{2,3}(\\/[^#?]*)?(\\?[^\\s#]*)?(#[^\\s]*)?$"
+        
+        do {
+            let regex = try NSRegularExpression(pattern: urlRegex, options: [])
+            let match = regex.firstMatch(in: updatedUrl, options: [], range: NSRange(location: 0, length: updatedUrl.count))
+            return match != nil
+        } catch {
+            print("Error creating regular expression: \(error)")
+            return false
         }
     }
+
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.refreshBatteryDataList {
+            
+        } bikeDataBlock: {
+            
+        } batteryDepositDataBlock: {
+            
+        } complete: { data in
+            self.refreshViews()
+        }
+
+    }
+    func refreshViews() {
+        let batteryDataArray = HFKeyedArchiverTool.batteryDataList()
+        let bikeList = HFKeyedArchiverTool.bikeDetailList()
+        let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
+        // Clear arrangedSubviews and remove each subview
+        for subview in self.headerStackView.arrangedSubviews {
+            self.headerStackView.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
+        
+        for subview in self.headerStackBatteryView.arrangedSubviews {
+            self.headerStackBatteryView.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
+
+        getData( memberUrl, param: [:], isLoading: false, success: { responseObject in
+            guard let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                  let member = body["member"] as? [String: Any],
+                  let isAuth = member["isAuth"] as? Int else {
+                self.headerStackView.addArrangedSubview(self.authStatusView)
+
+                return
+            }
+            
+            if isAuth == 1 || isAuth == 2 {
+                self.headerStackView.addArrangedSubview(self.packageCardView)
+                
+                if  orderInfo.id != nil {
+//                    if self.isTodayOrTomorrowDateString(orderInfo.endDate) {
+//                        // Handle order end date conditions
+//                    } else {
+//                        // Handle battery storage day conditions
+//                    }
+                } else if batteryDataArray.count > 0 {
+                    self.headerStackBatteryView.addArrangedSubview(self.batteryView)
+                    self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent ?? 0) / 100
+                    
+                    if !(batteryDataArray.first?.onLine.boolValue ?? true) {
+                        self.headerStackView.addArrangedSubview(self.batteryOfflineView)
+                    } else if self.isWinter() {
+                        if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 30 {
+                            // Handle battery low in winter
+                        }
+                    } else if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 20 {
+                        // Handle battery low
+                    }
+                }
+                
+                if  bikeList.count > 0 {
+                    // Handle bike list
+                }
+            } else {
+                self.headerStackView.addArrangedSubview(self.authStatusView)
+            }
+        }, error: { error in
+            // Handle error scenario
+            if orderInfo.id != nil {
+//                if self.isTodayOrTomorrowDateString(orderInfo.endDate) {
+//                    // Handle order end date conditions
+//                } else {
+//                    // Handle battery storage day conditions
+//                }
+            } else if batteryDataArray.count > 0 {
+                self.headerStackBatteryView.addArrangedSubview(self.batteryView)
+                self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent ?? 0) / 100
+                
+                if !(batteryDataArray.first?.onLine.boolValue ?? true) {
+                    self.headerStackView.addArrangedSubview(self.batteryOfflineView)
+                } else if self.isWinter() {
+                    if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 30 {
+                        // Handle battery low in winter
+                    }
+                } else if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 20 {
+                    // Handle battery low
+                }
+            }
+        })
+    }
+
+    func isWinter() -> Bool {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let month = calendar.component(.month, from: currentDate)
+        
+        return [11, 12, 1, 2, 3].contains(month)
+    }
+
+    func startObserving() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: .refreshDeviceNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleShowNotification(_:)), name: .floatButtonShowNotification, object: nil)
+    }
+
+    @objc func handleShowNotification(_ notification: Notification) {
+        UserDefaults.setHiddenFloatButton(false)
+        self.inviteView.isHidden = false
+        
+        self.inviteView.goToInviteAction = { sender in
+            guard let item = notification.object as? HFActivityListModel, !item.url.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                return
+            }
+            
+            let inviteVC = InviteViewController()
+            inviteVC.isInvite = true
+            inviteVC.activityModel = item
+            self.navigationController?.pushViewController(inviteVC, animated: false)
+        }
+    }
+
+    @objc func handleNotification(_ notification: Notification) {
+        refreshBatteryDataList({
+        }, bikeDataBlock: {
+        }, batteryDepositDataBlock: {
+        }, complete: { result in
+            self.refreshViews()
+        })
+    }
+
+  
+   
     
     
     
@@ -244,7 +317,8 @@ private extension HomeViewController {
     
     private func setupSubviews() {
         // 设置地图的初始位置和显示范围
-        
+        self.view.backgroundColor = UIColor.white
+
         self.addChild(mapViewController)
         self.view.addSubview(mapViewController.view)
         mapViewController.view.frame = self.view.bounds
@@ -259,41 +333,30 @@ private extension HomeViewController {
         self.view.addSubview(headerStackBatteryView)
         
         
-        self.view.addSubview(locationChooseView)
-        locationChooseView.chooseCityAction = { (sender) -> Void in
-            let cityChooseVC = CityChooseViewController()
+        
+       
+        authStatusView.buttonTapHandler = {
+
+            self.getData(memberUrl, param: [:], isLoading: false, success: { (responseObject) in
+                if let body =  (responseObject as? [String: Any])?["body"] as? [String: Any],
+                   let member = body["member"] as? [String: Any],
+                   let isAuth = member["isAuth"] as? Int {
+                    if isAuth == 2 {
+                        self.showInfo(withStatus:"该账户正在认证，请耐心等待认证结果")
+                    } else {
+                        let realNameAuthVC = RealNameAuthViewController()
+                        self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+                    }
+                }else{
+                    let realNameAuthVC = RealNameAuthViewController()
+                    self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+                }
+            }, error: { (error) in
+                self.showToastMessage(error.localizedDescription)
+            })
+
             
-            let nav = UINavigationController(rootViewController: cityChooseVC)
-            nav.modalPresentationStyle = .fullScreen
-            nav.modalTransitionStyle = .coverVertical
-            self.present(nav, animated: true)
-        }
-        self.view.addSubview(searchView)
-        searchView.goToSearchServiceBlock = { textField in
-            let cabinetListVC = SearchCabinetListViewController()
-            cabinetListVC.hidesBottomBarWhenPushed = true
-            cabinetListVC.coordinate = self.mapViewController.mapView.centerCoordinate
-            self.navigationController?.pushViewController(cabinetListVC, animated: true)
-        }
-        searchView.goToNotificationBlock = { (sender) -> Void in
-            let notificationVC = NotificationViewController()
-            notificationVC.hidesBottomBarWhenPushed = true
-            
-            self.navigationController?.pushViewController(notificationVC, animated: true)
-        }
-        searchView.goToCustomerServiceBlock = { (sender) -> Void in
-            let customerVC = CustomerServiceViewController()
-            customerVC.hidesBottomBarWhenPushed = true
-            
-            self.navigationController?.pushViewController(customerVC, animated: true)
-        }
-        needAuthView.authAction = { sender in
-            let realNameAuthVC = RealNameAuthViewController()
-            
-            let nav = UINavigationController(rootViewController: realNameAuthVC)
-            nav.modalPresentationStyle = .fullScreen
-            nav.modalTransitionStyle = .coverVertical
-            self.present(nav, animated: true)
+          
         }
         //        headerStackView.addArrangedSubview(needLoginView)
         //        headerStackView.addArrangedSubview(needAuthView)
@@ -340,21 +403,13 @@ private extension HomeViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            locationChooseView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
-            locationChooseView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            locationChooseView.heightAnchor.constraint(equalToConstant: 44),
+           
             
-            searchView.leadingAnchor.constraint(equalTo: locationChooseView.trailingAnchor,constant: 12),
-            searchView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            searchView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
-            searchView.heightAnchor.constraint(equalToConstant: 44),
-            searchView.widthAnchor.constraint(greaterThanOrEqualToConstant: 200),
-            
-            headerStackView.topAnchor.constraint(equalTo: self.locationChooseView.bottomAnchor,constant: 10),
+            headerStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 10),
             headerStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             headerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             headerStackBatteryView.topAnchor.constraint(equalTo: self.headerStackView.bottomAnchor,constant: 10),
-            headerStackBatteryView.widthAnchor.constraint(equalToConstant: 52),
+            headerStackBatteryView.widthAnchor.constraint(equalToConstant: 45),
             headerStackBatteryView.heightAnchor.constraint(equalToConstant: 70),
             headerStackBatteryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             footerStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -26),
@@ -382,7 +437,7 @@ private extension HomeViewController {
 // MARK: - Action
 @objc private extension HomeViewController {
     @objc func handleCityChanged(_ notification:Notification){
-        self.locationChooseView.currentLocationButton.setTitle(CityCodeManager.shared.cityName, for: .normal)
+        
         self.mapViewController.moveMap()
     }
     @objc func needLogin(_ sender:UIButton){
@@ -396,20 +451,14 @@ private extension HomeViewController {
         }else if notification.name == .userLoggedIn{
             self.mapViewController.locationManager.startUpdatingLocation()
             
-            if let _ = AccountManager.shared.phoneNum,self.isViewLoaded{
-                self.fetchAuthData()
-                self.fetchActivities()
-            }
+            
             
         }
         
         
     }
     @objc func handleAuthState(_ notification:Notification){
-        if let isAuth = AccountManager.shared.isAuth,isAuth == 1,self.isViewLoaded{
-            self.fetchData()
-            self.fetchBikeData()
-        }
+        
     }
 }
 

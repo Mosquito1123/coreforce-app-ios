@@ -52,6 +52,7 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
     }()
     lazy var vCodeInputView:LoginVCodeInputView = {
         let view = LoginVCodeInputView()
+        view.controller = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -267,26 +268,36 @@ private extension LoginPhoneViewController {
             return
             
         }
-
-        NetworkService<AuthAPI,TokenResponse>().request(.loginWithSMS(phoneNumber: phoneNum ?? "", code:vCode ?? "",inviteCode: inviteCode,type: "pin")) { result in
-            switch result {
-            case .success(let response):
-                TokenManager.shared.accessToken = response?.accessToken
-                TokenManager.shared.accessTokenExpiration = response?.accessTokenExpiration
-                TokenManager.shared.refreshToken = response?.refreshToken
-                TokenManager.shared.refreshTokenExpiration = response?.refreshTokenExpiration
+        let param = [
+            "account": phoneNum,
+            "password": vCode,
+            "inviteCode": inviteCode,
+            "type": "pin"
+        ]
+        self.postData(loginUrl, param: param as [AnyHashable : Any], isLoading: true) { responseObject in
+            if let head = (responseObject as? [String:Any])?["head"] as? [String: Any],
+               let retFlag = head["retFlag"] as? String,
+               retFlag == "00000" {
+                
+                // Save the account name to UserDefaults
                 AccountManager.shared.phoneNum = phoneNum
-                let mainController = MainTabBarController.defaultMainController()
-                mainController.modalPresentationStyle = .fullScreen
-                self.navigationController?.present(mainController, animated: true)
+
+                // Create account from response body and save it using HFKeyedArchiverTool
+                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let account = HFAccount.mj_object(withKeyValues: body) {
+                    
+                    HFKeyedArchiverTool.saveAccount(account)
+                }
                 
-                
-            case .failure(let error):
-                
-                self.showError(withStatus: error.localizedDescription)
-                
+                // Set the root view controller to the main tab bar
+                let baseNav = UINavigationController(rootViewController: MainTabBarController())
+                UIViewController.ex_keyWindow()?.rootViewController = baseNav
+            } else {
+                // Handle failure
             }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
         }
+
     }
     func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
         let phoneNumberPattern = "^1[3-9]\\d{9}$"

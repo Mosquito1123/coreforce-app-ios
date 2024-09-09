@@ -51,7 +51,7 @@ class InviteCodeViewController: BaseViewController {
     }
     
     func loadInviteCode(){
-        NetworkService<MemberAPI,InviteCodeResponse>().request(.memberInviteCode) { result in
+        /*NetworkService<MemberAPI,InviteCodeResponse>().request(.memberInviteCode) { result in
             switch result {
             case .success(let response):
                 self.inviteString = response?.inviteCode
@@ -60,7 +60,8 @@ class InviteCodeViewController: BaseViewController {
 
                 
             }
-        }
+        }             */
+
     }
     
 }

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ESTabBarController_swift
 enum MainScanItemType:Int {
     case battery_rent
     case battery_change
@@ -37,107 +36,80 @@ extension MainScanItemType {
         }
     }
 }
-class MainScanItemView: ESTabBarItemContentView {
-
-    // MARK: - Accessor
-    var mainScanItemType:MainScanItemType? = .battery_rent{
-        didSet{
-            scanButton.setTitle(mainScanItemType?.getValue(), for: .normal)
-            scanButton.setTitle(mainScanItemType?.getValue(), for: .highlighted)
-            scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.toImage(), for: .normal)
-            scanButton.setBackgroundImage(UIColor(named: mainScanItemType?.getColorValue()  ?? "22C788")?.withAlphaComponent(0.3).toImage(), for: .highlighted)
-
+class MainScanButton: UIButton {
+    
+    var type: MainScanItemType = .battery_rent {
+        didSet {
+            updateUI(for: type)
         }
-        
     }
-    // MARK: - Subviews
-    lazy var mainView:UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 97.0/2
-        view.layer.masksToBounds = true
-        view.backgroundColor = UIColor.white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    lazy var scanButton:UIButton = {
-        let button = UIButton(type: .custom)
-        button.frame = CGRect(x: 0, y: 0, width: 76, height: 76)
-        button.tintAdjustmentMode = .automatic
-        button.setTitle("扫码租电", for: .normal)
-        button.setTitle("扫码租电", for: .highlighted)
-
-        button.setImage(UIImage(named: "scan"), for: .normal)
-        button.setImage(UIImage(named: "scan"), for: .highlighted)
-
-        button.setBackgroundImage(UIColor(rgba:0x22C788FF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x22C788FF).withAlphaComponent(0.3).toImage(), for: .highlighted)
-
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitleColor(UIColor.white.withAlphaComponent(0.3), for: .highlighted)
-
-        button.layer.cornerRadius = 38
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-        button.translatesAutoresizingMaskIntoConstraints = false
-
-        return button
-    }()
+    
     // MARK: - Lifecycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.insets = UIEdgeInsets.init(top: -32, left: 0, bottom: 0, right: 0)
-
         setupSubviews()
         setupLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setupSubviews()
+        setupLayout()
     }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        scanButton.setImagePosition(type: .imageTop, Space: 4)
-
-    }
-}
-
-// MARK: - Setup
-private extension MainScanItemView {
+    
+    // MARK: - Setup
     
     private func setupSubviews() {
-        addSubview(mainView)
-        addSubview(scanButton)
+        self.frame = CGRect(x: 0.0, y: 0.0, width: 76, height: 76)
+        self.layer.cornerRadius = 38
+        self.layer.masksToBounds = true
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        setTitle("扫码租电", for: .normal)
+        setTitle("扫码租电", for: .highlighted)
+        
+        setImage(UIImage(named: "scan"), for: .normal)
+        setImage(UIImage(named: "scan"), for: .highlighted)
+        
+        setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+        setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+        
+        setTitleColor(.white, for: .normal)
+        setTitleColor(UIColor.white.withAlphaComponent(0.3), for: .highlighted)
+        
+        titleLabel?.font = UIFont.systemFont(ofSize: 11)
     }
     
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            mainView.widthAnchor.constraint(equalToConstant: 97),
-            mainView.heightAnchor.constraint(equalToConstant: 97),
-            mainView.centerYAnchor.constraint(equalTo: self.centerYAnchor,constant: 11),
-            mainView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            scanButton.widthAnchor.constraint(equalToConstant: 76),
-            scanButton.heightAnchor.constraint(equalToConstant: 76),
-            scanButton.centerYAnchor.constraint(equalTo: self.centerYAnchor,constant: 11),
-            scanButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-        ])
-        
-
+        // Add layout setup if needed
     }
     
+    private func updateUI(for type: MainScanItemType) {
+        switch type {
+        case .battery_rent:
+            setTitle("扫码租电", for: .normal)
+            setTitle("扫码租电", for: .highlighted)
+            setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+            setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+        case .battery_change:
+            setTitle("扫码换电", for: .normal)
+            setTitle("扫码换电", for: .highlighted)
+            setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+            setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+        case .battery_release:
+            setTitle("解除寄存", for: .normal)
+            setTitle("解除寄存", for: .highlighted)
+            setBackgroundImage(UIColor(rgba: 0xFF8842FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+            setBackgroundImage(UIColor(rgba: 0xFF8842FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+        }
+        setNeedsLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.setImagePosition(type: .imageTop, Space: 4)
+        
+    }
 }
 
-// MARK: - Public
-extension MainScanItemView {
-    
-}
-
-// MARK: - Action
-@objc private extension MainScanItemView {
-    
-}
-
-// MARK: - Private
-private extension MainScanItemView {
-    
-}

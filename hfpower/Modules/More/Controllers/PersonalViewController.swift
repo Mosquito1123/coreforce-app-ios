@@ -25,6 +25,7 @@ class PersonalViewController: BaseViewController {
         tableView.register(PersonalAssetsViewCell.self, forCellReuseIdentifier: PersonalAssetsViewCell.cellIdentifier())
         tableView.register(PersonalMileageViewCell.self, forCellReuseIdentifier: PersonalMileageViewCell.cellIdentifier())
         tableView.register(PersonalOthersViewCell.self, forCellReuseIdentifier: PersonalOthersViewCell.cellIdentifier())
+        tableView.register(AuthorityViewCell.self, forCellReuseIdentifier: AuthorityViewCell.cellIdentifier())
 
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
@@ -43,11 +44,6 @@ class PersonalViewController: BaseViewController {
         setupSubviews()
         setupLayout()
         loadMoreData()
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
         
     }
     func loadMoreData(){
@@ -93,7 +89,7 @@ class PersonalViewController: BaseViewController {
         }
     }
     func loadMemberData(){
-        NetworkService<MemberAPI,MemberResponse>().request(.member) { result in
+        /*NetworkService<MemberAPI,MemberResponse>().request(.member) { result in
             switch result {
             case.success(let response):
                 
@@ -142,7 +138,8 @@ class PersonalViewController: BaseViewController {
                 self.showError(withStatus: error.localizedDescription)
                 
             }
-        }
+        }             */
+
     }
     deinit {
     }
@@ -191,7 +188,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                 ps.selectImageBlock = { [weak self] results, isOriginal in
                     // your code
                     if let image = results.first?.image{
-                        NetworkService<MemberAPI,BlankResponse>().request(.headPic(image: image)) { result in
+                        /*NetworkService<MemberAPI,BlankResponse>().request(.headPic(image: image)) { result in
                             switch result {
                             case .success:
                                 self?.showSuccess(withStatus: "修改成功")
@@ -200,7 +197,8 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                                 self?.showError(withStatus: failure.localizedDescription)
 
                             }
-                        }
+                        }             */
+
                     }
                 }
                 ps.showPreview(animate: true, sender: self)

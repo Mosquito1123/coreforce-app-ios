@@ -178,7 +178,7 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
         // ...
         self.items.removeAll()
         pageNum = 1
-        NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
+        /*NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
             switch result {
             case.success(let response):
                 self.items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
@@ -197,6 +197,8 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
                 
             }
         }
+         */
+
     }
 
     @objc func footerRefreshing() {
@@ -207,7 +209,7 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
             return
         }
         pageNum = pageNum + 1
-        NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
+        /*NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
             switch result {
             case.success(let response):
                 let items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
@@ -220,10 +222,12 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
                 
             }
         }
+         */
+
     }
     func loadData(){
         pageNum = 1
-        NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
+        /*NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
             switch result {
             case.success(let response):
                 self.items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
@@ -242,6 +246,8 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
                 
             }
         }
+         */
+
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let orderDetailViewController = OrderDetailViewController()

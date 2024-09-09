@@ -7,7 +7,7 @@
 
 import UIKit
 import AliyunFaceAuthFacade
-class RealNameAuthViewController: UIViewController {
+class RealNameAuthViewController: UIViewController,UIGestureRecognizerDelegate {
     
     // MARK: - Accessor
     
@@ -115,12 +115,35 @@ class RealNameAuthViewController: UIViewController {
 private extension RealNameAuthViewController {
     
     private func setupNavbar() {
-        self.title = "实名认证"
-        let item = UIBarButtonItem(barButtonSystemItem: .close, target: self, action:  #selector(closeButton(_:)))
-        self.navigationController?.navigationBar.barTintColor = .white
-        self.navigationItem.leftBarButtonItem = item
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        // 自定义返回按钮
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(named: "back_arrow"), for: .normal)  // 设置自定义图片
+        backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色为白色
+        appearance.backgroundImage = UIColor.white.toImage()
+        appearance.shadowImage = UIColor.white.toImage()
+        
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        
     }
-    
+    @objc func backButtonTapped() {
+        // 返回按钮的点击事件处理
+        self.navigationController?.popViewController(animated: true)
+    }
     // MARK: - Setup
     private func setupSubviews() {
         view.addSubview(summaryLabel)
@@ -205,7 +228,7 @@ private extension RealNameAuthViewController {
             p["certName"] = name
             p["certNo"] = number
         }
-        NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpInit(params: p)) { result in
+        /*NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpInit(params: p)) { result in
             switch result {
             case.success(let response):
                 var extParams: [String: Any] = [
@@ -221,7 +244,7 @@ private extension RealNameAuthViewController {
                     switch zimResponse.code {
                         
                     case .ZIMResponseSuccess:
-                        NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpDescribe(certifyId: response?.certifyId ?? "")) { result in
+                        /*NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpDescribe(certifyId: response?.certifyId ?? "")) { result in
                             switch result{
                             case .success:
                                 AccountManager.shared.isAuth = 1
@@ -229,7 +252,8 @@ private extension RealNameAuthViewController {
                             case .failure(let error):
                                 self.showError(withStatus: error.localizedDescription)
                             }
-                        }
+                        }             */
+
                     case .ZIMInternalError:
                         self.showError(withStatus: "初始化失败")
                     case .ZIMInterrupt:
@@ -249,11 +273,10 @@ private extension RealNameAuthViewController {
                 
                 self.showError(withStatus: error.localizedDescription)
             }
-        }
+        }             */
+
     }
-    @objc func closeButton(_ sender:UIBarButtonItem){
-        self.navigationController?.dismiss(animated: true)
-    }
+    
 }
 
 // MARK: - Private

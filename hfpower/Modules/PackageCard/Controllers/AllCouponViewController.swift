@@ -117,7 +117,7 @@ class AllCouponViewController:BaseViewController{
                 let scanVC = HFScanViewController()
                 scanVC.resultBlock = { result in
                     if let stringScanned = result.strScanned{
-                        NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: stringScanned)) { result in
+                        /*NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: stringScanned)) { result in
                             switch result {
                             case .success:
                                 scanVC.navigationController?.popViewController(animated: true)
@@ -128,12 +128,13 @@ class AllCouponViewController:BaseViewController{
                                 self.showError(withStatus: failure.localizedDescription)
 
                             }
-                        }
+                        }             */
+
                     }
                 }
                 self.navigationController?.pushViewController(scanVC, animated: true)
             } sureBlock: { action,text in
-                NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: text)) { result in
+                /*NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: text)) { result in
                     switch result {
                     case .success:
                         NotificationCenter.default.post(name: .refreshCouponList, object: nil)
@@ -143,6 +144,8 @@ class AllCouponViewController:BaseViewController{
 
                     }
                 }
+                 */
+
             }
 
             
@@ -325,7 +328,7 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
         // ...
         self.items.removeAll()
         pageNum = 1
-        NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
+        /*NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
             switch result {
             case.success(let response):
                 self.items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
@@ -343,7 +346,8 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
                 self.tableView.mj_footer?.resetNoMoreData()
                 
             }
-        }
+        }             */
+
     }
 
     @objc func footerRefreshing() {
@@ -354,7 +358,7 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
             return
         }
         pageNum = pageNum + 1
-        NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
+        /*NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
             switch result {
             case.success(let response):
                 let items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
@@ -366,11 +370,12 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
 
                 
             }
-        }
+        }             */
+
     }
     func loadData(){
         pageNum = 1
-        NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
+        /*NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
             switch result {
             case.success(let response):
                 self.items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
@@ -388,7 +393,8 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
                 self.tableView.mj_footer?.resetNoMoreData()
                 
             }
-        }
+        }             */
+
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

@@ -7,7 +7,9 @@
 
 #ifndef SwiftiOS_Bridging_Header_h
 #define SwiftiOS_Bridging_Header_h
-
+#import "NetworkService.h"
+#import "URLString.h"
+#import "HFKeyedArchiverTool.h"
 #import <AliyunFaceAuthFacade/AliyunFaceAuthFacade.h>
 
 #import "JYBDBankCardVC.h"
