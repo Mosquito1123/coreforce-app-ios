@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllCouponListViewCell: BaseTableViewCell<Coupon> {
+class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
     class PeriodView:UIView{
         lazy var titleLabel: UILabel = {
             let label = UILabel()
@@ -111,9 +111,9 @@ class AllCouponListViewCell: BaseTableViewCell<Coupon> {
 
         let formattedString = "满\(numberFormatter.string(from: NSNumber(value: element?.limitAmount ?? 0)) ?? "")可用"
         self.titleLabel.text = formattedString
-        let couponType = item.couponType ?? 0
+        let couponType = item.couponType 
         
-        let status = item.status ?? 0
+        let status = item.status 
         if status == 2{
             statusButton.isHidden = false
             statusButton.setTitle("已使用", for: .normal)
@@ -141,19 +141,19 @@ class AllCouponListViewCell: BaseTableViewCell<Coupon> {
         periodView.titleLabel.text = validityPeriod
         switch couponType {
         case 1://
-            markView.titleLabel.text = "\(item.discountAmount ?? 0)"
+            markView.titleLabel.text = "\(item.discountAmount)"
             markView.unitLabel.isHidden = false
             markView.contentLabel.text = "押金券"
             contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))押金"
             titleLabel.isHidden = false
         case 2://
-            markView.titleLabel.text = "\(item.discountAmount ?? 0)"
+            markView.titleLabel.text = "\(item.discountAmount )"
             markView.unitLabel.isHidden = false
             markView.contentLabel.text = "租金券"
             contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))租金"
             titleLabel.isHidden = false
         case 3://
-            markView.titleLabel.text = "\(item.discountAmount ?? 0)"
+            markView.titleLabel.text = "\(item.discountAmount )"
             markView.contentLabel.text = "全额券"
             contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))金额"
             titleLabel.isHidden = false
@@ -165,19 +165,19 @@ class AllCouponListViewCell: BaseTableViewCell<Coupon> {
             titleLabel.isHidden = true
         
         case 6://
-            markView.titleLabel.text = "\(item.discountAmount ?? 0)"
+            markView.titleLabel.text = "\(item.discountAmount )"
             markView.contentLabel.text = "满减券"
             markView.unitLabel.isHidden = false
             contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))金额"
             titleLabel.isHidden = false
         case 7://
-            markView.titleLabel.text = "\(item.discountAmount ?? 0)"
+            markView.titleLabel.text = "\(item.discountAmount )"
             markView.contentLabel.text = "满赠券"
             markView.unitLabel.isHidden = false
             contentLabel.text = "可赠与\(deviceTypeText(for: element?.deviceType))换电次数"
             titleLabel.isHidden = false
         default://其他
-            markView.titleLabel.text = "\(item.discountAmount ?? 0)"
+            markView.titleLabel.text = "\(item.discountAmount )"
             markView.contentLabel.text = "免押租金券"
             markView.unitLabel.isHidden = false
             contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))租金和押金"

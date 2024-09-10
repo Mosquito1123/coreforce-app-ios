@@ -202,6 +202,13 @@
 		046B4EF62C6E032600DCD5CB /* OrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF52C6E032600DCD5CB /* OrderList.swift */; };
 		046B4EF82C6F264600DCD5CB /* CommonInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF72C6F264600DCD5CB /* CommonInputView.swift */; };
 		046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */; };
+		04708F8D2C8FDFF0001E809C /* HFMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F8C2C8FDFF0001E809C /* HFMember.m */; };
+		04708F902C8FE0EB001E809C /* HFDepositData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F8F2C8FE0EB001E809C /* HFDepositData.m */; };
+		04708F932C8FE194001E809C /* HFChangeCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F922C8FE194001E809C /* HFChangeCardInfo.m */; };
+		04708F962C8FE468001E809C /* HFOrderData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F952C8FE468001E809C /* HFOrderData.m */; };
+		04708F992C8FE554001E809C /* HFCouponData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F982C8FE554001E809C /* HFCouponData.m */; };
+		04708F9C2C8FE615001E809C /* HFCouponCountData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F9B2C8FE615001E809C /* HFCouponCountData.m */; };
+		04708F9F2C8FE6B0001E809C /* HFMsgCountData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F9E2C8FE6B0001E809C /* HFMsgCountData.m */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -546,6 +553,20 @@
 		046B4EF52C6E032600DCD5CB /* OrderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderList.swift; sourceTree = "<group>"; };
 		046B4EF72C6F264600DCD5CB /* CommonInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonInputView.swift; sourceTree = "<group>"; };
 		046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		04708F8B2C8FDFF0001E809C /* HFMember.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFMember.h; sourceTree = "<group>"; };
+		04708F8C2C8FDFF0001E809C /* HFMember.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFMember.m; sourceTree = "<group>"; };
+		04708F8E2C8FE0EB001E809C /* HFDepositData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFDepositData.h; sourceTree = "<group>"; };
+		04708F8F2C8FE0EB001E809C /* HFDepositData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFDepositData.m; sourceTree = "<group>"; };
+		04708F912C8FE194001E809C /* HFChangeCardInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFChangeCardInfo.h; sourceTree = "<group>"; };
+		04708F922C8FE194001E809C /* HFChangeCardInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFChangeCardInfo.m; sourceTree = "<group>"; };
+		04708F942C8FE468001E809C /* HFOrderData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFOrderData.h; sourceTree = "<group>"; };
+		04708F952C8FE468001E809C /* HFOrderData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFOrderData.m; sourceTree = "<group>"; };
+		04708F972C8FE554001E809C /* HFCouponData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFCouponData.h; sourceTree = "<group>"; };
+		04708F982C8FE554001E809C /* HFCouponData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCouponData.m; sourceTree = "<group>"; };
+		04708F9A2C8FE615001E809C /* HFCouponCountData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFCouponCountData.h; sourceTree = "<group>"; };
+		04708F9B2C8FE615001E809C /* HFCouponCountData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCouponCountData.m; sourceTree = "<group>"; };
+		04708F9D2C8FE6B0001E809C /* HFMsgCountData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFMsgCountData.h; sourceTree = "<group>"; };
+		04708F9E2C8FE6B0001E809C /* HFMsgCountData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFMsgCountData.m; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -1299,6 +1320,20 @@
 				044E1F4D2C8EE03B00A8E626 /* HFBikeDetail.m */,
 				044E1F4F2C8EE41000A8E626 /* NetworkService.h */,
 				044E1F502C8EE41000A8E626 /* NetworkService.m */,
+				04708F8B2C8FDFF0001E809C /* HFMember.h */,
+				04708F8C2C8FDFF0001E809C /* HFMember.m */,
+				04708F8E2C8FE0EB001E809C /* HFDepositData.h */,
+				04708F8F2C8FE0EB001E809C /* HFDepositData.m */,
+				04708F912C8FE194001E809C /* HFChangeCardInfo.h */,
+				04708F922C8FE194001E809C /* HFChangeCardInfo.m */,
+				04708F942C8FE468001E809C /* HFOrderData.h */,
+				04708F952C8FE468001E809C /* HFOrderData.m */,
+				04708F972C8FE554001E809C /* HFCouponData.h */,
+				04708F982C8FE554001E809C /* HFCouponData.m */,
+				04708F9A2C8FE615001E809C /* HFCouponCountData.h */,
+				04708F9B2C8FE615001E809C /* HFCouponCountData.m */,
+				04708F9D2C8FE6B0001E809C /* HFMsgCountData.h */,
+				04708F9E2C8FE6B0001E809C /* HFMsgCountData.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -2165,8 +2200,10 @@
 				0415AF3A2BC94AC800E9290D /* HFNetworkingType.swift in Sources */,
 				0469567B2C6B86C800E3A7B8 /* ForgetPasswordViewController.swift in Sources */,
 				04FFEE3C2C0468A000939B46 /* MainTabBarController.swift in Sources */,
+				04708F962C8FE468001E809C /* HFOrderData.m in Sources */,
 				042D84FD2C2987130049DDB5 /* PersonalMileageViewCell.swift in Sources */,
 				0438936E2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift in Sources */,
+				04708F992C8FE554001E809C /* HFCouponData.m in Sources */,
 				04DE268B2C32A21C0052D056 /* DepositServiceViewCell.swift in Sources */,
 				04A5E51F2C1C253400787551 /* HFScanViewController.swift in Sources */,
 				04FB1C022C25877200F47E79 /* ChartMainView.swift in Sources */,
@@ -2177,6 +2214,7 @@
 				046B4EC72C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift in Sources */,
 				048EE7592C3D425E0094A0CB /* AboutTableHeaderView.swift in Sources */,
 				045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */,
+				04708F9C2C8FE615001E809C /* HFCouponCountData.m in Sources */,
 				04F4CFCB2C75836900F5F764 /* BatteryInfoViewCell.swift in Sources */,
 				0451657E2C1AC0DF00ABE7F1 /* JYBDIDCardVC.m in Sources */,
 				046B4ECD2C6CAC0D00DCD5CB /* ChangePhoneNumberVIdentityCodeViewController.swift in Sources */,
@@ -2231,6 +2269,7 @@
 				04FFEE402C04700600939B46 /* PersonalViewController.swift in Sources */,
 				0450E5D42C48C59D00EBA7D4 /* CustomActionSheetViewController.swift in Sources */,
 				048EE7772C3E5FE90094A0CB /* NewComersPackageCardViewCell.swift in Sources */,
+				04708F9F2C8FE6B0001E809C /* HFMsgCountData.m in Sources */,
 				044E1F512C8EE41000A8E626 /* NetworkService.m in Sources */,
 				046B4EC92C6C956300DCD5CB /* ForgetPasswordVPhoneNumberViewController.swift in Sources */,
 				04EBBB002C185B5400AFD14B /* BatteryListManager.swift in Sources */,
@@ -2259,6 +2298,7 @@
 				046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */,
 				045215422C3CEC170091FD1A /* LogoffTableFooterView.swift in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
+				04708F902C8FE0EB001E809C /* HFDepositData.m in Sources */,
 				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
 				045165832C1AC0DF00ABE7F1 /* JYBDBankCardInfo.m in Sources */,
 				04001C422C060827000A040F /* CenterAnnotationView.swift in Sources */,
@@ -2269,6 +2309,7 @@
 				048EE7792C3E8A090094A0CB /* PackageCardChooseServiceViewController.swift in Sources */,
 				04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */,
 				042849172C2437290011032F /* CabinetDetailContentView.swift in Sources */,
+				04708F932C8FE194001E809C /* HFChangeCardInfo.m in Sources */,
 				045C17562C2BEB550082AF5B /* PersonalElementIconView.swift in Sources */,
 				043893642C3FCB6C00E61C0D /* CouponListViewController.swift in Sources */,
 				0443B9EA2C10414100834069 /* TokenManager.swift in Sources */,
@@ -2286,6 +2327,7 @@
 				0443B9DB2C09DC7200834069 /* CabinetStatisticBatteryItemView.swift in Sources */,
 				04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */,
 				04FB1C0E2C2972CB00F47E79 /* PersonalDevicesViewCell.swift in Sources */,
+				04708F8D2C8FDFF0001E809C /* HFMember.m in Sources */,
 				049BDFE82C199FAD00C46D6D /* MainManager.swift in Sources */,
 				042849192C24388D0011032F /* CabinetDetailBottomView.swift in Sources */,
 				04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */,

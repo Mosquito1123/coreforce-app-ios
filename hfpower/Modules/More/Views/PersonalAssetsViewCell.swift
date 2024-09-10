@@ -13,7 +13,7 @@ class PersonalAssetsViewCell: PersonalContentViewCell {
     var packageCardBlock:((UITapGestureRecognizer)->Void)?
     var depositBlock:((UITapGestureRecognizer)->Void)?
     var couponBlock:((UITapGestureRecognizer)->Void)?
-    var depositData: DepositData?{
+    var depositData: HFDepositData?{
         didSet{
             if let view12 = self.assetsStackView.viewWithTag(12) as? PersonalElementView{
                 let batteryDeposit = depositData?.batteryDeposit ?? 0
@@ -37,7 +37,7 @@ class PersonalAssetsViewCell: PersonalContentViewCell {
             
         }
     }
-    var couponData: CouponData?{
+    var couponData: HFCouponCountData?{
         didSet{
             if let view13 = self.assetsStackView.viewWithTag(13) as? PersonalElementView{
                 view13.titleLabel.text = "\(couponData?.usableCount ?? 0)"

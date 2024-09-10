@@ -206,7 +206,7 @@ class MapBatteryContentView: UIButton {
         //字体线条颜色
         let xbatteryContentColor = batteryLevel <= 0.8 && batteryLevel >= 0.2 ? warningBatteryContentColor: errorBatteryContentColor
         let batteryContentColor = batteryLevel > 0.8 ? batteryContentColor:xbatteryContentColor
-        var  attr:[NSAttributedString.Key:Any] = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: batteryContentColor, .strokeWidth: -2]
+        let attr:[NSAttributedString.Key:Any] = [.font: UIFont.systemFont(ofSize: 12,weight: .semibold),.foregroundColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1), .strokeColor: batteryContentColor, .strokeWidth: -2]
         
         
         attrString.addAttributes(attr, range: NSRange(location: 0, length: attrString.length))

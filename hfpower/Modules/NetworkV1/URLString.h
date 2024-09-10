@@ -88,5 +88,5 @@
 #define buyPackageCardUrl @"/app/api/payVoucher/main/order"//套餐卡下单
 #define ourPackageCardUrl @"/app/api/payVoucher/main/list"//在售套餐卡列表
 #define gridOpenUrl @"/app/api/grid/open"//卡仓取电
-
+#define mileageUrl @"/app/api/member/mileage"
 #endif /* URLString_h */

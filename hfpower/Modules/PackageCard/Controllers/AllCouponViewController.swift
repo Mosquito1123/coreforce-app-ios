@@ -117,34 +117,30 @@ class AllCouponViewController:BaseViewController{
                 let scanVC = HFScanViewController()
                 scanVC.resultBlock = { result in
                     if let stringScanned = result.strScanned{
-                        /*NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: stringScanned)) { result in
-                            switch result {
-                            case .success:
-                                scanVC.navigationController?.popViewController(animated: true)
-                                NotificationCenter.default.post(name: .refreshCouponList, object: nil)
-                                self.showSuccess(withStatus: "获取优惠券成功")
-                            case .failure(let failure):
-                                scanVC.navigationController?.popViewController(animated: true)
-                                self.showError(withStatus: failure.localizedDescription)
+                        self.postData(couponReceiveUrl, param: ["code":stringScanned.trimmingCharacters(in: .whitespacesAndNewlines)], isLoading: true) { responseObject in
+                            scanVC.navigationController?.popViewController(animated: true)
+                            NotificationCenter.default.post(name: .refreshCouponList, object: nil)
+                            self.showSuccess(withStatus: "获取优惠券成功")
+                        } error: { error in
+                            scanVC.navigationController?.popViewController(animated: true)
+                            self.showError(withStatus: error.localizedDescription)
 
-                            }
-                        }             */
+                        }
+                        
 
                     }
                 }
                 self.navigationController?.pushViewController(scanVC, animated: true)
             } sureBlock: { action,text in
-                /*NetworkService<BusinessAPI,BlankResponse>().request(.couponReceive(code: text)) { result in
-                    switch result {
-                    case .success:
-                        NotificationCenter.default.post(name: .refreshCouponList, object: nil)
-                        self.showSuccess(withStatus: "获取优惠券成功")
-                    case .failure(let failure):
-                        self.showError(withStatus: failure.localizedDescription)
+                self.postData(couponReceiveUrl, param: ["code":text.trimmingCharacters(in: .whitespacesAndNewlines)], isLoading: true) { responseObject in
+                    NotificationCenter.default.post(name: .refreshCouponList, object: nil)
+                    self.showSuccess(withStatus: "获取优惠券成功")
+                } error: { error in
+                    self.showError(withStatus: error.localizedDescription)
 
-                    }
                 }
-                 */
+
+               
 
             }
 
@@ -290,7 +286,7 @@ private extension AllCouponContentViewController {
 private extension AllCouponContentViewController {
     
 }
-class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,Coupon>{
+class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,HFCouponData>{
     
     
     
@@ -328,25 +324,32 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
         // ...
         self.items.removeAll()
         pageNum = 1
-        /*NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
-            switch result {
-            case.success(let response):
-                self.items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
-                self.pageNum = 1
-                let total = (Double)(response?.pageResult?.total ?? 1)
-                let size = (Double)(response?.pageResult?.size ?? 1)
-                self.pageCount = Int(ceil(total/size))
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                self.pageNum = 1
-                self.pageCount = 1
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
+        self.getData(couponListUrl, param: ["page":self.pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
                 
+                self.items = (HFCouponData.mj_objectArray(withKeyValuesArray: dataList) as? [HFCouponData] ?? []).filter { $0.status == self.status }
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
             }
-        }             */
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_header?.endRefreshing()
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
+
+        
 
     }
 
@@ -358,42 +361,51 @@ class AllCouponListViewController:BaseTableViewController<AllCouponListViewCell,
             return
         }
         pageNum = pageNum + 1
-        /*NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
-            switch result {
-            case.success(let response):
-                let items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
-                self.items.append(contentsOf: items)
-                self.tableView.mj_footer?.endRefreshing()
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                self.tableView.mj_footer?.endRefreshing()
-
+        self.getData(couponListUrl, param: ["page":self.pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
                 
+                let addItems = (HFCouponData.mj_objectArray(withKeyValuesArray: dataList) as? [HFCouponData] ?? []).filter { $0.status == self.status }
+                self.items.append(contentsOf: addItems)
+                self.tableView.mj_footer?.endRefreshing()
             }
-        }             */
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.endRefreshing()
+        }
+        
 
     }
     func loadData(){
         pageNum = 1
-        /*NetworkService<BusinessAPI,DataListResponse<Coupon>>().request(.couponList(page: pageNum)) { result in
-            switch result {
-            case.success(let response):
-                self.items = (response?.pageResult?.dataList ?? []).filter { $0.status == self.status }
-                self.pageNum = 1
-                let total = (Double)(response?.pageResult?.total ?? 1)
-                let size = (Double)(response?.pageResult?.size ?? 1)
-                self.pageCount = Int(ceil(total/size))
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                self.pageNum = 1
-                self.pageCount = 1
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
+        self.getData(couponListUrl, param: ["page":self.pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
                 
+                self.items = (HFCouponData.mj_objectArray(withKeyValuesArray: dataList) as? [HFCouponData] ?? []).filter { $0.status == self.status }
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
             }
-        }             */
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
+       
 
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

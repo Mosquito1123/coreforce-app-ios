@@ -15,6 +15,7 @@ class AuthorityViewCell: UITableViewCell {
     // MARK: - Subviews
     lazy var mainView: UIImageView = {
         let mainView = UIImageView()
+        mainView.isUserInteractionEnabled = true
         mainView.image = UIImage(named: "authority_button_bg")
         mainView.translatesAutoresizingMaskIntoConstraints = false
         return mainView
@@ -65,8 +66,6 @@ class AuthorityViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        self.backgroundView = UIImageView(image: UIImage(named: "authority_button_bg"))
-        self.selectedBackgroundView = UIImageView(image: UIImage(named: "authority_button_bg"))
         setupSubviews()
         setupLayout()
     }
@@ -81,6 +80,7 @@ class AuthorityViewCell: UITableViewCell {
 private extension AuthorityViewCell {
     
     private func setupSubviews() {
+        self.backgroundColor = .clear
         self.contentView.addSubview(self.mainView)
         self.mainView.addSubview(iconView)
         self.mainView.addSubview(titleLabel)

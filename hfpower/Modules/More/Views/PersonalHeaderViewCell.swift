@@ -12,11 +12,11 @@ class PersonalHeaderViewCell: UITableViewCell {
     // MARK: - Accessor
     var element:PersonalList?{
         didSet{
-            if let member = element?.extra as? Member{
+            if let member = element?.extra as? HFMember{
                 titleLabel.text = member.nickname
                 subTitleLabel.text = member.phoneNum
-                authorityButton.isVerified = AccountManager.shared.isAuth == 1
-                headerImageView.kf.setImage(with: URL(string: "http://www.coreforce.cn/app/api/member/headPic?access_token=\(TokenManager.shared.accessToken ?? "")"),placeholder: UIImage(named: "setup-head-default"),options: [.fromMemoryCacheOrRefresh])
+                authorityButton.isVerified = member.isAuth == 1
+                headerImageView.kf.setImage(with: URL(string: "http://www.coreforce.cn/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
             }
         }
     }

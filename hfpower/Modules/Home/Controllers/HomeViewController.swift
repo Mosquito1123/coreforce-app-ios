@@ -409,8 +409,7 @@ private extension HomeViewController {
             headerStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             headerStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             headerStackBatteryView.topAnchor.constraint(equalTo: self.headerStackView.bottomAnchor,constant: 10),
-            headerStackBatteryView.widthAnchor.constraint(equalToConstant: 45),
-            headerStackBatteryView.heightAnchor.constraint(equalToConstant: 70),
+      
             headerStackBatteryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
             footerStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -26),
             footerStackView.leadingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14-38-14),

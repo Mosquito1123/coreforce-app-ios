@@ -11,6 +11,13 @@
 #import "HFBatteryDepositOrderInfo.h"
 #import "HFBikeDetail.h"
 #import "HFAccount.h"
+#import "HFCouponData.h"
+#import "HFMember.h"
+#import "HFDepositData.h"
+#import "HFChangeCardInfo.h"
+#import "HFOrderData.h"
+#import "HFCouponCountData.h"
+#import "HFMsgCountData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -43,63 +43,31 @@ class PersonalViewController: BaseViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        loadMoreData()
         
     }
-    func loadMoreData(){
-        let response = AccountManager.shared.memberResponse
-        if  AccountManager.shared.isAuth == 1{
-            self.items = [
-                PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: response?.member),
-                PersonalList(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier()),
-                PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
-                PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: response),
-                PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
-                PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
-                PersonalListItem(title: "我的订单",icon: "order"),
-                PersonalListItem(title: "购买套餐",icon: "buy"),
-                PersonalListItem(title: "电池寄存",icon: "post"),
-                PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
-                PersonalListItem(title: "邀请有礼",icon: "invite"),
-                PersonalListItem(title: "用户反馈",icon:"remark"),
-                PersonalListItem(title: "用户指南",icon: "guide"),
-                PersonalListItem(title: "消息通知",icon: "message"),
-                PersonalListItem(title: "常见问题",icon:"qa"),
-                PersonalListItem(title: "领券中心",icon: "coupon")
-            ])]
-        }else{
-            self.items = [
-                PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: response?.member),
-                PersonalList(title: "立即实名",cellHeight: 55, identifier: AuthorityViewCell.cellIdentifier()),
-                PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
-                PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier()),
-                PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
-                PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
-                PersonalListItem(title: "我的订单",icon: "order"),
-                PersonalListItem(title: "购买套餐",icon: "buy"),
-                PersonalListItem(title: "电池寄存",icon: "post"),
-                PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
-                PersonalListItem(title: "邀请有礼",icon: "invite"),
-                PersonalListItem(title: "用户反馈",icon:"remark"),
-                PersonalListItem(title: "用户指南",icon: "guide"),
-                PersonalListItem(title: "消息通知",icon: "message"),
-                PersonalListItem(title: "常见问题",icon:"qa"),
-                PersonalListItem(title: "领券中心",icon: "coupon")
-            ])]
-        }
-    }
+ 
     func loadMemberData(){
-        /*NetworkService<MemberAPI,MemberResponse>().request(.member) { result in
-            switch result {
-            case.success(let response):
+        self.refreshBatteryDataList {
+            
+        } bikeDataBlock: {
+            
+        } batteryDepositDataBlock: {
+            
+        } complete: { result in
+            
+        }
+        self.getData(memberUrl, param: [:], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any] {
                 
-                AccountManager.shared.isAuth = NSNumber(integerLiteral: response?.member?.isAuth ?? -1)
-                if  AccountManager.shared.isAuth == 1{
+                let memberData = HFMember.mj_object(withKeyValues: body["member"])
+                let changeCardInfoData = HFChangeCardInfo.mj_object(withKeyValues: body["changeCardInfo"])
+                let isAuth = memberData?.isAuth
+                if isAuth == 1{
                     self.items = [
-                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: response?.member),
+                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: memberData),
                         PersonalList(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier()),
                         PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
-                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: response),
+                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
                         PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
                         PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
                         PersonalListItem(title: "我的订单",icon: "order"),
@@ -115,10 +83,10 @@ class PersonalViewController: BaseViewController {
                     ])]
                 }else{
                     self.items = [
-                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: response?.member),
+                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: memberData),
                         PersonalList(title: "立即实名",cellHeight: 55, identifier: AuthorityViewCell.cellIdentifier()),
                         PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
-                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier()),
+                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
                         PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
                         PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
                         PersonalListItem(title: "我的订单",icon: "order"),
@@ -133,12 +101,17 @@ class PersonalViewController: BaseViewController {
                         PersonalListItem(title: "领券中心",icon: "coupon")
                     ])]
                 }
-                
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                
+
             }
-        }             */
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadMemberData()
 
     }
     deinit {
@@ -188,16 +161,14 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                 ps.selectImageBlock = { [weak self] results, isOriginal in
                     // your code
                     if let image = results.first?.image{
-                        /*NetworkService<MemberAPI,BlankResponse>().request(.headPic(image: image)) { result in
-                            switch result {
-                            case .success:
-                                self?.showSuccess(withStatus: "修改成功")
-                                headerCell.headerImageView.image = image
-                            case .failure(let failure):
-                                self?.showError(withStatus: failure.localizedDescription)
+                        self?.uploadData(headPicUrl, param: [:], image: image, name: "file", fileName: "pic_image", success: { responseObject in
+                            self?.showSuccess(withStatus: "修改成功")
+                            headerCell.headerImageView.image = image
+                        }, error: { error in
+                            self?.showError(withStatus: error.localizedDescription)
 
-                            }
-                        }             */
+                        })
+                        
 
                     }
                 }
@@ -216,16 +187,18 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.titleLabel.text = item.title
         }else if let contentCell = cell as? PersonalAssetsViewCell{
             contentCell.titleLabel.text = item.title
-            contentCell.depositData = (item.extra as? MemberResponse)?.depositData
-            contentCell.payVoucherCount = (item.extra as? MemberResponse)?.payVoucherCount
-            contentCell.couponData = (item.extra as? MemberResponse)?.couponData
+            let depositData = HFDepositData.mj_object(withKeyValues: (item.extra as? [String:Any])?["depositData"])
+            let couponData = HFCouponCountData.mj_object(withKeyValues: (item.extra as? [String:Any])?["couponData"])
+            contentCell.depositData = depositData
+            contentCell.payVoucherCount = (item.extra as? [String:Any])?["payVoucherCount"] as? Int
+            contentCell.couponData = couponData
             contentCell.packageCardBlock = { tap in
                 let allPackageCardViewController = AllPackageCardViewController()
                 self.navigationController?.pushViewController(allPackageCardViewController, animated: true)
             }
             contentCell.depositBlock = { tap in
                 let depositManagementViewController = DepositManagementViewController()
-                depositManagementViewController.depositData = (item.extra as? MemberResponse)?.depositData
+                depositManagementViewController.depositData = depositData
                 self.navigationController?.pushViewController(depositManagementViewController, animated: true)
             }
             contentCell.couponBlock = { tap in
@@ -254,6 +227,11 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             }
             contentCell.titleLabel.text = item.title
             contentCell.items = item.items ?? []
+        }else if let contentCell = cell as? AuthorityViewCell{
+            contentCell.sureAction = { sender in
+                let realNameAuthVC = RealNameAuthViewController()
+                self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+            }
         }
         
         return cell
