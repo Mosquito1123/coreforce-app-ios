@@ -7,12 +7,13 @@
 
 import UIKit
 
-class CabinetListViewCell: BaseTableViewCell<CabinetSummary> {
+class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
     
     // MARK: - Accessor
     override func configure() {
         self.titleLabel.text = element?.number
         self.locationLabel.text = element?.location
+        self.statisticView.batteryListView.onLine = element?.onLine.boolValue ?? false
     }
     var navigateAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
@@ -184,7 +185,7 @@ private extension CabinetListViewCell {
             rentStatusButton.trailingAnchor.constraint(equalTo: depositStatusButton.leadingAnchor,constant: -6),
             
             
-            rideLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            rideLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
             rideLabel.topAnchor.constraint(equalTo: businessTimeLabel.bottomAnchor, constant: 8),
             rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
             locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

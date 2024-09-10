@@ -35,7 +35,16 @@ extension String {
             return String(format: "%.0f 米", meters)
         }
     }
-
+    // 替换字符串后两位为 "00"
+    func replacingLastTwoCharactersWithZeroes() -> String {
+        guard self.count > 2 else {
+            return self
+        }
+        
+        let endIndex = self.index(self.endIndex, offsetBy: -2)
+        let replacedString = self[..<endIndex] + "00"
+        return String(replacedString)
+    }
 }
 extension Notification.Name {
     static let userLoggedIn = Notification.Name("UserLoggedInNotification")

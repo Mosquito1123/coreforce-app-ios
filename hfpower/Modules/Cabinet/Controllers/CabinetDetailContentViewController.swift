@@ -11,17 +11,17 @@ import DGCharts
 class CabinetDetailContentViewController: UIViewController {
     
     // MARK: - Accessor
-    var cabinetExchangeForecastDatas:[CabinetExchangeForecast]?{
+    var cabinetExchangeForecastDatas:[HFCabinetExchangeForecast]?{
         didSet{
             
-            let maxY = cabinetExchangeForecastDatas?.max(by: { $0.count?.doubleValue ?? 0 < $1.count?.doubleValue ?? 0 })?.count?.doubleValue ?? 0
+            let maxY = cabinetExchangeForecastDatas?.max(by: { $0.count.doubleValue < $1.count.doubleValue })?.count.doubleValue ?? 0
 
             if let chartDataEntrys = cabinetExchangeForecastDatas?.map({ data in
-                if data.count?.doubleValue == maxY{
-                    return ChartDataEntry(x: data.hh?.doubleValue ?? 0, y: data.count?.doubleValue ?? 0,icon: UIImage(named: "max_value"))
+                if data.count.doubleValue == maxY{
+                    return ChartDataEntry(x: data.hh.doubleValue , y: data.count.doubleValue ,icon: UIImage(named: "max_value"))
 
                 }else{
-                    return ChartDataEntry(x: data.hh?.doubleValue ?? 0, y: data.count?.doubleValue ?? 0)
+                    return ChartDataEntry(x: data.hh.doubleValue , y: data.count.doubleValue )
 
                 }
             }){

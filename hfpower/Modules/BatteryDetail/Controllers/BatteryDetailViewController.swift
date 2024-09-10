@@ -89,7 +89,7 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
         collectionView.backgroundView = backgroundView
     }
     func setupData(){
-        if let batteryDetail = MainManager.shared.batteryDetail {
+        if let batteryDetail = HFKeyedArchiverTool.batteryDataList().first {
             self.data = [
                 BatteryStatus(id:0, batteryDetail: batteryDetail),
                 BatteryInfo(id: 1, items: [
@@ -97,7 +97,7 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
                     BatteryInfoItem(id: 1,title: "电池型号",content: batteryDetail.name),
 
                 ]),
-                BatteryRemainingTerm(id: 2,title: "剩余租期", content: batteryDetail.batteryEndDate?.timeRemaining() ?? "",overdueOrExpiringSoon: batteryDetail.batteryEndDate?.overdueOrExpiringSoon() ?? false),
+                BatteryRemainingTerm(id: 2,title: "剩余租期", content: batteryDetail.batteryEndDate.timeRemaining() ,overdueOrExpiringSoon: batteryDetail.batteryEndDate.overdueOrExpiringSoon() ),
                 BatteryAction(id: 4, items: [
                     BatteryActionItem(id: 0, name: "续费", icon: "device_renewal"),
                     BatteryActionItem(id: 1, name: "响铃", icon: "device_ring"),
@@ -330,15 +330,23 @@ class BatterySiteSectionController: ListSectionController {
         batterySite = object as? BatterySite
     }
     override func didSelectItem(at index: Int) {
-        let lat = MainManager.shared.batteryDetail?.lastLat?.doubleValue ?? 0
-        let lon = MainManager.shared.batteryDetail?.lastLon?.doubleValue ?? 0
-
-        /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: nil, lat:nil)) { result in
-            switch result{
-            case .success(let response):
-                
-                let filteredArray = response?.list?.filter { $0.onLine == true && ($0.batteryCount ?? 0) > 0 } ?? [CabinetSummary]()
-
+        
+        let lat = HFKeyedArchiverTool.batteryDataList().first?.lastLat?.doubleValue ?? 0
+        let lon = HFKeyedArchiverTool.batteryDataList().first?.lastLon?.doubleValue ?? 0
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+        var params = [String: Any]()
+        let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
+        if orderInfo.id != nil {
+            params = ["tempStorageSw": true]
+        }
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["lon"] = lon
+        params["lat"] = lat
+        
+        self.viewController?.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
+                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+                let filteredArray = (cabinetArray ?? []).filter { $0.onLine.boolValue == true && $0.batteryCount > 0 }
                 var locations = [CLLocation]()
                 for mapAnnotation in filteredArray {
                     let location = CLLocation(latitude: mapAnnotation.gdLat?.doubleValue ?? 0, longitude: mapAnnotation.gdLon?.doubleValue ?? 0)
@@ -359,13 +367,12 @@ class BatterySiteSectionController: ListSectionController {
                     }
                 }
                 self.viewController?.mapNavigation(lat: nearestLocation?.coordinate.latitude ?? 0, lng: nearestLocation?.coordinate.longitude ?? 0, address: "换电柜", currentController: self.viewController)
-
-            case .failure(let error):
-                self.viewController?.showError(withStatus: error.localizedDescription)
-                
             }
+        } error: { error in
+            self.viewController?.showError(withStatus: error.localizedDescription)
+
         }
-         */
+       
 
     }
 }

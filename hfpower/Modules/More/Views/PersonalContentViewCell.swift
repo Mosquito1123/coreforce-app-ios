@@ -26,8 +26,8 @@ class PersonalContentViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
     }()
-    lazy var stackView: HFStackView = {
-        let stackView = HFStackView()
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = 0

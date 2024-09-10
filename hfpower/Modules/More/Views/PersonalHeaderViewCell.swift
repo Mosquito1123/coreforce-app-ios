@@ -13,7 +13,7 @@ class PersonalHeaderViewCell: UITableViewCell {
     var element:PersonalList?{
         didSet{
             if let member = element?.extra as? HFMember{
-                titleLabel.text = member.nickname
+                titleLabel.text = member.nickname ?? member.phoneNum
                 subTitleLabel.text = member.phoneNum
                 authorityButton.isVerified = member.isAuth == 1
                 headerImageView.kf.setImage(with: URL(string: "http://www.coreforce.cn/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
@@ -35,7 +35,7 @@ class PersonalHeaderViewCell: UITableViewCell {
     }()
     lazy var titleLabel: CopyableLabel = {
         let label = CopyableLabel()
-        label.text = "陈丽"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textColor = UIColor(rgba:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class PersonalHeaderViewCell: UITableViewCell {
     }()
     lazy var subTitleLabel: CopyableLabel = {
         let label = CopyableLabel()
-        label.text = "131xxxx2321"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor(rgba:0x666666FF)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -128,6 +128,7 @@ private extension PersonalHeaderViewCell {
             subTitleLabel.leadingAnchor.constraint(equalTo: self.headerImageView.trailingAnchor,constant: 12),
             titleLabel.topAnchor.constraint(equalTo: self.headerImageView.topAnchor, constant: 5.5),
             titleLabel.bottomAnchor.constraint(equalTo: self.subTitleLabel.topAnchor, constant: -5),
+            subTitleLabel.bottomAnchor.constraint(equalTo: self.headerImageView.bottomAnchor, constant: -5),
             authorityButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             authorityButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor,constant: 2),
 

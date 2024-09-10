@@ -10,7 +10,22 @@ import UIKit
 class PersonalMileageViewCell: PersonalContentViewCell {
     
     // MARK: - Accessor
-    
+    var extra:[String:Any]?{
+        didSet{
+            if let view11 = mileageStackView.arrangedSubviews[1] as? PersonalElementView{
+                view11.titleLabel.text = "\(String(describing: extra?["todayMileage"] ?? "0"))km"
+                view11.subTitleLabel.text = "今日里程"
+            }
+            if let view12 = mileageStackView.arrangedSubviews[2] as? PersonalElementView{
+                view12.titleLabel.text = "\(String(describing: extra?["allMileage"] ?? "0"))km"
+                view12.subTitleLabel.text = "历史里程"
+            }
+            if let view13 = mileageStackView.arrangedSubviews[3] as? PersonalElementView{
+                view13.titleLabel.text = "\(String(describing: extra?["carbon"]  ?? "0"))kg"
+                view13.subTitleLabel.text = "节能减排"
+            }
+        }
+    }
     // MARK: - Subviews
     lazy var mileageStackView: HFStackView = {
         let stackView = HFStackView()

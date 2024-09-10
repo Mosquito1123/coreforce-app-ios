@@ -89,15 +89,15 @@ class BikeDetailViewController: BaseViewController,ListAdapterDataSource {
         collectionView.backgroundView = backgroundView
     }
     func setupData(){
-        if let bikeDetail = MainManager.shared.bikeDetail {
+        if let bikeDetail = HFKeyedArchiverTool.bikeDetailList().first {
             self.data = [
                 BikeStatus(id:0,bikeDetail: bikeDetail),
                 BikeInfo(id: 1, items:[
                     BikeInfoItem(id: 0,title: "电车编号",content: bikeDetail.number),
                     BikeInfoItem(id: 1,title: "车架编号",content: bikeDetail.vin),
                 ]),
-                BikeRemainingTerm(id: 2, title: "剩余租期",content: bikeDetail.locomotiveEndDate?.timeRemaining() ?? "",overdueOrExpiringSoon: bikeDetail.locomotiveEndDate?.overdueOrExpiringSoon() ?? false),
-                BikeAgent(id: 3, title: "代理商名称",content: bikeDetail.agentName ?? ""),
+                BikeRemainingTerm(id: 2, title: "剩余租期",content: bikeDetail.locomotiveEndDate.timeRemaining() ,overdueOrExpiringSoon: bikeDetail.locomotiveEndDate.overdueOrExpiringSoon() ),
+                BikeAgent(id: 3, title: "代理商名称",content: bikeDetail.agentName ),
                 BikeAction(id: 4, items: [
                     BikeActionItem(id: 0, name: "退租", icon: "device_rent_out"),
                     BikeActionItem(id: 1, name: "续费", icon: "device_renewal"),

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 class BikeStatusViewCell: UICollectionViewCell {
     
@@ -32,6 +33,41 @@ class BikeStatusViewCell: UICollectionViewCell {
             default:
                 statusButton.setTitle("异常/停用", for: .normal)
                 statusButton.setTitle("异常/停用", for: .highlighted)
+            }
+            // 检查是否过期
+            let overdue = HFKeyedArchiverTool.pleaseStarTimes(HFKeyedArchiverTool.getCurrentTimes(), andEndTime: bikeStatus?.bikeDetail.locomotiveEndDate ?? "", isDay: false) < 0
+
+            if overdue {
+                self.statusButton.setTitle("已过期", for: .normal)
+            } else {
+                self.statusButton.setTitle("使用中", for: .normal)
+            }
+
+            // 创建一个CLLocation对象
+            let location = CLLocation(latitude: bikeStatus?.bikeDetail.lastLat?.doubleValue ?? 0, longitude: bikeStatus?.bikeDetail.lastLon?.doubleValue ?? 0)
+
+            // 创建一个CLGeocoder对象
+            let geocoder = CLGeocoder()
+
+            // 调用逆地理解析方法
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                if let error = error {
+                    print("逆地理解析错误: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let placemarks = placemarks, placemarks.count > 0 {
+                    // 获取第一个地标对象
+                    if let placemark = placemarks.first {
+                        // 打印详细地址信息
+                        let address = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.country ?? "")"
+                        
+                        print("解析出的地址: \(address)")
+                        self.locationButton.setTitle(address, for: .normal)
+                    }
+                } else {
+                    print("未找到相关地标信息")
+                }
             }
 
         }

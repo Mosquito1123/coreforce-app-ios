@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HFBikeDetail : NSObject<NSSecureCoding>
 @property(nonatomic,assign)NSInteger agentId;
 @property(nonatomic,assign)NSInteger memberId;
-@property(nonatomic,assign)NSInteger ID;
+@property(nonatomic,strong)NSNumber *ID;
 @property(nonatomic,assign)NSInteger rentStatus;
 @property(nonatomic,assign)NSInteger type;
 //@property(nonatomic,assign)int vin;
@@ -35,6 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)double orderDeposit;
 @property(nonatomic,assign)double orderRent;
 @property(nonatomic,assign)double mileage;
+@property(nonatomic,strong,nullable)NSNumber *gdLat;
+@property(nonatomic,strong,nullable)NSNumber *gdLon;
+@property(nonatomic,strong,nullable)NSNumber *lastLat;
+@property(nonatomic,strong,nullable)NSNumber *lastLon;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -211,7 +211,7 @@ private extension CabinetPanelView {
             topLineView.topAnchor.constraint(equalTo: self.businessTimeLabel.bottomAnchor, constant: 13),
             topLineView.heightAnchor.constraint(equalToConstant: 0.5),
             
-            rideLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            rideLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 36),
             rideLabel.topAnchor.constraint(equalTo: topLineView.bottomAnchor, constant: 10),
             rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
             locationImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),

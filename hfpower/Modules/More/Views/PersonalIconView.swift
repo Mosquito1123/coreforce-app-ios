@@ -10,6 +10,7 @@ import UIKit
 class PersonalIconView: UIView {
 
     // MARK: - Accessor
+    var nextAction:((UITapGestureRecognizer)->Void)?
     var iconWidth:NSLayoutConstraint!
     var iconHeight:NSLayoutConstraint!
     // MARK: - Subviews
@@ -37,7 +38,10 @@ class PersonalIconView: UIView {
 private extension PersonalIconView {
     
     private func setupSubviews() {
+        self.isUserInteractionEnabled = true
         self.addSubview(self.iconImageView)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+        self.addGestureRecognizer(tap)
     }
     
     private func setupLayout() {
@@ -62,7 +66,9 @@ extension PersonalIconView {
 
 // MARK: - Action
 @objc private extension PersonalIconView {
-    
+    @objc func tapped(_ sender:UITapGestureRecognizer){
+        self.nextAction?(sender)
+    }
 }
 
 // MARK: - Private

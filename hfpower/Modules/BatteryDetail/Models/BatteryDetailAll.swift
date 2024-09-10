@@ -10,8 +10,8 @@ import IGListKit
 import KakaJSON
 class BatteryStatus:ListDiffable{
     let id: Int
-    let batteryDetail:BatteryDetail
-    init(id: Int,batteryDetail:BatteryDetail) {
+    let batteryDetail:HFBatteryDetail
+    init(id: Int,batteryDetail:HFBatteryDetail) {
         self.id = id
         self.batteryDetail = batteryDetail
     }

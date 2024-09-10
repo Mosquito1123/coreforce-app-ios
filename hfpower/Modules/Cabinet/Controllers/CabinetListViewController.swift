@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreLocation
-class CabinetListViewController: BaseTableViewController<CabinetListViewCell,CabinetSummary>{
+class CabinetListViewController: BaseTableViewController<CabinetListViewCell,HFCabinet>{
     
     // MARK: - Accessor
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
@@ -23,15 +23,25 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,Cab
         loadData()
     }
     func loadData(){
-        /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
-            switch result{
-            case .success(let response):
-                self.items = response?.list ?? []
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+        var params = [String: Any]()
+        let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
+        if orderInfo.id != nil {
+            params = ["tempStorageSw": true]
+        }
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["lon"] = coordinate.longitude
+        params["lat"] = coordinate.latitude
+        self.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
+                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+                self.items = cabinetArray ?? []
             }
-        }             */
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+
+        }
+
 
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -39,7 +49,8 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,Cab
         if let cellx = cell as? CabinetListViewCell {
             cellx.detailAction = { sender in
                 let cabinetDetailVC = CabinetDetailViewController()
-                cabinetDetailVC.cabinet = element
+                cabinetDetailVC.id = element.id
+                cabinetDetailVC.number = element.number
                 self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
             }
             cellx.navigateAction = { sender in

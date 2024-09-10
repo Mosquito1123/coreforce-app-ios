@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import MapKit
 class BatteryStatusViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
@@ -29,6 +29,42 @@ class BatteryStatusViewCell: UICollectionViewCell {
 
               logoImageView.image = UIImage(named: imageName)
               titleLabel.text = "\(percent)%"
+            // 检查是否过期
+            let overdue = HFKeyedArchiverTool.pleaseStarTimes(HFKeyedArchiverTool.getCurrentTimes(), andEndTime: batteryStatus?.batteryDetail.batteryEndDate ?? "", isDay: false) < 0
+
+            if overdue {
+                self.statusButton.setTitle("已过期", for: .normal)
+            } else {
+                self.statusButton.setTitle("使用中", for: .normal)
+            }
+
+            // 创建一个CLLocation对象
+            let location = CLLocation(latitude: batteryStatus?.batteryDetail.lastLat?.doubleValue ?? 0, longitude: batteryStatus?.batteryDetail.lastLon?.doubleValue ?? 0)
+
+            // 创建一个CLGeocoder对象
+            let geocoder = CLGeocoder()
+
+            // 调用逆地理解析方法
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                if let error = error {
+                    print("逆地理解析错误: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let placemarks = placemarks, placemarks.count > 0 {
+                    // 获取第一个地标对象
+                    if let placemark = placemarks.first {
+                        // 打印详细地址信息
+                        let address = "\(placemark.name ?? ""), \(placemark.locality ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.country ?? "")"
+                        
+                        print("解析出的地址: \(address)")
+                        self.locationButton.setTitle(address, for: .normal)
+                    }
+                } else {
+                    print("未找到相关地标信息")
+                }
+            }
+
 
         }
     }
@@ -100,7 +136,7 @@ class BatteryStatusViewCell: UICollectionViewCell {
         let button = UIButton(type: .custom)
         // 设置按钮的圆角和边框
         button.tintAdjustmentMode = .automatic
-        button.setTitle("李沧区青山路700号", for: .normal)
+        button.setTitle("", for: .normal)
         button.setTitleColor(UIColor(rgba:0x262626FF), for: .normal)
         button.setTitleColor(UIColor(rgba:0x262626FF), for: .highlighted)
         button.setImage(UIImage(named: "device_refresh"), for: .normal)

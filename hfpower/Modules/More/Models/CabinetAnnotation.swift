@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 // 自定义标记类
 class CabinetAnnotation: NSObject, MKAnnotation {
-    var cabinet:CabinetSummary?
+    var cabinet:HFCabinet?
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?

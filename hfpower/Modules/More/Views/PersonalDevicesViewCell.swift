@@ -10,18 +10,126 @@ import UIKit
 class PersonalDevicesViewCell: PersonalContentViewCell {
     
     // MARK: - Accessor
+    var batteryDetailAction:((UITapGestureRecognizer)->Void)?{
+        didSet{
+            if let batteryNextIconView = self.batteryStackView.arrangedSubviews.last as? PersonalIconView{
+                batteryNextIconView.nextAction = batteryDetailAction
+            }
+        }
+    }
+    var batteryRentAction:ButtonActionBlock?{
+        didSet{
+            self.batteryRentalView.sureAction = batteryRentAction
+        }
+    }
+    var batteryRenewAction:ButtonActionBlock?{
+        didSet{
+            self.batteryExpirationView.sureAction = batteryRenewAction
+
+        }
+    }
+    var bikeDetailAction:((UITapGestureRecognizer)->Void)?{
+        didSet{
+            if let bikeNextIconView = self.bikeStackView.arrangedSubviews.last as? PersonalIconView{
+                bikeNextIconView.nextAction = bikeDetailAction
+            }
+        }
+    }
+    var bikeRentAction:ButtonActionBlock?{
+        didSet{
+            self.bikeRentalView.sureAction = bikeRentAction
+        }
+    }
+    var bikeRenewAction:ButtonActionBlock?{
+        didSet{
+            self.bikeExpirationView.sureAction = bikeRenewAction
+        }
+    }
+    var deviceTuple:(HFBatteryDetail?,HFBikeDetail?)?{
+        didSet{
+            for subview in self.stackView.arrangedSubviews {
+                self.stackView.removeArrangedSubview(subview)
+                subview.removeFromSuperview()
+            }
+            if let batteryDetail = deviceTuple?.0{
+             
+                self.stackView.addArrangedSubview(batteryStackView)
+                if let view10 = batteryStackView.arrangedSubviews[0] as? PersonalIconView{
+                    let percent = batteryDetail.mcuCapacityPercent?.doubleValue ?? 0
+
+                      let imageName: String
+                      switch percent {
+                      case 80..<100:
+                          imageName = "battery_4"
+                      case 20..<80:
+                          imageName = "battery_3"
+                      case 0..<20:
+                          imageName = "battery_2"
+                      default:
+                          imageName = "battery_5" // Handle unexpected values (optional)
+                      }
+                    view10.iconImageView.image = UIImage(named: imageName)
+                }
+                if let view11 = batteryStackView.arrangedSubviews[1] as? PersonalElementView{
+                    view11.titleLabel.text = "\(batteryDetail.mcuCapacityPercent?.stringValue ?? "")%"
+                    view11.subTitleLabel.text = "剩余电量"
+                }
+                if let view12 = batteryStackView.arrangedSubviews[2] as? PersonalElementView{
+                    view12.titleLabel.text = "\(batteryDetail.ratedMileage)km"
+                    view12.subTitleLabel.text = "预计骑行"
+                }
+                if let view13 = batteryStackView.arrangedSubviews[3] as? PersonalElementView{
+                    view13.titleLabel.text = HFKeyedArchiverTool.pleaseEndTime(batteryDetail.batteryEndDate)
+                    view13.subTitleLabel.text = "剩余租期"
+                }
+                if HFKeyedArchiverTool.pleaseStarTimes(HFKeyedArchiverTool.getCurrentTimes(), andEndTime: batteryDetail.batteryEndDate, isDay: true) < 3{
+                    self.stackView.addArrangedSubview(batteryExpirationView)
+                    self.batteryExpirationView.remainingDays = HFKeyedArchiverTool.pleaseEndTime(batteryDetail.batteryEndDate)
+                }else{
+                    
+                }
+            }else{
+                self.stackView.addArrangedSubview(batteryRentalView)
+
+            }
+            if let bikeDetail = deviceTuple?.1{
+                self.stackView.addArrangedSubview(bikeStackView)
+                if let view21 = bikeStackView.arrangedSubviews[1] as? PersonalElementView{
+                    view21.titleLabel.text = bikeDetail.number
+                    view21.subTitleLabel.text = "电车编号"
+
+                }
+                if let view23 = bikeStackView.arrangedSubviews[3] as? PersonalElementView{
+                    view23.titleLabel.text = HFKeyedArchiverTool.pleaseEndTime(bikeDetail.locomotiveEndDate)
+                    view23.subTitleLabel.text = "剩余租期"
+                }
+                if HFKeyedArchiverTool.pleaseStarTimes(HFKeyedArchiverTool.getCurrentTimes(), andEndTime: bikeDetail.locomotiveEndDate, isDay: true) < 3{
+                    self.stackView.addArrangedSubview(bikeExpirationView)
+                    self.bikeExpirationView.remainingDays = HFKeyedArchiverTool.pleaseEndTime(bikeDetail.locomotiveEndDate)
+
+
+                }else{
+                    
+                }
+            }else{
+                self.stackView.addArrangedSubview(bikeRentalView)
+
+            }
+        }
+    }
+    
     
     // MARK: - Subviews
-    lazy var batteryStackView: HFStackView = {
-        let stackView = HFStackView()
+    lazy var batteryStackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 0
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    lazy var bikeStackView: HFStackView = {
-        let stackView = HFStackView()
+    lazy var bikeStackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 0
@@ -100,35 +208,39 @@ private extension PersonalDevicesViewCell {
         view14.iconHeight.constant = 15
         view14.iconImageView.image = UIImage(named: "arrow_right")
         view14.tag = 14
+        view14.nextAction = self.batteryDetailAction
         self.batteryStackView.addArrangedSubview(view10)
         self.batteryStackView.addArrangedSubview(view11)
         self.batteryStackView.addArrangedSubview(view12)
         self.batteryStackView.addArrangedSubview(view13)
         self.batteryStackView.addArrangedSubview(view14)
 
-        self.stackView.addArrangedSubview(self.batteryStackView)
-        self.stackView.addArrangedSubview(self.batteryRentalView)
+        
         let view20 = PersonalIconView()
         view20.iconImageView.image = UIImage(named: "motorcycle")
         view20.tag = 20
         let view21 = PersonalElementView()
         view21.tag = 21
         let view22 = PersonalElementView()
+        view22.titleLabel.isHidden = true
+        view22.subTitleLabel.isHidden = true
         view22.tag = 22
-        let view23 = PersonalIconView()
-        view23.iconWidth.constant = 8
-        view23.iconHeight.constant = 15
-        view23.iconImageView.image = UIImage(named: "arrow_right")
+        let view23 = PersonalElementView()
         view23.tag = 23
+        let view24 = PersonalIconView()
+        view24.iconWidth.constant = 8
+        view24.iconHeight.constant = 15
+        view24.iconImageView.image = UIImage(named: "arrow_right")
+        view24.tag = 23
+        view24.nextAction = self.bikeDetailAction
         self.bikeStackView.addArrangedSubview(view20)
         self.bikeStackView.addArrangedSubview(view21)
         self.bikeStackView.addArrangedSubview(view22)
         self.bikeStackView.addArrangedSubview(view23)
+        self.bikeStackView.addArrangedSubview(view24)
 
-        self.stackView.addArrangedSubview(self.bikeStackView)
-        self.stackView.addArrangedSubview(self.bikeRentalView)
         self.bikeExpirationView.deviceType = "电车"
-        self.stackView.addArrangedSubview(self.bikeExpirationView)
+        
     }
     
     private func setupLayout() {

@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreLocation
-class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCell,CabinetSummary>,CLLocationManagerDelegate {
+class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCell,HFCabinet>,CLLocationManagerDelegate {
     
     // MARK: - Accessor
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
@@ -72,6 +72,24 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         
 
         locationView.location = formatDateToChinese(date: Date())
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+        var params = [String: Any]()
+        let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
+        if orderInfo.id != nil {
+            params = ["tempStorageSw": true]
+        }
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["lon"] = coordinate.longitude
+        params["lat"] = coordinate.latitude
+        self.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
+                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+                self.items = cabinetArray ?? []
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+
+        }
 
        
         /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in

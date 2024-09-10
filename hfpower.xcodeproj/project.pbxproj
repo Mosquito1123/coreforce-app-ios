@@ -209,6 +209,10 @@
 		04708F992C8FE554001E809C /* HFCouponData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F982C8FE554001E809C /* HFCouponData.m */; };
 		04708F9C2C8FE615001E809C /* HFCouponCountData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F9B2C8FE615001E809C /* HFCouponCountData.m */; };
 		04708F9F2C8FE6B0001E809C /* HFMsgCountData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F9E2C8FE6B0001E809C /* HFMsgCountData.m */; };
+		04708FA22C9015BA001E809C /* HFCabinet.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708FA12C9015BA001E809C /* HFCabinet.m */; };
+		04708FA52C901623001E809C /* HFCabinetExchangeForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708FA42C901623001E809C /* HFCabinetExchangeForecast.m */; };
+		04708FA82C90166F001E809C /* HFGridList.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708FA72C90166F001E809C /* HFGridList.m */; };
+		04708FAB2C901923001E809C /* HFCabinetDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708FAA2C901923001E809C /* HFCabinetDetail.m */; };
 		04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */; };
 		04777D772C19BA250025ACEC /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04777D762C19BA250025ACEC /* GuideViewController.swift */; };
 		047E16E42C3548A200E86FA0 /* UserIntroductionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */; };
@@ -567,6 +571,14 @@
 		04708F9B2C8FE615001E809C /* HFCouponCountData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCouponCountData.m; sourceTree = "<group>"; };
 		04708F9D2C8FE6B0001E809C /* HFMsgCountData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFMsgCountData.h; sourceTree = "<group>"; };
 		04708F9E2C8FE6B0001E809C /* HFMsgCountData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFMsgCountData.m; sourceTree = "<group>"; };
+		04708FA02C9015BA001E809C /* HFCabinet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFCabinet.h; sourceTree = "<group>"; };
+		04708FA12C9015BA001E809C /* HFCabinet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCabinet.m; sourceTree = "<group>"; };
+		04708FA32C901623001E809C /* HFCabinetExchangeForecast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFCabinetExchangeForecast.h; sourceTree = "<group>"; };
+		04708FA42C901623001E809C /* HFCabinetExchangeForecast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCabinetExchangeForecast.m; sourceTree = "<group>"; };
+		04708FA62C90166F001E809C /* HFGridList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFGridList.h; sourceTree = "<group>"; };
+		04708FA72C90166F001E809C /* HFGridList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFGridList.m; sourceTree = "<group>"; };
+		04708FA92C901923001E809C /* HFCabinetDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFCabinetDetail.h; sourceTree = "<group>"; };
+		04708FAA2C901923001E809C /* HFCabinetDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCabinetDetail.m; sourceTree = "<group>"; };
 		04741BEA2C23DC870094EE94 /* CabinetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailViewController.swift; sourceTree = "<group>"; };
 		04777D762C19BA250025ACEC /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		047E16E32C3548A200E86FA0 /* UserIntroductionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroductionsViewCell.swift; sourceTree = "<group>"; };
@@ -1334,6 +1346,14 @@
 				04708F9B2C8FE615001E809C /* HFCouponCountData.m */,
 				04708F9D2C8FE6B0001E809C /* HFMsgCountData.h */,
 				04708F9E2C8FE6B0001E809C /* HFMsgCountData.m */,
+				04708FA02C9015BA001E809C /* HFCabinet.h */,
+				04708FA12C9015BA001E809C /* HFCabinet.m */,
+				04708FA32C901623001E809C /* HFCabinetExchangeForecast.h */,
+				04708FA42C901623001E809C /* HFCabinetExchangeForecast.m */,
+				04708FA62C90166F001E809C /* HFGridList.h */,
+				04708FA72C90166F001E809C /* HFGridList.m */,
+				04708FA92C901923001E809C /* HFCabinetDetail.h */,
+				04708FAA2C901923001E809C /* HFCabinetDetail.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -2176,6 +2196,7 @@
 				043C4C192C2EBB1200E887B9 /* UIView+Extension.swift in Sources */,
 				048EE7712C3E3A540094A0CB /* BaseViewController.swift in Sources */,
 				04FB1C0A2C29576C00F47E79 /* PersonalPackageCardViewCell.swift in Sources */,
+				04708FAB2C901923001E809C /* HFCabinetDetail.m in Sources */,
 				048EE75B2C3D47400094A0CB /* PersonalInfoViewController.swift in Sources */,
 				0460D6522C44F79600B7DD21 /* BatteryReplacementStatusViewCell.swift in Sources */,
 				046B4EF22C6DFCA500DCD5CB /* OrderListViewCell.swift in Sources */,
@@ -2294,6 +2315,7 @@
 				04A5E5252C1C564500787551 /* ActivityListManager.swift in Sources */,
 				043C4C1D2C2EBFAE00E887B9 /* BuyPackageCard.swift in Sources */,
 				04EAF4532C22BD2700CD1434 /* CabinetPanelView.swift in Sources */,
+				04708FA82C90166F001E809C /* HFGridList.m in Sources */,
 				044E1F482C8EE01A00A8E626 /* HFActivityListModel.m in Sources */,
 				046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */,
 				045215422C3CEC170091FD1A /* LogoffTableFooterView.swift in Sources */,
@@ -2329,6 +2351,7 @@
 				04FB1C0E2C2972CB00F47E79 /* PersonalDevicesViewCell.swift in Sources */,
 				04708F8D2C8FDFF0001E809C /* HFMember.m in Sources */,
 				049BDFE82C199FAD00C46D6D /* MainManager.swift in Sources */,
+				04708FA22C9015BA001E809C /* HFCabinet.m in Sources */,
 				042849192C24388D0011032F /* CabinetDetailBottomView.swift in Sources */,
 				04BE429B2C118F0F002B78EA /* LoginModel.swift in Sources */,
 				0452153C2C3CE2A50091FD1A /* LogoffTableHeaderView.swift in Sources */,
@@ -2425,6 +2448,7 @@
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
 				04F4CFC12C749EC500F5F764 /* BikeRemainingTermViewCell.swift in Sources */,
+				04708FA52C901623001E809C /* HFCabinetExchangeForecast.m in Sources */,
 				04F4CFB32C7323A900F5F764 /* OrderDetailFooterView.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,
 				045215322C37E3130091FD1A /* CabinetFilter.swift in Sources */,

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)int mcuAmbientTemp;
 @property(nonatomic,assign)int mcuBatteryTemp;
 @property(nonatomic,assign)int mcuBatteryTemp2;
-@property(nonatomic,assign)int mcuCapacityPercent;
+@property(nonatomic,strong,nullable)NSNumber *mcuCapacityPercent;
 @property(nonatomic,assign)int mcuLock;
 @property(nonatomic,assign)int memberPhoneNum;
 @property(nonatomic,strong)NSNumber *onLine;
@@ -42,10 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString* agentName;
 @property(nonatomic,copy)NSNumber* agentId;
 @property(nonatomic,copy)NSString* number;
-@property(nonatomic,assign)double gdLat;
-@property(nonatomic,assign)double gdLon;
-@property(nonatomic,assign)double lastLat;
-@property(nonatomic,assign)double lastLon;
+@property(nonatomic,strong,nullable)NSNumber *gdLat;
+@property(nonatomic,strong,nullable)NSNumber *gdLon;
+@property(nonatomic,strong,nullable)NSNumber *lastLat;
+@property(nonatomic,strong,nullable)NSNumber *lastLon;
 @property(nonatomic,assign)double mcuCurrent;
 @property(nonatomic,assign)double mcuVoltage;
 @property(nonatomic,assign)double mileage;

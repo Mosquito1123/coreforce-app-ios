@@ -30,16 +30,20 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     // MARK: - Accessor
     let base = "https://www.coreforce.cn"
     let fpc = FloatingPanelController()
-    var cabinetExchangeForecastDatas:[CabinetExchangeForecast]?{
+    @objc var id:NSNumber?
+    @objc var number:String?
+    var cabinetExchangeForecastDatas:[HFCabinetExchangeForecast]?{
         didSet{
             self.cabinetDetailContentController.cabinetExchangeForecastDatas = cabinetExchangeForecastDatas
         }
     }
-    var cabinet:CabinetSummary?{
+    var cabinet:HFCabinet?{
         didSet{
             self.cabinetDetailContentController.cabinetDetailContentView.titleLabel.text = cabinet?.number
             self.cabinetDetailContentController.cabinetDetailContentView.cabinetNumberView.numberLabel.text = cabinet?.number
             self.cabinetDetailContentController.cabinetDetailContentView.locationLabel.text = cabinet?.location
+            self.cabinetDetailContentController.cabinetDetailContentView.statisticView.batteryListView.onLine = cabinet?.onLine.boolValue ?? false
+
             guard let sourceCoordinate = mapController.mapView.userLocation.location?.coordinate else {return} // 起点
             let destinationCoordinate = CLLocationCoordinate2D(latitude: cabinet?.bdLat?.doubleValue ?? 0, longitude: cabinet?.bdLon?.doubleValue ?? 0)
             self.mapController.calculateCyclingTime(from: sourceCoordinate, to: destinationCoordinate, completion: { response, error in
@@ -113,9 +117,22 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
         setupNavbar()
         setupSubviews()
         setupLayout()
-        loadCabinetDetail(id: cabinet?.id?.description, number: cabinet?.number)
+        if let idx = id,let numberx = number {
+            loadCabinetDetail(id: idx, number: numberx)
+        }
     }
-    func loadCabinetDetail(id:String?,number:String?){
+    @objc func loadCabinetDetail(id:NSNumber,number:String){
+        self.getData(cabinetUrl, param: ["id":id,"number":number], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any] {
+               let cabinetDetail = HFCabinetDetail.mj_object(withKeyValues: body)
+                self.cabinet = cabinetDetail?.cabinet
+                self.cabinetExchangeForecastDatas = cabinetDetail?.cabinetExchangeForecast ?? []
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            
+        }
+
         /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: id, number: number)) { result in
             switch result {
             case .success(let response):

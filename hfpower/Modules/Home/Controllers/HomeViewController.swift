@@ -214,15 +214,15 @@ class HomeViewController: UIViewController{
 //                    }
                 } else if batteryDataArray.count > 0 {
                     self.headerStackBatteryView.addArrangedSubview(self.batteryView)
-                    self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent ?? 0) / 100
+                    self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0) / 100
                     
                     if !(batteryDataArray.first?.onLine.boolValue ?? true) {
                         self.headerStackView.addArrangedSubview(self.batteryOfflineView)
                     } else if self.isWinter() {
-                        if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 30 {
+                        if batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0 <= 30 {
                             // Handle battery low in winter
                         }
-                    } else if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 20 {
+                    } else if batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0 <= 20 {
                         // Handle battery low
                     }
                 }
@@ -243,15 +243,15 @@ class HomeViewController: UIViewController{
 //                }
             } else if batteryDataArray.count > 0 {
                 self.headerStackBatteryView.addArrangedSubview(self.batteryView)
-                self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent ?? 0) / 100
+                self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0) / 100
                 
                 if !(batteryDataArray.first?.onLine.boolValue ?? true) {
                     self.headerStackView.addArrangedSubview(self.batteryOfflineView)
                 } else if self.isWinter() {
-                    if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 30 {
+                    if batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0 <= 30 {
                         // Handle battery low in winter
                     }
-                } else if batteryDataArray.first?.mcuCapacityPercent ?? 0 <= 20 {
+                } else if batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0 <= 20 {
                     // Handle battery low
                 }
             }
@@ -387,7 +387,7 @@ private extension HomeViewController {
         }
         footerStackView.addArrangedSubview(locateView)
         let refreshView = MapFeatureView(.refresh) { sender, mapFeatureType in
-            self.mapViewController.loadCabinetListData()
+            self.mapViewController.cabinetList()
         }
         footerStackView.addArrangedSubview(refreshView)
         let filterView = MapFeatureView(.filter) { sender, mapFeatureType in

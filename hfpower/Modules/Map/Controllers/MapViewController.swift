@@ -71,7 +71,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                         let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
                         CityCodeManager.shared.cityCode = code
                         NotificationCenter.default.post(name: .cityChanged, object: nil)
-                        self.loadCabinetListData()
+                        self.cabinetList()
                         
                     }
                 }
@@ -118,12 +118,20 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     func hideFloatingPanel(_ contentVC:UIViewController){
         fpc.hide(animated: true)
     }
-    func loadCabinetListData(){
+    func cabinetList(){
         if let _ = self.mapView.userLocation.location{
             self.locationManager.stopUpdatingLocation()
-            /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: mapView.centerCoordinate.longitude, lat:mapView.centerCoordinate.latitude)) { result in
-                switch result{
-                case .success(let response):
+            let code = CityCodeManager.shared.cityCode ?? "370200"
+            var params = [String: Any]()
+            let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
+            if orderInfo.id != nil {
+                params = ["tempStorageSw": true]
+            }
+            params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+            self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
+                if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
+                    let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+                    
                     var tempAnnotations =  self.mapView.annotations
                     tempAnnotations.removeAll { annotation in
                         if annotation is CenterAnnotation{
@@ -137,7 +145,8 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                     let finalAnnotations = tempAnnotations
                     self.mapView.removeAnnotations(finalAnnotations)
                     
-                    if let annotations =  response?.list?.map({ cabinet in
+                    if let annotations =  cabinetArray?.map({ cabinet in
+                        
                         let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
                         a.cabinet = cabinet
                         return a
@@ -145,11 +154,13 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                         self.mapView.addAnnotations(annotations)
                         
                     }
-                case .failure(let error):
-                    self.showError(withStatus: error.localizedDescription)
-                    
                 }
-            }             */
+                
+            } error: { error in
+                self.showError(withStatus: error.localizedDescription)
+            }
+
+            
 
         }
         
@@ -235,7 +246,7 @@ extension MapViewController{
         
     }
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        
+        self.locationManager.startUpdatingLocation()
         
     }
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
@@ -309,7 +320,8 @@ extension MapViewController{
             contentVC.detailAction = { sender in
          
                 let cabinetDetailVC = CabinetDetailViewController()
-                cabinetDetailVC.cabinet = annotation.cabinet
+                cabinetDetailVC.id = annotation.cabinet?.id
+                cabinetDetailVC.number = annotation.cabinet?.number
                 self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
             }
             contentVC.navigateAction = { sender in
@@ -511,7 +523,7 @@ private extension MapViewController {
 // MARK: - Action
 @objc private extension MapViewController {
     @objc func handleLocationState(_ notification:Notification){
-        self.loadCabinetListData()
+        self.cabinetList()
     }
     @objc func panG(_ sender:UIPanGestureRecognizer){
         if sender.state == .changed{
