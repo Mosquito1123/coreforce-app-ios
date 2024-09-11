@@ -186,7 +186,6 @@ class BikeStatusSectionController: ListSectionController {
 
     override init() {
         super.init()
-        inset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
     }
     override func numberOfItems() -> Int {
         return 1

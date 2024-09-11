@@ -17,6 +17,7 @@ class PersonalElementView: UIView {
         label.text = "- -"
         label.textColor = UIColor(rgba:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 18,weight: .medium)
+        label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,6 +56,7 @@ private extension PersonalElementView {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 14),
             titleLabel.bottomAnchor.constraint(equalTo: subTitleLabel.topAnchor,constant: -10),
+            titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.size.width/4),
             titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             subTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             subTitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -14),

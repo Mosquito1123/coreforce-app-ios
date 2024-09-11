@@ -191,7 +191,6 @@ private extension BatteryDetailViewController {
 class BatteryStatusSectionController: ListSectionController {
     override init() {
         super.init()
-        inset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
     }
     private var batteryStatus: BatteryStatus!
     

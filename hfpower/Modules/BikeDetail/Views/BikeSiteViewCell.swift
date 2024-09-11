@@ -45,7 +45,7 @@ class BikeSiteViewCell: UICollectionViewCell {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
+        label.text = "查看附近推荐站点"
         label.textColor = UIColor(rgba: 0x666666FF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
