@@ -39,7 +39,7 @@
 
 #define memberAgreementUrl @"/app/api/member/agreement"//同意协议接口
 #define activityListUrl @"/app/api/activity/list"//活动弹窗接口
-#define cabinetListUrl @"/app/api/cabinet/list"//电柜列表接口
+#define cabinetListUrl @"/app/api/v2/cabinet/list"//电柜列表接口
 #define cabinetScanRentUrl @"/app/api/cabinet/scanRent"//换电柜扫码租电
 #define batteryLockUrl @"/app/api/battery/lock"//电池上锁接口
 #define batteryUnlockUrl @"/app/api/battery/unlock"//电池解锁接口

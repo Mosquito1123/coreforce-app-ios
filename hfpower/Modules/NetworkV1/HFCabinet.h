@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong,nullable)NSString* photo1;
 @property(nonatomic,strong,nullable)NSString* photo2;
 @property(nonatomic,strong,nullable)NSString* photo3;
-
+@property(nonatomic,strong)NSNumber *rentReturnBattery;
 @end
 
 NS_ASSUME_NONNULL_END

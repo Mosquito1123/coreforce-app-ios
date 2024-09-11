@@ -49,11 +49,54 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         // Initialize debounce with a 0.5 second interval
         
         
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
         
+    }
+    func updateCabinetList(coordinate: CLLocationCoordinate2D){
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+        var params = [String: Any]()
+        let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
+        if orderInfo.id != nil {
+            params = ["tempStorageSw": true]
+        }
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["lat"] = coordinate.latitude
+        params["lon"] = coordinate.longitude
+        self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]]{
+                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
+                
+                var tempAnnotations =  self.mapView.annotations
+                tempAnnotations.removeAll { annotation in
+                    if annotation is CenterAnnotation{
+                        return true
+                    }else if annotation is MKUserLocation {
+                        return true
+                    }else{
+                        return false
+                    }
+                }
+                let finalAnnotations = tempAnnotations
+                self.mapView.removeAnnotations(finalAnnotations)
+                
+                if let annotations =  cabinetArray?.map({ cabinet in
+                    
+                    let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
+                    a.cabinet = cabinet
+                    return a
+                }){
+                    self.mapView.addAnnotations(annotations)
+                    
+                }
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
     }
     func firstLoadData(){
         let userlocation = mapView.userLocation
@@ -110,7 +153,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             fpc.view.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
             fpc.view.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
             fpc.view.topAnchor.constraint(equalTo: controller.view.topAnchor),
-
+            
         ])
         
         fpc.show(animated: true)
@@ -129,8 +172,9 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             }
             params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
             self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
-                if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
-                    let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+                if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
+                   let dataList = pageResult["dataList"] as? [[String: Any]]{
+                    let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
                     
                     var tempAnnotations =  self.mapView.annotations
                     tempAnnotations.removeAll { annotation in
@@ -159,9 +203,9 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             } error: { error in
                 self.showError(withStatus: error.localizedDescription)
             }
-
             
-
+            
+            
         }
         
     }
@@ -223,7 +267,7 @@ extension MapViewController{
         
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
+        if let _ = locations.last {
             // 在这里可以执行需要用户位置的逻辑
             // 例如，设置地图的中心点为用户位置
             firstLoadData()
@@ -246,7 +290,7 @@ extension MapViewController{
         
     }
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        self.locationManager.startUpdatingLocation()
+        
         
     }
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
@@ -271,7 +315,7 @@ extension MapViewController{
             }, completion: { _ in
                 // 动画完成后的操作
             })
-
+            
             guard let sourceCoordinate = mapView.userLocation.location?.coordinate else {return} // 起点
             let destinationCoordinate = annotation.coordinate
             
@@ -299,7 +343,7 @@ extension MapViewController{
                 // 添加新路径
                 self.mapView.addOverlay(route.polyline)
                 let expandedMapRect = route.polyline.boundingMapRect.expanded(byFactor: 1.5) // Expand by 20%
-
+                
                 self.mapView.setVisibleMapRect(expandedMapRect, animated: true)
             }
             fpc.delegate = self
@@ -318,7 +362,7 @@ extension MapViewController{
                 self.navigationController?.pushViewController(scanVC, animated: true)
             }
             contentVC.detailAction = { sender in
-         
+                
                 let cabinetDetailVC = CabinetDetailViewController()
                 cabinetDetailVC.id = annotation.cabinet?.id
                 cabinetDetailVC.number = annotation.cabinet?.number
@@ -342,7 +386,7 @@ extension MapViewController{
                 fpc.view.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
                 fpc.view.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
                 fpc.view.topAnchor.constraint(equalTo: controller.view.topAnchor),
-
+                
             ])
             
             fpc.show(animated: true)
@@ -356,7 +400,7 @@ extension MapViewController{
         if view.annotation is CabinetAnnotation{
             
             // 当取消选择时将标注恢复原样
-           
+            
         }
     }
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
@@ -458,7 +502,7 @@ extension MapViewController {
         }
         self.mapView.regionCallBack?(mapView.region)
         // 加载数据
-        
+        updateCabinetList(coordinate: mapView.centerCoordinate)
         
         
         
@@ -522,9 +566,6 @@ private extension MapViewController {
 
 // MARK: - Action
 @objc private extension MapViewController {
-    @objc func handleLocationState(_ notification:Notification){
-        self.cabinetList()
-    }
     @objc func panG(_ sender:UIPanGestureRecognizer){
         if sender.state == .changed{
             // 获取地图当前可见区域的中心坐标

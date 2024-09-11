@@ -14,6 +14,9 @@ class CabinetPanelViewController: UIViewController {
         didSet{
             self.cabinetPanelView.titleLabel.text = annotation?.cabinet?.number
             self.cabinetPanelView.locationLabel.text = annotation?.cabinet?.location
+            self.cabinetPanelView.statisticView.batteryListView.onLine = annotation?.cabinet?.onLine.boolValue ?? false
+            self.cabinetPanelView.rentStatusButton.isHidden = !(annotation?.cabinet?.rentReturnBattery.boolValue ?? true)
+            self.cabinetPanelView.depositStatusButton.isHidden = !(annotation?.cabinet?.rentReturnBattery.boolValue ?? true)
             guard let sourceCoordinate = mapController?.mapView.userLocation.location?.coordinate else {return} // 起点
             guard let destinationCoordinate = annotation?.coordinate else {return}
             self.mapController?.calculateCyclingTime(from: sourceCoordinate, to: destinationCoordinate, completion: { response, error in

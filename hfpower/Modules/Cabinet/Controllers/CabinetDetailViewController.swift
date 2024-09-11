@@ -43,7 +43,8 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
             self.cabinetDetailContentController.cabinetDetailContentView.cabinetNumberView.numberLabel.text = cabinet?.number
             self.cabinetDetailContentController.cabinetDetailContentView.locationLabel.text = cabinet?.location
             self.cabinetDetailContentController.cabinetDetailContentView.statisticView.batteryListView.onLine = cabinet?.onLine.boolValue ?? false
-
+            self.cabinetDetailContentController.cabinetDetailContentView.rentStatusButton.isHidden = !(cabinet?.rentReturnBattery.boolValue ?? true)
+            self.cabinetDetailContentController.cabinetDetailContentView.depositStatusButton.isHidden = !(cabinet?.rentReturnBattery.boolValue ?? true)
             guard let sourceCoordinate = mapController.mapView.userLocation.location?.coordinate else {return} // 起点
             let destinationCoordinate = CLLocationCoordinate2D(latitude: cabinet?.bdLat?.doubleValue ?? 0, longitude: cabinet?.bdLon?.doubleValue ?? 0)
             self.mapController.calculateCyclingTime(from: sourceCoordinate, to: destinationCoordinate, completion: { response, error in
