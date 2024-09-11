@@ -122,6 +122,8 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             
         }
     }
+    var previousRegion: MKCoordinateRegion?
+
     //    func startObserving(){
     //        NotificationCenter.default.addObserver(self, selector: #selector(handleLocationState(_:)), name: Notification.Name("location"), object: nil)
     //
@@ -487,7 +489,20 @@ extension MapViewController {
         }
         
     }
+
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let currentRegion = mapView.region
+
+            // 检查新的区域和上一个区域是否相似
+            if let previousRegion = previousRegion,
+               abs(previousRegion.center.latitude - currentRegion.center.latitude) < 0.0001,
+               abs(previousRegion.center.longitude - currentRegion.center.longitude) < 0.0001,
+               abs(previousRegion.span.latitudeDelta - currentRegion.span.latitudeDelta) < 0.0001,
+               abs(previousRegion.span.longitudeDelta - currentRegion.span.longitudeDelta) < 0.0001 {
+                return
+            }
+
+            previousRegion = currentRegion
         // 更新标记位置为地图中心
         
         let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")

@@ -89,7 +89,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
             // Handle search service action
             let cabinetListVC = SearchCabinetListViewController()
             cabinetListVC.hidesBottomBarWhenPushed = true
-//            cabinetListVC.coordinate = self.mapViewController.mapView.centerCoordinate
+            cabinetListVC.coordinate = (self.viewControllers?.first as? HomeViewController)?.mapView.centerCoordinate
             self.navigationController?.pushViewController(cabinetListVC, animated: true)
         }
         

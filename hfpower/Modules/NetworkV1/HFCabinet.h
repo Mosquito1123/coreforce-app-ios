@@ -7,7 +7,8 @@
 
 #import <Foundation/Foundation.h>
 #import <MJExtension/MJExtension.h>
-
+#import "HFGridList.h"
+#import "HFCabinetExtraInfo.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HFCabinet : NSObject
@@ -33,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong,nullable)NSString* photo2;
 @property(nonatomic,strong,nullable)NSString* photo3;
 @property(nonatomic,strong)NSNumber *rentReturnBattery;
+@property (nonatomic,strong)NSArray<HFGridList *> *topThreeGrids;
+@property (nonatomic,strong)NSArray<HFCabinetExtraInfo *> *extraInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

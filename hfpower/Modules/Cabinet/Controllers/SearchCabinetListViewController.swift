@@ -10,7 +10,7 @@ import CoreLocation
 class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCell,HFCabinet>,CLLocationManagerDelegate {
     
     // MARK: - Accessor
-    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
+    var coordinate: CLLocationCoordinate2D?
     lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         // 在这里可以进行其他的配置
@@ -38,7 +38,7 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         setupNavbar()
         setupSubviews()
         setupLayout()
-        loadData()
+        updateData(coordinate: self.coordinate)
     }
     
 
@@ -68,10 +68,9 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         
         return chineseFormattedDate
     }
-    func loadData(){
-        
-
+    func updateData(coordinate: CLLocationCoordinate2D?){
         locationView.location = formatDateToChinese(date: Date())
+
         let code = CityCodeManager.shared.cityCode ?? "370200"
         var params = [String: Any]()
         let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
@@ -79,11 +78,12 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
             params = ["tempStorageSw": true]
         }
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        params["lon"] = coordinate.longitude
-        params["lat"] = coordinate.latitude
+        params["lon"] = coordinate?.longitude ?? 0
+        params["lat"] = coordinate?.latitude ?? 0
         self.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
-                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]]{
+                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
                 self.items = cabinetArray ?? []
             }
         } error: { error in
@@ -91,19 +91,27 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
 
         }
 
-       
-        /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: coordinate.longitude, lat:coordinate.latitude)) { result in
-            switch result{
-            case .success(let response):
-                self.items = response?.list ?? []
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                
-            }
-        }             */
-
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let element = self.items[indexPath.row]
+        if let cellx = cell as? CabinetListViewCell {
+            cellx.detailAction = { sender in
+                let cabinetDetailVC = CabinetDetailViewController()
+                cabinetDetailVC.id = element.id
+                cabinetDetailVC.number = element.number
+                self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
+            }
+            cellx.navigateAction = { sender in
+                
+                guard let lat = element.bdLat?.doubleValue,let lng = element.bdLon?.doubleValue,let number = element.number else {
+                    self.showError(withStatus: "该电柜坐标数据有误")
+                    return}
+                self.mapNavigation(lat: lat, lng: lng, address: number, currentController: self)
+            }
+        }
+        
+    }
     
 }
 
@@ -143,10 +151,9 @@ private extension SearchCabinetListViewController {
     }
    
     private func setupSubviews() {
-//        view.addSubview(headerView)
         
         locationView.relocate = { bt in
-            self.locationManager.requestLocation()
+            self.locationManager.startUpdatingLocation()
         }
         view.addSubview(locationView)
         view.addSubview(tableView)
@@ -175,6 +182,9 @@ private extension SearchCabinetListViewController {
 
 // MARK: - Public
 extension SearchCabinetListViewController{
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        self.showError(withStatus: error.localizedDescription)
+    }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else
          { return }
@@ -191,16 +201,9 @@ extension SearchCabinetListViewController{
                 CityCodeManager.shared.cityCode = code
                 NotificationCenter.default.post(name: .cityChanged, object: nil)
                 self.locationView.location = self.formatDateToChinese(date: Date())
-
-                /*NetworkService<BusinessAPI,CabinetListResponse>().request(.cabinetList(tempStorageSw: nil, cityCode: CityCodeManager.shared.cityCode, lon: self.coordinate.longitude, lat:self.coordinate.latitude)) { result in
-                    switch result{
-                    case .success(let response):
-                        self.items = response?.list ?? []
-                    case .failure(let error):
-                        self.showError(withStatus: error.localizedDescription)
-                        
-                    }
-                }             */
+                self.locationManager.stopUpdatingLocation()
+                self.updateData(coordinate: self.coordinate)
+                
 
             }
         }

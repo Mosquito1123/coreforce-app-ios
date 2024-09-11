@@ -165,7 +165,6 @@ private extension LoginViewController {
         // 添加textView到视图
         view.addSubview(privacyPolicyAndUserAgreementTextView)
         // 关闭按钮
-        view.addSubview(closeButton)
 
     }
     // 创建并返回NSMutableAttributedString
@@ -191,8 +190,8 @@ private extension LoginViewController {
        
         
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
-            closeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+//            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
+//            closeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             //背景图布局
             loginBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             loginBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

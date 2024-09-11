@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OrderListViewCell: BaseTableViewCell<OrderList> {
+class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
     class DetailView:UIView{
         lazy var titleLabel1: UILabel = {
             let label = UILabel()

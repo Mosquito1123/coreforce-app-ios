@@ -344,8 +344,9 @@ class BatterySiteSectionController: ListSectionController {
         params["lat"] = lat
         
         self.viewController?.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
-                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]]{
+                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
                 let filteredArray = (cabinetArray ?? []).filter { $0.onLine.boolValue == true && $0.batteryCount > 0 }
                 var locations = [CLLocation]()
                 for mapAnnotation in filteredArray {

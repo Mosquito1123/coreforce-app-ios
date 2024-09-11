@@ -151,7 +151,7 @@ private extension AllOrderContentViewController {
 private extension AllOrderContentViewController {
     
 }
-class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderList> {
+class OrderListViewController: BaseTableViewController<OrderListViewCell,HFAllOrder> {
     
     // MARK: - Accessor
     var payStatus = 999
@@ -178,27 +178,32 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
         // ...
         self.items.removeAll()
         pageNum = 1
-        /*NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
-            switch result {
-            case.success(let response):
-                self.items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+        self.getData(orderListUrl, param: ["page":pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                           let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                let dataArray = HFAllOrder.mj_objectArray(withKeyValuesArray: dataList) as? [HFAllOrder]
+                self.items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
                 self.pageNum = 1
-                let total = (Double)(response?.pageResult?.total ?? 1)
-                let size = (Double)(response?.pageResult?.size ?? 1)
-                self.pageCount = Int(ceil(total/size))
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                self.pageNum = 1
-                self.pageCount = 1
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
+                // 设置页码
                 
+                // 获取 total 和 size 并计算 pageCount
+                if let total = pageResult["total"] as? NSNumber,
+                   let size = pageResult["size"] as? NSNumber {
+                    self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                }
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
             }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_header?.endRefreshing()
+            self.tableView.mj_footer?.resetNoMoreData()
         }
-         */
 
+        
     }
 
     @objc func footerRefreshing() {
@@ -209,6 +214,20 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
             return
         }
         pageNum = pageNum + 1
+        self.getData(orderListUrl, param: ["page":pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                           let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                let dataArray = HFAllOrder.mj_objectArray(withKeyValuesArray: dataList) as? [HFAllOrder]
+                let items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+                self.items.append(contentsOf: items)
+                self.tableView.mj_footer?.endRefreshing()
+                
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.tableView.mj_footer?.endRefreshing()
+        }
         /*NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
             switch result {
             case.success(let response):
@@ -227,31 +246,35 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,OrderLi
     }
     func loadData(){
         pageNum = 1
-        /*NetworkService<BusinessAPI,DataListResponse<OrderList>>().request(.orderList(page: pageNum)) { result in
-            switch result {
-            case.success(let response):
-                self.items = (response?.pageResult?.dataList ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+        self.getData(orderListUrl, param: ["page":pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                           let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                let dataArray = HFAllOrder.mj_objectArray(withKeyValuesArray: dataList) as? [HFAllOrder]
+                self.items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
                 self.pageNum = 1
-                let total = (Double)(response?.pageResult?.total ?? 1)
-                let size = (Double)(response?.pageResult?.size ?? 1)
-                self.pageCount = Int(ceil(total/size))
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                self.pageNum = 1
-                self.pageCount = 1
-                self.tableView.mj_header?.endRefreshing()
-                self.tableView.mj_footer?.resetNoMoreData()
+                // 设置页码
                 
+                // 获取 total 和 size 并计算 pageCount
+                if let total = pageResult["total"] as? NSNumber,
+                   let size = pageResult["size"] as? NSNumber {
+                    self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                }
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
             }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_header?.endRefreshing()
+            self.tableView.mj_footer?.resetNoMoreData()
         }
-         */
-
+        
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let orderDetailViewController = OrderDetailViewController()
-        orderDetailViewController.element = self.items[indexPath.row]
+        orderDetailViewController.id = self.items[indexPath.row].id
         self.navigationController?.pushViewController(orderDetailViewController, animated: true)
     }
 }

@@ -14,6 +14,12 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         self.titleLabel.text = element?.number
         self.locationLabel.text = element?.location
         self.statisticView.batteryListView.onLine = element?.onLine.boolValue ?? false
+        let topThree = (element?.topThreeGrids as? [HFGridList]) ?? []
+        self.statisticView.batteryListView.batteryLevels = topThree.map { CGFloat($0.batteryCapacityPercent.doubleValue)/100.0 }
+        let extraInfos = (element?.extraInfo as? [HFCabinetExtraInfo]) ?? []
+        self.statisticView.summaryTableView.items = extraInfos.map { [$0.largeTypeName,$0.changeCount.stringValue,$0.count.stringValue] }
+        self.rentStatusButton.isHidden = !(element?.rentReturnBattery.boolValue ?? true)
+        self.depositStatusButton.isHidden = !(element?.rentReturnBattery.boolValue ?? true)
     }
     var navigateAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
@@ -54,8 +60,15 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         label.text = "100m · 骑行1分钟"
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = UIColor(rgba:0x333333FF)
+        label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    lazy var locationImageView: UIImageView = {
+        let locationImageView = UIImageView()
+        locationImageView.image = UIImage(named: "search_list_icon_location")
+        locationImageView.translatesAutoresizingMaskIntoConstraints = false
+        return locationImageView
     }()
     lazy var locationLabel: UILabel = {
         let label = UILabel()
@@ -159,6 +172,7 @@ private extension CabinetListViewCell {
         contentView.addSubview(depositStatusButton)
         contentView.addSubview(rentStatusButton)
         contentView.addSubview(rideLabel)
+        contentView.addSubview(locationImageView)
         contentView.addSubview(locationLabel)
         contentView.addSubview(statisticView)
         contentView.addSubview(navigateButton)
@@ -188,7 +202,11 @@ private extension CabinetListViewCell {
             rideLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
             rideLabel.topAnchor.constraint(equalTo: businessTimeLabel.bottomAnchor, constant: 8),
             rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
-            locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            locationImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            locationImageView.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
+            locationImageView.widthAnchor.constraint(equalToConstant: 14),
+            locationImageView.heightAnchor.constraint(equalToConstant: 14),
+            locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
             locationLabel.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
             locationLabel.trailingAnchor.constraint(equalTo: navigateButton.leadingAnchor, constant: -16),
             navigateButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),

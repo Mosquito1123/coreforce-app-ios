@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             mainController = GuideViewController()
                    
         }else{
-            if let _ = AccountManager.shared.phoneNum{
+            if HFKeyedArchiverTool.account().accessToken.isEmpty == false{
                 let mainTabBarController = MainTabBarController()
                 mainController = UINavigationController(rootViewController: mainTabBarController)
                 mainController.modalPresentationStyle = .fullScreen

@@ -37,6 +37,16 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
             self.cabinetDetailContentController.cabinetExchangeForecastDatas = cabinetExchangeForecastDatas
         }
     }
+    var gridList:[HFGridList] = []{
+        didSet{
+            self.cabinetDetailContentController.cabinetDetailContentView.statisticView.batteryListView.batteryLevels = gridList.sorted { $0.batteryCapacityPercent.doubleValue > $1.batteryCapacityPercent.doubleValue}.prefix(3).map { CGFloat($0.batteryCapacityPercent.doubleValue)/100.0 }
+        }
+    }
+    var extraInfo:[HFCabinetExtraInfo] = []{
+        didSet{
+            self.cabinetDetailContentController.cabinetDetailContentView.statisticView.summaryTableView.items = extraInfo.map { [$0.largeTypeName,$0.changeCount.stringValue,$0.count.stringValue] }
+        }
+    }
     var cabinet:HFCabinet?{
         didSet{
             self.cabinetDetailContentController.cabinetDetailContentView.titleLabel.text = cabinet?.number
@@ -64,16 +74,17 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
                 
             })
             var list = [String]()
-            if let _ = cabinet?.photo1, let accessToken = TokenManager.shared.accessToken,let id = cabinet?.id {
+            let accessToken = HFKeyedArchiverTool.account().accessToken
+            if let _ = cabinet?.photo1,let id = cabinet?.id {
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(1)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
             }
-            if let _ = cabinet?.photo2,let accessToken = TokenManager.shared.accessToken,let id = cabinet?.id{
+            if let _ = cabinet?.photo2,let id = cabinet?.id{
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(2)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
 
             }
-            if let _ = cabinet?.photo3,let accessToken = TokenManager.shared.accessToken,let id = cabinet?.id{
+            if let _ = cabinet?.photo3,let id = cabinet?.id{
                 let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(3)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
                 list.append(urlString)
             }
@@ -128,20 +139,16 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
                let cabinetDetail = HFCabinetDetail.mj_object(withKeyValues: body)
                 self.cabinet = cabinetDetail?.cabinet
                 self.cabinetExchangeForecastDatas = cabinetDetail?.cabinetExchangeForecast ?? []
+                self.gridList = cabinetDetail?.gridList ?? []
+                self.extraInfo = (cabinetDetail?.cabinet.extraInfo  as? [HFCabinetExtraInfo]) ?? []
+                
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
             
         }
 
-        /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: id, number: number)) { result in
-            switch result {
-            case .success(let response):
-                self.cabinetExchangeForecastDatas = response?.cabinetExchangeForecast
-            case .failure(let error):
-                debugPrint(error)
-            }
-        }             */
+        
 
         
         

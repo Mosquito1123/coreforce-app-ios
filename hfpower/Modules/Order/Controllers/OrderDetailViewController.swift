@@ -55,7 +55,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                 cancelButton.topAnchor.constraint(equalTo: submitButton.topAnchor),
                 submitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
                 
-
+                
             ])
         }
         required init?(coder: NSCoder) {
@@ -105,10 +105,10 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
             self.tableView.reloadData()
         }
     }
-
+    
     
     // MARK: - Accessor
-    var element:OrderList?
+    @objc var id:NSNumber?
     var bottomViewHeight:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var tableView: UITableView = {
@@ -116,7 +116,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
         tableView.register(OrderDetailViewCell.self, forCellReuseIdentifier: OrderDetailViewCell.cellIdentifier())
         tableView.register(OrderDetailHeaderView.self, forHeaderFooterViewReuseIdentifier: OrderDetailHeaderView.viewIdentifier())
         let tableFooterView = OrderDetailFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 67))
-
+        
         tableView.tableFooterView = tableFooterView
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(rgba:0xF6F6F6FF)
@@ -135,13 +135,13 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
-
+        
         setupNavbar()
         setupSubviews()
         setupLayout()
         loadData()
     }
-    func payStatusString(orderDetail:OrderDetail?)->String{
+    func payStatusString(orderDetail:HFOrderDetailData?)->String{
         let payStatus = orderDetail?.payStatus ?? 0
         switch payStatus {
         case -1:
@@ -160,7 +160,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
             return ""
         }
     }
-    func payMethodString(orderDetail:OrderDetail?)->String{
+    func payMethodString(orderDetail:HFOrderDetailData?)->String{
         let payMethod  = orderDetail?.payMethod ?? 0
         switch payMethod {
         case 1:
@@ -183,7 +183,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
             return ""
         }
     }
-    func authOrderStatusString(orderDetail:OrderDetail?)->String{
+    func authOrderStatusString(orderDetail:HFOrderDetailData?)->String{
         let authOrderStatus = orderDetail?.authOrderStatus ?? 0
         switch authOrderStatus {
         case 0:
@@ -196,7 +196,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
             return "无"
         }
     }
-    func configOrderDetail(orderDetail:OrderDetail?){
+    func configOrderDetail(orderDetail:HFOrderDetailData?){
         if let deviceType = orderDetail?.deviceType{
             let orderNo = orderDetail?.orderNo ?? ""
             
@@ -219,14 +219,14 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                         OrderDetailItem(id: 1, title: "订单状态", content: payStatusString(orderDetail: orderDetail)),
                         OrderDetailItem(id: 2, title: "订单编号", content: orderNo),
                         OrderDetailItem(id: 3, title: "订单时间", content: createAt),
-
+                        
                     ]),
                     OrderDetail(id: 1,items: [
                         OrderDetailItem(id: 0, title: "电池编号", content: batteryNumber),
                         OrderDetailItem(id: 1, title: "电池型号", content: batteryTypeName),
                         OrderDetailItem(id: 2, title: "电池租期", content: "\(duration)"),
                         OrderDetailItem(id: 3, title: "服务网点", content: agentName),
-
+                        
                     ]),
                     OrderDetail(id: 2,items: [
                         OrderDetailItem(id: 0, title: "电池租金", content: rentString,extra: rentDetailString),
@@ -234,13 +234,13 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                         OrderDetailItem(id: 2, title: "优惠", content: couponDiscountAmountString),
                         OrderDetailItem(id: 3, title: "套餐", content: planString),
                         OrderDetailItem(id: 4, title: "合计", content: paidString),
-
-
+                        
+                        
                     ]),
                     OrderDetail(id: 2,items: [
                         OrderDetailItem(id: 0, title: "押金授权", content: authOrderStatusString(orderDetail: orderDetail)),
                         OrderDetailItem(id: 1, title: "支付方式", content: payMethodString(orderDetail: orderDetail)),
-
+                        
                     ]),
                 ]
             case 4:
@@ -260,13 +260,13 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                         OrderDetailItem(id: 1, title: "订单状态", content: payStatusString(orderDetail: orderDetail)),
                         OrderDetailItem(id: 2, title: "订单编号", content: orderNo),
                         OrderDetailItem(id: 3, title: "订单时间", content: createAt),
-
+                        
                     ]),
                     OrderDetail(id: 1,items: [
                         OrderDetailItem(id: 0, title: "机车编号", content: locomotiveNumber),
                         OrderDetailItem(id: 1, title: "机车租期", content: "\(duration)"),
                         OrderDetailItem(id: 2, title: "机车服务网点", content: agentName),
-
+                        
                     ]),
                     OrderDetail(id: 2,items: [
                         OrderDetailItem(id: 0, title: "机车租金", content: rentString,extra: rentDetailString),
@@ -274,13 +274,13 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                         OrderDetailItem(id: 2, title: "优惠", content: couponDiscountAmountString),
                         OrderDetailItem(id: 3, title: "套餐", content: planString),
                         OrderDetailItem(id: 4, title: "合计", content: paidString),
-
-
+                        
+                        
                     ]),
                     OrderDetail(id: 2,items: [
                         OrderDetailItem(id: 0, title: "押金授权", content: authOrderStatusString(orderDetail: orderDetail)),
                         OrderDetailItem(id: 1, title: "支付方式", content: payMethodString(orderDetail: orderDetail)),
-
+                        
                     ]),
                 ]
             default:
@@ -301,14 +301,14 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                         OrderDetailItem(id: 1, title: "订单状态", content: payStatusString(orderDetail: orderDetail)),
                         OrderDetailItem(id: 2, title: "订单编号", content: orderNo),
                         OrderDetailItem(id: 3, title: "订单时间", content: createAt),
-
+                        
                     ]),
                     OrderDetail(id: 1,items: [
                         OrderDetailItem(id: 0, title: "电池编号", content: batteryNumber),
                         OrderDetailItem(id: 1, title: "电池型号", content: batteryTypeName),
                         OrderDetailItem(id: 2, title: "电池租期", content: "\(duration)"),
                         OrderDetailItem(id: 3, title: "服务网点", content: agentName),
-
+                        
                     ]),
                     OrderDetail(id: 2,items: [
                         OrderDetailItem(id: 0, title: "电池租金", content: rentString,extra: rentDetailString),
@@ -316,57 +316,53 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                         OrderDetailItem(id: 2, title: "优惠", content: couponDiscountAmountString),
                         OrderDetailItem(id: 3, title: "套餐", content: planString),
                         OrderDetailItem(id: 4, title: "合计", content: paidString),
-
-
+                        
+                        
                     ]),
                     OrderDetail(id: 2,items: [
                         OrderDetailItem(id: 0, title: "押金授权", content: authOrderStatusString(orderDetail: orderDetail)),
                         OrderDetailItem(id: 1, title: "支付方式", content: payMethodString(orderDetail: orderDetail)),
-
+                        
                     ]),
                 ]
-
+                
             }
             
         }
         
     }
     func loadData(){
-        if let id = self.element?.id{
-            let payStatus = element?.payStatus ?? 1
-            switch payStatus {
-            case -1:
-                bottomViewHeight.constant = 0
-            case 0:
-                bottomViewHeight.constant = 0
-            case 1:
-                bottomViewHeight.constant = 107
-            case 2:
-                bottomViewHeight.constant = 0
-            case 3:
-                bottomViewHeight.constant = 0
-            case 4:
-                bottomViewHeight.constant = 0
-            default:
-                bottomViewHeight.constant = 0
-
-            }
-            /*NetworkService<BusinessAPI,OrderDetailResponse>().request(.order(id: id)) { result in
-                switch result {
-                case.success(let response):
-                    
-                    self.configOrderDetail(orderDetail: response?.order)
-
-                    
-                    
-                case .failure(let error):
-                    self.showError(withStatus: error.localizedDescription)
-                    
+        if let id = self.id{
+            self.getData(orderUrl, param: ["id":id], isLoading: true) { responseObject in
+                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                   let order = body["order"] as? [String: Any] {
+                    let orderData = HFOrderDetailData.mj_object(withKeyValues: order)
+                    let payStatus = orderData?.payStatus ?? 1
+                    switch payStatus {
+                    case -1:
+                        self.bottomViewHeight.constant = 0
+                    case 0:
+                        self.bottomViewHeight.constant = 0
+                    case 1:
+                        self.bottomViewHeight.constant = 107
+                    case 2:
+                        self.bottomViewHeight.constant = 0
+                    case 3:
+                        self.bottomViewHeight.constant = 0
+                    case 4:
+                        self.bottomViewHeight.constant = 0
+                    default:
+                        self.bottomViewHeight.constant = 0
+                        
+                    }
+                    self.configOrderDetail(orderDetail: orderData)
                 }
+            } error: { error in
+                self.showError(withStatus: error.localizedDescription)
             }
-             */
-
+            
         }
+        
         
     }
     
@@ -376,7 +372,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
 private extension OrderDetailViewController {
     private func setupNavbar() {
         self.title = "订单详情"
-
+        
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
         // 自定义返回按钮
@@ -403,22 +399,27 @@ private extension OrderDetailViewController {
         self.navigationItem.scrollEdgeAppearance = appearance
         
     }
-   
-   
+    
+    
     private func setupSubviews() {
         view.backgroundColor = .white
         view.addSubview(tableView)
         bottomView.cancelButton.addAction(for: .touchUpInside) {
-            /*NetworkService<BusinessAPI,BlankResponse>().request(.orderCancel(orderId: self.element?.id ?? 0)) { result in
-                switch result {
-                case .success:
-                    self.navigationController?.popViewController(animated: true)
-                case .failure(let failure):
-                    self.showError(withStatus: failure.localizedDescription)
-                }
+            if let id = self.id{
+                
+                self.postData(orderCancelUrl,
+                         param: ["orderId": id],
+                         isLoading: true,
+                         success: { [weak self] responseObject in
+                    self?.navigationController?.popViewController(animated: true)
+                },
+                         error: { error in
+                    // 处理错误
+                    self.showError(withStatus: error.localizedDescription)
+                })
             }
-             */
-
+            
+            
         }
         bottomView.submitButton.addAction(for: .touchUpInside) {
             

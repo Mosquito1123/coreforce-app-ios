@@ -283,6 +283,9 @@
 		04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB052C1861DF00AFD14B /* BikeDetail.swift */; };
 		04EBBB082C186F8900AFD14B /* CabinetListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */; };
 		04EBBB0A2C18739A00AFD14B /* CabinetAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */; };
+		04F096AF2C91777700C989A7 /* HFAllOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096AE2C91777700C989A7 /* HFAllOrder.m */; };
+		04F096B22C9179EE00C989A7 /* HFOrderDetailData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096B12C9179EE00C989A7 /* HFOrderDetailData.m */; };
+		04F096B52C91883600C989A7 /* HFCabinetExtraInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096B42C91883600C989A7 /* HFCabinetExtraInfo.m */; };
 		04F4CFAD2C73188400F5F764 /* OrderDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFAC2C73188400F5F764 /* OrderDetailViewCell.swift */; };
 		04F4CFAF2C731CCD00F5F764 /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */; };
 		04F4CFB12C731EA100F5F764 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */; };
@@ -649,6 +652,12 @@
 		04EBBB052C1861DF00AFD14B /* BikeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeDetail.swift; sourceTree = "<group>"; };
 		04EBBB072C186F8900AFD14B /* CabinetListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetListResponse.swift; sourceTree = "<group>"; };
 		04EBBB092C18739A00AFD14B /* CabinetAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetAnnotation.swift; sourceTree = "<group>"; };
+		04F096AD2C91777700C989A7 /* HFAllOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFAllOrder.h; sourceTree = "<group>"; };
+		04F096AE2C91777700C989A7 /* HFAllOrder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFAllOrder.m; sourceTree = "<group>"; };
+		04F096B02C9179EE00C989A7 /* HFOrderDetailData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFOrderDetailData.h; sourceTree = "<group>"; };
+		04F096B12C9179EE00C989A7 /* HFOrderDetailData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFOrderDetailData.m; sourceTree = "<group>"; };
+		04F096B32C91883600C989A7 /* HFCabinetExtraInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFCabinetExtraInfo.h; sourceTree = "<group>"; };
+		04F096B42C91883600C989A7 /* HFCabinetExtraInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCabinetExtraInfo.m; sourceTree = "<group>"; };
 		04F4CFAC2C73188400F5F764 /* OrderDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewCell.swift; sourceTree = "<group>"; };
 		04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
@@ -1354,6 +1363,12 @@
 				04708FA72C90166F001E809C /* HFGridList.m */,
 				04708FA92C901923001E809C /* HFCabinetDetail.h */,
 				04708FAA2C901923001E809C /* HFCabinetDetail.m */,
+				04F096AD2C91777700C989A7 /* HFAllOrder.h */,
+				04F096AE2C91777700C989A7 /* HFAllOrder.m */,
+				04F096B02C9179EE00C989A7 /* HFOrderDetailData.h */,
+				04F096B12C9179EE00C989A7 /* HFOrderDetailData.m */,
+				04F096B32C91883600C989A7 /* HFCabinetExtraInfo.h */,
+				04F096B42C91883600C989A7 /* HFCabinetExtraInfo.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -2265,6 +2280,7 @@
 				04DE268D2C32A5F90052D056 /* FeeDetailViewCell.swift in Sources */,
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
 				042849152C2436EC0011032F /* CabinetDetailContentViewController.swift in Sources */,
+				04F096AF2C91777700C989A7 /* HFAllOrder.m in Sources */,
 				048EE7752C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift in Sources */,
 				044632612C8F1A8100DB8D37 /* AuthStatusView.swift in Sources */,
 				0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */,
@@ -2376,6 +2392,7 @@
 				043DEC912C0971F9003FD6AD /* CabinetListViewCell.swift in Sources */,
 				048EE77B2C3E8E300094A0CB /* PackageCardChooseServiceViewCell.swift in Sources */,
 				04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */,
+				04F096B52C91883600C989A7 /* HFCabinetExtraInfo.m in Sources */,
 				04F4CFC92C75825400F5F764 /* BatteryStatusViewCell.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
 				0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */,
@@ -2397,6 +2414,7 @@
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				046B4ECF2C6CBB4100DCD5CB /* ChangePhoneNumberFinalViewController.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,
+				04F096B22C9179EE00C989A7 /* HFOrderDetailData.m in Sources */,
 				045165852C1AC0DF00ABE7F1 /* JYBDNewFormeScaningV.m in Sources */,
 				043893662C3FCB9100E61C0D /* Coupon.swift in Sources */,
 				042849132C240A1C0011032F /* MapRect+Extension.swift in Sources */,

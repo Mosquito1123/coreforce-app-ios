@@ -1,25 +1,19 @@
 //
-//  HFCabinet.m
+//  HFOrderDetailData.m
 //  hfpower
 //
-//  Created by EDY on 2024/9/10.
+//  Created by EDY on 2024/9/11.
 //
 
-#import "HFCabinet.h"
+#import "HFOrderDetailData.h"
 
-@interface HFCabinet ()
+@interface HFOrderDetailData ()
 
 @end
 
-@implementation HFCabinet
+@implementation HFOrderDetailData
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
     return @{@"ID":@"id"};
-}
-+ (NSDictionary *)mj_objectClassInArray {
-    return @{
-        @"topThreeGrids" : [HFGridList class],
-        @"extraInfo" : [HFCabinetExtraInfo class]
-    };
 }
 #pragma mark - Accessor
 

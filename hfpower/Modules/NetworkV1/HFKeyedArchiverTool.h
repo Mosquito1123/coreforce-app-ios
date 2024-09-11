@@ -19,6 +19,8 @@
 #import "HFCouponCountData.h"
 #import "HFMsgCountData.h"
 #import "HFCabinetDetail.h"
+#import "HFAllOrder.h"
+#import "HFOrderDetailData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

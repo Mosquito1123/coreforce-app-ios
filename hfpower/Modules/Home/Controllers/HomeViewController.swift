@@ -8,10 +8,9 @@
 import UIKit
 import CoreLocation
 import MapKit
-class HomeViewController: UIViewController{
+class HomeViewController: MapViewController{
     
     // MARK: - Accessor
-    let mapViewController = MapViewController()
     // MARK: - Subviews
     lazy var batteryView:MapBatteryView = {
         let view = MapBatteryView()
@@ -319,11 +318,11 @@ private extension HomeViewController {
         // 设置地图的初始位置和显示范围
         self.view.backgroundColor = UIColor.white
 
-        self.addChild(mapViewController)
-        self.view.addSubview(mapViewController.view)
-        mapViewController.view.frame = self.view.bounds
-        
-        mapViewController.didMove(toParent: self)
+//        self.addChild(mapViewController)
+//        self.view.addSubview(mapViewController.view)
+//        mapViewController.view.frame = self.view.bounds
+//        
+//        mapViewController.didMove(toParent: self)
         self.view.addSubview(headerStackView)
         self.view.addSubview(footerStackView)
         self.batteryView.goToBatteryDetailBlock = { sender in
@@ -377,25 +376,25 @@ private extension HomeViewController {
         
         let listView = MapFeatureView(.list) { sender, mapFeatureType in
             let cabinetListViewController = CabinetListViewController()
-            cabinetListViewController.coordinate = self.mapViewController.mapView.centerCoordinate
+            cabinetListViewController.coordinate = self.mapView.centerCoordinate
             self.navigationController?.pushViewController(cabinetListViewController, animated: true)
         }
         footerStackView.addArrangedSubview(listView)
         let locateView = MapFeatureView(.locate) { sender, mapFeatureType in
-            self.mapViewController.mapView.userTrackingMode = .followWithHeading
+            self.mapView.userTrackingMode = .followWithHeading
             
         }
         footerStackView.addArrangedSubview(locateView)
         let refreshView = MapFeatureView(.refresh) { sender, mapFeatureType in
-            self.mapViewController.cabinetList()
+            self.cabinetList()
         }
         footerStackView.addArrangedSubview(refreshView)
         let filterView = MapFeatureView(.filter) { sender, mapFeatureType in
             let contentVC = CabinetFilterViewController()
             contentVC.closeAction = { sender in
-                self.mapViewController.hideFloatingPanel(contentVC)
+                self.hideFloatingPanel(contentVC)
             }
-            self.mapViewController.showFloatingPanel(contentVC)
+            self.showFloatingPanel(contentVC)
         }
         footerStackView.addArrangedSubview(filterView)
         
@@ -437,7 +436,7 @@ private extension HomeViewController {
 @objc private extension HomeViewController {
     @objc func handleCityChanged(_ notification:Notification){
         
-        self.mapViewController.moveMap()
+        self.moveMap()
     }
     @objc func needLogin(_ sender:UIButton){
         
@@ -448,7 +447,7 @@ private extension HomeViewController {
             AccountManager.shared.clearAccount()
             MainManager.shared.resetAll()
         }else if notification.name == .userLoggedIn{
-            self.mapViewController.locationManager.startUpdatingLocation()
+            self.locationManager.startUpdatingLocation()
             
             
             

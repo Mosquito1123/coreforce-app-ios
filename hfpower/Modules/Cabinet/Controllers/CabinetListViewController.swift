@@ -33,8 +33,9 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,HFC
         params["lon"] = coordinate.longitude
         params["lat"] = coordinate.latitude
         self.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any]{
-                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: body["list"]) as? [HFCabinet]
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]]{
+                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
                 self.items = cabinetArray ?? []
             }
         } error: { error in

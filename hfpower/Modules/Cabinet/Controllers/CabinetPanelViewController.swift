@@ -17,6 +17,10 @@ class CabinetPanelViewController: UIViewController {
             self.cabinetPanelView.statisticView.batteryListView.onLine = annotation?.cabinet?.onLine.boolValue ?? false
             self.cabinetPanelView.rentStatusButton.isHidden = !(annotation?.cabinet?.rentReturnBattery.boolValue ?? true)
             self.cabinetPanelView.depositStatusButton.isHidden = !(annotation?.cabinet?.rentReturnBattery.boolValue ?? true)
+            let topThree = (annotation?.cabinet?.topThreeGrids as? [HFGridList]) ?? []
+            self.cabinetPanelView.statisticView.batteryListView.batteryLevels = topThree.map { CGFloat($0.batteryCapacityPercent.doubleValue)/100.0 }
+            let extraInfos = (annotation?.cabinet?.extraInfo as? [HFCabinetExtraInfo]) ?? []
+            self.cabinetPanelView.statisticView.summaryTableView.items = extraInfos.map { [$0.largeTypeName,$0.changeCount.stringValue,$0.count.stringValue] }
             guard let sourceCoordinate = mapController?.mapView.userLocation.location?.coordinate else {return} // 起点
             guard let destinationCoordinate = annotation?.coordinate else {return}
             self.mapController?.calculateCyclingTime(from: sourceCoordinate, to: destinationCoordinate, completion: { response, error in
