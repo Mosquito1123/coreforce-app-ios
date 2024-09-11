@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)int ambientTemperature;
 @property(nonatomic,assign)int batteryTemperature2;
 @property(nonatomic,assign)int clientLock;
-@property(nonatomic,assign)int ID;
+@property(nonatomic,strong)NSNumber *ID;
 @property(nonatomic,assign)int lockStatus;
 @property(nonatomic,assign)int mcuAmbientTemp;
 @property(nonatomic,assign)int mcuBatteryTemp;

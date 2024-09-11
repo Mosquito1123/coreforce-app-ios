@@ -211,17 +211,17 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
                 guard let typeName = resultArray.last else { return }
                 
                 if resultStr == "b" {//电池
-                    if let firstBatteryNumber = MainManager.shared.batteryDetail?.number, firstBatteryNumber == typeName {
+                    if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber == typeName {
                         let batteryVC = BatteryDetailViewController()
                         self.navigationController?.pushViewController(batteryVC, animated: true)
                         return
-                    } else if let firstBatteryNumber = MainManager.shared.batteryDetail?.number, firstBatteryNumber != typeName {
+                    } else if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber != typeName {
                         self.showError(withStatus: "已租电池，请扫柜换电")
                         return
                     }
                 } else if resultStr == "c" {//电柜
-                    if let battery = MainManager.shared.batteryDetail{//换电
-                        self.batteryReplacement(id: battery.id?.intValue, number: typeName)
+                    if let battery = HFKeyedArchiverTool.batteryDataList().first{//换电
+                        self.batteryReplacement(id: battery.id.intValue, number: typeName)
                     }else{//新租
                         self.rentBattery(number: typeName)
                     }

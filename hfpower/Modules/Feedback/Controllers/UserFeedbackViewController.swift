@@ -14,27 +14,31 @@ class UserFeedbackViewController: BaseViewController,UITextFieldDelegate {
     // MARK: - Subviews
     lazy var nameTextView: CommonInputView = {
         let view = CommonInputView()
+        view.placeholder = "请输入姓名"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var emailTextView: CommonInputView = {
         let view = CommonInputView()
+        view.placeholder = "请输入邮箱"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var phoneNumTextView: CommonInputView = {
         let view = CommonInputView()
+        view.placeholder = "请输入手机号"
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var detailTextView:UITextView = {
         let view = UITextView()
+        view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var submitButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("确认支付", for: .normal)
+        button.setTitle("提交反馈", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.setBackgroundImage(UIColor(red: 49/255, green: 113/255, blue: 239/255, alpha: 1).toImage(), for: .normal)
@@ -91,7 +95,7 @@ private extension UserFeedbackViewController {
     }
     
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.backgroundColor = UIColor.white
         self.view.addSubview(self.nameTextView)
         self.view.addSubview(self.emailTextView)
         self.view.addSubview(self.phoneNumTextView)
@@ -105,7 +109,7 @@ private extension UserFeedbackViewController {
             nameTextView.heightAnchor.constraint(equalToConstant: 50),
             nameTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
             nameTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -14),
-            nameTextView.topAnchor.constraint(equalTo: self.view.topAnchor,constant: 14),
+            nameTextView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor,constant: 14),
             nameTextView.bottomAnchor.constraint(equalTo: self.emailTextView.topAnchor,constant: -14),
             emailTextView.heightAnchor.constraint(equalToConstant: 50),
             emailTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 14),
@@ -149,15 +153,19 @@ private extension UserFeedbackViewController {
         } else if detailTextView.text.isEmpty {
             self.showError(withStatus: "反馈内容不能为空")
         } else {
-            /*NetworkService<MemberAPI,BlankResponse>().request(.feedback(name: nameTextView.textField.text ?? "", email: emailTextView.textField.text ?? "", phoneNum: phoneNumTextView.textField.text ?? "", feedback: detailTextView.text ?? "")) { result in
-                switch result{
-                case .success:
-                    self.navigationController?.popViewController(animated: true)
-                case .failure(let error):
-                    self.showError(withStatus: error.localizedDescription)
-                }
-            }
-             */
+            self.postData(feedbackUrl,
+                          param: ["name": nameTextView.textField.text ?? "",
+                                  "email": emailTextView.textField.text ?? "",
+                                  "phoneNum": phoneNumTextView.textField.text ?? "",
+                                  "feedback": detailTextView.text ?? ""],
+                          isLoading: true,
+                          success: { responseObject in
+                self.navigationController?.popViewController(animated: true)
+            },
+                          error: { error in
+                // 处理错误
+                self.showError(withStatus: error.localizedDescription)
+            })
         }
         
     }
