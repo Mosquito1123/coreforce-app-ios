@@ -214,7 +214,9 @@ private extension CabinetDetailViewController {
             pagerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pagerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pagerView.topAnchor.constraint(equalTo: view.topAnchor),
-            pagerView.bottomAnchor.constraint(equalTo: self.bottomView.topAnchor),
+//            pagerView.bottomAnchor.constraint(equalTo: self.bottomView.topAnchor),
+            pagerView.heightAnchor.constraint(equalToConstant: 250),
+
             self.bottomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.bottomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.bottomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -228,6 +230,13 @@ private extension CabinetDetailViewController {
 extension CabinetDetailViewController:FloatingPanelControllerDelegate{
     func floatingPanel(_ fpc: FloatingPanelController, shouldAllowToScroll scrollView: UIScrollView, in state: FloatingPanelState) -> Bool {
         return state == .half || state == .full
+    }
+    func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
+        if fpc.state == .tip {
+            self.navigationController?.popViewController(animated: true)
+            fpc.move(to: .half, animated: false)
+        }
+
     }
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         return CabinetDetailPanelLayout()
@@ -254,8 +263,10 @@ class CabinetDetailPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
-        
-        .half: FloatingPanelLayoutAnchor(absoluteInset: 200, edge: .top, referenceGuide: .superview)
+        .tip: FloatingPanelLayoutAnchor(absoluteInset: 100, edge: .bottom, referenceGuide: .safeArea),
+        .full: FloatingPanelLayoutAnchor(absoluteInset: 88, edge: .top, referenceGuide: .superview),
+        .half: FloatingPanelLayoutAnchor(absoluteInset: 250, edge: .top, referenceGuide: .superview)
+
     ]
     
     func backdropAlpha(for state: FloatingPanelState) -> CGFloat {

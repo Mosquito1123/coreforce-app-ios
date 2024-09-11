@@ -35,8 +35,8 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,HFC
         self.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]]{
-                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
-                self.items = cabinetArray ?? []
+                let cabinetArray = (HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]) ?? []
+                self.items = cabinetArray
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)

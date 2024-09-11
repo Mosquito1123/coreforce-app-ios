@@ -68,8 +68,8 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]]{
-                let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
-                
+                let cabinetArray = (HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]) ?? []
+
                 var tempAnnotations =  self.mapView.annotations
                 tempAnnotations.removeAll { annotation in
                     if annotation is CenterAnnotation{
@@ -83,15 +83,15 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                 let finalAnnotations = tempAnnotations
                 self.mapView.removeAnnotations(finalAnnotations)
                 
-                if let annotations =  cabinetArray?.map({ cabinet in
+                let annotations =  cabinetArray.map({ cabinet in
                     
                     let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
                     a.cabinet = cabinet
                     return a
-                }){
-                    self.mapView.addAnnotations(annotations)
-                    
-                }
+                })
+                self.mapView.addAnnotations(annotations)
+                
+                
             }
             
         } error: { error in
@@ -176,8 +176,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
                 if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
                    let dataList = pageResult["dataList"] as? [[String: Any]]{
-                    let cabinetArray = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]
-                    
+                    let cabinetArray = (HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]) ?? []
                     var tempAnnotations =  self.mapView.annotations
                     tempAnnotations.removeAll { annotation in
                         if annotation is CenterAnnotation{
@@ -191,15 +190,15 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                     let finalAnnotations = tempAnnotations
                     self.mapView.removeAnnotations(finalAnnotations)
                     
-                    if let annotations =  cabinetArray?.map({ cabinet in
+                    let annotations =  cabinetArray.map({ cabinet in
                         
                         let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
                         a.cabinet = cabinet
                         return a
-                    }){
-                        self.mapView.addAnnotations(annotations)
-                        
-                    }
+                    })
+                    self.mapView.addAnnotations(annotations)
+                    
+                    
                 }
                 
             } error: { error in
@@ -215,6 +214,16 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
 extension MapViewController:FloatingPanelControllerDelegate{
     func floatingPanel(_ fpc: FloatingPanelController, shouldAllowToScroll scrollView: UIScrollView, in state: FloatingPanelState) -> Bool {
         return state == .half
+    }
+    func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
+        if fpc.state == .full {
+            // 当 FloatingPanel 滑动到全屏时，执行跳转
+            let cabinetDetailVC = CabinetDetailViewController()
+            cabinetDetailVC.id = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.id
+            cabinetDetailVC.number = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.number
+            self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
+            fpc.move(to: .half, animated: false)
+        }
     }
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         return RemovablePanelLayout()
@@ -639,7 +648,7 @@ class RemovablePanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
-        
+        .full: FloatingPanelLayoutAnchor(absoluteInset: 88.0, edge: .top, referenceGuide: .safeArea),
         .half: FloatingPanelLayoutAnchor(absoluteInset: 364.0, edge: .bottom, referenceGuide: .safeArea)
     ]
     

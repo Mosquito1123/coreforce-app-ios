@@ -51,20 +51,35 @@ class BuyPackageCardViewController: BaseViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            BuyPackageCard(title: "电池型号",subtitle: "64V36AH", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"),
-            BuyPackageCard(title: "换电不限次套餐",subtitle: "64V36AH", identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: [PackageCard(type: 0),PackageCard(type: 0)]),
-            BuyPackageCard(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),
-            BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [DepositService(),DepositService()]),
-            BuyPackageCard(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),
-            BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
-            BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
-            BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 1),PackageCard(type: 1)]),
-            BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 2),PackageCard(type: 2)])
-            
-        ]
+        self.loadData()
+        
     }
-    
+    func loadData(){
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+
+        var params = [String: Any]()
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["largeTypeId"] = self.batteryType?.id
+        self.getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
+                self.items = [
+                    BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.name, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"),
+                    BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.name, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: [PackageCard(type: 0),PackageCard(type: 0)]),
+                    BuyPackageCard(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [DepositService(),DepositService()]),
+                    BuyPackageCard(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 1),PackageCard(type: 1)]),
+                    BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 2),PackageCard(type: 2)])
+                    
+                ]
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
+    }
     
 }
 

@@ -37,6 +37,7 @@
 		042849172C2437290011032F /* CabinetDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042849162C2437290011032F /* CabinetDetailContentView.swift */; };
 		042849192C24388D0011032F /* CabinetDetailBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042849182C24388D0011032F /* CabinetDetailBottomView.swift */; };
 		0428491B2C245B990011032F /* CabinetNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0428491A2C245B990011032F /* CabinetNumberView.swift */; };
+		042CAE272C91CB0900EC67DC /* HFPackageCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042CAE262C91CB0900EC67DC /* HFPackageCardModel.m */; };
 		042D84F92C2985B90049DDB5 /* PersonalContentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D84F82C2985B90049DDB5 /* PersonalContentViewCell.swift */; };
 		042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D84FA2C2986F20049DDB5 /* PersonalAssetsViewCell.swift */; };
 		042D84FD2C2987130049DDB5 /* PersonalMileageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042D84FC2C2987130049DDB5 /* PersonalMileageViewCell.swift */; };
@@ -369,6 +370,8 @@
 		042849162C2437290011032F /* CabinetDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailContentView.swift; sourceTree = "<group>"; };
 		042849182C24388D0011032F /* CabinetDetailBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetDetailBottomView.swift; sourceTree = "<group>"; };
 		0428491A2C245B990011032F /* CabinetNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetNumberView.swift; sourceTree = "<group>"; };
+		042CAE252C91CB0900EC67DC /* HFPackageCardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFPackageCardModel.h; sourceTree = "<group>"; };
+		042CAE262C91CB0900EC67DC /* HFPackageCardModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFPackageCardModel.m; sourceTree = "<group>"; };
 		042D84F82C2985B90049DDB5 /* PersonalContentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalContentViewCell.swift; sourceTree = "<group>"; };
 		042D84FA2C2986F20049DDB5 /* PersonalAssetsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalAssetsViewCell.swift; sourceTree = "<group>"; };
 		042D84FC2C2987130049DDB5 /* PersonalMileageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalMileageViewCell.swift; sourceTree = "<group>"; };
@@ -1379,6 +1382,8 @@
 				04F096B72C91A9D100C989A7 /* HFBatteryTypeInfo.m */,
 				04F096B92C91AB4800C989A7 /* HFBatteryTypeList.h */,
 				04F096BA2C91AB4800C989A7 /* HFBatteryTypeList.m */,
+				042CAE252C91CB0900EC67DC /* HFPackageCardModel.h */,
+				042CAE262C91CB0900EC67DC /* HFPackageCardModel.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -2272,6 +2277,7 @@
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				048EE7602C3D481C0094A0CB /* PersonalInfoListViewCell.swift in Sources */,
 				048EE7572C3D3BB60094A0CB /* AboutListViewCell.swift in Sources */,
+				042CAE272C91CB0900EC67DC /* HFPackageCardModel.m in Sources */,
 				04B586752C816F31008592A8 /* OrderDetailResponse.swift in Sources */,
 				045165892C1AC0E000ABE7F1 /* IDCardRectManager.m in Sources */,
 				04BE42A82C11D178002B78EA /* CityChooseViewController.swift in Sources */,

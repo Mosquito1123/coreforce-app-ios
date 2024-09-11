@@ -23,6 +23,7 @@
 #import "HFOrderDetailData.h"
 #import "HFBatteryTypeInfo.h"
 #import "HFBatteryTypeList.h"
+#import "HFPackageCardModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
