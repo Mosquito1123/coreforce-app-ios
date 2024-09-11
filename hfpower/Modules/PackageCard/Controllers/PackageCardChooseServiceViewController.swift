@@ -52,8 +52,11 @@ class PackageCardChooseServiceViewController: BaseTableViewController<PackageCar
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc=BuyPackageCardViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        if indexPath.row == 0{
+            let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+        }
+        
     }
     
 }

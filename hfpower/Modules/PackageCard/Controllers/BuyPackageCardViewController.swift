@@ -10,6 +10,7 @@ import UIKit
 class BuyPackageCardViewController: BaseViewController {
     
     // MARK: - Accessor
+    @objc var batteryType:HFBatteryTypeList?
     var items = [BuyPackageCard](){
         didSet{
             self.tableView.reloadData()
@@ -63,10 +64,7 @@ class BuyPackageCardViewController: BaseViewController {
             
         ]
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
+    
     
 }
 

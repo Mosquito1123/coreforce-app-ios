@@ -24,6 +24,9 @@ class BaseTableViewController<CellType:BaseTableViewCell<ItemType>,ItemType>: Ba
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
     }
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
     // MARK: - Accessor
     var items: [ItemType] = []{
         didSet{

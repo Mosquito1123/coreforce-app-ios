@@ -7,9 +7,15 @@
 
 import UIKit
 
-class BatteryTypeListViewCell: BaseTableViewCell<BatteryType> {
+class BatteryTypeListViewCell: BaseTableViewCell<HFBatteryTypeList> {
     
     // MARK: - Accessor
+    override func configure() {
+        if let batteryType = self.element{
+            self.titleLabel.text = batteryType.name
+            self.contentLabel.text = batteryType.memo
+        }
+    }
     var sureAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
     // MARK: - Subviews

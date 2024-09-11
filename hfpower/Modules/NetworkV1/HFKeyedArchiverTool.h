@@ -21,6 +21,8 @@
 #import "HFCabinetDetail.h"
 #import "HFAllOrder.h"
 #import "HFOrderDetailData.h"
+#import "HFBatteryTypeInfo.h"
+#import "HFBatteryTypeList.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

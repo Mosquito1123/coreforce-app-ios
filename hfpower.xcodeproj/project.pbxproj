@@ -286,6 +286,8 @@
 		04F096AF2C91777700C989A7 /* HFAllOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096AE2C91777700C989A7 /* HFAllOrder.m */; };
 		04F096B22C9179EE00C989A7 /* HFOrderDetailData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096B12C9179EE00C989A7 /* HFOrderDetailData.m */; };
 		04F096B52C91883600C989A7 /* HFCabinetExtraInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096B42C91883600C989A7 /* HFCabinetExtraInfo.m */; };
+		04F096B82C91A9D100C989A7 /* HFBatteryTypeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096B72C91A9D100C989A7 /* HFBatteryTypeInfo.m */; };
+		04F096BB2C91AB4800C989A7 /* HFBatteryTypeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F096BA2C91AB4800C989A7 /* HFBatteryTypeList.m */; };
 		04F4CFAD2C73188400F5F764 /* OrderDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFAC2C73188400F5F764 /* OrderDetailViewCell.swift */; };
 		04F4CFAF2C731CCD00F5F764 /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */; };
 		04F4CFB12C731EA100F5F764 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */; };
@@ -658,6 +660,10 @@
 		04F096B12C9179EE00C989A7 /* HFOrderDetailData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFOrderDetailData.m; sourceTree = "<group>"; };
 		04F096B32C91883600C989A7 /* HFCabinetExtraInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFCabinetExtraInfo.h; sourceTree = "<group>"; };
 		04F096B42C91883600C989A7 /* HFCabinetExtraInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFCabinetExtraInfo.m; sourceTree = "<group>"; };
+		04F096B62C91A9D100C989A7 /* HFBatteryTypeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFBatteryTypeInfo.h; sourceTree = "<group>"; };
+		04F096B72C91A9D100C989A7 /* HFBatteryTypeInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFBatteryTypeInfo.m; sourceTree = "<group>"; };
+		04F096B92C91AB4800C989A7 /* HFBatteryTypeList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFBatteryTypeList.h; sourceTree = "<group>"; };
+		04F096BA2C91AB4800C989A7 /* HFBatteryTypeList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFBatteryTypeList.m; sourceTree = "<group>"; };
 		04F4CFAC2C73188400F5F764 /* OrderDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewCell.swift; sourceTree = "<group>"; };
 		04F4CFAE2C731CCD00F5F764 /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
 		04F4CFB02C731EA100F5F764 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
@@ -1369,6 +1375,10 @@
 				04F096B12C9179EE00C989A7 /* HFOrderDetailData.m */,
 				04F096B32C91883600C989A7 /* HFCabinetExtraInfo.h */,
 				04F096B42C91883600C989A7 /* HFCabinetExtraInfo.m */,
+				04F096B62C91A9D100C989A7 /* HFBatteryTypeInfo.h */,
+				04F096B72C91A9D100C989A7 /* HFBatteryTypeInfo.m */,
+				04F096B92C91AB4800C989A7 /* HFBatteryTypeList.h */,
+				04F096BA2C91AB4800C989A7 /* HFBatteryTypeList.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -2257,6 +2267,7 @@
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				046B4EEB2C6DFC3E00DCD5CB /* BikeDetailViewController.swift in Sources */,
+				04F096B82C91A9D100C989A7 /* HFBatteryTypeInfo.m in Sources */,
 				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
 				048EE7602C3D481C0094A0CB /* PersonalInfoListViewCell.swift in Sources */,
@@ -2274,6 +2285,7 @@
 				043C4C172C2EAFC600E887B9 /* BatteryTypeViewCell.swift in Sources */,
 				04F4CFBD2C7491BD00F5F764 /* BikeActionViewCell.swift in Sources */,
 				046B4ED92C6D9B4F00DCD5CB /* AllCouponViewController.swift in Sources */,
+				04F096BB2C91AB4800C989A7 /* HFBatteryTypeList.m in Sources */,
 				0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */,
 				04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */,
 				04BE42AA2C11D1EA002B78EA /* CityChooseViewCell.swift in Sources */,

@@ -35,10 +35,10 @@ class ChooseBatteryTypeContentViewController: TabmanViewController {
     
     
     
-    let items: [(menu: String, content: UIViewController)] = ["全部","48V","60V"].map {
-        let title = $0
+    var items: [(menu: HFBatteryTypeInfo, content: UIViewController)] = [HFBatteryTypeInfo()].map {
+        let model = $0
         let vc = BatteryTypeListViewController()
-        return (menu: title, content: vc)
+        return (menu: model, content: vc)
     }
     
  
@@ -57,6 +57,37 @@ class ChooseBatteryTypeContentViewController: TabmanViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
+        updateItems()
+    }
+    func updateItems(){
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+
+        var params = [String: Any]()
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+
+        self.getData(largeTypeParentUrl, param: params, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                let parentGroups = body["parentGroups"] as? [[String:Any]]{
+                var all = [HFBatteryTypeInfo]()
+                let type = HFBatteryTypeInfo()
+                type.name = "全部"
+                type.id = NSNumber(integerLiteral: -1)
+                type.parentId = NSNumber(integerLiteral: -1)
+                all.append(type)
+                let items = HFBatteryTypeInfo.mj_objectArray(withKeyValuesArray: parentGroups) as? [HFBatteryTypeInfo] ?? []
+                all.append(contentsOf: items)
+                self.items = all.map {
+                    let model = $0
+                    let vc = BatteryTypeListViewController()
+                    vc.parentId = $0.id.intValue
+                    return (menu: model, content: vc)
+                }
+                self.reloadData()
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
     }
     
 }
@@ -88,6 +119,7 @@ private extension ChooseBatteryTypeContentViewController {
         bar.backgroundView.style = .flat(color: .white)
         bar.layout.transitionStyle = .snap // Customize
         bar.layout.contentMode = .fit
+        bar.layout.alignment = .centerDistributed
         bar.indicator.cornerStyle = .rounded
         bar.indicator.tintColor = .clear
         bar.buttons.customize { button in
@@ -100,6 +132,7 @@ private extension ChooseBatteryTypeContentViewController {
         }
         // Add to view
         addBar(bar, dataSource: self, at: .top)
+        // 如果只有一项，默认选中
     }
     
     private func setupLayout() {
@@ -120,11 +153,11 @@ extension ChooseBatteryTypeContentViewController: PageboyViewControllerDataSourc
     }
 
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return nil
+        return .first
     }
 
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        let title = items[index].menu
+        let title = items[index].menu.name
         return TMBarItem(title: title)
     }
 }
@@ -145,11 +178,12 @@ private extension ChooseBatteryTypeContentViewController {
     
 }
 
-class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewCell,BatteryType>{
+class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewCell,HFBatteryTypeList>{
     
     
     
     // MARK: - Accessor
+    var parentId:Int = -1
     var index = 0
     // MARK: - Subviews
     
@@ -162,16 +196,48 @@ class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewC
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            BatteryType(id: 0,title: "60V36AH",content: "续航60-80公里，适合全职及众包骑手"),
-            BatteryType(id: 1,title: "60V36AH",content: "电池适用描述，电池适用描述电池适用描述，"),
-        ]
+        self.loadData()
+        
+    }
+    func loadData(){
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+
+        var params = [String: Any]()
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        if self.parentId != -1{
+            params["parentId"] = self.parentId
+        }
+        self.getData(largeTypeUrl, param: params, isLoading:false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+               let list = body["list"] as? [[String:Any]]{
+                let items = HFBatteryTypeList.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryTypeList] ?? []
+                self.items = items
+
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
-    
+    override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cellx = cell as? BatteryTypeListViewCell{
+            cellx.sureAction = { sender in
+                let buyPackageCardVC = BuyPackageCardViewController()
+                buyPackageCardVC.batteryType = self.items[indexPath.row]
+                self.navigationController?.pushViewController(buyPackageCardVC, animated: true)
+            }
+            cellx.detailAction = { sender in
+                
+            }
+        }
+    }
 }
 
 // MARK: - Setup
