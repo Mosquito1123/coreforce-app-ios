@@ -241,6 +241,10 @@
 		048EE7832C3F7A720094A0CB /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7822C3F7A720094A0CB /* BaseTableViewController.swift */; };
 		048EE7852C3F7ACB0094A0CB /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7842C3F7ACB0094A0CB /* BaseTableViewCell.swift */; };
 		0495A53B2C92CA5700C2D03A /* HFPayData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A53A2C92CA5700C2D03A /* HFPayData.m */; };
+		0495A5412C92DFD100C2D03A /* BatteryRentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5402C92DFD100C2D03A /* BatteryRentalViewController.swift */; };
+		0495A5472C92E34300C2D03A /* BatteryRenewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5462C92E34300C2D03A /* BatteryRenewViewController.swift */; };
+		0495A54D2C92E3FE00C2D03A /* BikeRenewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A54C2C92E3FE00C2D03A /* BikeRenewViewController.swift */; };
+		0495A5532C92E46D00C2D03A /* BikeRentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5522C92E46D00C2D03A /* BikeRentalViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -616,6 +620,10 @@
 		048EE7842C3F7ACB0094A0CB /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		0495A5392C92CA5700C2D03A /* HFPayData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFPayData.h; sourceTree = "<group>"; };
 		0495A53A2C92CA5700C2D03A /* HFPayData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFPayData.m; sourceTree = "<group>"; };
+		0495A5402C92DFD100C2D03A /* BatteryRentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryRentalViewController.swift; sourceTree = "<group>"; };
+		0495A5462C92E34300C2D03A /* BatteryRenewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryRenewViewController.swift; sourceTree = "<group>"; };
+		0495A54C2C92E3FE00C2D03A /* BikeRenewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRenewViewController.swift; sourceTree = "<group>"; };
+		0495A5522C92E46D00C2D03A /* BikeRentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRentalViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -851,12 +859,15 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0495A54E2C92E42100C2D03A /* BikeRental */,
+				0495A5482C92E38400C2D03A /* BikeRenew */,
+				0495A5422C92E30E00C2D03A /* BatteryRenew */,
+				0495A53C2C92DF1600C2D03A /* BatteryRental */,
 				044E1F382C8EDC6B00A8E626 /* NetworkV1 */,
 				04DF8D3E2C85A697005F5BBA /* Feedback */,
 				046B4EEC2C6DFC4D00DCD5CB /* Order */,
 				046B4EE12C6DFA6500DCD5CB /* BikeDetail */,
 				046B4EE02C6DFA5A00DCD5CB /* BatteryDetail */,
-				048EE7672C3E341E0094A0CB /* BatteryRental */,
 				048EE7632C3E33920094A0CB /* BatteryReplacement */,
 				043C4C0E2C2EA46B00E887B9 /* PackageCard */,
 				04A5E51A2C1C24CA00787551 /* Scan */,
@@ -1779,37 +1790,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		048EE7672C3E341E0094A0CB /* BatteryRental */ = {
-			isa = PBXGroup;
-			children = (
-				048EE76A2C3E347C0094A0CB /* Models */,
-				048EE7692C3E34760094A0CB /* Controllers */,
-				048EE7682C3E34720094A0CB /* VIews */,
-			);
-			path = BatteryRental;
-			sourceTree = "<group>";
-		};
-		048EE7682C3E34720094A0CB /* VIews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = VIews;
-			sourceTree = "<group>";
-		};
-		048EE7692C3E34760094A0CB /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		048EE76A2C3E347C0094A0CB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		048EE76B2C3E37AD0094A0CB /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1834,6 +1814,134 @@
 				048EE7822C3F7A720094A0CB /* BaseTableViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0495A53C2C92DF1600C2D03A /* BatteryRental */ = {
+			isa = PBXGroup;
+			children = (
+				0495A53F2C92DF3500C2D03A /* Views */,
+				0495A53E2C92DF2D00C2D03A /* Controllers */,
+				0495A53D2C92DF2400C2D03A /* Models */,
+			);
+			path = BatteryRental;
+			sourceTree = "<group>";
+		};
+		0495A53D2C92DF2400C2D03A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0495A53E2C92DF2D00C2D03A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0495A5402C92DFD100C2D03A /* BatteryRentalViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0495A53F2C92DF3500C2D03A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0495A5422C92E30E00C2D03A /* BatteryRenew */ = {
+			isa = PBXGroup;
+			children = (
+				0495A5452C92E32A00C2D03A /* Views */,
+				0495A5442C92E32200C2D03A /* Controllers */,
+				0495A5432C92E31800C2D03A /* Models */,
+			);
+			path = BatteryRenew;
+			sourceTree = "<group>";
+		};
+		0495A5432C92E31800C2D03A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0495A5442C92E32200C2D03A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0495A5462C92E34300C2D03A /* BatteryRenewViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0495A5452C92E32A00C2D03A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0495A5482C92E38400C2D03A /* BikeRenew */ = {
+			isa = PBXGroup;
+			children = (
+				0495A54B2C92E3DE00C2D03A /* Controllers */,
+				0495A54A2C92E3D600C2D03A /* Views */,
+				0495A5492C92E38E00C2D03A /* Models */,
+			);
+			path = BikeRenew;
+			sourceTree = "<group>";
+		};
+		0495A5492C92E38E00C2D03A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0495A54A2C92E3D600C2D03A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0495A54B2C92E3DE00C2D03A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0495A54C2C92E3FE00C2D03A /* BikeRenewViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0495A54E2C92E42100C2D03A /* BikeRental */ = {
+			isa = PBXGroup;
+			children = (
+				0495A5512C92E45200C2D03A /* Models */,
+				0495A5502C92E43300C2D03A /* Views */,
+				0495A54F2C92E42900C2D03A /* Controllers */,
+			);
+			path = BikeRental;
+			sourceTree = "<group>";
+		};
+		0495A54F2C92E42900C2D03A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0495A5522C92E46D00C2D03A /* BikeRentalViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0495A5502C92E43300C2D03A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0495A5512C92E45200C2D03A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		04A5E51A2C1C24CA00787551 /* Scan */ = {
@@ -2310,6 +2418,7 @@
 				0451653D2C1AA40100ABE7F1 /* RealNameAuthViewController.swift in Sources */,
 				045215282C368A120091FD1A /* CustomerServicePagerItemViewCell.swift in Sources */,
 				046B4ED72C6D9B3700DCD5CB /* AllPackageCardViewController.swift in Sources */,
+				0495A54D2C92E3FE00C2D03A /* BikeRenewViewController.swift in Sources */,
 				0415AF362BC935F000E9290D /* CustomPlugin.swift in Sources */,
 				04FFEE3E2C046FDF00939B46 /* HomeViewController.swift in Sources */,
 				0452152E2C37E1E80091FD1A /* CabinetFilterViewCell.swift in Sources */,
@@ -2399,6 +2508,7 @@
 				044E1F3F2C8EDE8000A8E626 /* HFKeyedArchiverTool.m in Sources */,
 				04FFEE422C04A04600939B46 /* LocationChooseView.swift in Sources */,
 				0443B9E72C10173100834069 /* String+Extension.swift in Sources */,
+				0495A5412C92DFD100C2D03A /* BatteryRentalViewController.swift in Sources */,
 				04EBBB062C1861DF00AFD14B /* BikeDetail.swift in Sources */,
 				0452153A2C3CDA5D0091FD1A /* LogoffListViewCell.swift in Sources */,
 				045C17582C2C07330082AF5B /* PersonalElementIconViewCell.swift in Sources */,
@@ -2425,6 +2535,7 @@
 				0415AF3F2BCCD97400E9290D /* BatteryDepositAPI.swift in Sources */,
 				04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */,
 				0451653F2C1AA4E900ABE7F1 /* HFIDCardIdentifyView.swift in Sources */,
+				0495A5532C92E46D00C2D03A /* BikeRentalViewController.swift in Sources */,
 				04BE429D2C11C2EF002B78EA /* CityCodeManager.swift in Sources */,
 				04EAF4512C22BC5100CD1434 /* CabinetPanelViewController.swift in Sources */,
 				04FFEE392C0097CE00939B46 /* LoginInviteCodeInputView.swift in Sources */,
@@ -2445,6 +2556,7 @@
 				04F4CFAD2C73188400F5F764 /* OrderDetailViewCell.swift in Sources */,
 				04EBBB042C185D1300AFD14B /* BatteryDetail.swift in Sources */,
 				048EE76F2C3E37E80094A0CB /* CustomPresentationController.swift in Sources */,
+				0495A5472C92E34300C2D03A /* BatteryRenewViewController.swift in Sources */,
 				043DEC8B2C08B421003FD6AD /* SearchCabinetListHeaderView.swift in Sources */,
 				04F4CFCF2C7583C300F5F764 /* BatteryAgentViewCell.swift in Sources */,
 				0451657D2C1AC0DF00ABE7F1 /* JYBDScanCardBaseVC.m in Sources */,
