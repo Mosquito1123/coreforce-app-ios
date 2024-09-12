@@ -91,5 +91,7 @@
 #define mileageUrl @"/app/api/member/mileage"
 #define largeTypeParentUrl @"/app/api/largeTypeParent/list"
 #define largeTypeUrl @"/app/api/largeType/list"
+#define helpDictListUrl @"/app/api/dict/list"
+#define helpListUrl @"/app/api/help/list"
 
 #endif /* URLString_h */

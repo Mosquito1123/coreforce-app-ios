@@ -8,7 +8,8 @@
 import UIKit
 
 class BatteryRenewViewController: UIViewController{
-    
+    @objc var batteryType:HFBatteryTypeList?
+
     // MARK: - Accessor
     var items = [BuyPackageCard](){
         didSet{
@@ -64,6 +65,7 @@ class BatteryRenewViewController: UIViewController{
                 let limitedList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
                 let newList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
                 self.items = [
+                    BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.name, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"),
                     BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList),
                     BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList),
                     BuyPackageCard(title: "换电不限次套餐",subtitle: "", identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList),

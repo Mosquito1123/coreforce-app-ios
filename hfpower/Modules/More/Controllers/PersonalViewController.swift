@@ -7,7 +7,23 @@
 
 import UIKit
 import ZLPhotoBrowser
-class PersonalViewController: BaseViewController {
+class PersonalViewController: BaseViewController, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+    func rentBike(number: String?) {
+        
+    }
+    
+    func batteryReplacement(id: Int?, number: String?) {
+        
+    }
+    
+    func rentBattery(number: String?) {
+        
+    }
+    
+    func cabinetRentBattery(number: String?) {
+        
+    }
+    
     
     // MARK: - Accessor
     var items = [PersonalList](){
@@ -214,10 +230,8 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             }
             contentCell.batteryRentAction = { sender in
                 //扫码租电
-                let scanVC = HFScanViewController()
-                scanVC.resultBlock = { result in
-                }
-                self.navigationController?.pushViewController(scanVC, animated: true)
+                HFScanTool.shared.showScanController(from: self)
+
             }
             contentCell.batteryRenewAction = { sender in
                 //电池续租
@@ -230,10 +244,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             }
             contentCell.bikeRentAction = { sender in
                 //扫码租车
-                let scanVC = HFScanViewController()
-                scanVC.resultBlock = { result in
-                }
-                self.navigationController?.pushViewController(scanVC, animated: true)
+                HFScanTool.shared.showScanController(from: self)
             }
             contentCell.bikeRenewAction = { sender in
                 //电车续租

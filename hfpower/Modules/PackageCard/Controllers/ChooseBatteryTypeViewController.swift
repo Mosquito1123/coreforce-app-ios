@@ -234,7 +234,9 @@ class BatteryTypeListViewController:BaseTableViewController<BatteryTypeListViewC
                 self.navigationController?.pushViewController(buyPackageCardVC, animated: true)
             }
             cellx.detailAction = { sender in
-                
+                let batteryTypeDetailVC = BatteryTypeDetailViewController()
+                batteryTypeDetailVC.batteryType = self.items[indexPath.row]
+                self.navigationController?.pushViewController(batteryTypeDetailVC, animated: true)
             }
         }
     }

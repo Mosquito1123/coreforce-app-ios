@@ -245,6 +245,7 @@
 		0495A5472C92E34300C2D03A /* BatteryRenewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5462C92E34300C2D03A /* BatteryRenewViewController.swift */; };
 		0495A54D2C92E3FE00C2D03A /* BikeRenewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A54C2C92E3FE00C2D03A /* BikeRenewViewController.swift */; };
 		0495A5532C92E46D00C2D03A /* BikeRentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5522C92E46D00C2D03A /* BikeRentalViewController.swift */; };
+		0495A5572C92F9B500C2D03A /* BatteryTypeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5562C92F9B500C2D03A /* BatteryTypeDetailViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -624,6 +625,7 @@
 		0495A5462C92E34300C2D03A /* BatteryRenewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryRenewViewController.swift; sourceTree = "<group>"; };
 		0495A54C2C92E3FE00C2D03A /* BikeRenewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRenewViewController.swift; sourceTree = "<group>"; };
 		0495A5522C92E46D00C2D03A /* BikeRentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRentalViewController.swift; sourceTree = "<group>"; };
+		0495A5562C92F9B500C2D03A /* BatteryTypeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeDetailViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -1156,6 +1158,7 @@
 				0438936D2C3FED2800E61C0D /* ChooseBatteryTypeViewController.swift */,
 				046B4ED62C6D9B3700DCD5CB /* AllPackageCardViewController.swift */,
 				046B4ED82C6D9B4F00DCD5CB /* AllCouponViewController.swift */,
+				0495A5562C92F9B500C2D03A /* BatteryTypeDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1944,21 +1947,28 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		04A5E51A2C1C24CA00787551 /* Scan */ = {
+		0495A5542C92EBDB00C2D03A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				04A5E51D2C1C24DD00787551 /* Models */,
-				04A5E51C2C1C24D600787551 /* Controllers */,
-				04A5E51B2C1C24CF00787551 /* Views */,
 			);
-			path = Scan;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		04A5E51B2C1C24CF00787551 /* Views */ = {
+		0495A5552C92EC3E00C2D03A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		04A5E51A2C1C24CA00787551 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				0495A5552C92EC3E00C2D03A /* Views */,
+				0495A5542C92EBDB00C2D03A /* Models */,
+				04A5E51C2C1C24D600787551 /* Controllers */,
+			);
+			path = Scan;
 			sourceTree = "<group>";
 		};
 		04A5E51C2C1C24D600787551 /* Controllers */ = {
@@ -1968,13 +1978,6 @@
 				04A5E5202C1C25B000787551 /* MyCodeViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		04A5E51D2C1C24DD00787551 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		04BE42A22C11D152002B78EA /* SectionIndexView */ = {
@@ -2385,6 +2388,7 @@
 				04001C4E2C073103000A040F /* HFStackView.swift in Sources */,
 				0415AF382BC94A5100E9290D /* NetworkingClient.swift in Sources */,
 				046B4EEB2C6DFC3E00DCD5CB /* BikeDetailViewController.swift in Sources */,
+				0495A5572C92F9B500C2D03A /* BatteryTypeDetailViewController.swift in Sources */,
 				04F096B82C91A9D100C989A7 /* HFBatteryTypeInfo.m in Sources */,
 				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,

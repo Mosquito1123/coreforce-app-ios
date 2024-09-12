@@ -10,7 +10,11 @@ import FSPagerView
 import FloatingPanel
 import Kingfisher
 import CoreLocation
-class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate, FSPagerViewDataSource, FSPagerViewDelegate {
+class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate, FSPagerViewDataSource, FSPagerViewDelegate ,BatteryRentalViewControllerDelegate,BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+    func rentBike(number: String?) {
+        
+    }
+    
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return imageUrls.count
     }
@@ -153,6 +157,13 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
         
         
     }
+    func batteryReplacement(id:Int?,number:String?){
+    }
+    func rentBattery(number:String?){
+    }
+    func cabinetRentBattery(number: String?) {
+        
+    }
 }
 
 // MARK: - Setup
@@ -203,10 +214,8 @@ private extension CabinetDetailViewController {
         }()
         fpc.addPanel(toParent: self)
         self.bottomView.scanAction = { bt in
-            let scanVC = HFScanViewController()
-            scanVC.resultBlock = { result in
-            }
-            self.navigationController?.pushViewController(scanVC, animated: true)
+            HFScanTool.shared.showScanController(from: self)
+
         }
         self.view.addSubview(self.bottomView)
         self.view.bringSubviewToFront(self.cancelButton)

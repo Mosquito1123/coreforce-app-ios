@@ -8,9 +8,53 @@
 import UIKit
 import swiftScan
 import HMSegmentedControl
+class HFScanTool{
+    static let shared = HFScanTool()
+    func showScanController(from vc:UIViewController & BatteryRentalViewControllerDelegate & BatteryReplacementViewControllerDelegate & BikeRentalViewControllerDelegate){
+        let scanVC = HFScanViewController()
+        scanVC.resultBlock = { result in
+            guard let resultString = result.strScanned else {return}
+            if resultString.contains("www.coreforce.cn") {
+                // 扫码获得类型
+                guard let startRange = resultString.range(of: "cn/"),
+                      let endRange = resultString.range(of: "?n") else { return }
+                
+                let range = startRange.upperBound..<endRange.lowerBound
+                let resultStr = String(resultString[range])
+                
+                // 获得 n= 型号字符串
+                let resultArray = resultString.components(separatedBy: "n=")
+                guard let typeName = resultArray.last else { return }
+                
+                if resultStr == "b" {//电池
+                    if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber == typeName {
+                        let batteryVC = BatteryDetailViewController()
+                        vc.navigationController?.pushViewController(batteryVC, animated: true)
+                        return
+                    } else if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber != typeName {
+                        vc.showError(withStatus: "已租电池，请扫柜换电")
+                        return
+                    }
+                    vc.rentBattery(number: typeName)
+                } else if resultStr == "c" {//电柜
+                    if let battery = HFKeyedArchiverTool.batteryDataList().first{//换电
+                        vc.batteryReplacement(id: battery.id.intValue, number: typeName)
+                    }else{//新租
+                        vc.cabinetRentBattery(number: typeName)
+                    }
+                }else if resultStr == "l" {//机车
+                    vc.rentBike(number: typeName)
+                }else{
+                    vc.showError(withStatus: "二维码错误，请扫核蜂换电有关二维码进行扫码")
+                }
+            }
+        }
+        vc.navigationController?.pushViewController(scanVC, animated: true)
+    }
+}
 class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
     var resultBlock:((LBXScanResult)->Void)?
-    var titles = ["扫码", "蓝牙", "输码"]{
+    var titles = ["扫码", "输码"]{
         didSet{
             
         }

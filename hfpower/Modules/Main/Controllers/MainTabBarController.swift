@@ -7,7 +7,11 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
+class MainTabBarController: UITabBarController,UITabBarControllerDelegate,BatteryRentalViewControllerDelegate,BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+    func rentBike(number: String?) {
+        
+    }
+    
     
     // MARK: - Accessor
     lazy var centerButton: MainScanButton = {
@@ -195,44 +199,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
     
     @objc func centerButtonTapped(_ sender: UIButton) {
         // Custom button action, e.g., open scan page
-        let scanVC = HFScanViewController()
-        scanVC.resultBlock = { result in
-            guard let resultString = result.strScanned else {return}
-            if resultString.contains("www.coreforce.cn") {
-                // 扫码获得类型
-                guard let startRange = resultString.range(of: "cn/"),
-                      let endRange = resultString.range(of: "?n") else { return }
-                
-                let range = startRange.upperBound..<endRange.lowerBound
-                let resultStr = String(resultString[range])
-                
-                // 获得 n= 型号字符串
-                let resultArray = resultString.components(separatedBy: "n=")
-                guard let typeName = resultArray.last else { return }
-                
-                if resultStr == "b" {//电池
-                    if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber == typeName {
-                        let batteryVC = BatteryDetailViewController()
-                        self.navigationController?.pushViewController(batteryVC, animated: true)
-                        return
-                    } else if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber != typeName {
-                        self.showError(withStatus: "已租电池，请扫柜换电")
-                        return
-                    }
-                } else if resultStr == "c" {//电柜
-                    if let battery = HFKeyedArchiverTool.batteryDataList().first{//换电
-                        self.batteryReplacement(id: battery.id.intValue, number: typeName)
-                    }else{//新租
-                        self.rentBattery(number: typeName)
-                    }
-                }else if resultStr == "l" {//机车
-                    
-                }else{
-                    self.showError(withStatus: "二维码错误，请扫核蜂换电有关二维码进行扫码")
-                }
-            }
-        }
-        self.navigationController?.pushViewController(scanVC, animated: true)
+        HFScanTool.shared.showScanController(from: self)
     }
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController is HomeViewController{
@@ -249,6 +216,9 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate {
                 self.setupNavbarMore()
             }
         }
+    }
+    func cabinetRentBattery(number: String?) {
+        
     }
     func rentBattery(number:String?){
         /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: nil, number: number)) { result in

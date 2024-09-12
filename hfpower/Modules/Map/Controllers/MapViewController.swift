@@ -8,7 +8,23 @@
 import UIKit
 import MapKit
 import FloatingPanel
-class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
+class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+    func rentBike(number: String?) {
+        
+    }
+    
+    func batteryReplacement(id: Int?, number: String?) {
+        
+    }
+    
+    func rentBattery(number: String?) {
+        
+    }
+    
+    func cabinetRentBattery(number: String?) {
+        
+    }
+    
     
     // MARK: - Accessor
     lazy var locationManager: CLLocationManager = {
@@ -372,10 +388,8 @@ extension MapViewController{
                 self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
             }
             contentVC.scanAction = { sender in
-                let scanVC = HFScanViewController()
-                scanVC.resultBlock = {result in
-                }
-                self.navigationController?.pushViewController(scanVC, animated: true)
+                HFScanTool.shared.showScanController(from: self)
+
             }
             contentVC.detailAction = { sender in
                 

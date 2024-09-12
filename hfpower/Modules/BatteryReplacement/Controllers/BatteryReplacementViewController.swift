@@ -6,7 +6,9 @@
 //
 
 import UIKit
-
+protocol BatteryReplacementViewControllerDelegate{
+    func batteryReplacement(id:Int?,number:String?)
+}
 class BatteryReplacementViewController: BaseTableViewController<BatteryReplacementStatusViewCell,BatteryReplacementStatus> {
     
     // MARK: - Accessor
