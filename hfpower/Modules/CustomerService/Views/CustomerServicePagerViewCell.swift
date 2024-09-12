@@ -17,12 +17,15 @@ class CustomerServicePagerViewCell: UITableViewCell ,UITableViewDelegate,UITable
         cell.element = self.elements[indexPath.row]
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.didSelectRowAction?(tableView,indexPath)
+    }
     
     // MARK: - Accessor
+    var didSelectRowAction:((_ tableView: UITableView, _ indexPath: IndexPath)->Void)?
     var containerViewHeight:NSLayoutConstraint!
 
-    private var elements:[String] = []{
+    var elements:[HFHelpList] = [HFHelpList](){
         didSet{
             self.tableView.reloadData()
 
@@ -31,7 +34,7 @@ class CustomerServicePagerViewCell: UITableViewCell ,UITableViewDelegate,UITable
     var title:String?{
         didSet{
             self.titleLabel.text = title
-            self.elements = [""]
+            
         }
     }
     // MARK: - Subviews

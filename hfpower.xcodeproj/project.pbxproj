@@ -246,6 +246,8 @@
 		0495A54D2C92E3FE00C2D03A /* BikeRenewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A54C2C92E3FE00C2D03A /* BikeRenewViewController.swift */; };
 		0495A5532C92E46D00C2D03A /* BikeRentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5522C92E46D00C2D03A /* BikeRentalViewController.swift */; };
 		0495A5572C92F9B500C2D03A /* BatteryTypeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5562C92F9B500C2D03A /* BatteryTypeDetailViewController.swift */; };
+		0495A55D2C9317B800C2D03A /* HFHelpList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A55C2C9317B800C2D03A /* HFHelpList.m */; };
+		0495A55F2C931D7800C2D03A /* CustomerServiceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A55E2C931D7800C2D03A /* CustomerServiceDetailViewController.swift */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -626,6 +628,9 @@
 		0495A54C2C92E3FE00C2D03A /* BikeRenewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRenewViewController.swift; sourceTree = "<group>"; };
 		0495A5522C92E46D00C2D03A /* BikeRentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeRentalViewController.swift; sourceTree = "<group>"; };
 		0495A5562C92F9B500C2D03A /* BatteryTypeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTypeDetailViewController.swift; sourceTree = "<group>"; };
+		0495A55B2C9317B800C2D03A /* HFHelpList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFHelpList.h; sourceTree = "<group>"; };
+		0495A55C2C9317B800C2D03A /* HFHelpList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFHelpList.m; sourceTree = "<group>"; };
+		0495A55E2C931D7800C2D03A /* CustomerServiceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServiceDetailViewController.swift; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -787,18 +792,11 @@
 		04001C472C071FB9000A040F /* CustomerService */ = {
 			isa = PBXGroup;
 			children = (
+				0495A5582C9306C700C2D03A /* Models */,
 				04001C4A2C071FDD000A040F /* Controllers */,
 				04001C492C071FD4000A040F /* Views */,
-				04001C482C071FC5000A040F /* Models */,
 			);
 			path = CustomerService;
-			sourceTree = "<group>";
-		};
-		04001C482C071FC5000A040F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		04001C492C071FD4000A040F /* Views */ = {
@@ -814,6 +812,7 @@
 			isa = PBXGroup;
 			children = (
 				04001C4B2C071FF6000A040F /* CustomerServiceViewController.swift */,
+				0495A55E2C931D7800C2D03A /* CustomerServiceDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1403,6 +1402,8 @@
 				042CAE262C91CB0900EC67DC /* HFPackageCardModel.m */,
 				0495A5392C92CA5700C2D03A /* HFPayData.h */,
 				0495A53A2C92CA5700C2D03A /* HFPayData.m */,
+				0495A55B2C9317B800C2D03A /* HFHelpList.h */,
+				0495A55C2C9317B800C2D03A /* HFHelpList.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -1961,6 +1962,27 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0495A5582C9306C700C2D03A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0495A5592C93087B00C2D03A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0495A55A2C93088600C2D03A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		04A5E51A2C1C24CA00787551 /* Scan */ = {
 			isa = PBXGroup;
 			children = (
@@ -2058,8 +2080,8 @@
 		04FFEE4F2C05AECD00939B46 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				04FFEE522C05AEFE00939B46 /* Models */,
-				04FFEE512C05AEE200939B46 /* Views */,
+				0495A55A2C93088600C2D03A /* Views */,
+				0495A5592C93087B00C2D03A /* Models */,
 				04FFEE502C05AED900939B46 /* Controllers */,
 			);
 			path = Notification;
@@ -2071,20 +2093,6 @@
 				04001C392C05C603000A040F /* NotificationViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		04FFEE512C05AEE200939B46 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		04FFEE522C05AEFE00939B46 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		331C90B12BC6C60000BB534F = {
@@ -2415,6 +2423,7 @@
 				04DE268D2C32A5F90052D056 /* FeeDetailViewCell.swift in Sources */,
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
 				042849152C2436EC0011032F /* CabinetDetailContentViewController.swift in Sources */,
+				0495A55D2C9317B800C2D03A /* HFHelpList.m in Sources */,
 				04F096AF2C91777700C989A7 /* HFAllOrder.m in Sources */,
 				048EE7752C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift in Sources */,
 				044632612C8F1A8100DB8D37 /* AuthStatusView.swift in Sources */,
@@ -2606,6 +2615,7 @@
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
 				04F4CFC12C749EC500F5F764 /* BikeRemainingTermViewCell.swift in Sources */,
+				0495A55F2C931D7800C2D03A /* CustomerServiceDetailViewController.swift in Sources */,
 				04708FA52C901623001E809C /* HFCabinetExchangeForecast.m in Sources */,
 				04F4CFB32C7323A900F5F764 /* OrderDetailFooterView.swift in Sources */,
 				0415AF412BCCDC6300E9290D /* PackageCardAPI.swift in Sources */,

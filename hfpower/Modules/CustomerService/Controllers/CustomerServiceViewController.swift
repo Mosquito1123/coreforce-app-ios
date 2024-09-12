@@ -45,37 +45,38 @@ class CustomerServiceViewController:BaseViewController{
         self.navigationItem.leftBarButtonItem = backBarButtonItem
         // 创建一个新的 UINavigationBarAppearance 实例
         let appearance = UINavigationBarAppearance()
-
+        
         appearance.configureWithTransparentBackground()
-
+        
         // 设置背景色为白色
-
+        
         // 设置标题文本属性为白色
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white,.font:UIFont.systemFont(ofSize: 18, weight: .semibold)]
         
         // 设置大标题文本属性为白色
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
-      
-       
+        
+        
     }
-  
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         setupNavbar()
-
+        
     }
 }
 class CustomerServiceContentViewController: TabmanViewController {
     
     // MARK: - Accessor
-    let items: [(menu: String, content: UIViewController)] = ["常见问题","换电操作","电池问题","电柜问题","其他"].map {
-        let title = $0
+    var items: [(menu: HFHelpDict, content: UIViewController)] = [HFHelpDict()].map {
+        let model = $0
         let vc = CustomerServicePagerViewController()
-        return (menu: title, content: vc)
+        return (menu: model, content: vc)
     }
-
+    
+    
     var contactAction:ButtonActionBlock?
     
     // MARK: - Subviews
@@ -93,7 +94,7 @@ class CustomerServiceContentViewController: TabmanViewController {
         button.setImage(UIImage(named: "customer_service_phone"), for: .normal)
         button.setImage(UIImage(named: "customer_service_phone"), for: .highlighted)
         button.setImage(UIImage(named: "customer_service_phone"), for: .selected)
-
+        
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
@@ -115,8 +116,27 @@ class CustomerServiceContentViewController: TabmanViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
+        loadItems()
     }
-    
+    func loadItems(){
+        self.getData(helpDictListUrl, param: ["dictType":"SYS_HELP_TYPE"], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                let helpDictList = (HFHelpDict.mj_objectArray(withKeyValuesArray: dataList) as? [HFHelpDict]) ?? []
+                self.items = helpDictList.map {
+                    let model = $0
+                    let vc = CustomerServicePagerViewController()
+                    vc.id = $0.id
+                    return (menu: model, content: vc)
+                }
+                self.reloadData()
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+        
+    }
 }
 
 // MARK: - Setup
@@ -124,12 +144,12 @@ private extension CustomerServiceContentViewController {
     
     private func setupNavbar() {
         self.title = "核蜂客服"
-
-       
+        
+        
     }
-
     
-   
+    
+    
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
         self.view.insertSubview(backgroundImageView, at: 0)
@@ -144,12 +164,12 @@ private extension CustomerServiceContentViewController {
         bar.indicator.cornerStyle = .rounded
         bar.indicator.tintColor = .white
         bar.buttons.customize { button in
-     
+            
             button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
             button.font = UIFont.systemFont(ofSize: 15)
             button.tintColor = UIColor(rgba: 0xFFFFFFFF).withAlphaComponent(0.7)
             button.selectedTintColor = UIColor(rgba: 0xFFFFFFFF)
-
+            
         }
         // Add to view
         addBar(bar, dataSource: self, at: .top)
@@ -163,13 +183,13 @@ private extension CustomerServiceContentViewController {
             self.backgroundImageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.backgroundImageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.backgroundImageView.heightAnchor.constraint(equalToConstant: 300),
-           
+            
             self.contactButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 16),
             self.contactButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor,constant: -16),
             self.contactButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,constant: -29),
             self.contactButton.heightAnchor.constraint(equalToConstant: 50),
-
-
+            
+            
         ])
     }
 }
@@ -177,22 +197,22 @@ private extension CustomerServiceContentViewController {
 // MARK: - Public
 
 extension CustomerServiceContentViewController: PageboyViewControllerDataSource, TMBarDataSource {
-
+    
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return items.count
     }
-
+    
     func viewController(for pageboyViewController: PageboyViewController,
                         at index: PageboyViewController.PageIndex) -> UIViewController? {
         return items[index].content
     }
-
+    
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return nil
+        return .first
     }
-
+    
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        let title = items[index].menu
+        let title = items[index].menu.title
         return TMBarItem(title: title)
     }
 }
@@ -230,10 +250,16 @@ class CustomerServicePagerViewController:UIViewController,UITableViewDelegate,UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomerServicePagerViewCell.cellIdentifier(), for: indexPath) as? CustomerServicePagerViewCell else {return UITableViewCell()}
         cell.title = self.title
+        cell.elements = self.list
+        cell.didSelectRowAction = { tableView,indexPath in
+            let detailVC = CustomerServiceDetailViewController()
+            detailVC.element = self.list[indexPath.row]
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
         return cell
     }
     
-   
+    
     // MARK: - Subviews
     
     // 懒加载的 TableView
@@ -245,16 +271,30 @@ class CustomerServicePagerViewController:UIViewController,UITableViewDelegate,UI
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(CustomerServicePagerViewCell.self, forCellReuseIdentifier: CustomerServicePagerViewCell.cellIdentifier())
-
+        
         return tableView
     }()
+    @objc var id:NSNumber = 1
+    var list:[HFHelpList] = [HFHelpList]()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavbar()
         setupSubviews()
         setupLayout()
+        loadData()
     }
-    
+    func loadData(){
+        self.getData(helpListUrl, param: ["type":id,"title":"常见问题"], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                let list = body["list"] as? [[String:Any]]{
+                 let items = HFHelpList.mj_objectArray(withKeyValuesArray: list) as? [HFHelpList] ?? []
+                 self.list = items
+                self.tableView.reloadData()
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+    }
 }
 private extension CustomerServicePagerViewController{
     private func setupNavbar() {
@@ -262,7 +302,7 @@ private extension CustomerServicePagerViewController{
     private func setupSubviews() {
         self.view.backgroundColor = UIColor.clear
         self.view.addSubview(self.tableView)
-      
+        
     }
     private func setupLayout() {
         NSLayoutConstraint.activate([

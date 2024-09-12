@@ -10,9 +10,11 @@ import UIKit
 class CustomerServicePagerItemViewCell: UITableViewCell {
     
     // MARK: - Accessor
-    var element:String?{
+    var element:HFHelpList?{
         didSet{
-            
+            self.numberLabel.text = element?.id.stringValue
+            self.titleLabel.text = element?.title
+
         }
     }
     // MARK: - Subviews

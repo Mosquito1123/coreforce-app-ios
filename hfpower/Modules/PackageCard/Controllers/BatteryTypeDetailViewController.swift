@@ -171,7 +171,7 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                 <div class="battery-range">
                     <div>
                         <span>电池续航</span>
-                        <span>\(batteryType?.maxMileage ?? 0)km</span>
+                        <span>\(batteryType?.minMileage ?? 0)km~\(batteryType?.maxMileage ?? 0)km</span>
                     </div>
                     <p>
                         （该续航里程范围仅供参考，需结合实际骑手车辆控制功率、车辆型号、车重、使用环境、温度、驾驶习惯等多种因素，以实际情况为准）
