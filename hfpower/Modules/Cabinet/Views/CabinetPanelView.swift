@@ -14,6 +14,11 @@ class CabinetPanelView: UIView {
     var scanAction:ButtonActionBlock?
     var dropDownAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
+    var giftAction:ButtonActionBlock?{
+        didSet{
+            self.statisticView.giftAction = giftAction
+        }
+    }
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()

@@ -42,10 +42,7 @@ class PackageCardChooseServiceViewController: BaseTableViewController<PackageCar
             PackageCardChooseService(id: 1,title: "租车套餐",content: "各种车型，任你挑选",type: 1),
         ]
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         titleButton.setImagePosition(type: .imageLeft, Space: 6)

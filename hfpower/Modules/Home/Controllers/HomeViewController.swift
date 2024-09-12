@@ -357,14 +357,7 @@ private extension HomeViewController {
             
           
         }
-        //        headerStackView.addArrangedSubview(needLoginView)
-        //        headerStackView.addArrangedSubview(needAuthView)
-        //        let creditDepositFreeView = CreditDepositFreeView()
-        //        headerStackView.addArrangedSubview(creditDepositFreeView)
-        //        let expirationView = ExpirationView()
-        //        headerStackView.addArrangedSubview(expirationView)
-        //        let batteryOfflineView = BatteryOfflineView()
-        //        headerStackView.addArrangedSubview(batteryOfflineView)
+       
         packageCardView.goToBuyPackageCardAction = { sender in
             let vc=PackageCardChooseServiceViewController()
             self.navigationController?.pushViewController(vc, animated: true)

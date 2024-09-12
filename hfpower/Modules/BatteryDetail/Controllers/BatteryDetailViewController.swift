@@ -257,6 +257,9 @@ class BatteryRemainingTermSectionController: ListSectionController {
         guard let cell = collectionContext?.dequeueReusableCell(of: BatteryRemainingTermViewCell.self, for: self, at: index) as? BatteryRemainingTermViewCell else {return UICollectionViewCell()}
         // 配置图片和状态
         cell.bottomView.getPackageCardBlock = { sender in
+            let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+            self.viewController?.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+            
         }
         cell.element = batteryRemainingTerm
         return cell

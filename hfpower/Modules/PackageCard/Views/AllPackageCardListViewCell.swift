@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
+class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     
     // MARK: - Accessor
     var useNowBlock:ButtonActionBlock?
@@ -16,7 +16,34 @@ class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
 
     override func configure() {
         guard let item = element else {return}
-    
+        switch item.deviceType.intValue {
+        case 1:
+            self.leftTopLabel.text = "租电套餐"
+        default:
+            self.leftTopLabel.text = "租车套餐"
+
+        }
+        self.titleLabel.text = "\(item.price)元/\(item.days)天"
+        self.periodLabel.text = "有效期至：\(item.endDate)"
+        let attributedText = NSAttributedString(string: "￥\(item.originalPrice)",
+                                                attributes: [
+                                                    .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                                                    .foregroundColor: UIColor(rgba: 0xA0A0A0FF),
+                                                    .font: UIFont.systemFont(ofSize: 12)
+                                                ])
+        self.originAmountLabel.attributedText = attributedText
+        self.planPerDayLabel.text = String(format: "约合%0.2f元/天", item.price.doubleValue/item.days.doubleValue)
+        switch item.status.intValue{
+        case 0:
+            self.useNowButton.isHidden = false
+            self.statusImageView.isHidden = true
+        default:
+            self.statusImageView.isHidden = false
+            self.useNowButton.isHidden = true
+            self.statusImageView.image = item.status.intValue == 1 ? UIImage(named: "package_card_used"):UIImage(named: "package_card_expired")
+        }
+        self.tipsLabel.text = "限\(item.cityName)使用"
+        
     }
     // MARK: - Subviews
     lazy var containerView: UIImageView = {
@@ -43,7 +70,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "299元/30天"
+        label.text = "--元/--天"
         label.numberOfLines = 0
         label.textColor = UIColor(rgba:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 22,weight: .semibold)
@@ -52,7 +79,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     }()
     lazy var originAmountLabel: UILabel = {
         let label = UILabel()
-        let attributedText = NSAttributedString(string: "￥1698",
+        let attributedText = NSAttributedString(string: "￥--",
                                                 attributes: [
                                                     .strikethroughStyle: NSUnderlineStyle.single.rawValue,
                                                     .foregroundColor: UIColor(rgba: 0xA0A0A0FF),

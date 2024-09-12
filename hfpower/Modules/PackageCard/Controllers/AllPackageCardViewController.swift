@@ -8,6 +8,7 @@
 import UIKit
 import Tabman
 import Pageboy
+import MJRefresh
 class AllPackageCardViewController:BaseViewController{
     public let content = AllPackageCardContentViewController()
     override func viewDidLoad() {
@@ -60,9 +61,10 @@ class AllPackageCardViewController:BaseViewController{
 class AllPackageCardContentViewController: TabmanViewController {
     
     // MARK: - Accessor
-    let items: [(menu: String, content: UIViewController)] = ["可用","已用","已过期"].map {
-        let title = $0
+    let items: [(menu: String, content: UIViewController)] = [(status:0,title:"可用"),(status:1,title:"已用"),(status:2,title:"已过期")].map {
+        let title = $0.title
         let vc = AllPackageCardListViewController()
+        vc.status = $0.status
         return (menu: title, content: vc)
     }
     // MARK: - Subviews
@@ -126,7 +128,7 @@ extension AllPackageCardContentViewController: PageboyViewControllerDataSource, 
     }
 
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return nil
+        return .first
     }
 
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
@@ -149,12 +151,14 @@ private extension AllPackageCardContentViewController {
 private extension AllPackageCardContentViewController {
     
 }
-class AllPackageCardListViewController:BaseTableViewController<AllPackageCardListViewCell,PackageCard>{
+class AllPackageCardListViewController:BaseTableViewController<AllPackageCardListViewCell,HFPackageCardModel>{
     
     
     
     // MARK: - Accessor
-    var index = 0
+    var status = 0 //[(status:0,title:"可用"),(status:1,title:"已用"),(status:2,title:"已过期")]
+    var pageNum = 1
+    var pageCount = 1
     // MARK: - Subviews
     
     // 懒加载的 TableView
@@ -166,14 +170,110 @@ class AllPackageCardListViewController:BaseTableViewController<AllPackageCardLis
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            PackageCard(),
-            PackageCard(),
-        ]
+        setupRefreshControl()
+        loadData()
     }
-    
+    func setupRefreshControl() {
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefreshing))
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefreshing))
+    }
+    @objc func headerRefreshing() {
+        // Implement your header refresh logic here
+        // ...
+        self.items.removeAll()
+        pageNum = 1
+        self.getData(packageCardListUrl, param: ["page":self.pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                self.items = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel] ?? []).filter { $0.status.intValue == self.status }
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_header?.endRefreshing()
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
+
+        
+
+    }
+
+    @objc func footerRefreshing() {
+        // Implement your footer refresh logic here
+        // ...
+        if pageNum + 1 > pageCount {
+            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+            return
+        }
+        pageNum = pageNum + 1
+        self.getData(packageCardListUrl, param: ["page":self.pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                let addItems = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel] ?? []).filter { $0.status.intValue == self.status }
+                self.items.append(contentsOf: addItems)
+                self.tableView.mj_footer?.endRefreshing()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.endRefreshing()
+        }
+        
+
+    }
+    func loadData(){
+        pageNum = 1
+        self.getData(packageCardListUrl, param: ["page":self.pageNum], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                self.items = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel] ?? []).filter { $0.status.intValue == self.status }
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
+       
+
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cellx = cell as? AllPackageCardListViewCell{
+            cellx.useNowBlock = { render in
+            }
+        }
     }
     
 }

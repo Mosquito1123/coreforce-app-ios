@@ -366,6 +366,10 @@ extension MapViewController{
                 return appearance
             }()
             let contentVC = CabinetPanelViewController()
+            contentVC.giftAction = { sender in
+                let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+                self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+            }
             contentVC.scanAction = { sender in
                 let scanVC = HFScanViewController()
                 scanVC.resultBlock = {result in

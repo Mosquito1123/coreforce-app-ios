@@ -48,6 +48,10 @@ class CabinetListViewController: BaseTableViewController<CabinetListViewCell,HFC
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let element = self.items[indexPath.row]
         if let cellx = cell as? CabinetListViewCell {
+            cellx.giftAction = { sender in
+                let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+                self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+            }
             cellx.detailAction = { sender in
                 let cabinetDetailVC = CabinetDetailViewController()
                 cabinetDetailVC.id = element.id

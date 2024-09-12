@@ -32,6 +32,26 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber *price;   // 改为 NSNumber
 @property (nonatomic, copy) NSString *cityName;
 @property (nonatomic, strong) NSNumber *orderCount;
+@property (nonatomic, strong) NSString *orderNo;
+@property (nonatomic, strong) NSNumber *memberId;
+@property (nonatomic, strong) NSNumber *frontEndStatus;
+@property (nonatomic, strong) NSNumber *usedDays;
+@property (nonatomic, strong) NSNumber *recoveryDays;
+@property (nonatomic, strong) NSNumber *remainDays;
+@property (nonatomic, strong) NSString *refundLaunchDate;
+@property (nonatomic, strong) NSString *phoneNum;
+@property (nonatomic, strong) NSString *realName;
+@property (nonatomic, strong) NSNumber *type;
+@property (nonatomic, strong) NSNumber *refundStatus;
+@property (nonatomic, strong) NSNumber *payVoucherOrderId;
+@property (nonatomic, strong) NSNumber *Id;
+@property (nonatomic, strong) NSNumber *mainId;
+@property (nonatomic, strong) NSString *orderStartDate;
+@property (nonatomic, strong) NSNumber *webStatus;
+@property (nonatomic, strong) NSString *startDate;
+@property (nonatomic, strong) NSString *orderEndDate;
+@property (nonatomic, strong) NSString *endDate;
+@property (nonatomic, strong) NSString *orderPayDate;
 
 @end
 

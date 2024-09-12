@@ -11,6 +11,11 @@ class CabinetDetailContentView: UIView {
 
     // MARK: - Accessor
     var navigateAction:ButtonActionBlock?
+    var giftAction:ButtonActionBlock?{
+        didSet{
+            self.statisticView.giftAction = giftAction
+        }
+    }
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()

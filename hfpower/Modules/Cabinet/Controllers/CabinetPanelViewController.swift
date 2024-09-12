@@ -50,6 +50,11 @@ class CabinetPanelViewController: UIViewController {
     var scanAction:ButtonActionBlock?
     var dropDownAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
+    var giftAction:ButtonActionBlock?{
+        didSet{
+            self.cabinetPanelView.giftAction = giftAction
+        }
+    }
     // MARK: - Subviews
     lazy var cabinetPanelView: CabinetPanelView = {
         var panelView = CabinetPanelView()

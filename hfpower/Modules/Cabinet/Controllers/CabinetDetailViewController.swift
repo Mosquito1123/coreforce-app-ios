@@ -190,6 +190,10 @@ private extension CabinetDetailViewController {
                 return}
             self.mapNavigation(lat: lat, lng: lng, address: number, currentController: self)
         }
+        self.cabinetDetailContentController.cabinetDetailContentView.giftAction = { action in
+            let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+        }
         fpc.set(contentViewController: self.cabinetDetailContentController)
         fpc.contentInsetAdjustmentBehavior = .always
         fpc.surfaceView.appearance = {

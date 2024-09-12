@@ -171,8 +171,8 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             
             self.present(nav, animated: true, completion: nil)
         }else if item.title == "电池型号"{
-           let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+//           let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+//            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
             
         }
     }
