@@ -28,7 +28,7 @@ class PersonalOthersViewCell: PersonalContentViewCell,UICollectionViewDelegate,U
         let totalPadding = padding * (itemsPerRow - 1)
         let individualWidth = (collectionView.bounds.width - totalPadding) / itemsPerRow
         
-        return CGSize(width: individualWidth, height: individualWidth)
+        return CGSize(width: individualWidth, height: individualWidth + 15)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.didSelectItemAtBlock?(collectionView,indexPath)
@@ -36,11 +36,25 @@ class PersonalOthersViewCell: PersonalContentViewCell,UICollectionViewDelegate,U
     
     
     // MARK: - Accessor
+    var collectionHeight:NSLayoutConstraint!
     var didSelectItemAtBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
     var items = [PersonalListItem](){
         didSet{
             self.collectionView.reloadData()
+            self.collectionHeight.constant = calculateCollectionViewHeight(for: self.items, itemHeight: 80, lineSpacing: 10)
         }
+    }
+    func calculateCollectionViewHeight(for items: [Any], itemHeight: CGFloat, lineSpacing: CGFloat) -> CGFloat {
+        let numberOfItemsPerRow = 5  // 每行显示的 item 数量
+        let itemsCount = items.count
+        
+        // 计算行数，向上取整
+        let numberOfRows = (itemsCount + numberOfItemsPerRow - 1) / numberOfItemsPerRow
+        
+        // 计算总高度
+        let totalHeight = CGFloat(numberOfRows) * itemHeight + CGFloat(numberOfRows - 1) * lineSpacing
+        
+        return totalHeight
     }
     // MARK: - Subviews
     lazy var collectionView: UICollectionView = {
@@ -92,8 +106,9 @@ private extension PersonalOthersViewCell {
     }
     
     private func setupLayout() {
+        collectionHeight = collectionView.heightAnchor.constraint(equalToConstant: 140)
         NSLayoutConstraint.activate([
-            collectionView.heightAnchor.constraint(equalToConstant: 140)
+            collectionHeight
         ])
     }
     

@@ -20,22 +20,87 @@ class BuyPackageCardPlansViewCell: BaseTableViewCell<BuyPackageCard>,UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BuyPackageCardPlanCell.cellIdentifier(), for: indexPath) as? BuyPackageCardPlanCell else {return UICollectionViewCell()}
-        cell.model = self.items[indexPath.row]
+        cell.model = self.items[indexPath.item]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 找到之前被选中的 item
+        var previouslySelectedIndex: IndexPath?
+        
+        // 遍历 items 找到已选中的 item，并记录它的 index
+        for i in 0..<self.items.count {
+            if self.items[i].selected == NSNumber(value: true) {
+                previouslySelectedIndex = IndexPath(item: i, section: 0)
+                self.items[i].selected = NSNumber(value: false) // 取消选中
+                break
+            }
+        }
+        
+        // 设置当前点击的 item 为选中
+        self.items[indexPath.item].selected = NSNumber(value: true)
+        
+        // 准备需要刷新的 indexPaths 数组
+        var indexPathsToReload: [IndexPath] = []
+        
+        // 如果之前有选中的 item，添加它的 indexPath 进行刷新
+        if let previousIndex = previouslySelectedIndex {
+            indexPathsToReload.append(previousIndex)
+        }
+        
+        // 添加当前选中的 item 进行刷新
+        indexPathsToReload.append(indexPath)
+        
+        // 仅刷新需要更新的 cell
+        collectionView.reloadItems(at: indexPathsToReload)
         self.didSelectItemBlock?(collectionView,indexPath)
     }
-    
+    func cancelAllSelected(){
+        var previouslySelectedIndex: IndexPath?
+        
+        // 遍历 items 找到已选中的 item，并记录它的 index
+        for i in 0..<self.items.count {
+            if self.items[i].selected == NSNumber(value: true) {
+                previouslySelectedIndex = IndexPath(item: i, section: 0)
+                self.items[i].selected = NSNumber(value: false) // 取消选中
+                break
+            }
+        }
+        var indexPathsToReload: [IndexPath] = []
+        
+        // 如果之前有选中的 item，添加它的 indexPath 进行刷新
+        if let previousIndex = previouslySelectedIndex {
+            indexPathsToReload.append(previousIndex)
+        }
+        // 仅刷新需要更新的 cell
+        collectionView.reloadItems(at: indexPathsToReload)
+    }
     
     // MARK: - Accessor
     override func configure() {
         self.titleLabel.text = element?.title
-        self.items = element?.items ?? []
+        self.items = (element?.items ?? [HFPackageCardModel]()).map({ model in
+            let modelx = model
+            modelx.cellType = NSNumber(integerLiteral: 0)
+            return modelx
+        })
+        self.containerViewHeight.constant = calculateCollectionViewHeight(for: self.items, itemHeight: 155, lineSpacing: 10)
     }
+    func calculateCollectionViewHeight(for items: [Any], itemHeight: CGFloat, lineSpacing: CGFloat) -> CGFloat {
+        let numberOfItemsPerRow = 3  // 每行显示的 item 数量
+        let itemsCount = items.count
+        
+        // 计算行数，向上取整
+        let numberOfRows = (itemsCount + numberOfItemsPerRow - 1) / numberOfItemsPerRow
+        
+        // 计算总高度
+        let totalHeight = CGFloat(numberOfRows) * itemHeight + CGFloat(numberOfRows - 1) * lineSpacing + 70
+        
+        return totalHeight
+    }
+
     var didSelectItemBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
     var containerViewHeight:NSLayoutConstraint!
-    var items = [PackageCard](){
+    var items = [HFPackageCardModel](){
         didSet{
             self.collectionView.reloadData()
         }
@@ -166,12 +231,12 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
     }
     // MARK: - Properties
 
-    var model: PackageCard? {
+    var model: HFPackageCardModel? {
         didSet {
             guard let model = model else { return }
            
             
-            if model.tag == nil || model.tag?.isEmpty == true {
+            if model.tag == "" {
                 leftTopView.isHidden = true
                 leftTopLabel.isHidden = true
             } else {
@@ -179,24 +244,24 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
                 leftTopLabel.isHidden = false
             }
             leftTopLabel.text = model.tag
-            daysLabel.text = "\(model.days ?? NSNumber(floatLiteral: 0))天"
+            daysLabel.text = "\(model.days)天"
             let nf = NumberFormatter()
             nf.maximumFractionDigits = 2
             nf.minimumFractionDigits = 0
-            planAmountLabel.text = nf.string(from: model.price ?? 0)
-            let attributedText = NSAttributedString(string: "￥\(nf.string(from: model.originalPrice ?? 0) ?? "0")",
+            planAmountLabel.text = nf.string(from: model.price )
+            let attributedText = NSAttributedString(string: "￥\(nf.string(from: model.originalPrice ) ?? "0")",
                                                     attributes: [
                                                         .strikethroughStyle: NSUnderlineStyle.single.rawValue,
                                                         .foregroundColor: UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1),
                                                         .font: UIFont.systemFont(ofSize: 12)
                                                     ])
             originAmountLabel.attributedText = attributedText
-            let perMonthNumber = (model.price?.doubleValue  ?? 0)/(model.days?.doubleValue ?? 0)
+            let perMonthNumber = (model.price.doubleValue  )/(model.days.doubleValue )
             planPerMonthLabel.text = "\(nf.string(from: NSNumber(value: perMonthNumber)) ?? "0")元/天"
-            guard let type = BuyPackageCardPlanCellType(rawValue: model.type) else {return}
+            guard let type = BuyPackageCardPlanCellType(rawValue: model.cellType.intValue) else {return}
             switch type {
             case .common:
-                if model.selected {
+                if model.selected.boolValue {
                     backgroundColor = UIColor(red: 0.94, green: 0.96, blue: 1, alpha: 1)
                     layer.borderWidth = 1.5
                     layer.borderColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1).cgColor
@@ -210,7 +275,7 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
                     planAmountLabel.textColor = UIColor(white: 51/255, alpha: 1)
                 }
             case .limitedTime:
-                if model.selected {
+                if model.selected.boolValue {
                     backgroundColor = UIColor(rgba: 0xFFF3E3FF)
                     layer.borderWidth = 1.5
                     layer.borderColor = UIColor(rgba: 0xF97B02FF).cgColor
@@ -227,7 +292,7 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
 
                 }
             case .newComers:
-                if model.selected {
+                if model.selected.boolValue {
                     backgroundColor = UIColor(rgba:0xFFF1F0FF)
                     layer.borderWidth = 1.5
                     layer.borderColor =  UIColor(rgba:0xEC5259FF).cgColor

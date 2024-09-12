@@ -144,7 +144,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     }()
     lazy var tipsLabel:UILabel = {
         let label = UILabel()
-        label.text = "限青岛市使用"
+        label.text = "限--使用"
         label.textColor = UIColor(rgba:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -152,7 +152,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     }()
     lazy var useNowButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
         button.tintAdjustmentMode = .automatic
         button.setTitle("立即使用", for: .normal)

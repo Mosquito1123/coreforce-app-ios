@@ -100,6 +100,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     }
     func firstLoadData(){
         let userlocation = mapView.userLocation
+        self.centerMapOnUserLocation(userLocation: userlocation)
         if CLLocationCoordinate2DIsValid(userlocation.coordinate){
             if let location = userlocation.location {
                 
@@ -286,17 +287,17 @@ extension MapViewController{
         }
     }
     // 处理授权状态变化
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            mapView.userTrackingMode = .follow
-            locationManager.startUpdatingLocation()
-            
-        }else if status == .authorizedAlways {
-            mapView.userTrackingMode = .follow
-            locationManager.startUpdatingLocation()
-            
-        }
-    }
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        if status == .authorizedWhenInUse {
+//            mapView.userTrackingMode = .follow
+//            locationManager.startUpdatingLocation()
+//            
+//        }else if status == .authorizedAlways {
+//            mapView.userTrackingMode = .follow
+//            locationManager.startUpdatingLocation()
+//            
+//        }
+//    }
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         
     }

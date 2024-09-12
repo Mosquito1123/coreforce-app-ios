@@ -78,6 +78,8 @@ class HomeViewController: MapViewController{
         setupSubviews()
         setupLayout()
         startObserving()
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
         loadActivities()
         
         

@@ -76,7 +76,7 @@ class MyPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     }()
     lazy var tipsLabel:UILabel = {
         let label = UILabel()
-        label.text = "限青岛市使用"
+        label.text = "--"
         label.textColor = UIColor(rgba:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false

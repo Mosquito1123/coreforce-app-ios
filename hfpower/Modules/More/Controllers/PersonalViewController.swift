@@ -71,7 +71,7 @@ class PersonalViewController: BaseViewController {
                                 PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
                                 PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
                                 PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier(),extra: nil),
-                                PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
+                                PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
                                     PersonalListItem(title: "我的订单",icon: "order"),
                                     PersonalListItem(title: "购买套餐",icon: "buy"),
                                     PersonalListItem(title: "电池寄存",icon: "post"),
@@ -105,7 +105,7 @@ class PersonalViewController: BaseViewController {
                             PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
                             PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
                             PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
-                            PersonalList(title: "其他服务",cellHeight: 120, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
+                            PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
                                 PersonalListItem(title: "我的订单",icon: "order"),
                                 PersonalListItem(title: "购买套餐",icon: "buy"),
                                 PersonalListItem(title: "电池寄存",icon: "post"),

@@ -56,29 +56,30 @@ class BuyPackageCardViewController: BaseViewController {
     }
     func loadData(){
         let code = CityCodeManager.shared.cityCode ?? "370200"
-
+        
         var params = [String: Any]()
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
         params["largeTypeId"] = self.batteryType?.id
         self.getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
+                let buyList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
+                let limitedList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
+                let newList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
                 self.items = [
                     BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.name, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"),
-                    BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.name, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: [PackageCard(type: 0),PackageCard(type: 0)]),
-                    BuyPackageCard(title: "已购套餐",subtitle: "299元/30天", identifier: BoughtPlansViewCell.cellIdentifier()),
-                    BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [DepositService(),DepositService()]),
-                    BuyPackageCard(title: "费用结算",subtitle: "299元/30天", identifier: FeeDetailViewCell.cellIdentifier()),
-                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList),
+                    BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList),
+                    BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.name, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList),
+                    
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
-                    BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 1),PackageCard(type: 1)]),
-                    BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: [PackageCard(type: 2),PackageCard(type: 2)])
+                    
                     
                 ]
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
         }
-
+        
     }
     
 }
@@ -94,6 +95,36 @@ private extension BuyPackageCardViewController {
         self.view.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
         self.view.addSubview(self.tableView)
         self.view.addSubview(bottomView)
+        bottomView.submittedAction = {sender in
+            self.showActionSheet(["wechat","alipay"], ["微信支付","支付宝支付"], "取消") { section, row in
+                self.presentedViewController?.dismiss(animated: true)
+                let id = self.bottomView.model?.id ?? 0
+                
+                if section == 1,row == 0{//取消
+                }else if section == 0,row == 0{//微信支付
+                    self.postData(buyPackageCardUrl, param: ["payChannel":1,"from":"app","id":id], isLoading: true) { responseObject in
+                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
+                            if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
+                                self.wxPay(payDataModel)
+                            }
+                        }
+                    } error: { error in
+                        self.showError(withStatus: error.localizedDescription)
+                    }
+                    
+                }else if section == 0,row == 1{//支付宝支付
+                    self.postData(buyPackageCardUrl, param: ["payChannel":2,"from":"app","id":id], isLoading: true) { responseObject in
+                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
+                            self.alipay(payDataString)
+                            
+                        }
+                    } error: { error in
+                        self.showError(withStatus: error.localizedDescription)
+
+                    }
+                }
+            }
+        }
         
     }
     
@@ -109,6 +140,37 @@ private extension BuyPackageCardViewController {
             bottomView.heightAnchor.constraint(equalToConstant: 90)
         ])
     }
+    func alipay(_ payDataString:String!){
+        AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
+            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
+                if resultStatus == 9000{
+                    self.navigationController?.popToRootViewController(animated: true)
+
+                }else{
+                    self.showError(withStatus: "支付失败")
+
+                }
+            }
+        }
+    }
+    func wxPay(_ payData:HFPayData){
+        let data: [String: Any] = [
+                "appId": payData.appid,
+                "nonceStr": payData.noncestr,
+                "partnerId": "\(payData.partnerid)",  // String interpolation for integer values
+                "package": payData.package,
+                "prepayId": payData.prepayId,
+                "sign": payData.sign,
+                "timeStamp": "\(payData.timestamp)"  // String interpolation for integer values
+            ]
+            
+        WXPayTools.sharedInstance.doWXPay(dataDict: data) {
+            self.navigationController?.popToRootViewController(animated: true)
+        } payFailed: {
+            self.showError(withStatus: "支付失败")
+        }
+
+    }
 }
 
 // MARK: - Public
@@ -123,22 +185,52 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? BaseTableViewCell<BuyPackageCard> else {return BaseTableViewCell<BuyPackageCard>()}
         cell.element = item
-    
+        
         if let cellx = cell as? BuyPackageCardPlansViewCell{
-           
+            
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                self.bottomView.model = [PackageCard(),PackageCard()][indexPath.item]
+                let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
+                limitedCell?.cancelAllSelected()
+                
+                let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
+                newCell?.cancelAllSelected()
+                
+                self.bottomView.model = item.items?[indexPath.item]
             }
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
+                let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
+                commonCell?.cancelAllSelected()
+                
+                let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
+                newCell?.cancelAllSelected()
+                
                 self.bottomView.model = item.items?[indexPath.item]
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
+                let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
+                commonCell?.cancelAllSelected()
+                
+                let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
+                limitedCell?.cancelAllSelected()
                 self.bottomView.model = item.items?[indexPath.item]
             }
         }
         return cell
+    }
+    func getCell<T: UITableViewCell>(byType object: T.Type) -> T?{
+        if let index = self.items.firstIndex(where: { $0.identifier == String(describing: object) }) {
+            let indexPath = IndexPath(row: index, section: 0) // 假设只有一个 section
+            if let cell = tableView.cellForRow(at: indexPath) as? T{
+                // 此处可以使用获取的 cell
+                return cell
+            } else {
+                return nil
+            }
+        }else{
+            return nil
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.items[indexPath.row]
@@ -171,8 +263,8 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             
             self.present(nav, animated: true, completion: nil)
         }else if item.title == "电池型号"{
-//           let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-//            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+            //           let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+            //            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
             
         }
     }

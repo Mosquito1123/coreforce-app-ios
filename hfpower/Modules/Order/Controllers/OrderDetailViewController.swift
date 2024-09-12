@@ -422,12 +422,70 @@ private extension OrderDetailViewController {
             
         }
         bottomView.submitButton.addAction(for: .touchUpInside) {
-            
+            self.showActionSheet(["wechat","alipay"], ["微信支付","支付宝支付"], "取消") { section, row in
+                self.presentedViewController?.dismiss(animated: true)
+                let id = self.id ?? 0
+                
+                if section == 1,row == 0{//取消
+                }else if section == 0,row == 0{//微信支付
+                    self.postData(orderPayUrl, param: ["payChannel":1,"from":"app","orderId":id], isLoading: true) { responseObject in
+                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
+                            if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
+                                self.wxPay(payDataModel)
+                            }
+                        }
+                    } error: { error in
+                        self.showError(withStatus: error.localizedDescription)
+                    }
+                    
+                }else if section == 0,row == 1{//支付宝支付
+                    self.postData(orderPayUrl, param: ["payChannel":2,"from":"app","orderId":id], isLoading: true) { responseObject in
+                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
+                            self.alipay(payDataString)
+                            
+                        }
+                    } error: { error in
+                        self.showError(withStatus: error.localizedDescription)
+
+                    }
+                }
+            }
         }
+        
         view.addSubview(bottomView)
         
     }
-    
+    func alipay(_ payDataString:String!){
+        AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
+            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
+                if resultStatus == 9000{
+                    self.navigationController?.popToRootViewController(animated: true)
+
+                }else{
+                    self.showError(withStatus: "支付失败")
+
+                }
+            }
+        }
+    }
+    func wxPay(_ payData:HFPayData){
+        let data: [String: Any] = [
+                "appId": payData.appid,
+                "nonceStr": payData.noncestr,
+                "partnerId": "\(payData.partnerid)",  // String interpolation for integer values
+                "package": payData.package,
+                "prepayId": payData.prepayId,
+                "sign": payData.sign,
+                "timeStamp": "\(payData.timestamp)"  // String interpolation for integer values
+            ]
+            
+        WXPayTools.sharedInstance.doWXPay(dataDict: data) {
+            self.navigationController?.popToRootViewController(animated: true)
+        } payFailed: {
+            self.showError(withStatus: "支付失败")
+        }
+
+    }
     private func setupLayout() {
         bottomViewHeight = bottomView.heightAnchor.constraint(equalToConstant: 107)
         NSLayoutConstraint.activate([

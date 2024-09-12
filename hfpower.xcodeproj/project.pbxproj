@@ -240,6 +240,7 @@
 		048EE7812C3F74B10094A0CB /* MyPackageCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7802C3F74B10094A0CB /* MyPackageCardListViewController.swift */; };
 		048EE7832C3F7A720094A0CB /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7822C3F7A720094A0CB /* BaseTableViewController.swift */; };
 		048EE7852C3F7ACB0094A0CB /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048EE7842C3F7ACB0094A0CB /* BaseTableViewCell.swift */; };
+		0495A53B2C92CA5700C2D03A /* HFPayData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A53A2C92CA5700C2D03A /* HFPayData.m */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -613,6 +614,8 @@
 		048EE7802C3F74B10094A0CB /* MyPackageCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPackageCardListViewController.swift; sourceTree = "<group>"; };
 		048EE7822C3F7A720094A0CB /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		048EE7842C3F7ACB0094A0CB /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		0495A5392C92CA5700C2D03A /* HFPayData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFPayData.h; sourceTree = "<group>"; };
+		0495A53A2C92CA5700C2D03A /* HFPayData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFPayData.m; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -1384,6 +1387,8 @@
 				04F096BA2C91AB4800C989A7 /* HFBatteryTypeList.m */,
 				042CAE252C91CB0900EC67DC /* HFPackageCardModel.h */,
 				042CAE262C91CB0900EC67DC /* HFPackageCardModel.m */,
+				0495A5392C92CA5700C2D03A /* HFPayData.h */,
+				0495A53A2C92CA5700C2D03A /* HFPayData.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -2429,6 +2434,7 @@
 				0411AD652C7EC8E300F30395 /* InviteCodeViewController.swift in Sources */,
 				048EE7852C3F7ACB0094A0CB /* BaseTableViewCell.swift in Sources */,
 				04B2DFE52C3564470032B14D /* DepositService.swift in Sources */,
+				0495A53B2C92CA5700C2D03A /* HFPayData.m in Sources */,
 				04EBBAFC2C18543200AFD14B /* BatteryDepositResponse.swift in Sources */,
 				046B4ECF2C6CBB4100DCD5CB /* ChangePhoneNumberFinalViewController.swift in Sources */,
 				04001C442C06092B000A040F /* CenterAnnotation.swift in Sources */,

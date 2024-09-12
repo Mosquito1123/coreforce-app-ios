@@ -29,7 +29,7 @@ class CabinetLocationView: UIView {
     // 使用懒加载创建文字标签
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.text = "青岛市二〇二四年〇五月三十一日"
+        label.text = "--"
         label.numberOfLines = 1
         label.textColor = UIColor(rgba:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 14,weight: .semibold)

@@ -14,14 +14,14 @@ class BuyPackageCardBottomView: UIView {
     // MARK: - Subviews
     
     // MARK: - Lifecycle
-    var model: PackageCard? {
+    var model: HFPackageCardModel? {
         didSet {
             guard let model = model else { return }
             let nf = NumberFormatter()
             nf.maximumFractionDigits = 2
             nf.minimumFractionDigits = 0
-            self.totalLabel.text = nf.string(from: model.price ?? NSNumber(value: 0))
-            self.submitButton.isEnabled = model.price != nil && self.statusButton.isSelected
+            self.totalLabel.text = nf.string(from: model.price )
+            self.submitButton.isEnabled = model.price.doubleValue != 0 && self.statusButton.isSelected
         }
     }
     

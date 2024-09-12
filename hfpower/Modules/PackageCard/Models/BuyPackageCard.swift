@@ -13,6 +13,7 @@ struct BuyPackageCard:Convertible{
     var cellHeight: CGFloat?
     var identifier: String?
     var icon: String?
-    var items:[PackageCard]?
+    var enabled:Bool = true
+    var items:[HFPackageCardModel]?
     var depositServices:[DepositService]?
 }

@@ -14,7 +14,7 @@ class LocationChooseView: UIView {
     // MARK: - Subviews
     lazy var currentLocationButton:UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("青岛市", for: .normal)
+        button.setTitle(CityCodeManager.shared.cityName, for: .normal)
         button.setTitleColor(UIColor(rgba:0x333333FF), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         button.addTarget(self, action: #selector(goToCityChoose(_:)), for: .touchUpInside)

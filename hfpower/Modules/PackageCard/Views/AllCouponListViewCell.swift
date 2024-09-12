@@ -218,7 +218,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
     }()
     lazy var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "限青岛市使用，新人特惠、限时活动不可用"
+        label.text = "--"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor(rgba:0x666666FF)
         label.numberOfLines = 0

@@ -14,21 +14,84 @@ class NewComersPackageCardViewCell:BaseTableViewCell<BuyPackageCard>,UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BuyPackageCardPlanCell.cellIdentifier(), for: indexPath) as? BuyPackageCardPlanCell else {return UICollectionViewCell()}
-        cell.model = self.items[indexPath.row]
+        cell.model = self.items[indexPath.item]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 找到之前被选中的 item
+        var previouslySelectedIndex: IndexPath?
+        
+        // 遍历 items 找到已选中的 item，并记录它的 index
+        for i in 0..<self.items.count {
+            if self.items[i].selected == NSNumber(value: true) {
+                previouslySelectedIndex = IndexPath(item: i, section: 0)
+                self.items[i].selected = NSNumber(value: false) // 取消选中
+                break
+            }
+        }
+        
+        // 设置当前点击的 item 为选中
+        self.items[indexPath.item].selected = NSNumber(value: true)
+        
+        // 准备需要刷新的 indexPaths 数组
+        var indexPathsToReload: [IndexPath] = []
+        
+        // 如果之前有选中的 item，添加它的 indexPath 进行刷新
+        if let previousIndex = previouslySelectedIndex {
+            indexPathsToReload.append(previousIndex)
+        }
+        
+        // 添加当前选中的 item 进行刷新
+        indexPathsToReload.append(indexPath)
+        
+        // 仅刷新需要更新的 cell
+        collectionView.reloadItems(at: indexPathsToReload)
         self.didSelectItemBlock?(collectionView,indexPath)
     }
-    
+    func cancelAllSelected(){
+        var previouslySelectedIndex: IndexPath?
+        
+        // 遍历 items 找到已选中的 item，并记录它的 index
+        for i in 0..<self.items.count {
+            if self.items[i].selected == NSNumber(value: true) {
+                previouslySelectedIndex = IndexPath(item: i, section: 0)
+                self.items[i].selected = NSNumber(value: false) // 取消选中
+                break
+            }
+        }
+        var indexPathsToReload: [IndexPath] = []
+        
+        // 如果之前有选中的 item，添加它的 indexPath 进行刷新
+        if let previousIndex = previouslySelectedIndex {
+            indexPathsToReload.append(previousIndex)
+        }
+        // 仅刷新需要更新的 cell
+        collectionView.reloadItems(at: indexPathsToReload)
+    }
     // MARK: - Accessor
     override func configure() {
         self.headerLabel.text = element?.title
-        self.items = element?.items ?? []
+        self.items = (element?.items ?? [HFPackageCardModel]()).map({ model in
+            let modelx = model
+            modelx.cellType = NSNumber(integerLiteral: 2)
+            return modelx
+        })
+        self.containerViewHeight.constant = calculateCollectionViewHeight(for: self.items, itemHeight: 155, lineSpacing: 10)
+    }
+    func calculateCollectionViewHeight(for items: [Any], itemHeight: CGFloat, lineSpacing: CGFloat) -> CGFloat {
+        let numberOfItemsPerRow = 3  // 每行显示的 item 数量
+        let itemsCount = items.count
+        
+        // 计算行数，向上取整
+        let numberOfRows = (itemsCount + numberOfItemsPerRow - 1) / numberOfItemsPerRow
+        
+        // 计算总高度
+        let totalHeight = CGFloat(numberOfRows) * itemHeight + CGFloat(numberOfRows - 1) * lineSpacing + 70
 
+        return totalHeight
     }
     var containerViewHeight:NSLayoutConstraint!
-    var items = [PackageCard](){
+    var items = [HFPackageCardModel](){
         didSet{
             self.collectionView.reloadData()
         }

@@ -44,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber *type;
 @property (nonatomic, strong) NSNumber *refundStatus;
 @property (nonatomic, strong) NSNumber *payVoucherOrderId;
-@property (nonatomic, strong) NSNumber *Id;
 @property (nonatomic, strong) NSNumber *mainId;
 @property (nonatomic, strong) NSString *orderStartDate;
 @property (nonatomic, strong) NSNumber *webStatus;
@@ -52,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *orderEndDate;
 @property (nonatomic, strong) NSString *endDate;
 @property (nonatomic, strong) NSString *orderPayDate;
+@property (nonatomic, strong) NSString *tag;
+@property (nonatomic, strong) NSNumber *selected;
+@property (nonatomic, strong) NSNumber *cellType;
 
 @end
 
