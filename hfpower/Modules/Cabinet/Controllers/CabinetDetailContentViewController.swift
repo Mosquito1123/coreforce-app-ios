@@ -64,8 +64,10 @@ class CabinetDetailContentViewController: UIViewController {
                 self.cabinetDetailContentView.chartView.contentView.xAxis.labelTextColor = UIColor(rgba:0x4D4D4DFF)
                 self.cabinetDetailContentView.chartView.contentView.leftAxis.drawAxisLineEnabled = false
                 self.cabinetDetailContentView.chartView.contentView.leftAxis.drawGridLinesEnabled = false
-                
-                
+                self.cabinetDetailContentView.chartView.contentView.doubleTapToZoomEnabled = true
+                self.cabinetDetailContentView.chartView.contentView.autoScaleMinMaxEnabled = true
+                self.cabinetDetailContentView.chartView.contentView.setExtraOffsets(left: 10, top: 10, right: 10, bottom: 10)
+
                 
                 
             }

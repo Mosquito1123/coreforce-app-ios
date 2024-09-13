@@ -45,8 +45,8 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     let fpc = FloatingPanelController()
     
     // MARK: - Subviews
-    lazy var mapView:HFMapView = {
-        let map = HFMapView()
+    lazy var mapView:MKMapView = {
+        let map = MKMapView()
         map.overrideUserInterfaceStyle = .light
         map.showsUserLocation = true
         map.userTrackingMode = .follow
@@ -69,8 +69,38 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         setupNavbar()
         setupSubviews()
         setupLayout()
+        checkLocationAuthorizationStatus()
         
     }
+    // 检查权限状态并做相应处理
+    func checkLocationAuthorizationStatus() {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse, .authorizedAlways:
+            // 已经有权限，直接开始更新位置
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+        case .notDetermined:
+            // 用户还没有选择是否授权，请求授权
+            locationManager.delegate = self
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted, .denied:
+            // 用户拒绝了授权或访问受限，提醒用户去设置里开启
+            showLocationServicesDeniedAlert()
+        @unknown default:
+            break
+        }
+    }
+    
+    // 提示用户权限被拒绝或受限
+    func showLocationServicesDeniedAlert() {
+        let alert = UIAlertController(title: "定位服务已关闭",
+                                      message: "请在设置中启用定位服务。",
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "确定", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     func updateCabinetList(coordinate: CLLocationCoordinate2D){
         let code = CityCodeManager.shared.cityCode ?? "370200"
         var params = [String: Any]()
@@ -85,7 +115,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]]{
                 let cabinetArray = (HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]) ?? []
-
+                
                 var tempAnnotations =  self.mapView.annotations
                 tempAnnotations.removeAll { annotation in
                     if annotation is CenterAnnotation{
@@ -140,7 +170,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         }
     }
     var previousRegion: MKCoordinateRegion?
-
+    
     //    func startObserving(){
     //        NotificationCenter.default.addObserver(self, selector: #selector(handleLocationState(_:)), name: Notification.Name("location"), object: nil)
     //
@@ -238,7 +268,17 @@ extension MapViewController:FloatingPanelControllerDelegate{
             let cabinetDetailVC = CabinetDetailViewController()
             cabinetDetailVC.id = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.id
             cabinetDetailVC.number = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.number
-            self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
+            // 自定义跳转动画
+            let transition = CATransition()
+            transition.duration = 0.5  // 动画持续时间
+            transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)  // 动画缓动效果
+            transition.type = .fade  // 动画类型，moveIn 是一种平滑滑动效果
+            transition.subtype = .fromRight  // 动画方向，从右向左滑动
+            
+            // 将自定义过渡动画添加到导航控制器的视图层
+            self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+            
+            self.navigationController?.pushViewController(cabinetDetailVC, animated: false)
             fpc.move(to: .half, animated: false)
         }
     }
@@ -302,18 +342,13 @@ extension MapViewController{
             
         }
     }
-    // 处理授权状态变化
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        if status == .authorizedWhenInUse {
-//            mapView.userTrackingMode = .follow
-//            locationManager.startUpdatingLocation()
-//            
-//        }else if status == .authorizedAlways {
-//            mapView.userTrackingMode = .follow
-//            locationManager.startUpdatingLocation()
-//            
-//        }
-//    }
+    // 当权限状态发生改变时调用
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         
     }
@@ -389,7 +424,7 @@ extension MapViewController{
             }
             contentVC.scanAction = { sender in
                 HFScanTool.shared.showScanController(from: self)
-
+                
             }
             contentVC.detailAction = { sender in
                 
@@ -442,7 +477,7 @@ extension MapViewController{
             renderer.strokeColor = .cyan
             renderer.lineWidth = 4.0
             renderer.lineDashPattern = [0, 10] // 调整箭头的显示间隔
-
+            
             return renderer
         }
         return MKOverlayRenderer(overlay: overlay)
@@ -517,20 +552,20 @@ extension MapViewController {
         }
         
     }
-
+    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let currentRegion = mapView.region
-
-            // 检查新的区域和上一个区域是否相似
-            if let previousRegion = previousRegion,
-               abs(previousRegion.center.latitude - currentRegion.center.latitude) < 0.0001,
-               abs(previousRegion.center.longitude - currentRegion.center.longitude) < 0.0001,
-               abs(previousRegion.span.latitudeDelta - currentRegion.span.latitudeDelta) < 0.0001,
-               abs(previousRegion.span.longitudeDelta - currentRegion.span.longitudeDelta) < 0.0001 {
-                return
-            }
-
-            previousRegion = currentRegion
+        
+        // 检查新的区域和上一个区域是否相似
+        if let previousRegion = previousRegion,
+           abs(previousRegion.center.latitude - currentRegion.center.latitude) < 0.0001,
+           abs(previousRegion.center.longitude - currentRegion.center.longitude) < 0.0001,
+           abs(previousRegion.span.latitudeDelta - currentRegion.span.latitudeDelta) < 0.0001,
+           abs(previousRegion.span.longitudeDelta - currentRegion.span.longitudeDelta) < 0.0001 {
+            return
+        }
+        
+        previousRegion = currentRegion
         // 更新标记位置为地图中心
         
         let centerAnnotation = CenterAnnotation(coordinate: mapView.centerCoordinate, title: "Center", subtitle: "")
@@ -543,7 +578,7 @@ extension MapViewController {
         }){
             imageView.removeFromSuperview()
         }
-        self.mapView.regionCallBack?(mapView.region)
+        //        self.mapView.regionCallBack?(mapView.region)
         // 加载数据
         updateCabinetList(coordinate: mapView.centerCoordinate)
         
@@ -667,7 +702,7 @@ class RemovablePanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
-        .full: FloatingPanelLayoutAnchor(absoluteInset: 88.0, edge: .top, referenceGuide: .safeArea),
+        .full: FloatingPanelLayoutAnchor(absoluteInset: 93, edge: .top, referenceGuide: .safeArea),
         .half: FloatingPanelLayoutAnchor(absoluteInset: 364.0, edge: .bottom, referenceGuide: .safeArea)
     ]
     
