@@ -101,33 +101,29 @@ private extension BatteryReplacementViewController {
 // MARK: - Action
 @objc private extension BatteryReplacementViewController {
     @objc func loadCabinetStatus(){
-        /*NetworkService<BusinessAPI,CabinetStatusResponse>().request(.cabinetStatus(opNo: self.opNo)) { result in
-            switch result {
-            case.success(let response):
-                if response?.finish == true{//换电请求提交成功
-                    
-                    if response?.errStatus == "E"{//换电失败，请重新扫码
+        self.getData(cabinetStatusUrl, param: ["opNo":self.opNo], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let finish = body["finish"] as? Bool{
+                if let errStatus = body["errStatus"] as? String{
+                    if errStatus == "E"{//换电失败，请重新扫码
                         self.items = []
 
-                    }else if response?.errStatus == "F"{//换电完成
-                        self.items = []
-
-                    }else if response?.errStatus == "0"{//换电完成
+                    }else if errStatus == "F" || errStatus == "0"{//换电完成
                         self.items = []
 
                     }else{
                         self.items = []
                     }
                 }else{
-                    self.perform(#selector(self.loadCabinetStatus), with: nil, afterDelay: 3.0)
+                    
                 }
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-                
-                
+            }else{
+                self.perform(#selector(self.loadCabinetStatus), with: nil, afterDelay: 3.0)
             }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
         }
-         */
+
+        
 
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 protocol BikeRentalViewControllerDelegate{
     func rentBike(number:String?)
 }
-class BikeRentalViewController: UIViewController{
+class BikeRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     @objc var batteryType:HFBatteryTypeList?
 
     // MARK: - Accessor
@@ -53,14 +53,15 @@ class BikeRentalViewController: UIViewController{
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.loadData()
-        
+        self.loadBikeData()
+
     }
     func loadData(){
         let code = CityCodeManager.shared.cityCode ?? "370200"
         
         var params = [String: Any]()
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["largeTypeId"] = self.batteryType?.id
         self.getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
                 let buyList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
@@ -82,7 +83,9 @@ class BikeRentalViewController: UIViewController{
         }
         
     }
-    
+    func loadBikeData(){
+        
+    }
 }
 
 // MARK: - Setup
@@ -90,6 +93,31 @@ private extension BikeRentalViewController {
     
     private func setupNavbar() {
         self.title = "电车租赁"
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
+        
+        // 自定义返回按钮
+        let backButton = UIButton(type: .custom)
+        backButton.setImage(UIImage(named: "back_arrow"), for: .normal)  // 设置自定义图片
+        backButton.setTitle("", for: .normal)  // 设置标题
+        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backBarButtonItem = UIBarButtonItem(customView: backButton)
+        self.navigationItem.leftBarButtonItem = backBarButtonItem
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        // 设置背景色为白色
+        appearance.backgroundImage = UIColor.white.toImage()
+        appearance.shadowImage = UIColor.white.toImage()
+        
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
     }
     
     private func setupSubviews() {
@@ -280,7 +308,10 @@ private extension BikeRentalViewController {
 
 // MARK: - Action
 @objc private extension BikeRentalViewController {
-    
+    @objc func backButtonTapped() {
+        // 返回按钮的点击事件处理
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - Private

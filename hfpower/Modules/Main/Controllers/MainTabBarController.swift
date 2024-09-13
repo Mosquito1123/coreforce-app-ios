@@ -199,7 +199,24 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
     
     @objc func centerButtonTapped(_ sender: UIButton) {
         // Custom button action, e.g., open scan page
-        HFScanTool.shared.showScanController(from: self)
+        getData(memberUrl, param: [:], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+               let member = body["member"] as? [String: Any],
+               let isAuth = member["isAuth"] as? Int{
+                if isAuth == 1{
+                    HFScanTool.shared.showScanController(from: self)
+                    
+                }else{
+                    self.showWindowInfo(withStatus: "请您先完成实名认证")
+                    let realNameAuthVC = RealNameAuthViewController()
+                    self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+                }
+                
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
     }
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController is HomeViewController{
@@ -218,9 +235,6 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         }
     }
     func cabinetRentBattery(number: String?) {
-        
-    }
-    func rentBattery(number:String?){
         /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: nil, number: number)) { result in
             switch result {
             case .success(let response):
@@ -253,6 +267,11 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
                 self.showError(withStatus: error.localizedDescription)
             }
         }             */
+    }
+    func rentBattery(number:String?){
+        let batteryRentalViewContoller = BatteryRentalViewController()
+        batteryRentalViewContoller.batteryNumber = number ?? ""
+        self.navigationController?.pushViewController(batteryRentalViewContoller, animated: true)
 
     }
     func batteryReplacement(id:Int?,number:String?){
