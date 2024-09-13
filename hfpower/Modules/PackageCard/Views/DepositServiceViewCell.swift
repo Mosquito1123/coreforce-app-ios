@@ -13,19 +13,51 @@ class DepositServiceViewCell: BaseTableViewCell<BuyPackageCard>,UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DepositServiceCollectionCell.cellIdentifier(), for: indexPath) as? DepositServiceCollectionCell else {return UICollectionViewCell()}
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DepositServiceCollectionCell.cellIdentifier(), for: indexPath) as? DepositServiceCollectionCell else {return DepositServiceCollectionCell()}
         cell.model = self.items[indexPath.row]
         return cell
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // 找到之前被选中的 item
+        var previouslySelectedIndex: IndexPath?
+        
+        // 遍历 items 找到已选中的 item，并记录它的 index
+        for i in 0..<self.items.count {
+            if self.items[i].selected == NSNumber(value: true) {
+                previouslySelectedIndex = IndexPath(item: i, section: 0)
+                self.items[i].selected = NSNumber(value: false) // 取消选中
+                break
+            }
+        }
+        
+        // 设置当前点击的 item 为选中
+        self.items[indexPath.item].selected = NSNumber(value: true)
+        
+        // 准备需要刷新的 indexPaths 数组
+        var indexPathsToReload: [IndexPath] = []
+        
+        // 如果之前有选中的 item，添加它的 indexPath 进行刷新
+        if let previousIndex = previouslySelectedIndex {
+            indexPathsToReload.append(previousIndex)
+        }
+        
+        // 添加当前选中的 item 进行刷新
+        indexPathsToReload.append(indexPath)
+        
+        // 仅刷新需要更新的 cell
+        collectionView.reloadItems(at: indexPathsToReload)
+        self.didSelectItemBlock?(collectionView,indexPath)
+    }
     
     // MARK: - Accessor
+    var didSelectItemBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
+
     override func configure() {
         self.titleLabel.text = element?.title
         self.items = element?.depositServices ?? []
     }
     var containerViewHeight:NSLayoutConstraint!
-    var items = [DepositService](){
+    var items = [HFDepositService](){
         didSet{
             self.collectionView.reloadData()
         }
@@ -154,7 +186,7 @@ class DepositServiceCollectionCell:UICollectionViewCell{
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "支付押金"
+        label.text = ""
         label.textColor = UIColor(rgba: 0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -163,7 +195,7 @@ class DepositServiceCollectionCell:UICollectionViewCell{
     lazy var ruleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "退租后、押金可退"
+        label.text = ""
         label.textColor = UIColor(rgba: 0x666666FF)
         label.font = UIFont.systemFont(ofSize: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -172,7 +204,7 @@ class DepositServiceCollectionCell:UICollectionViewCell{
     lazy var amountLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "600元"
+        label.text = ""
         label.textColor = UIColor(rgba: 0x666666FF)
         label.font = UIFont.systemFont(ofSize: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -185,8 +217,22 @@ class DepositServiceCollectionCell:UICollectionViewCell{
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    var model: DepositService? {
+    var model: HFDepositService? {
         didSet {
+            if let selected = model?.selected.boolValue,selected {
+                backgroundColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 0.0800)
+                layer.borderWidth = 1.5
+                layer.borderColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1).cgColor
+                cornerIconView.image = UIImage(named: "collection_selected")
+            } else {
+                backgroundColor = .white
+                layer.borderWidth = 1
+                layer.borderColor = UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor
+                cornerIconView.image = UIImage(named: "collection_unselected")
+            }
+            self.titleLabel.text = model?.title
+            self.ruleLabel.text = model?.content
+            self.amountLabel.text = model?.amount
         }
     }
     
@@ -239,17 +285,7 @@ class DepositServiceCollectionCell:UICollectionViewCell{
 
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                backgroundColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 0.0800)
-                layer.borderWidth = 1.5
-                layer.borderColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1).cgColor
-                cornerIconView.image = UIImage(named: "collection_selected")
-            } else {
-                backgroundColor = .white
-                layer.borderWidth = 1
-                layer.borderColor = UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor
-                cornerIconView.image = UIImage(named: "collection_unselected")
-            }
+            
         }
     }
 }

@@ -26,6 +26,8 @@
 #import "HFPackageCardModel.h"
 #import "HFPayData.h"
 #import "HFHelpList.h"
+#import "HFBatteryRentalTypeInfo.h"
+#import "HFDepositService.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

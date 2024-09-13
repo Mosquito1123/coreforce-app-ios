@@ -32,7 +32,7 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     
     var imageUrls = [URL]()
     // MARK: - Accessor
-    let base = "https://www.coreforce.cn"
+    let base = "https://test9375.coreforce.cn"
     let fpc = FloatingPanelController()
     @objc var id:NSNumber?
     @objc var number:String?
@@ -162,7 +162,13 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     func rentBattery(number:String?){
     }
     func cabinetRentBattery(number: String?) {
-        
+        self.postData(cabinetScanRentUrl, param: ["cabinetNumber":number ?? ""], isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
+                
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
     }
 }
 

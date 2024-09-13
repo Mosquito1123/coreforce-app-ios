@@ -22,7 +22,13 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     }
     
     func cabinetRentBattery(number: String?) {
-        
+        self.postData(cabinetScanRentUrl, param: ["cabinetNumber":number ?? ""], isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
+                
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
     }
     
     

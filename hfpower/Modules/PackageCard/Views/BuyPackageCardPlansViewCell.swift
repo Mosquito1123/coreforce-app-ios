@@ -428,15 +428,18 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
         contentView.addSubview(planAmountLabel)
         contentView.addSubview(originAmountLabel)
         contentView.addSubview(planPerMonthLabel)
+        contentView.addSubview(leftTopView)
+        contentView.addSubview(leftTopLabel)
+
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-//            leftTopView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            leftTopView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//
-//            leftTopLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            leftTopLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            leftTopView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            leftTopView.topAnchor.constraint(equalTo: contentView.topAnchor),
+
+            leftTopLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            leftTopLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
 
             daysLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             daysLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),

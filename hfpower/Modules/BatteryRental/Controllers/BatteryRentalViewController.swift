@@ -12,8 +12,9 @@ protocol BatteryRentalViewControllerDelegate{
 }
 class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     var batteryNumber:String = ""
-    @objc var batteryType:HFBatteryTypeList?
-
+    @objc var batteryType:HFBatteryRentalTypeInfo?
+    var depositService:HFDepositService?
+    var packageCard:HFPackageCardModel?
     // MARK: - Accessor
     var items = [BuyPackageCard](){
         didSet{
@@ -55,11 +56,63 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.loadBatteryData()
+        if self.batteryNumber.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
+            refreshPackageCard()
+        }else{
+            self.loadBatteryData()
+
+        }
         
     }
     func refreshPackageCard(){
-        self.refreshCouponList()
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+        
+        var params = [String: Any]()
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["largeTypeId"] = self.batteryType?.largeTypeId
+        self.getData(ourPackageCardUrl, param: params, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
+                var items = [BuyPackageCard]()
+                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.batteryTypeName, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
+                let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
+                if limitedList.count != 0{
+                    items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
+                }
+                let newList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 3}
+                if newList.count != 0{
+                    items.append(BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList))
+                }
+                let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
+                if buyList.count != 0{
+                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.batteryTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
+                }
+                let depositService0 = HFDepositService()
+                depositService0.id = 0
+                depositService0.title = "支付宝免押"
+                depositService0.content = "芝麻信用>550分"
+                depositService0.selected = NSNumber(booleanLiteral: true)
+                depositService0.amount = "0元"
+                let depositService1 = HFDepositService()
+                depositService1.id = 1
+                depositService1.title = "支付押金"
+                depositService1.content = "退租后，押金可退"
+                depositService1.selected = NSNumber(booleanLiteral: false)
+                depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
+                let temp = [
+                    BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
+                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
+                ]
+                items.append(contentsOf: temp)
+                self.items = items
+                
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
 
     }
     func refreshCouponList(){
@@ -114,33 +167,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         }
 
     }
-    func loadData(){
-        let code = CityCodeManager.shared.cityCode ?? "370200"
-        
-        var params = [String: Any]()
-        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        params["largeTypeId"] = self.batteryType?.id
-        self.getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
-                let buyList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
-                let limitedList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
-                let newList = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []
-                self.items = [
-                    BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.name, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"),
-                    BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList),
-                    BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList),
-                    BuyPackageCard(title: "换电不限次套餐",subtitle: "", identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList),
-                    
-                    BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
-                    
-                    
-                ]
-            }
-        } error: { error in
-            self.showError(withStatus: error.localizedDescription)
-        }
-        
-    }
+    
     
 }
 
@@ -281,6 +308,11 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                 newCell?.cancelAllSelected()
                 
                 self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
+                self.updateItem(where: { packageCard in
+                    return packageCard.identifier == newPackageCard.identifier
+                }, with: newPackageCard)
             }
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -291,6 +323,13 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                 newCell?.cancelAllSelected()
                 
                 self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
+                self.updateItem(where: { packageCard in
+                    return packageCard.identifier == newPackageCard.identifier
+                }, with: newPackageCard)
+               
+
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -300,9 +339,34 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                 let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
                 limitedCell?.cancelAllSelected()
                 self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
+                self.updateItem(where: { packageCard in
+                    return packageCard.identifier == newPackageCard.identifier
+                }, with: newPackageCard)
+
             }
+        }else if let cellx = cell as? DepositServiceViewCell{
+            cellx.didSelectItemBlock = {(collectionView,indexPath) in
+                self.depositService = item.depositServices?[indexPath.item]
+            }
+        }else if let cellx = cell as? FeeDetailViewCell{
+            
         }
         return cell
+    }
+    func updateItem(where condition: (BuyPackageCard) -> Bool, with newItem: BuyPackageCard) {
+        // 1. 查找符合条件的项的索引
+        if let index = self.items.firstIndex(where: condition) {
+            // 2. 替换数据源中的这一项
+            self.items[index] = newItem
+            
+            // 3. 构建索引路径，表示要刷新的位置
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            // 4. 刷新指定的 Cell，无论是否显示
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
     func getCell<T: UITableViewCell>(byType object: T.Type) -> T?{
         if let index = self.items.firstIndex(where: { $0.identifier == String(describing: object) }) {
@@ -347,10 +411,6 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
             }
             
             self.present(nav, animated: true, completion: nil)
-        }else if item.title == "电池型号"{
-            //           let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-            //            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
-            
         }
     }
     

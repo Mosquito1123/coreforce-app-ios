@@ -235,6 +235,18 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         }
     }
     func cabinetRentBattery(number: String?) {
+        self.postData(cabinetScanRentUrl, param: ["cabinetNumber":number ?? ""], isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let list = body["list"]{
+                if let typeList = HFBatteryRentalTypeInfo.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryRentalTypeInfo]{
+                  let batteryRentalChooseTypeViewController = BatteryRentalChooseTypeViewController()
+                    batteryRentalChooseTypeViewController.items = typeList
+                    self.navigationController?.pushViewController(batteryRentalChooseTypeViewController, animated: true)
+                }
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
         /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: nil, number: number)) { result in
             switch result {
             case .success(let response):
@@ -270,7 +282,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
     }
     func rentBattery(number:String?){
         let batteryRentalViewContoller = BatteryRentalViewController()
-        batteryRentalViewContoller.batteryNumber = number ?? ""
+//        batteryRentalViewContoller.batteryNumber = number ?? ""
         self.navigationController?.pushViewController(batteryRentalViewContoller, animated: true)
 
     }

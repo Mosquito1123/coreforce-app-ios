@@ -12,6 +12,16 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     // MARK: - Accessor
     override func configure() {
         self.titleLabel.text = element?.title
+        guard let packageCard = element?.packageCard else { return  }
+        
+        self.batteryRentLabel.text = "\(String(format: "约合%0.2f元/天", packageCard.price.doubleValue/packageCard.days.doubleValue)) x\(packageCard.days)"
+        self.batteryRentAmountLabel.text = "\(packageCard.price)元"
+        self.selectedPlanDetailLabel.text = "\(packageCard.price)元/\(packageCard.days)天"
+        guard let depositAmount = element?.batteryType?.batteryDeposit else {return}
+        self.batteryDepositAmountLabel.text = "\(depositAmount)元"
+
+
+
     }
     // MARK: - Subviews
     lazy var containerView: UIView = {
@@ -42,7 +52,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     private let batteryRentDetailLabel: UILabel = {
         let label = UILabel()
-        label.text = "15元/天 x60"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = UIColor(red: 255/255, green: 58/255, blue: 58/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +61,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     private let batteryRentAmountLabel: UILabel = {
         let label = UILabel()
-        label.text = "299元"
+        label.text = "--元"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +80,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     private let batteryDepositAmountLabel: UILabel = {
         let label = UILabel()
-        label.text = "299元"
+        label.text = "--元"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +118,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     private let couponDetailLabel: UILabel = {
         let label = UILabel()
-        label.text = "免押券"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 16)
         label.isUserInteractionEnabled = true
         label.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)

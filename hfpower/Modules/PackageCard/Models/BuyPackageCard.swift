@@ -15,5 +15,9 @@ struct BuyPackageCard:Convertible{
     var icon: String?
     var enabled:Bool = true
     var items:[HFPackageCardModel]?
-    var depositServices:[DepositService]?
+    var depositServices:[HFDepositService]?
+    var packageCard:HFPackageCardModel?
+    var boughtPackageCard:HFPackageCardModel?
+    var batteryType:HFBatteryRentalTypeInfo?
+
 }

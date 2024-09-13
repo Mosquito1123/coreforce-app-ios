@@ -10,8 +10,9 @@ import swiftScan
 import HMSegmentedControl
 class HFScanTool{
     static let shared = HFScanTool()
-    func showScanController(from vc:UIViewController & BatteryRentalViewControllerDelegate & BatteryReplacementViewControllerDelegate & BikeRentalViewControllerDelegate){
+    func showScanController(from vc:UIViewController & BatteryRentalViewControllerDelegate & BatteryReplacementViewControllerDelegate & BikeRentalViewControllerDelegate,fromInput inputResultBlock:((String)->Void)? = nil){
         let scanVC = HFScanViewController()
+        scanVC.inputResultBlock = inputResultBlock
         scanVC.resultBlock = { result in
             guard let resultString = result.strScanned else {return}
             if resultString.contains("www.coreforce.cn") {
@@ -54,6 +55,7 @@ class HFScanTool{
 }
 class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
     var resultBlock:((LBXScanResult)->Void)?
+    var inputResultBlock:((String)->Void)?
     var titles = ["扫码", "输码"]{
         didSet{
             
@@ -187,13 +189,13 @@ class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
         
         
         segmentedControl.indexChangeBlock = { index in
-            if index == 2 {
+            if index == 1 {
                 self.presentInputNumberAlertController { text in
                     
                 } cancelBlock: { action in
                     
-                } sureBlock: { action in
-                    
+                } sureBlock: { action,text in
+                    self.inputResultBlock?(text)
                 }
             }
         }

@@ -249,6 +249,10 @@
 		0495A55D2C9317B800C2D03A /* HFHelpList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A55C2C9317B800C2D03A /* HFHelpList.m */; };
 		0495A55F2C931D7800C2D03A /* CustomerServiceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A55E2C931D7800C2D03A /* CustomerServiceDetailViewController.swift */; };
 		0495A5612C9419E300C2D03A /* BatteryPayWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5602C9419E300C2D03A /* BatteryPayWebViewController.swift */; };
+		0495A5632C942A0B00C2D03A /* BatteryRentalChooseTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5622C942A0B00C2D03A /* BatteryRentalChooseTypeViewController.swift */; };
+		0495A5662C942A4F00C2D03A /* HFBatteryRentalTypeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5652C942A4F00C2D03A /* HFBatteryRentalTypeInfo.m */; };
+		0495A5682C942B7C00C2D03A /* BatteryRentalChooseTypeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495A5672C942B7C00C2D03A /* BatteryRentalChooseTypeViewCell.swift */; };
+		0495A56B2C94383E00C2D03A /* HFDepositService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0495A56A2C94383E00C2D03A /* HFDepositService.m */; };
 		0496C94A2C12E12800B7884B /* PersonalViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C9492C12E12800B7884B /* PersonalViewCell.swift */; };
 		0496C94C2C12EFC300B7884B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94B2C12EFC300B7884B /* SettingsViewController.swift */; };
 		0496C94E2C13094500B7884B /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0496C94D2C13094500B7884B /* UIResponder+Extension.swift */; };
@@ -633,6 +637,12 @@
 		0495A55C2C9317B800C2D03A /* HFHelpList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFHelpList.m; sourceTree = "<group>"; };
 		0495A55E2C931D7800C2D03A /* CustomerServiceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServiceDetailViewController.swift; sourceTree = "<group>"; };
 		0495A5602C9419E300C2D03A /* BatteryPayWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryPayWebViewController.swift; sourceTree = "<group>"; };
+		0495A5622C942A0B00C2D03A /* BatteryRentalChooseTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryRentalChooseTypeViewController.swift; sourceTree = "<group>"; };
+		0495A5642C942A4F00C2D03A /* HFBatteryRentalTypeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFBatteryRentalTypeInfo.h; sourceTree = "<group>"; };
+		0495A5652C942A4F00C2D03A /* HFBatteryRentalTypeInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFBatteryRentalTypeInfo.m; sourceTree = "<group>"; };
+		0495A5672C942B7C00C2D03A /* BatteryRentalChooseTypeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryRentalChooseTypeViewCell.swift; sourceTree = "<group>"; };
+		0495A5692C94383E00C2D03A /* HFDepositService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFDepositService.h; sourceTree = "<group>"; };
+		0495A56A2C94383E00C2D03A /* HFDepositService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFDepositService.m; sourceTree = "<group>"; };
 		0496C9492C12E12800B7884B /* PersonalViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalViewCell.swift; sourceTree = "<group>"; };
 		0496C94B2C12EFC300B7884B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0496C94D2C13094500B7884B /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -1406,6 +1416,10 @@
 				0495A53A2C92CA5700C2D03A /* HFPayData.m */,
 				0495A55B2C9317B800C2D03A /* HFHelpList.h */,
 				0495A55C2C9317B800C2D03A /* HFHelpList.m */,
+				0495A5642C942A4F00C2D03A /* HFBatteryRentalTypeInfo.h */,
+				0495A5652C942A4F00C2D03A /* HFBatteryRentalTypeInfo.m */,
+				0495A5692C94383E00C2D03A /* HFDepositService.h */,
+				0495A56A2C94383E00C2D03A /* HFDepositService.m */,
 			);
 			path = NetworkV1;
 			sourceTree = "<group>";
@@ -1844,6 +1858,7 @@
 			children = (
 				0495A5402C92DFD100C2D03A /* BatteryRentalViewController.swift */,
 				0495A5602C9419E300C2D03A /* BatteryPayWebViewController.swift */,
+				0495A5622C942A0B00C2D03A /* BatteryRentalChooseTypeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1851,6 +1866,7 @@
 		0495A53F2C92DF3500C2D03A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0495A5672C942B7C00C2D03A /* BatteryRentalChooseTypeViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2391,6 +2407,7 @@
 				043C4C1B2C2EBF0F00E887B9 /* BuyPackageCardPlansViewCell.swift in Sources */,
 				046B4EC72C6C5F9F00DCD5CB /* ChangePhoneNumberViewController.swift in Sources */,
 				048EE7592C3D425E0094A0CB /* AboutTableHeaderView.swift in Sources */,
+				0495A5682C942B7C00C2D03A /* BatteryRentalChooseTypeViewCell.swift in Sources */,
 				045C17542C2BE94E0082AF5B /* PersonalIconView.swift in Sources */,
 				04708F9C2C8FE615001E809C /* HFCouponCountData.m in Sources */,
 				04F4CFCB2C75836900F5F764 /* BatteryInfoViewCell.swift in Sources */,
@@ -2461,10 +2478,12 @@
 				045165822C1AC0DF00ABE7F1 /* JYBDScanCardManageBase.m in Sources */,
 				0415AF322BC92A3700E9290D /* Date+Extension.swift in Sources */,
 				046B4ECB2C6CAB0800DCD5CB /* ChangePhoneNumberVPasswordViewController.swift in Sources */,
+				0495A5662C942A4F00C2D03A /* HFBatteryRentalTypeInfo.m in Sources */,
 				0460D6542C44FA5400B7DD21 /* BatteryReplacementStatus.swift in Sources */,
 				045215362C3CD6270091FD1A /* LogOffViewController.swift in Sources */,
 				04001C3E2C05DD5E000A040F /* UIColor+Extension.swift in Sources */,
 				042D84FB2C2986F20049DDB5 /* PersonalAssetsViewCell.swift in Sources */,
+				0495A5632C942A0B00C2D03A /* BatteryRentalChooseTypeViewController.swift in Sources */,
 				04001C462C06D33A000A040F /* HFMapView.swift in Sources */,
 				048EE77D2C3E8E800094A0CB /* PackageCardChooseService.swift in Sources */,
 				045215402C3CE46C0091FD1A /* LogoffBottomView.swift in Sources */,
@@ -2483,6 +2502,7 @@
 				044E1F482C8EE01A00A8E626 /* HFActivityListModel.m in Sources */,
 				046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */,
 				045215422C3CEC170091FD1A /* LogoffTableFooterView.swift in Sources */,
+				0495A56B2C94383E00C2D03A /* HFDepositService.m in Sources */,
 				04FFEE4A2C05A99300939B46 /* MessageViewController.swift in Sources */,
 				04708F902C8FE0EB001E809C /* HFDepositData.m in Sources */,
 				04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */,
