@@ -86,7 +86,9 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                 }
                
                 .section-title {
-                    font-size: 18px;
+                    font-size: 14px;
+                    font-family: PingFangSC-Medium;
+                    font-weight: 500;
                     color: #333;
                     margin: 15px 0;
                     padding: 10px;
@@ -102,41 +104,52 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                 .battery-details {
                     background-color: #fff;
                     padding: 10px;
-                    border-radius: 10px;
+                    border-radius: 20px;
                     margin-bottom: 15px;
                     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
                 }
                 .battery-details div {
                     display: flex;
                     justify-content: space-between;
-                    margin-bottom: 10px;
+                    align-items: center; /* 垂直对齐 */
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    border-bottom: 1px solid rgba(238, 238, 238, 1);
+                }
+                .battery-details div:last-child {
+                    border-bottom: none; /* 去掉最后一项的分割线 */
                 }
                 .battery-details span {
-                    font-size: 16px;
+                    font-size: 14px;
+                    font-family: PingFangSC-Regular;
                     color: #666;
+                    margin-top: 5px;
+                    margin-bottom: 5px;
                 }
-                .highlight {
+                .battery-details .highlight {
                     color: #165DFF;
                     background-color: rgba(22, 93, 255, 0.1);
                     padding: 3px 10px;
                     border-radius: 8px;
+                    margin-top: 5px;
+                    margin-bottom: 10px;
                 }
                 .battery-description {
-                    font-size: 16px;
+                    font-size: 14px;
                     color: #666;
                     line-height: 1.6;
                     margin: 10px 0;
                     padding: 10px;
                     background-color: #fff;
-                    border-radius: 10px;
+                    border-radius: 20px;
                 }
                 .battery-range {
-                    font-size: 16px;
+                    font-size: 14px;
                     color: #666;
                     background-color: #fff;
-                    border-radius: 10px;
+                    border-radius: 20px;
                     padding: 10px;
-                    margin-bottom: 15px;
+                    margin-bottom: 10px;
                     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
                 }
             </style>
