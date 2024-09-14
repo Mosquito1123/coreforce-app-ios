@@ -268,6 +268,8 @@ class HomeViewController: MapViewController{
     func startObserving() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: .refreshDeviceNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleShowNotification(_:)), name: .floatButtonShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .cityChanged, object: nil)
+
     }
 
     @objc func handleShowNotification(_ notification: Notification) {
@@ -374,6 +376,7 @@ private extension HomeViewController {
         }
         footerStackView.addArrangedSubview(listView)
         let locateView = MapFeatureView(.locate) { sender, mapFeatureType in
+            self.locationManager.startUpdatingLocation()
             self.mapView.userTrackingMode = .followWithHeading
             
         }
@@ -429,6 +432,7 @@ private extension HomeViewController {
 @objc private extension HomeViewController {
     @objc func handleCityChanged(_ notification:Notification){
         
+        self.updateCabinetList(coordinate: nil)
         self.moveMap()
     }
     @objc func needLogin(_ sender:UIButton){

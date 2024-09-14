@@ -111,7 +111,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         present(alert, animated: true, completion: nil)
     }
     
-    func updateCabinetList(coordinate: CLLocationCoordinate2D){
+    func updateCabinetList(coordinate: CLLocationCoordinate2D?){
         let code = CityCodeManager.shared.cityCode ?? "370200"
         var params = [String: Any]()
         let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
@@ -119,8 +119,13 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             params = ["tempStorageSw": true]
         }
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        params["lat"] = coordinate.latitude
-        params["lon"] = coordinate.longitude
+        if let lat = coordinate?.latitude{
+            params["lat"] = lat
+        }
+        if let lon = coordinate?.longitude{
+            params["lon"] = lon
+        }
+        params["pageSize"] = 100
         self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]]{
@@ -170,7 +175,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                         
                         let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
                         CityCodeManager.shared.cityCode = code
-                        NotificationCenter.default.post(name: .cityChanged, object: nil)
+                        NotificationCenter.default.post(name: .relocated, object: nil)
                         self.cabinetList()
                         
                     }

@@ -12,7 +12,14 @@ class CityCodeManager:NSObject {
     private override init() {
         super.init()
     }
-    
+    @objc dynamic var tempCityCode: String? {
+        get {
+            return UserDefaults.standard.string(forKey: "tempCityCode")
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "tempCityCode")
+        }
+    }
     @objc dynamic var cityCode: String? {
         get {
             return UserDefaults.standard.string(forKey: "cityCode")

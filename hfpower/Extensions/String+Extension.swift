@@ -51,6 +51,7 @@ extension Notification.Name {
     static let userLoggedOut = Notification.Name("UserLoggedOutNotification")
     static let userAuthenticated = Notification.Name("UserAuthenticatedNotification")
     static let cityChanged = Notification.Name("CityChanged")
+    static let relocated = Notification.Name("Relocated")
     static let scanTypeChanged = Notification.Name("ScanTypeChanged")
     static let refreshCouponList = Notification.Name("refreshCouponList")
     static let refreshDeviceNotification = Notification.Name("refreshDeviceNotification")

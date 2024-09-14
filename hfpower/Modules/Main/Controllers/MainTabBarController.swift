@@ -137,6 +137,12 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         setupLayout()
         setupTabbar()
         setupCenterButton()
+        startObserving()
+    }
+    func startObserving(){
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .cityChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .relocated, object: nil)
+
     }
     func setupTabbar() {
         // Set background color
@@ -336,7 +342,11 @@ private extension MainTabBarController {
 
 // MARK: - Action
 @objc private extension MainTabBarController {
-    
+    @objc func handleCityChanged(_ notification:Notification){
+        if let headerView = self.navigationItem.titleView as? HomeHeaderView{
+            headerView.locationChooseView.currentLocationButton.setTitle(CityCodeManager.shared.cityName, for: .normal)
+        }
+    }
 }
 
 // MARK: - Private
