@@ -749,7 +749,7 @@ class RemovablePanelLayout: FloatingPanelLayout {
     let initialState: FloatingPanelState = .half
     let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
         .full: FloatingPanelLayoutAnchor(absoluteInset: 93, edge: .top, referenceGuide: .safeArea),
-        .half: FloatingPanelLayoutAnchor(absoluteInset: 364.0, edge: .bottom, referenceGuide: .safeArea)
+        .half: FloatingPanelLayoutAnchor(absoluteInset: 390, edge: .bottom, referenceGuide: .safeArea)
     ]
     
     func backdropAlpha(for state: FloatingPanelState) -> CGFloat {

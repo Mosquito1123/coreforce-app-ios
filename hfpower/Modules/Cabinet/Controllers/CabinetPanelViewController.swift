@@ -81,6 +81,7 @@ private extension CabinetPanelViewController {
     }
    
     private func setupSubviews() {
+        view.backgroundColor = .white
         view.addSubview(self.cabinetPanelView)
         self.cabinetPanelView.statisticView.showTop = true
         self.cabinetPanelView.navigateAction = self.navigateAction
@@ -94,7 +95,7 @@ private extension CabinetPanelViewController {
         NSLayoutConstraint.activate([
             cabinetPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             cabinetPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            cabinetPanelView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            cabinetPanelView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             cabinetPanelView.topAnchor.constraint(equalTo: self.view.topAnchor),
 
         ])

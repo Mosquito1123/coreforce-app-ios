@@ -294,9 +294,6 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                     let vc=PackageCardChooseServiceViewController()
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else if indexPath.item == 2{
-                    let batteryReplacementViewController = BatteryReplacementViewController()
-//                    batteryReplacementViewController.opNo = opNo
-                    self.navigationController?.pushViewController(batteryReplacementViewController, animated: true)
                     self.showWindowInfo(withStatus: "暂未开放")
                 }else if indexPath.item == 3{
                     let scanVC = HFScanViewController()
