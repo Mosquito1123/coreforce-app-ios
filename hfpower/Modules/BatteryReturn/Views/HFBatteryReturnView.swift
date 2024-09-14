@@ -68,7 +68,8 @@ class HFBatteryReturnView: UIView {
         button.frame = CGRect(x: 24, y: hintTwo.frame.maxY + 10, width: self.frame.width - 48, height: 40)
         button.layer.cornerRadius = 20
         button.layer.masksToBounds = true
-        button.backgroundColor = UIColor.gray
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .selected)
+        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
         button.setImage(UIImage(named: "scan"), for: .normal)
         button.addTarget(self, action: #selector(scanCabintBtnClicked), for: .touchUpInside)
         return button
@@ -101,7 +102,7 @@ class HFBatteryReturnView: UIView {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: returnBattery.frame.maxX + 12, y: self.frame.height - 42 - 14, width: (self.frame.width - 48 - 12) / 2, height: 42)
         button.layer.cornerRadius = 21
-        button.backgroundColor = UIColor.blue
+        button.backgroundColor = UIColor(rgba: 0x447AFEFF)
         button.setTitle("确认已归还", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(verifyReturnBatteryClicked), for: .touchUpInside)

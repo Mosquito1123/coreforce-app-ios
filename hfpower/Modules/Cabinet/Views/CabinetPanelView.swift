@@ -23,8 +23,9 @@ class CabinetPanelView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.text = "金海牛能源环境产业园A座"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.text = ""
+        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.textColor = UIColor(rgba:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +44,8 @@ class CabinetPanelView: UIView {
         button.setTitle("详情", for: .normal)
         button.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.addTarget(self, action: #selector(detailButtonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -52,7 +54,7 @@ class CabinetPanelView: UIView {
         let label = UILabel()
         label.text = "营业时间：24h"
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = UIColor(rgba:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -61,7 +63,7 @@ class CabinetPanelView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "100m · 骑行1分钟"
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = UIColor(rgba:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -76,7 +78,7 @@ class CabinetPanelView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "李沧区青山路700号"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = UIColor(rgba:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -100,7 +102,6 @@ class CabinetPanelView: UIView {
         button.layer.masksToBounds = true
         button.backgroundColor = UIColor(rgba:0xFFF7E8FF)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

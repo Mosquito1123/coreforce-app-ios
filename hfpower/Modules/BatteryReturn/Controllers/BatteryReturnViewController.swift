@@ -126,7 +126,7 @@ private extension BatteryReturnViewController {
     }
     
     private func setupSubviews() {
-        
+        self.view.addSubview(self.batteryReturnView)
     }
     
     private func setupLayout() {

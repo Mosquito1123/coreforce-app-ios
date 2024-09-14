@@ -260,6 +260,35 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
 
     }
     func batteryReplacement(id:Int?,number:String?){
+        self.postData(cabinetScanUrl, param: ["cabinetNumber": number ?? "", "batteryId": id ?? 0], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let status = body["status"] as? Int{
+                if status == 2{
+                    if let opNo = body["opNo"] as? String{
+                        let batteryReplacementViewController = BatteryReplacementViewController()
+                        batteryReplacementViewController.opNo = opNo
+                        self.navigationController?.pushViewController(batteryReplacementViewController, animated: true)
+                    }
+                }else if status == 1{
+                    self.showAlertController(titleText: "提示", messageText: "柜中电池电量低于更换电池是否替换", okAction: {
+                        if let opNo = body["opNo"] as? String{
+                            self.postData(replaceConfirmUrl, param: ["opNo":opNo], isLoading: true) { responseObject in
+                                let batteryReplacementViewController = BatteryReplacementViewController()
+                                batteryReplacementViewController.opNo = opNo
+                                self.navigationController?.pushViewController(batteryReplacementViewController, animated: true)
+                            } error: { error in
+                                self.showError(withStatus: error.localizedDescription)
+                            }
+
+                        }
+                    }, isCancelAlert: true) {
+                        
+                    }
+                }
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
         /*NetworkService<BusinessAPI,CabinetScanResponse>().request(.cabinetScan(cabinetNumber: number, batteryId: id)) { result in
             switch result {
             case .success(let response):

@@ -11,7 +11,36 @@ class BatteryReplacementStatusViewCell: BaseTableViewCell<BatteryReplacementStat
     
     // MARK: - Accessor
     override func configure() {
-        
+        if let item = element {
+            self.titleLabel.text = item.title
+            self.contentLabel.text = item.content
+            if item.type == 0{
+                self.statusButton.setTitle("\(item.id ?? 0)", for: .normal)
+                self.statusButton.setTitleColor(.white, for: .normal)
+                self.statusButton.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
+                self.contentLabel.textColor = UIColor(rgba:0xEA4E42FF)
+                self.titleLabel.textColor = UIColor(rgba: 0x333333FF)
+                self.topLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+                self.bottomLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+
+            }else if item.type == 1{
+                self.statusButton.setTitle("\(item.id ?? 0)", for: .normal)
+                self.statusButton.setTitleColor(.white, for: .normal)
+                self.statusButton.setBackgroundImage(UIColor(rgba: 0xE5E6EBFF).toImage(), for: .normal)
+                self.contentLabel.textColor = UIColor(rgba:0x86909CFF)
+                self.titleLabel.textColor = UIColor(rgba: 0x86909CFF)
+                self.topLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+                self.bottomLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+            }else if item.type == 2{
+                self.statusButton.setTitle("", for: .normal)
+                self.statusButton.setTitleColor(.white, for: .normal)
+                self.statusButton.setBackgroundImage(UIImage(named: "selected"), for: .normal)
+                self.contentLabel.textColor = UIColor(rgba:0x666666FF)
+                self.titleLabel.textColor = UIColor(rgba: 0x333333FF)
+                self.topLineView.backgroundColor = UIColor(rgba: 0x447AFEFF)
+                self.bottomLineView.backgroundColor = UIColor(rgba: 0x447AFEFF)
+            }
+        }
     }
     lazy var topLineView: UIView = {
         let view = UIView()

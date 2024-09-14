@@ -325,11 +325,11 @@ class BatteryActionSectionController: ListSectionController {
             
         }else if batteryAction.items[index].id == 2{//退租
             let batteryReturnVC = BatteryReturnViewController()
-            batteryReturnVC.modalPresentationStyle = .overCurrentContext
             let nav = UINavigationController(rootViewController: batteryReturnVC)
+            nav.modalPresentationStyle = .overCurrentContext
             nav.isNavigationBarHidden = true
             self.viewController?.present(nav, animated: false) {
-                batteryReturnVC.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+                nav.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
             }
             
             

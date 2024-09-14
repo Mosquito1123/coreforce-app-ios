@@ -20,8 +20,9 @@ class CabinetDetailContentView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.text = "金海牛能源环境产业园A座"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.text = ""
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+//        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = UIColor(rgba:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,8 +32,9 @@ class CabinetDetailContentView: UIView {
     lazy var businessTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "营业时间：24h"
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 12)
+//        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor(rgba:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -41,7 +43,8 @@ class CabinetDetailContentView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "100m · 骑行1分钟"
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+//        label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = UIColor(rgba:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -55,8 +58,8 @@ class CabinetDetailContentView: UIView {
     lazy var locationLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "李沧区青山路700号"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.text = ""
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = UIColor(rgba:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
