@@ -279,22 +279,25 @@ extension MapViewController:FloatingPanelControllerDelegate{
     }
     func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
         if fpc.state == .full {
-            // 当 FloatingPanel 滑动到全屏时，执行跳转
-            let cabinetDetailVC = CabinetDetailViewController()
-            cabinetDetailVC.id = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.id
-            cabinetDetailVC.number = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.number
-            // 自定义跳转动画
-            let transition = CATransition()
-            transition.duration = 0.5  // 动画持续时间
-            transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)  // 动画缓动效果
-            transition.type = .fade  // 动画类型，moveIn 是一种平滑滑动效果
-            transition.subtype = .fromRight  // 动画方向，从右向左滑动
+            if let _ =  fpc.contentViewController as? CabinetPanelViewController{
+                // 当 FloatingPanel 滑动到全屏时，执行跳转
+                let cabinetDetailVC = CabinetDetailViewController()
+                cabinetDetailVC.id = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.id
+                cabinetDetailVC.number = (fpc.contentViewController as? CabinetPanelViewController)?.annotation?.cabinet?.number
+                // 自定义跳转动画
+                let transition = CATransition()
+                transition.duration = 0.5  // 动画持续时间
+                transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)  // 动画缓动效果
+                transition.type = .fade  // 动画类型，moveIn 是一种平滑滑动效果
+                transition.subtype = .fromRight  // 动画方向，从右向左滑动
+                
+                // 将自定义过渡动画添加到导航控制器的视图层
+                self.navigationController?.view.layer.add(transition, forKey: kCATransition)
+                
+                self.navigationController?.pushViewController(cabinetDetailVC, animated: false)
+                fpc.move(to: .half, animated: false)
+            }
             
-            // 将自定义过渡动画添加到导航控制器的视图层
-            self.navigationController?.view.layer.add(transition, forKey: kCATransition)
-            
-            self.navigationController?.pushViewController(cabinetDetailVC, animated: false)
-            fpc.move(to: .half, animated: false)
         }
     }
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
@@ -462,7 +465,7 @@ extension MapViewController{
             controller.view.addSubview(fpc.view)
             fpc.view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                fpc.view.bottomAnchor.constraint(equalTo: controller.view.safeAreaLayoutGuide.bottomAnchor),
+                fpc.view.bottomAnchor.constraint(equalTo: controller.view.bottomAnchor),
                 fpc.view.leadingAnchor.constraint(equalTo: controller.view.leadingAnchor),
                 fpc.view.trailingAnchor.constraint(equalTo: controller.view.trailingAnchor),
                 fpc.view.topAnchor.constraint(equalTo: controller.view.topAnchor),

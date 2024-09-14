@@ -320,11 +320,6 @@ private extension HomeViewController {
         // 设置地图的初始位置和显示范围
         self.view.backgroundColor = UIColor.white
 
-//        self.addChild(mapViewController)
-//        self.view.addSubview(mapViewController.view)
-//        mapViewController.view.frame = self.view.bounds
-//        
-//        mapViewController.didMove(toParent: self)
         self.view.addSubview(headerStackView)
         self.view.addSubview(footerStackView)
         self.batteryView.goToBatteryDetailBlock = { sender in

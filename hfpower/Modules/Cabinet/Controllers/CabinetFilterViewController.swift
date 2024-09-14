@@ -12,7 +12,11 @@ class CabinetFilterViewController: UIViewController {
     // MARK: - Accessor
     var sureAction:ButtonActionBlock?
     var closeAction:ButtonActionBlock?
-    var items = [CabinetFilter]()
+    var items = [CabinetFilter](){
+        didSet{
+            self.collectionView.reloadData()
+        }
+    }
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -79,11 +83,34 @@ class CabinetFilterViewController: UIViewController {
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            CabinetFilter(id: 0, title: "电池型号", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: "48V", content: "", selected: false),CabinetFilterItem(id: 2, title: "60V", content: "", selected: false)]),
-            CabinetFilter(id: 0, title: "电池电量", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: ">90%", content: "", selected: false),CabinetFilterItem(id: 2, title: ">80%", content: "", selected: false)]),
-            CabinetFilter(id: 0, title: "电柜", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: "可租赁", content: "", selected: false),CabinetFilterItem(id: 2, title: "可寄存", content: "", selected: false),CabinetFilterItem(id: 3, title: "24h", content: "", selected: false)]),
-        ]
+        loadData()
+        
+    }
+    func loadData(){
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+
+        var params = [String: Any]()
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+
+        self.getData(largeTypeUrl, param: params, isLoading:false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+               let list = body["list"] as? [[String:Any]]{
+                let items = (HFBatteryTypeList.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryTypeList]) ?? []
+//                self.items = items
+                var temp  = [CabinetFilterItem]()
+                temp.append(CabinetFilterItem(id: 0, title: "全部", content: "", selected: true))
+                temp.append(contentsOf: items.map { CabinetFilterItem(id: $0.id.intValue, title: $0.name, content: $0.name, selected: false)})
+                self.items = [
+                    CabinetFilter(id: 0, title: "电池型号", filterItems: temp),
+                    CabinetFilter(id: 1, title: "电池电量", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: ">90%", content: "", selected: false)]),
+//                    CabinetFilter(id: 2, title: "电柜", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: "可租赁", content: "", selected: false),CabinetFilterItem(id: 2, title: "可寄存", content: "", selected: false),CabinetFilterItem(id: 3, title: "24h", content: "", selected: false)]),
+                ]
+
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
     }
     
 }
