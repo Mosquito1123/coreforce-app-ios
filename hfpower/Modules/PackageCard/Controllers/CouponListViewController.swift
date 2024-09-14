@@ -80,7 +80,11 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupo
                  tableView.emptyState.format = noCoupon.format
                  tableView.emptyState.show(noCoupon)
          */
+        self.loadData()
 
+    }
+    func loadData(){
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

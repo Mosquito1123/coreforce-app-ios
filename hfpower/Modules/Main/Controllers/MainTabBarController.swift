@@ -99,10 +99,8 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         
         headerView.searchView.goToNotificationBlock = { sender in
             // Handle notification action
-            let notificationVC = NotificationViewController()
-            notificationVC.hidesBottomBarWhenPushed = true
-            
-            self.navigationController?.pushViewController(notificationVC, animated: true)
+            let messageListVC = MessageListViewController()
+            self.navigationController?.pushViewController(messageListVC, animated: true)
         }
         
         headerView.searchView.goToCustomerServiceBlock = { sender in

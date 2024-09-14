@@ -65,6 +65,8 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
             adapter.reloadData()
         }
     }
+    var code = ""
+    var opNo = ""
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +104,7 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
                     BatteryActionItem(id: 0, name: "续费", icon: "device_renewal"),
                     BatteryActionItem(id: 1, name: "响铃", icon: "device_ring"),
                     BatteryActionItem(id: 2, name: "退租", icon: "device_rent_out"),
-                    BatteryActionItem(id: 3, name: "寄存", icon: "device_post")
+//                    BatteryActionItem(id: 3, name: "寄存", icon: "device_post")
                 ]),
                 BatterySite(id: 5, sites: [
                     BatterySiteItem(),
@@ -309,7 +311,29 @@ class BatteryActionSectionController: ListSectionController {
         return cell
     }
     override func didSelectItem(at index: Int) {
-        
+        if batteryAction.items[index].id == 0{
+            let batteryRenewViewController = BatteryRenewViewController()
+            self.viewController?.navigationController?.pushViewController(batteryRenewViewController, animated: true)
+        }else if batteryAction.items[index].id == 1{//响铃
+            if let batteryDetail = HFKeyedArchiverTool.batteryDataList().first{
+                self.viewController?.postData(batteryRingUrl, param: ["batteryId":batteryDetail.id], isLoading: false, success: { responseObject in
+                    
+                }, error: { error in
+                    
+                })
+            }
+            
+        }else if batteryAction.items[index].id == 2{//退租
+            let batteryReturnVC = BatteryReturnViewController()
+            batteryReturnVC.modalPresentationStyle = .overCurrentContext
+            let nav = UINavigationController(rootViewController: batteryReturnVC)
+            nav.isNavigationBarHidden = true
+            self.viewController?.present(nav, animated: false) {
+                batteryReturnVC.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+            }
+            
+            
+        }
     }
     override func didUpdate(to object: Any) {
         batteryAction = object as? BatteryAction

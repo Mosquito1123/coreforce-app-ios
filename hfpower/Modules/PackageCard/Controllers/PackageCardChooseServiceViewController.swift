@@ -39,7 +39,7 @@ class PackageCardChooseServiceViewController: BaseTableViewController<PackageCar
         setupLayout()
         self.items = [
             PackageCardChooseService(id: 0,title: "换电套餐",content: "不限次数，随取随换，全年至高可省1800",type: 0),
-            PackageCardChooseService(id: 1,title: "租车套餐",content: "各种车型，任你挑选",type: 1),
+//            PackageCardChooseService(id: 1,title: "租车套餐",content: "各种车型，任你挑选",type: 1),
         ]
     }
     

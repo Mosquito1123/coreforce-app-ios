@@ -100,27 +100,8 @@ extension UIViewController{
         alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
-    func presentReturnBatteryController(code:String?,buttonAction:(()->Void)?,cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction) -> Void)? = nil){
-        let returnBatteryView = ReturnBatteryAlertView()
-        returnBatteryView.code = code
-        returnBatteryView.translatesAutoresizingMaskIntoConstraints = false
-        let alert = AlertController(attributedTitle: NSAttributedString(string: "请携带电池到运营商处退电",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)]), attributedMessage: nil)
-        alert.visualStyle.width = UIScreen.main.bounds.size.width - 64
-        alert.visualStyle.backgroundColor = .white
-        alert.visualStyle.verticalElementSpacing = 12
-        alert.contentView.addSubview(returnBatteryView)
-        
-        returnBatteryView.leadingAnchor.constraint(equalTo: alert.contentView.leadingAnchor).isActive = true
-        returnBatteryView.trailingAnchor.constraint(equalTo: alert.contentView.trailingAnchor).isActive = true
-        
-        returnBatteryView.topAnchor.constraint(equalTo: alert.contentView.topAnchor).isActive = true
-        returnBatteryView.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor).isActive = true
-        
-        
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "确认已归还",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
-        alert.present()
-    }
+ 
+    
     func presentGetCouponController(textAction:((String) -> Void)?,buttonAction:(()->Void)?,cancelBlock:((AlertAction)->Void)? = nil,sureBlock:((AlertAction,String) -> Void)? = nil){
         let getCouponAlertView = GetCouponAlertView()
         getCouponAlertView.commonInputView.textField.addTextChangedAction { text in

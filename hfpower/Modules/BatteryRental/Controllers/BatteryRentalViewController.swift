@@ -352,6 +352,15 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
             }
         }else if let cellx = cell as? FeeDetailViewCell{
             
+        }else if let cellx = cell as? RecommendViewCell{
+            cellx.scanAction = { [weak self] _ in
+                let scanVC = HFScanViewController()
+                scanVC.resultBlock = { [weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                    cellx.content = $0.strScanned
+                }
+                self?.navigationController?.pushViewController(scanVC, animated: true)
+            }
         }
         return cell
     }

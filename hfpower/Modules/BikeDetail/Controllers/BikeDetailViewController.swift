@@ -298,6 +298,14 @@ class BikeActionSectionController: ListSectionController {
         return cell
     }
     override func didSelectItem(at index: Int) {
+        if bikeAction.items[index].id == 1{
+            let bikeRenewViewController = BikeRenewViewController()
+            self.viewController?.navigationController?.pushViewController(bikeRenewViewController, animated: true)
+        }else if bikeAction.items[index].id == 0{//退租
+            self.viewController?.showAlertController(titleText: "提示", messageText: "请携带电车到运营商扫码退机车", okAction: {
+                
+            })
+        }
         
     }
     override func didUpdate(to object: Any) {

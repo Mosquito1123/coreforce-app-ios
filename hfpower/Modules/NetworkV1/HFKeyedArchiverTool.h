@@ -28,6 +28,7 @@
 #import "HFHelpList.h"
 #import "HFBatteryRentalTypeInfo.h"
 #import "HFDepositService.h"
+#import "HFMessageData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

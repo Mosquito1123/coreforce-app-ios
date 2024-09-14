@@ -235,7 +235,8 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             }
             contentCell.batteryRenewAction = { sender in
                 //电池续租
-                
+                let batteryRenewViewController = BatteryRenewViewController()
+                self.navigationController?.pushViewController(batteryRenewViewController, animated: true)
             }
             contentCell.bikeDetailAction = { sender in
                 //电池详情
@@ -248,7 +249,8 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             }
             contentCell.bikeRenewAction = { sender in
                 //电车续租
-                
+                let bikeRenewViewController = BikeRenewViewController()
+                self.navigationController?.pushViewController(bikeRenewViewController, animated: true)
             }
         }else if let contentCell = cell as? PersonalAssetsViewCell{
             contentCell.titleLabel.text = item.title
@@ -278,6 +280,9 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                 if indexPath.item == 0 {
                     let allOrderVC = AllOrderViewController()
                     self.navigationController?.pushViewController(allOrderVC, animated: true)
+                }else if indexPath.item == 1{
+                    let vc=PackageCardChooseServiceViewController()
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }else if indexPath.item == 4{
                     let inviteVC = InviteCodeViewController()
                     self.navigationController?.pushViewController(inviteVC, animated: true)
@@ -286,6 +291,17 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                     let userFeedbackVC = UserFeedbackViewController()
                     self.navigationController?.pushViewController(userFeedbackVC, animated: true)
                     
+                }else if indexPath.item == 6{
+                   let userGuideVC = UserGuideViewController()
+                    self.navigationController?.pushViewController(userGuideVC, animated: true)
+
+                }else if indexPath.item == 7{
+                    let messageListVC = MessageListViewController()
+                    self.navigationController?.pushViewController(messageListVC, animated: true)
+
+                }else if indexPath.item == 8{
+                    let customerVC = CustomerServiceViewController()
+                    self.navigationController?.pushViewController(customerVC, animated: true)
                 }else if indexPath.item == 9{
                     let allCouponViewController = AllCouponViewController()
                     self.navigationController?.pushViewController(allCouponViewController, animated: true)
