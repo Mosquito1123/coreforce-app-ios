@@ -32,7 +32,7 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     
     var imageUrls = [URL]()
     // MARK: - Accessor
-    let base = "https://test9375.coreforce.cn"
+    let base = rootRequest
     let fpc = FloatingPanelController()
     @objc var id:NSNumber?
     @objc var number:String?

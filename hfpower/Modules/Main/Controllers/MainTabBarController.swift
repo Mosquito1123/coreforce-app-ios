@@ -249,7 +249,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
     }
     func rentBattery(number:String?){
         let batteryRentalViewContoller = BatteryRentalViewController()
-//        batteryRentalViewContoller.batteryNumber = number ?? ""
+        batteryRentalViewContoller.batteryNumber = number ?? ""
         self.navigationController?.pushViewController(batteryRentalViewContoller, animated: true)
 
     }

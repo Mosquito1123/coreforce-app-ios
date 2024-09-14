@@ -18,6 +18,7 @@ class CustomerServicePagerViewCell: UITableViewCell ,UITableViewDelegate,UITable
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         self.didSelectRowAction?(tableView,indexPath)
     }
     

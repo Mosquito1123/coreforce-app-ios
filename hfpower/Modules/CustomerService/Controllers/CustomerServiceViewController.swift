@@ -128,6 +128,7 @@ class CustomerServiceContentViewController: TabmanViewController {
                     let model = $0
                     let vc = CustomerServicePagerViewController()
                     vc.id = $0.id
+                    vc.title = $0.value
                     return (menu: model, content: vc)
                 }
                 self.reloadData()
@@ -212,7 +213,7 @@ extension CustomerServiceContentViewController: PageboyViewControllerDataSource,
     }
     
     func barItem(for bar: TMBar, at index: Int) -> TMBarItemable {
-        let title = items[index].menu.title
+        let title = items[index].menu.value
         return TMBarItem(title: title)
     }
 }
@@ -274,7 +275,7 @@ class CustomerServicePagerViewController:UIViewController,UITableViewDelegate,UI
         
         return tableView
     }()
-    @objc var id:NSNumber = 1
+    @objc var id:NSNumber?
     var list:[HFHelpList] = [HFHelpList]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -284,11 +285,16 @@ class CustomerServicePagerViewController:UIViewController,UITableViewDelegate,UI
         loadData()
     }
     func loadData(){
-        self.getData(helpListUrl, param: ["type":id,"title":"常见问题"], isLoading: false) { responseObject in
+        var params = [String:Any]()
+        if let idx = id {
+            params["type"] = idx
+        }
+        self.getData(helpListUrl, param: params, isLoading: false) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
-                let list = body["list"] as? [[String:Any]]{
-                 let items = HFHelpList.mj_objectArray(withKeyValuesArray: list) as? [HFHelpList] ?? []
-                 self.list = items
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                let items = HFHelpList.mj_objectArray(withKeyValuesArray: dataList) as? [HFHelpList] ?? []
+                self.list = items
                 self.tableView.reloadData()
             }
         } error: { error in

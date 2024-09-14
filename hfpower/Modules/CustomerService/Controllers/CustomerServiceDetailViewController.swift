@@ -6,56 +6,43 @@
 //
 
 import UIKit
-
-class CustomerServiceDetailViewController: UIViewController {
+import WebKit
+class CustomerServiceDetailViewController: BaseViewController,WKNavigationDelegate {
     
     // MARK: - Accessor
-    var element:HFHelpList = HFHelpList()
-    // MARK: - Subviews
-
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setupNavbar()
-        setupSubviews()
-        setupLayout()
+    var element:HFHelpList = HFHelpList(){
+        didSet{
+            let problemId = element.id // Assuming `obj` is an instance with an `id` property
+            let token = HFKeyedArchiverTool.account().accessToken // Assuming you're using UserDefaults for storing the token
+            urlString = "\(rootRequest)/tqcp/#/richtext?from=app&problemId=\(problemId)&token=\(token)"
+        }
     }
-    
-}
-
-// MARK: - Setup
-private extension CustomerServiceDetailViewController {
-    
-    private func setupNavbar() {
-        
-    }
-   
-    private func setupSubviews() {
-        
-    }
-    
-    private func setupLayout() {
-        
-    }
-}
-
-// MARK: - Public
-extension CustomerServiceDetailViewController {
-    
-}
-
-// MARK: - Request
-private extension CustomerServiceDetailViewController {
-    
-}
-
-// MARK: - Action
-@objc private extension CustomerServiceDetailViewController {
-    
-}
-
-// MARK: - Private
-private extension CustomerServiceDetailViewController {
-    
-}
+    var webView: WKWebView!
+       var urlString: String = "https://www.example.com" // You can set this when initializing
+       
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           
+           // Initialize WKWebView
+           webView = WKWebView(frame: self.view.frame)
+           webView.navigationDelegate = self
+           self.view.addSubview(webView)
+           
+           // Load the URL
+           if let url = URL(string: urlString) {
+               let request = URLRequest(url: url)
+               webView.load(request)
+           }
+       }
+       
+       // WKNavigationDelegate: Optional, for handling page loads, errors, etc.
+       func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+           print("Finished loading the page")
+       }
+       
+       func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+           print("Failed to load the page: \(error.localizedDescription)")
+       }
+       
+       // You can add more methods for progress, back/forward actions, etc.
+   }
