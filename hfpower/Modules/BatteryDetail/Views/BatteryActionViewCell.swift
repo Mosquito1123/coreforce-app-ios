@@ -60,6 +60,7 @@ class BatteryActionViewCell: UICollectionViewCell {
         button.setImage(UIImage(named: "device_renewal"), for: .normal)
         button.setImage(UIImage(named: "device_renewal"), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17,weight: .medium)
+        button.isUserInteractionEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button

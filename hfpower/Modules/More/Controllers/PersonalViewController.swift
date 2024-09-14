@@ -21,7 +21,17 @@ class PersonalViewController: BaseViewController, BatteryRentalViewControllerDel
     }
     
     func cabinetRentBattery(number: String?) {
-        
+        self.postData(cabinetScanRentUrl, param: ["cabinetNumber":number ?? ""], isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let list = body["list"]{
+                if let typeList = HFBatteryRentalTypeInfo.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryRentalTypeInfo]{
+                  let batteryRentalChooseTypeViewController = BatteryRentalChooseTypeViewController()
+                    batteryRentalChooseTypeViewController.items = typeList
+                    self.navigationController?.pushViewController(batteryRentalChooseTypeViewController, animated: true)
+                }
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
     }
     
     
@@ -283,6 +293,30 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                 }else if indexPath.item == 1{
                     let vc=PackageCardChooseServiceViewController()
                     self.navigationController?.pushViewController(vc, animated: true)
+                }else if indexPath.item == 2{
+                    self.showWindowInfo(withStatus: "暂未开放")
+                }else if indexPath.item == 3{
+                    let scanVC = HFScanViewController()
+                    scanVC.resultBlock = { result in
+                        if let resultString = result.strScanned{
+                            if resultString.contains("https://www.coreforce.cn/c") {
+                                let resultArray = resultString.components(separatedBy: "n=")
+                                if let typeName = resultArray.last {
+                                    self.postData(gridOpenUrl, param: ["cabinetNumber":typeName], isLoading: true) { responseObject in
+                                        self.showWindowInfo(withStatus: "请取出电池，关闭舱门，重新扫码换电")
+                                        scanVC.navigationController?.popViewController(animated: true)
+                                    } error: { error in
+                                        self.showError(withStatus: error.localizedDescription)
+                                    }
+
+                                }
+                            } else {
+                                self.showError(withStatus: "请扫描对应运营商电池柜二维码")
+                            }
+                        }
+                        
+                    }
+                    self.navigationController?.pushViewController(scanVC, animated: true)
                 }else if indexPath.item == 4{
                     let inviteVC = InviteCodeViewController()
                     self.navigationController?.pushViewController(inviteVC, animated: true)

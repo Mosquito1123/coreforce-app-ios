@@ -56,7 +56,7 @@ class HFScanTool{
 class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
     var resultBlock:((LBXScanResult)->Void)?
     var inputResultBlock:((String)->Void)?
-    var titles = ["扫码", "输码"]{
+    var titles = ["扫码"]{
         didSet{
             
         }

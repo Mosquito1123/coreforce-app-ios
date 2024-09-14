@@ -245,38 +245,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
             self.showError(withStatus: error.localizedDescription)
         }
 
-        /*NetworkService<BusinessAPI,CabinetDetailResponse>().request(.cabinet(id: nil, number: number)) { result in
-            switch result {
-            case .success(let response):
-                if  let payingOrderId = response?.payingOrderId{
-                    self.showAlertController(titleText: "温馨提示", messageText: "您有订单尚未完成支付，取消订单将会返还已使用优惠券到您账户，是否取消？") {
-                        self.presentedViewController?.dismiss(animated: true)
-                        let orderDetailVC = OrderDetailViewController()
-                        orderDetailVC.element = OrderList(id: payingOrderId)
-                        self.navigationController?.pushViewController(orderDetailVC, animated: true)
-                    } cancelAction: {
-                        /*NetworkService<BusinessAPI,BlankResponse>().request(.orderCancel(orderId: payingOrderId)) { result in
-                            switch result {
-                            case .success:
-                                self.showSuccess(withStatus: "取消成功")
-                            case .failure(let failure):
-                                self.showError(withStatus: failure.localizedDescription)
-                            }
-                        }             */
-
-                    }
-                }else{
-                    self.showAlertController(titleText: "温馨提示", messageText: "您确定要电池柜租电？") {
-                        
-                    } cancelAction: {
-                        
-                    }
-                }
-                
-            case .failure(let error):
-                self.showError(withStatus: error.localizedDescription)
-            }
-        }             */
+        
     }
     func rentBattery(number:String?){
         let batteryRentalViewContoller = BatteryRentalViewController()

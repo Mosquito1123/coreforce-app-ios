@@ -69,6 +69,30 @@ private extension BatteryReplacementViewController {
         self.view.backgroundColor = .white
         self.tableView.backgroundColor = .white
         let footerView = BatteryReplacementTableFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 280))
+        footerView.fetchCellBlock = {sender in
+            
+            let scanVC = HFScanViewController()
+            scanVC.resultBlock = { result in
+                if let resultString = result.strScanned{
+                    if resultString.contains("https://www.coreforce.cn/c") {
+                        let resultArray = resultString.components(separatedBy: "n=")
+                        if let typeName = resultArray.last {
+                            self.postData(gridOpenUrl, param: ["cabinetNumber":typeName], isLoading: true) { responseObject in
+                                self.showWindowInfo(withStatus: "请取出电池，关闭舱门，重新扫码换电")
+                                scanVC.navigationController?.popViewController(animated: true)
+                            } error: { error in
+                                self.showError(withStatus: error.localizedDescription)
+                            }
+
+                        }
+                    } else {
+                        self.showError(withStatus: "请扫描对应运营商电池柜二维码")
+                    }
+                }
+                
+            }
+            self.navigationController?.pushViewController(scanVC, animated: true)
+        }
         self.tableView.tableFooterView = footerView
         self.view.addSubview(self.tableView)
         self.view.addSubview(bottomView)

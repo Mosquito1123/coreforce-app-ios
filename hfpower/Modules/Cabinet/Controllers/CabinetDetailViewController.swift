@@ -163,8 +163,12 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     }
     func cabinetRentBattery(number: String?) {
         self.postData(cabinetScanRentUrl, param: ["cabinetNumber":number ?? ""], isLoading: true) { responseObject in
-            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
-                
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let list = body["list"]{
+                if let typeList = HFBatteryRentalTypeInfo.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryRentalTypeInfo]{
+                  let batteryRentalChooseTypeViewController = BatteryRentalChooseTypeViewController()
+                    batteryRentalChooseTypeViewController.items = typeList
+                    self.navigationController?.pushViewController(batteryRentalChooseTypeViewController, animated: true)
+                }
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)

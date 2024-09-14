@@ -44,7 +44,8 @@ extension UIResponder{
         
         
     }
-    public func showWindowSuccess(withStatus status:String?){            SVProgressHUD.setDefaultStyle(.dark)
+    public func showWindowSuccess(withStatus status:String?){            
+        SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.setMaxSupportedWindowLevel(.statusBar)
         let keyWindow : UIWindow? = {
             if #available(iOS 13.0, *) {
@@ -73,7 +74,8 @@ extension UIResponder{
         
         
     }
-    public func showSuccess(withStatus status:String?){            SVProgressHUD.setDefaultStyle(.dark)
+    public func showSuccess(withStatus status:String?){
+        SVProgressHUD.setDefaultStyle(.dark)
         SVProgressHUD.showSuccess(withStatus: status)
         
     }
