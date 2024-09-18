@@ -6,33 +6,14 @@
 //
 
 import UIKit
-
-class PersonalInfoViewController: UIViewController, UIGestureRecognizerDelegate {
+import ZLPhotoBrowser
+import Kingfisher
+class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCell,PersonalInfo> {
     
     // MARK: - Accessor
-    var items = [PersonalInfo](){
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
+    
     // MARK: - Subviews
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(PersonalInfoListViewCell.self, forCellReuseIdentifier: PersonalInfoListViewCell.cellIdentifier())
-        tableView.separatorStyle = .none
-        let tableHeaderView = PersonalInfoTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
-        tableHeaderView.editAction = { sender in
-                    
-        }        
-        
-        tableView.tableHeaderView = tableHeaderView
-        tableView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tableView
-    }()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,43 +21,45 @@ class PersonalInfoViewController: UIViewController, UIGestureRecognizerDelegate 
         setupNavbar()
         setupSubviews()
         setupLayout()
-        self.items = [
-            PersonalInfo(id: 0, title:  "用户姓名",content: "张三",isEditable: false),
-            PersonalInfo(id: 1, title: "性别",content: "男",isEditable: false),
-            PersonalInfo(id: 2, title: "手机号",content: "132****1234",isEditable: true),
-            PersonalInfo(id: 3, title: "实名认证",content: "123456789",isEditable: true),
-           
-
-          
-        ]
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // 设置导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(UIColor.white.toImage(), for: .default)
-            navigationBar.shadowImage = UIColor.white.toImage()
-            
-            // 设置标题字体和颜色
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor(rgba:0x333333FF),
-                .font: UIFont.systemFont(ofSize: 18,weight: .medium)
-            ]
-            navigationBar.titleTextAttributes = titleAttributes
-        }
+        loadData()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // 恢复导航栏颜色
-        if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(nil, for: .default)
-            navigationBar.shadowImage = nil
-            
-            // 恢复标题字体和颜色
-            navigationBar.titleTextAttributes = nil
+    func loadData(){
+        self.getData(memberUrl, param: [:], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any] {
+                if let memberData = HFMember.mj_object(withKeyValues: body["member"]){
+                    if let headerView = self.tableView.tableHeaderView as? PersonalInfoTableHeaderView{
+                        headerView.avatarImageView.kf.setImage(with: URL(string: "\(rootRequest)/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
+                    }
+                    self.items = [
+                        PersonalInfo(id: 0, title:  "用户姓名",content: memberData.realName == "" ? memberData.phoneNum:memberData.realName,isNext: false),
+                        PersonalInfo(id: 1, title: "性别",content: memberData.status == 1 ? "男":"女",isNext: false),
+                        PersonalInfo(id: 2, title: "手机号",content: memberData.phoneNum,isNext: true),
+                        PersonalInfo(id: 3, title: "实名认证",content: memberData.isAuth == 1 ? "已实名认证":"未实名，前往认证",isEditable: memberData.isAuth != 1, isNext: true),
+                       
+
+                      
+                    ]
+
+                }
+
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = self.items[indexPath.row]
+        if item.title == "实名认证" && item.isEditable == true{
+            let realNameAuthVC = RealNameAuthViewController()
+            self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+        } else if item.title == "手机号"{
+            let changePhoneNumberController = ChangePhoneNumberViewController()
+            self.navigationController?.pushViewController(changePhoneNumberController, animated: true)
         }
     }
     
@@ -87,22 +70,32 @@ private extension PersonalInfoViewController {
     
     private func setupNavbar() {
         self.title = "个人信息"
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
-        
-        // 自定义返回按钮
-        let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "back_arrow"), for: .normal)  // 设置自定义图片
-        backButton.setTitle("", for: .normal)  // 设置标题
-        backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        let backBarButtonItem = UIBarButtonItem(customView: backButton)
-        self.navigationItem.leftBarButtonItem = backBarButtonItem
     }
    
     private func setupSubviews() {
         self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
         self.view.addSubview(self.tableView)
+        let tableHeaderView = PersonalInfoTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
+        tableHeaderView.editAction = { sender in
+            let ps = ZLPhotoPreviewSheet()
+            ps.selectImageBlock = { [weak self] results, isOriginal in
+                // your code
+                if let image = results.first?.image{
+                    self?.uploadData(headPicUrl, param: [:], image: image, name: "file", fileName: "pic_image", success: { responseObject in
+                        self?.showSuccess(withStatus: "修改成功")
+                        tableHeaderView.avatarImageView.image = image
+                    }, error: { error in
+                        self?.showError(withStatus: error.localizedDescription)
+                        
+                    })
+                    
+                    
+                }
+            }
+            ps.showPreview(animate: true, sender: self)
+        }
+        
+        tableView.tableHeaderView = tableHeaderView
     }
     
     private func setupLayout() {
@@ -116,18 +109,7 @@ private extension PersonalInfoViewController {
 }
 
 // MARK: - Public
-extension PersonalInfoViewController:UITableViewDelegate,UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PersonalInfoListViewCell.cellIdentifier(), for: indexPath) as? PersonalInfoListViewCell else {return PersonalInfoListViewCell()}
-        cell.element = self.items[indexPath.row]
-        
-        return cell
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
-    }
-    
-}
+
 
 // MARK: - Request
 private extension PersonalInfoViewController {
@@ -136,10 +118,7 @@ private extension PersonalInfoViewController {
 
 // MARK: - Action
 @objc private extension PersonalInfoViewController {
-    @objc func backButtonTapped() {
-        // 返回按钮的点击事件处理
-        self.navigationController?.popViewController(animated: true)
-    }
+    
 }
 
 // MARK: - Private

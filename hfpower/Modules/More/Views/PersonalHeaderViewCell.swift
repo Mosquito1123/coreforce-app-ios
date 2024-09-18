@@ -16,7 +16,7 @@ class PersonalHeaderViewCell: UITableViewCell {
                 titleLabel.text = member.nickname != "" ? member.nickname:member.phoneNum
                 subTitleLabel.text = member.phoneNum
                 authorityButton.isVerified = member.isAuth == 1
-                headerImageView.kf.setImage(with: URL(string: "http://www.coreforce.cn/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
+                headerImageView.kf.setImage(with: URL(string: "\(rootRequest)/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
             }
         }
     }

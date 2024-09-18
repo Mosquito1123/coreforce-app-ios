@@ -12,4 +12,5 @@ struct PersonalInfo:Convertible{
     var title:String?
     var content:String?
     var isEditable:Bool?
+    var isNext:Bool?
 }

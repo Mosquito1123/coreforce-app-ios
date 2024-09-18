@@ -28,8 +28,9 @@ class PersonalInfoTableHeaderView: UIView {
     lazy var editButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "pencil.circle.fill"), for: .normal) // 使用系统图标
-        button.tintColor = .blue
+        button.setImage(UIImage(named: "edit"), for: .normal) //
+        button.setImage(UIImage(named: "edit"), for: .selected) //
+        button.setBackgroundImage(UIColor.white.circularImage(diameter: 33), for: .normal)
         button.addTarget(self, action: #selector(editButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -67,10 +68,10 @@ private extension PersonalInfoTableHeaderView {
                 
                 // 布局编辑按钮
                 NSLayoutConstraint.activate([
-                    editButton.widthAnchor.constraint(equalToConstant: 30),
-                    editButton.heightAnchor.constraint(equalToConstant: 30),
-                    editButton.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
-                    editButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 10)
+                    editButton.widthAnchor.constraint(equalToConstant: 33),
+                    editButton.heightAnchor.constraint(equalToConstant: 33),
+                    editButton.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
+                    editButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor)
                 ])
     }
     

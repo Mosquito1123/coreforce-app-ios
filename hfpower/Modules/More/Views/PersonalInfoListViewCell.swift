@@ -7,26 +7,31 @@
 
 import UIKit
 
-class PersonalInfoListViewCell: UITableViewCell {
+class PersonalInfoListViewCell: BaseTableViewCell<PersonalInfo> {
     
     // MARK: - Accessor
     var iconWidth:NSLayoutConstraint!
     var iconHeight:NSLayoutConstraint!
-    var element:PersonalInfo?{
-        didSet{
-            self.titleLabel.text = element?.title
-            self.contentLabel.text = element?.content
-            if element?.isEditable == true{
-                iconImageView.isHidden = false
-                iconWidth.constant = 6
-                iconHeight.constant = 12
-                self.layoutIfNeeded()
-            }else{
-                iconImageView.isHidden = true
-                iconWidth.constant = 0
-                iconHeight.constant = 0
-                self.layoutIfNeeded()
-            }
+    override func configure() {
+        self.titleLabel.text = element?.title
+        self.contentLabel.text = element?.content
+        if element?.isEditable == true{
+            self.contentLabel.textColor = UIColor(rgba: 0xF53F3FFF)
+        }else if element?.isEditable == false{
+            self.contentLabel.textColor = UIColor(rgba: 0x56C386FF)
+        }else{
+            self.contentLabel.textColor = UIColor(rgba:0x333333FF)
+        }
+        if element?.isNext == true{
+            iconImageView.isHidden = false
+            iconWidth.constant = 6
+            iconHeight.constant = 12
+            self.layoutIfNeeded()
+        }else{
+            iconImageView.isHidden = true
+            iconWidth.constant = 0
+            iconHeight.constant = 0
+            self.layoutIfNeeded()
         }
     }
     // MARK: - Subviews
@@ -61,11 +66,11 @@ class PersonalInfoListViewCell: UITableViewCell {
         return imageView
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> PersonalInfoListViewCell {
+    override class func cell(with tableView: UITableView) -> PersonalInfoListViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? PersonalInfoListViewCell { return cell }
         return PersonalInfoListViewCell(style: .default, reuseIdentifier: identifier)

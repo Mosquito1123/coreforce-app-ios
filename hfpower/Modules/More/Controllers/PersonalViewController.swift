@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ZLPhotoBrowser
 class PersonalViewController: BaseViewController, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
     func rentBike(number: String?) {
         
@@ -204,22 +203,8 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
         if let headerCell = cell as? PersonalHeaderViewCell{
             headerCell.element = item
             headerCell.headerImageBlock = { tap in
-                let ps = ZLPhotoPreviewSheet()
-                ps.selectImageBlock = { [weak self] results, isOriginal in
-                    // your code
-                    if let image = results.first?.image{
-                        self?.uploadData(headPicUrl, param: [:], image: image, name: "file", fileName: "pic_image", success: { responseObject in
-                            self?.showSuccess(withStatus: "修改成功")
-                            headerCell.headerImageView.image = image
-                        }, error: { error in
-                            self?.showError(withStatus: error.localizedDescription)
-                            
-                        })
-                        
-                        
-                    }
-                }
-                ps.showPreview(animate: true, sender: self)
+                let personalInfoViewController = PersonalInfoViewController()
+                self.navigationController?.pushViewController(personalInfoViewController, animated: true)
                 
                 
             }

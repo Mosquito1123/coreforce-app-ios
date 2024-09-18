@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *isAuth;
 @property(nonatomic,copy)NSString* phoneNum;
 @property(nonatomic,copy)NSString* nickname;
+@property(nonatomic,copy)NSString* realName;
+@property(nonatomic,copy)NSNumber* status;
 @property(nonatomic,copy)NSString* wxOpenid;
 @end
 
