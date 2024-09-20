@@ -47,7 +47,7 @@ class BatteryInfoViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "电池编号"
-        label.textColor = UIColor(rgba: 0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -57,7 +57,7 @@ class BatteryInfoViewCell: UICollectionViewCell {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.text = "TQ1234456"
-        label.textColor = UIColor(rgba: 0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textAlignment = .right
         label.numberOfLines = 0
@@ -66,7 +66,7 @@ class BatteryInfoViewCell: UICollectionViewCell {
     }()
     lazy var extraLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(rgba: 0xFF3A3AFF)
+        label.textColor = UIColor(hex:0xFF3A3AFF)
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .right
         label.numberOfLines = 0

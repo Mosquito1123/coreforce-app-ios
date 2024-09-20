@@ -157,7 +157,7 @@ class HFTitleTableViewCell: UITableViewCell {
     }()
     lazy var lineView:UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xF7F8FAFF)
+        view.backgroundColor = UIColor(hex:0xF7F8FAFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -238,7 +238,7 @@ class HFActionSheetSectionFooterView: UITableViewHeaderFooterView {
     // MARK: - Subviews
     lazy var lineView:UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xF7F8FAFF)
+        view.backgroundColor = UIColor(hex:0xF7F8FAFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

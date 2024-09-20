@@ -36,7 +36,7 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
         let label = UILabel()
         label.text = "60V36AH"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -45,7 +45,7 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
         let label = UILabel()
         label.text = "续航60-80公里，适合全职及众包骑手"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,8 +54,8 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 0, width: 64, height: 40)
         button.tintAdjustmentMode = .automatic
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .medium)
@@ -73,11 +73,11 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
         button.tintAdjustmentMode = .automatic
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
-        button.setImage(UIImage(named: "customer_icon_arrow_more")?.colorized(with: UIColor(rgba:0xA0A0A0FF))?.resized(toSize: CGSize(width: 4, height: 8)), for: .normal)
-        button.setImage(UIImage(named: "customer_icon_arrow_more")?.colorized(with: UIColor(rgba:0xA0A0A0FF))?.resized(toSize: CGSize(width: 4, height: 8)), for: .highlighted)
+        button.setImage(UIImage(named: "customer_icon_arrow_more")?.colorized(with: UIColor(hex:0xA0A0A0FF))?.resized(toSize: CGSize(width: 4, height: 8)), for: .normal)
+        button.setImage(UIImage(named: "customer_icon_arrow_more")?.colorized(with: UIColor(hex:0xA0A0A0FF))?.resized(toSize: CGSize(width: 4, height: 8)), for: .highlighted)
 
-        button.setTitleColor(UIColor(rgba:0xA0A0A0FF), for: .normal)
-        button.setTitleColor(UIColor(rgba:0xA0A0A0FF), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0xA0A0A0FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0xA0A0A0FF), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.setTitle("电池型号详情", for: .normal)
         button.setTitle("电池型号详情", for: .highlighted)
@@ -118,7 +118,7 @@ private extension BatteryRentalChooseTypeViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
+        self.backgroundColor = UIColor(hex: 0xF6F6F6FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.iconImageView)
         self.containerView.addSubview(self.titleLabel)

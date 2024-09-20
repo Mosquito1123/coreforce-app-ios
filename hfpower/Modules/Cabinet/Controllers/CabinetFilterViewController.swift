@@ -21,7 +21,7 @@ class CabinetFilterViewController: UIViewController {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -37,8 +37,8 @@ class CabinetFilterViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 0, width: 343, height: 40)
         button.tintAdjustmentMode = .automatic
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)

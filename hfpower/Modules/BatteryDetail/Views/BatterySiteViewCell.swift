@@ -46,7 +46,7 @@ class BatterySiteViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "查看附近推荐站点"
-        label.textColor = UIColor(rgba: 0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 0

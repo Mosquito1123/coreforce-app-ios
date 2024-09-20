@@ -111,7 +111,7 @@ private extension ChooseBatteryTypeContentViewController {
     }
     
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.dataSource = self
         
         // Create bar
@@ -126,8 +126,8 @@ private extension ChooseBatteryTypeContentViewController {
      
             button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .medium)
             button.font = UIFont.systemFont(ofSize: 15)
-            button.tintColor = UIColor(rgba: 0x666666FF)
-            button.selectedTintColor = UIColor(rgba: 0x3171EFFF)
+            button.tintColor = UIColor(hex:0x666666FF)
+            button.selectedTintColor = UIColor(hex:0x3171EFFF)
 
         }
         // Add to view
@@ -249,8 +249,8 @@ private extension BatteryTypeListViewController {
     }
     
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
-        self.tableView.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
+        self.view.backgroundColor = UIColor(hex:0xF6F6F6FF)
+        self.tableView.backgroundColor = UIColor(hex:0xF6F6F6FF)
         self.view.addSubview(self.tableView)
         
     }

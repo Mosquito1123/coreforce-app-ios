@@ -19,7 +19,7 @@ class CabinetFilterHeaderReusableView: UICollectionReusableView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x262626FF)
+        label.textColor = UIColor(hex:0x262626FF)
         label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

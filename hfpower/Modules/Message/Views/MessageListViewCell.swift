@@ -123,7 +123,7 @@ private extension MessageListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
+        self.backgroundColor = UIColor(hex:0xF6F6F6FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.lineView)
         self.containerView.addSubview(self.titleLabel)

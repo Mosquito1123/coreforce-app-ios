@@ -12,7 +12,7 @@ class LoginPasswordInputView: UIView {
     // MARK: - Accessor
     var placeholder:String?{
         didSet{
-            passwordTextField.attributedPlaceholder = NSAttributedString(string: placeholder ?? "", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0xA0A0A0FF)])
+            passwordTextField.attributedPlaceholder = NSAttributedString(string: placeholder ?? "", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0xA0A0A0FF)])
         }
     }
     var passwordTextFieldLeading:NSLayoutConstraint!
@@ -41,15 +41,15 @@ class LoginPasswordInputView: UIView {
         textField.isSecureTextEntry = true
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.delegate = self
-        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF)]
-        textField.attributedPlaceholder = NSAttributedString(string: "请输入密码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0xA0A0A0FF)])
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF)]
+        textField.attributedPlaceholder = NSAttributedString(string: "请输入密码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0xA0A0A0FF)])
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(rgba:0xF5F7FBFF)
+        self.backgroundColor = UIColor(hex:0xF5F7FBFF)
         self.layer.cornerRadius = 25
 
         setupSubviews()
@@ -102,7 +102,7 @@ extension LoginPasswordInputView:UITextFieldDelegate {
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.layer.borderColor = UIColor(rgba:0x3171EFFF).cgColor
+        self.layer.borderColor = UIColor(hex:0x3171EFFF).cgColor
         self.layer.borderWidth = 1.5
     }
     func textFieldDidEndEditing(_ textField: UITextField) {

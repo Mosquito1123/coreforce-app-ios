@@ -12,7 +12,7 @@ class CommonInputView: UIView {
     // MARK: - Accessor
     var placeholder:String?{
         didSet{
-            textField.attributedPlaceholder = NSAttributedString(string: placeholder ?? "请输入优惠券码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x86909CFF)])
+            textField.attributedPlaceholder = NSAttributedString(string: placeholder ?? "请输入优惠券码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x86909CFF)])
 
         }
     }
@@ -24,8 +24,8 @@ class CommonInputView: UIView {
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .done
-        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF)]
-        textField.attributedPlaceholder = NSAttributedString(string: "请输入优惠券码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x86909CFF)])
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF)]
+        textField.attributedPlaceholder = NSAttributedString(string: "请输入优惠券码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x86909CFF)])
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -48,7 +48,7 @@ class CommonInputView: UIView {
 private extension CommonInputView {
     
     private func setupSubviews() {
-        self.backgroundColor = UIColor(rgba:0xF7F8FAFF)
+        self.backgroundColor = UIColor(hex:0xF7F8FAFF)
         self.layer.cornerRadius = 22
         self.addSubview(self.textField)
     }
@@ -71,7 +71,7 @@ extension CommonInputView:UITextFieldDelegate {
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.layer.borderColor = UIColor(rgba:0x3171EFFF).cgColor
+        self.layer.borderColor = UIColor(hex:0x3171EFFF).cgColor
         self.layer.borderWidth = 1.5
     }
     func textFieldDidEndEditing(_ textField: UITextField) {

@@ -27,7 +27,7 @@ class BoughtPlansViewCell: BaseTableViewCell<BuyPackageCard> {
         label.numberOfLines = 0
         label.text = "已购套餐"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -36,7 +36,7 @@ class BoughtPlansViewCell: BaseTableViewCell<BuyPackageCard> {
         label.numberOfLines = 0
         label.text = "299元/30天"
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

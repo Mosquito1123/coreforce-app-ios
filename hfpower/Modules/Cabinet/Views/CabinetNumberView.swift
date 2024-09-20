@@ -15,7 +15,7 @@ class CabinetNumberView: UIView {
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "电池柜编号"
-        label.textColor = UIColor(rgba:0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -23,7 +23,7 @@ class CabinetNumberView: UIView {
     private(set) lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.text = "TQC03177"
-        label.textColor = UIColor(rgba:0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

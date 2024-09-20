@@ -74,7 +74,7 @@ class DepositServiceViewCell: BaseTableViewCell<BuyPackageCard>,UICollectionView
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "押金服务"
-        label.textColor = UIColor(rgba: 0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -187,7 +187,7 @@ class DepositServiceCollectionCell:UICollectionViewCell{
         let label = UILabel()
         label.numberOfLines = 0
         label.text = ""
-        label.textColor = UIColor(rgba: 0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -196,7 +196,7 @@ class DepositServiceCollectionCell:UICollectionViewCell{
         let label = UILabel()
         label.numberOfLines = 0
         label.text = ""
-        label.textColor = UIColor(rgba: 0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -205,7 +205,7 @@ class DepositServiceCollectionCell:UICollectionViewCell{
         let label = UILabel()
         label.numberOfLines = 0
         label.text = ""
-        label.textColor = UIColor(rgba: 0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -19,14 +19,14 @@ class LogoffListViewCell: UITableViewCell {
     lazy var pointView:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
+        view.backgroundColor = UIColor(hex:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel:UILabel  = {
         let label = UILabel()
         label.text = "自取出电池后，不支持退租金；"
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false

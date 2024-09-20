@@ -22,8 +22,8 @@ class LogoffBottomView: UIView {
         button.setTitleColor(UIColor.white, for: .highlighted)
 
 
-        button.setBackgroundImage(UIColor(rgba:0xFF6602FF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0xFF6602FF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0xFF6602FF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0xFF6602FF).withAlphaComponent(0.5).toImage(), for: .highlighted)
 
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)

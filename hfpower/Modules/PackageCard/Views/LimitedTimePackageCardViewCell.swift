@@ -123,7 +123,7 @@ class LimitedTimePackageCardViewCell: BaseTableViewCell<BuyPackageCard>,UICollec
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = UIColor(rgba: 0x724A17FF)
+        label.textColor = UIColor(hex:0x724A17FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

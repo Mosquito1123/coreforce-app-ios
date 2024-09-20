@@ -18,7 +18,7 @@ class PackageCardChooseServiceViewCell: BaseTableViewCell<PackageCardChooseServi
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.text = "选择服务"
-            label.textColor = UIColor(rgba: 0x666666FF)
+            label.textColor = UIColor(hex:0x666666FF)
             label.font = UIFont.systemFont(ofSize: 13)
             label.textAlignment = .left
             return label
@@ -52,19 +52,19 @@ class PackageCardChooseServiceViewCell: BaseTableViewCell<PackageCardChooseServi
         if let type = PackageCardServiceType(rawValue: element?.type ?? 0){
             switch type {
             case .battery:
-                self.containerView.backgroundColor = UIColor(rgba: 0xEBFBF1FF)
-                self.titleLabel.textColor = UIColor(rgba:0x12B858FF)
-                self.contentLabel.textColor = UIColor(rgba:0x12B858FF)
+                self.containerView.backgroundColor = UIColor(hex:0xEBFBF1FF)
+                self.titleLabel.textColor = UIColor(hex:0x12B858FF)
+                self.contentLabel.textColor = UIColor(hex:0x12B858FF)
                 self.iconImageView.image = UIImage(named: "battery_type")
-                self.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).toImage(), for: .normal)
-                self.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+                self.sureButton.setBackgroundImage(UIColor(hex:0x39D97CFF).toImage(), for: .normal)
+                self.sureButton.setBackgroundImage(UIColor(hex:0x39D97CFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
             case .bike:
-                self.containerView.backgroundColor = UIColor(rgba: 0xECF1FEFF)
-                self.titleLabel.textColor = UIColor(rgba:0x447AFEFF)
-                self.contentLabel.textColor = UIColor(rgba:0x447AFEFF)
+                self.containerView.backgroundColor = UIColor(hex:0xECF1FEFF)
+                self.titleLabel.textColor = UIColor(hex:0x447AFEFF)
+                self.contentLabel.textColor = UIColor(hex:0x447AFEFF)
                 self.iconImageView.image = UIImage(named: "motorcycle")
-                self.sureButton.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-                self.sureButton.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+                self.sureButton.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+                self.sureButton.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
 
 
         
@@ -89,7 +89,7 @@ class PackageCardChooseServiceViewCell: BaseTableViewCell<PackageCardChooseServi
         let label = UILabel()
         label.text = "换电套餐"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textColor = UIColor(rgba:0x12B858FF)
+        label.textColor = UIColor(hex:0x12B858FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -98,7 +98,7 @@ class PackageCardChooseServiceViewCell: BaseTableViewCell<PackageCardChooseServi
         let label = UILabel()
         label.text = ""
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(rgba:0x447AFEFF)
+        label.textColor = UIColor(hex:0x447AFEFF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -107,8 +107,8 @@ class PackageCardChooseServiceViewCell: BaseTableViewCell<PackageCardChooseServi
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 0, width: 74, height: 40)
         button.tintAdjustmentMode = .automatic
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)

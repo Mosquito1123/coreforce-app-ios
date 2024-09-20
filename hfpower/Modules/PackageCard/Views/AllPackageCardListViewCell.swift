@@ -28,7 +28,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         let attributedText = NSAttributedString(string: "￥\(item.originalPrice)",
                                                 attributes: [
                                                     .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                    .foregroundColor: UIColor(rgba: 0xA0A0A0FF),
+                                                    .foregroundColor: UIColor(hex:0xA0A0A0FF),
                                                     .font: UIFont.systemFont(ofSize: 12)
                                                 ])
         self.originAmountLabel.attributedText = attributedText
@@ -56,7 +56,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 18))
         label.text = "已购套餐"
         label.textAlignment = .center
-        label.textColor = UIColor(rgba: 0x447AFEFF)
+        label.textColor = UIColor(hex:0x447AFEFF)
         label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +72,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         let label = UILabel()
         label.text = "--元/--天"
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 22,weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -82,7 +82,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         let attributedText = NSAttributedString(string: "￥--",
                                                 attributes: [
                                                     .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                    .foregroundColor: UIColor(rgba: 0xA0A0A0FF),
+                                                    .foregroundColor: UIColor(hex:0xA0A0A0FF),
                                                     .font: UIFont.systemFont(ofSize: 12)
                                                 ])
         label.attributedText = attributedText
@@ -95,7 +95,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = ""
-        label.textColor = UIColor(rgba: 0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 11)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -112,8 +112,8 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         button.tintAdjustmentMode = .automatic
         button.setTitle("已退款", for: .normal)
         button.setTitle("已退款", for: .highlighted)
-        button.setTitleColor(UIColor(rgba: 0xFF6565FF), for: .normal)
-        button.setTitleColor(UIColor(rgba: 0xFF6565FF).withAlphaComponent(0.5), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0xFF6565FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0xFF6565FF).withAlphaComponent(0.5), for: .highlighted)
         button.setImage(UIImage(named: "refund_warning"), for: .normal)
         button.setImage(UIImage(named: "refund_warning"), for: .selected)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
@@ -131,7 +131,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         let label = UILabel()
         label.text = "有效期至：2023.05.06 12:5"
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -145,7 +145,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     lazy var tipsLabel:UILabel = {
         let label = UILabel()
         label.text = "限--使用"
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -159,8 +159,8 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
         button.setTitle("立即使用", for: .highlighted)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .highlighted)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setImage(UIImage(named: "ic_arrow_right"), for: .normal)
         button.setImage(UIImage(named: "ic_arrow_right"), for: .selected)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .medium)
@@ -205,7 +205,7 @@ private extension AllPackageCardListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.leftTopView)
         self.leftTopView.addSubview(self.leftTopLabel)

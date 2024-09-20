@@ -42,7 +42,7 @@ class AboutTableHeaderView: UIView {
 private extension AboutTableHeaderView {
     
     private func setupSubviews() {
-        self.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.addSubview(logoImageView)
         self.addSubview(markImageView)
 

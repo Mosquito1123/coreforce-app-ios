@@ -53,8 +53,8 @@ class BatteryActionViewCell: UICollectionViewCell {
         button.tintAdjustmentMode = .automatic
         button.setTitle("续费", for: .normal)
         button.setTitle("续费", for: .highlighted)
-        button.setTitleColor(UIColor(rgba: 0x4D4D4DFF), for: .normal)
-        button.setTitleColor(UIColor(rgba: 0x4D4D4DFF).withAlphaComponent(0.5), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0x4D4D4DFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x4D4D4DFF).withAlphaComponent(0.5), for: .highlighted)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setImage(UIImage(named: "device_renewal"), for: .normal)

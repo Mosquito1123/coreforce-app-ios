@@ -73,16 +73,16 @@ extension UIViewController{
         textView.backgroundColor = .clear
         let attributedString = NSMutableAttributedString(string: "阅读并同意《核蜂换电隐私政策》和《租赁协议》", attributes: [
             .font: UIFont.systemFont(ofSize: 15),
-            .foregroundColor: UIColor(rgba:0x666666FF)
+            .foregroundColor: UIColor(hex:0x666666FF)
         ])
         
         let privacyPolicyRange = (attributedString.string as NSString).range(of: "《核蜂换电隐私政策》")
         attributedString.addAttribute(.link, value: "http://www.coreforce.cn/privacy/index.html", range: privacyPolicyRange)
-        attributedString.addAttribute(.foregroundColor, value: UIColor(rgba:0x3171EFFF) , range: privacyPolicyRange)
+        attributedString.addAttribute(.foregroundColor, value: UIColor(hex:0x3171EFFF) , range: privacyPolicyRange)
         
         let rentalAgreementRange = (attributedString.string as NSString).range(of: "《租赁协议》")
         attributedString.addAttribute(.link, value: "http://www.coreforce.cn/privacy/member.html", range: rentalAgreementRange)
-        attributedString.addAttribute(.foregroundColor, value: UIColor(rgba:0x3171EFFF) , range: rentalAgreementRange)
+        attributedString.addAttribute(.foregroundColor, value: UIColor(hex:0x3171EFFF) , range: rentalAgreementRange)
         
         textView.attributedText = attributedString
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -96,8 +96,8 @@ extension UIViewController{
         textView.topAnchor.constraint(equalTo: alert.contentView.topAnchor).isActive = true
         textView.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor).isActive = true
         textView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "不同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: sureBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "不同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF) ]), style: .normal, handler: cancelBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "同意",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x447AFEFF) ]), style: .normal, handler: sureBlock))
         alert.present()
     }
  
@@ -111,7 +111,7 @@ extension UIViewController{
             buttonAction?()
         }
         getCouponAlertView.translatesAutoresizingMaskIntoConstraints = false
-        let alert = AlertController(attributedTitle: NSAttributedString(string: "获取优惠券",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)]), attributedMessage: nil)
+        let alert = AlertController(attributedTitle: NSAttributedString(string: "获取优惠券",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF)]), attributedMessage: nil)
         alert.visualStyle.width = UIScreen.main.bounds.size.width - 64
         alert.visualStyle.backgroundColor = .white
         alert.visualStyle.verticalElementSpacing = 12
@@ -124,8 +124,8 @@ extension UIViewController{
         getCouponAlertView.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor).isActive = true
         
         
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "提取",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: { action in
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF) ]), style: .normal, handler: cancelBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "提取",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x447AFEFF) ]), style: .normal, handler: { action in
             sureBlock?(action,getCouponAlertView.commonInputView.textField.text ?? "")
         }))
         alert.present()
@@ -137,7 +137,7 @@ extension UIViewController{
         }
         
         inputNumberAlertView.translatesAutoresizingMaskIntoConstraints = false
-        let alert = AlertController(attributedTitle: NSAttributedString(string: "输码",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)]), attributedMessage: nil)
+        let alert = AlertController(attributedTitle: NSAttributedString(string: "输码",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF)]), attributedMessage: nil)
         alert.visualStyle.width = UIScreen.main.bounds.size.width - 64
         alert.visualStyle.backgroundColor = .white
         alert.visualStyle.verticalElementSpacing = 12
@@ -150,8 +150,8 @@ extension UIViewController{
         inputNumberAlertView.bottomAnchor.constraint(equalTo: alert.contentView.bottomAnchor).isActive = true
         
         
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF) ]), style: .normal, handler: cancelBlock))
-        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "确定",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x447AFEFF) ]), style: .normal, handler: { action in
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "取消",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF) ]), style: .normal, handler: cancelBlock))
+        alert.addAction(AlertAction(attributedTitle: NSAttributedString(string: "确定",attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x447AFEFF) ]), style: .normal, handler: { action in
             sureBlock?(action,inputNumberAlertView.commonInputView.textField.text ?? "")
 
         }))
@@ -162,7 +162,7 @@ extension UIViewController{
         let title = NSAttributedString(string: titleText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16,weight: .medium),.foregroundColor:UIColor.black])
         let p = NSMutableParagraphStyle()
         p.alignment = .center
-        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(rgba: 0x1D2129FF),.paragraphStyle:p])
+        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(hex:0x1D2129FF),.paragraphStyle:p])
         let alert = AlertController(attributedTitle: title, attributedMessage: message, preferredStyle: .alert)
         
         if isCancelAlert {
@@ -200,7 +200,7 @@ extension UIViewController{
         let title = NSAttributedString(string: titleText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16,weight: .medium),.foregroundColor:UIColor.black])
         let p = NSMutableParagraphStyle()
         p.alignment = .center
-        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(rgba: 0x1D2129FF),.paragraphStyle:p])
+        let message = NSAttributedString(string: messageText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),.foregroundColor:UIColor(hex:0x1D2129FF),.paragraphStyle:p])
         
         // Append the text and image to the attributed string
         attributedString.append(imageString)
@@ -216,12 +216,12 @@ extension UIViewController{
         let cancelButton = UIButton(type: .custom)
         cancelButton.layer.cornerRadius = 20
         cancelButton.layer.masksToBounds = true
-        cancelButton.layer.borderColor = UIColor(rgba:0xC9CDD4FF).cgColor
+        cancelButton.layer.borderColor = UIColor(hex:0xC9CDD4FF).cgColor
         cancelButton.layer.borderWidth = 1
         cancelButton.setTitle(cancelTitle, for: .normal)
         cancelButton.setTitle(cancelTitle, for: .highlighted)
-        cancelButton.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .normal)
-        cancelButton.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .highlighted)
+        cancelButton.setTitleColor(UIColor(hex:0x1D2129FF), for: .normal)
+        cancelButton.setTitleColor(UIColor(hex:0x1D2129FF), for: .highlighted)
         cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         cancelButton.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         cancelButton.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
@@ -234,15 +234,15 @@ extension UIViewController{
         let sureButton = UIButton(type: .custom)
         sureButton.layer.cornerRadius = 20
         sureButton.layer.masksToBounds = true
-        sureButton.layer.borderColor = UIColor(rgba:0x447AFEFF).cgColor
+        sureButton.layer.borderColor = UIColor(hex:0x447AFEFF).cgColor
         sureButton.layer.borderWidth = 1
         sureButton.setTitle(sureTitle, for: .normal)
         sureButton.setTitle(sureTitle, for: .highlighted)
         sureButton.setTitleColor(UIColor.white, for: .normal)
         sureButton.setTitleColor(UIColor.white, for: .highlighted)
         sureButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        sureButton.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-        sureButton.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        sureButton.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        sureButton.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         sureButton.addAction(for: .touchUpInside) {
             alert.dismiss()
             sureBlock()
@@ -283,7 +283,7 @@ extension UIViewController{
             let imageString = NSAttributedString(attachment: imageAttachment)
             
             // Create attributed text
-            let methodTitle = NSAttributedString(string: methods[i], attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x333333FF)])
+            let methodTitle = NSAttributedString(string: methods[i], attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF)])
             attributedString.append(imageString)
             attributedString.append(NSAttributedString(string: " ")) // Line break
             attributedString.append(methodTitle)
@@ -291,7 +291,7 @@ extension UIViewController{
             list.append(attributedString)
         }
         var cancelList = [NSAttributedString]()
-        let cancelATitle = NSAttributedString(string: cancelTitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba: 0x1D2129FF)])
+        let cancelATitle = NSAttributedString(string: cancelTitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x1D2129FF)])
         cancelList.append(cancelATitle)
 
         
@@ -421,7 +421,7 @@ class ReturnBatteryAlertView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "或扫描柜子归还电池"
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -430,7 +430,7 @@ class ReturnBatteryAlertView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "请确认电池与换电柜是否连接良好,或点击确定后稍后确认\n\n或拨打客服电话"
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -441,8 +441,8 @@ class ReturnBatteryAlertView: UIView {
         button.tintAdjustmentMode = .automatic
         button.setImage(UIImage(named: "scan"), for: .normal)
         button.setImage(UIImage(named: "scan"), for: .highlighted)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.layer.cornerRadius = 20
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -529,7 +529,7 @@ class GetCouponAlertView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "输入优惠券券码"
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -538,7 +538,7 @@ class GetCouponAlertView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "或扫码优惠券二维码"
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -548,8 +548,8 @@ class GetCouponAlertView: UIView {
         button.tintAdjustmentMode = .automatic
         button.setImage(UIImage(named: "scan"), for: .normal)
         button.setImage(UIImage(named: "scan"), for: .highlighted)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.layer.cornerRadius = 20
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -639,7 +639,7 @@ class InputNumberAlertView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "请输入电池或电柜上二维码旁边的字母数字编码"
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

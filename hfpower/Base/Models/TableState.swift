@@ -38,7 +38,7 @@ enum TableState: CustomState {
             var format = EmptyStateFormat()
             format.titleAttributes = [
                 .font:UIFont.systemFont(ofSize: 14),
-                .foregroundColor:UIColor(rgba: 0x86909CFF)
+                .foregroundColor:UIColor(hex:0x86909CFF)
             ]
             return format
  
@@ -46,14 +46,14 @@ enum TableState: CustomState {
             var format = EmptyStateFormat()
             format.titleAttributes = [
                 .font:UIFont.systemFont(ofSize: 14),
-                .foregroundColor:UIColor(rgba: 0x86909CFF)
+                .foregroundColor:UIColor(hex:0x86909CFF)
             ]
             return format
         case .noData:
             var format = EmptyStateFormat()
             format.titleAttributes = [
                 .font:UIFont.systemFont(ofSize: 14),
-                .foregroundColor:UIColor(rgba: 0x86909CFF)
+                .foregroundColor:UIColor(hex:0x86909CFF)
             ]
             return format
         }

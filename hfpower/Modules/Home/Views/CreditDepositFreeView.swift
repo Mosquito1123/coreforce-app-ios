@@ -32,7 +32,7 @@ class CreditDepositFreeView: UIView {
         let button = UIButton(type: .custom)
         button.setTitle("前往认证", for: .normal)
         button.setTitleColor(
-            UIColor(rgba:0x416CFFFF), for: .normal)
+            UIColor(hex:0x416CFFFF), for: .normal)
         button.setImage(UIImage(named: "common_icon_arrow_more"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         button.addTarget(self, action: #selector(goToAction(_:)), for: .touchUpInside)

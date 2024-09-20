@@ -72,8 +72,8 @@ class MainScanButton: UIButton {
         setImage(UIImage(named: "scan"), for: .normal)
         setImage(UIImage(named: "scan"), for: .highlighted)
         
-        setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
-        setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+        setBackgroundImage(UIColor(hex:0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+        setBackgroundImage(UIColor(hex:0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
         
         setTitleColor(.white, for: .normal)
         setTitleColor(UIColor.white.withAlphaComponent(0.3), for: .highlighted)
@@ -90,18 +90,18 @@ class MainScanButton: UIButton {
         case .battery_rent:
             setTitle("扫码租电", for: .normal)
             setTitle("扫码租电", for: .highlighted)
-            setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
-            setBackgroundImage(UIColor(rgba: 0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+            setBackgroundImage(UIColor(hex:0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+            setBackgroundImage(UIColor(hex:0x22C788FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
         case .battery_change:
             setTitle("扫码换电", for: .normal)
             setTitle("扫码换电", for: .highlighted)
-            setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
-            setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+            setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+            setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
         case .battery_release:
             setTitle("解除寄存", for: .normal)
             setTitle("解除寄存", for: .highlighted)
-            setBackgroundImage(UIColor(rgba: 0xFF8842FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
-            setBackgroundImage(UIColor(rgba: 0xFF8842FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
+            setBackgroundImage(UIColor(hex:0xFF8842FF).toImage(size: CGSize(width: 76, height: 76)), for: .normal)
+            setBackgroundImage(UIColor(hex:0xFF8842FF).toImage(size: CGSize(width: 76, height: 76)), for: .highlighted)
         }
         setNeedsLayout()
     }

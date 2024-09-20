@@ -16,7 +16,7 @@ class ChangeIdentityCodeViewController: UIViewController {
         let label = UILabel()
         label.text = "修改密码"
         label.font = UIFont.systemFont(ofSize: 26,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -25,7 +25,7 @@ class ChangeIdentityCodeViewController: UIViewController {
         let label = UILabel()
         label.text = "密码必须6-16位数字和字母组合，如未设置过密码可不输入旧密码"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

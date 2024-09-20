@@ -122,7 +122,7 @@ class NewComersPackageCardViewCell:BaseTableViewCell<BuyPackageCard>,UICollectio
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        label.textColor = UIColor(rgba: 0xFFFFFFFF)
+        label.textColor = UIColor(hex:0xFFFFFFFF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

@@ -116,7 +116,7 @@ class BuyPackageCardPlansViewCell: BaseTableViewCell<BuyPackageCard>,UICollectio
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -276,37 +276,37 @@ class BuyPackageCardPlanCell: UICollectionViewCell {
                 }
             case .limitedTime:
                 if model.selected.boolValue {
-                    backgroundColor = UIColor(rgba: 0xFFF3E3FF)
+                    backgroundColor = UIColor(hex:0xFFF3E3FF)
                     layer.borderWidth = 1.5
-                    layer.borderColor = UIColor(rgba: 0xF97B02FF).cgColor
-                    planUnitLabel.textColor = UIColor(rgba: 0xF97602FF)
-                    planAmountLabel.textColor = UIColor(rgba: 0xF97602FF)
-                    planPerMonthLabel.textColor = UIColor(rgba: 0xF97602FF)
+                    layer.borderColor = UIColor(hex:0xF97B02FF).cgColor
+                    planUnitLabel.textColor = UIColor(hex:0xF97602FF)
+                    planAmountLabel.textColor = UIColor(hex:0xF97602FF)
+                    planPerMonthLabel.textColor = UIColor(hex:0xF97602FF)
                 } else {
-                    backgroundColor = UIColor(rgba: 0xFFF3E3FF)
+                    backgroundColor = UIColor(hex:0xFFF3E3FF)
                     layer.borderWidth = 0.0
                     layer.borderColor = UIColor.clear.cgColor
                     planUnitLabel.textColor = UIColor(white: 51/255, alpha: 1)
                     planAmountLabel.textColor = UIColor(white: 51/255, alpha: 1)
-                    planPerMonthLabel.textColor = UIColor(rgba: 0xF97602FF)
+                    planPerMonthLabel.textColor = UIColor(hex:0xF97602FF)
 
                 }
             case .newComers:
                 if model.selected.boolValue {
-                    backgroundColor = UIColor(rgba:0xFFF1F0FF)
+                    backgroundColor = UIColor(hex:0xFFF1F0FF)
                     layer.borderWidth = 1.5
-                    layer.borderColor =  UIColor(rgba:0xEC5259FF).cgColor
-                    planUnitLabel.textColor =  UIColor(rgba:0xEC5259FF)
-                    planAmountLabel.textColor =  UIColor(rgba:0xEC5259FF)
-                    planPerMonthLabel.textColor = UIColor(rgba: 0xF5746BFF)
+                    layer.borderColor =  UIColor(hex:0xEC5259FF).cgColor
+                    planUnitLabel.textColor =  UIColor(hex:0xEC5259FF)
+                    planAmountLabel.textColor =  UIColor(hex:0xEC5259FF)
+                    planPerMonthLabel.textColor = UIColor(hex:0xF5746BFF)
 
                 } else {
-                    backgroundColor = UIColor(rgba:0xFFF1F0FF)
+                    backgroundColor = UIColor(hex:0xFFF1F0FF)
                     layer.borderWidth = 0.0
                     layer.borderColor = UIColor.clear.cgColor
                     planUnitLabel.textColor = UIColor(white: 51/255, alpha: 1)
                     planAmountLabel.textColor = UIColor(white: 51/255, alpha: 1)
-                    planPerMonthLabel.textColor = UIColor(rgba: 0xF5746BFF)
+                    planPerMonthLabel.textColor = UIColor(hex:0xF5746BFF)
 
                 }
             }

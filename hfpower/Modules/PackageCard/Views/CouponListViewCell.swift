@@ -13,7 +13,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "有效期至：2023.05.06 12:5"
-            label.textColor = UIColor(rgba:0x333333FF)
+            label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 12)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -21,7 +21,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.layer.cornerRadius = 1
-            self.backgroundColor = UIColor(rgba:0xF9F9FBFF)
+            self.backgroundColor = UIColor(hex:0xF9F9FBFF)
             self.addSubview(titleLabel)
             NSLayoutConstraint.activate([
                 titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 6),
@@ -46,7 +46,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
             let label = UILabel()
             label.text = "¥"
             label.numberOfLines = 0
-            label.textColor = UIColor(rgba:0xFFFFFFFF)
+            label.textColor = UIColor(hex:0xFFFFFFFF)
             label.font = UIFont(name: "DIN Alternate Bold", size: 14)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -54,7 +54,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
         lazy var titleLabel: UILabel = {
             let label = UILabel()
             label.numberOfLines = 0
-            label.textColor = UIColor(rgba:0xFFFFFFFF)
+            label.textColor = UIColor(hex:0xFFFFFFFF)
             label.font = UIFont(name: "DIN Alternate Bold", size: 22)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -62,7 +62,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
         lazy var contentLabel: UILabel = {
             let label = UILabel()
             label.numberOfLines = 0
-            label.textColor = UIColor(rgba:0xFFFFFFFF)
+            label.textColor = UIColor(hex:0xFFFFFFFF)
             label.font = UIFont.systemFont(ofSize: 12)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -122,7 +122,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
         let label = UILabel()
         label.text = "满80可用"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -131,7 +131,7 @@ class CouponListViewCell: BaseTableViewCell<Coupon> {
         let label = UILabel()
         label.text = "--"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -177,7 +177,7 @@ private extension CouponListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.backgroundColor = UIColor(rgba: 0xF8F8F8FF)
+        self.backgroundColor = UIColor(hex:0xF8F8F8FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.markView)
         self.containerView.addSubview(self.titleLabel)

@@ -26,7 +26,7 @@ class MyPackageCardListViewCell: BaseTableViewCell<PackageCard> {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 18))
         label.text = "已购套餐"
         label.textAlignment = .center
-        label.textColor = UIColor(rgba: 0x447AFEFF)
+        label.textColor = UIColor(hex:0x447AFEFF)
         label.font = UIFont.systemFont(ofSize: 10, weight: .medium)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,7 @@ class MyPackageCardListViewCell: BaseTableViewCell<PackageCard> {
         let label = UILabel()
         label.text = "299元/30天"
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 22,weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -63,7 +63,7 @@ class MyPackageCardListViewCell: BaseTableViewCell<PackageCard> {
         let label = UILabel()
         label.text = "有效期至：2023.05.06 12:5"
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -77,7 +77,7 @@ class MyPackageCardListViewCell: BaseTableViewCell<PackageCard> {
     lazy var tipsLabel:UILabel = {
         let label = UILabel()
         label.text = "--"
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

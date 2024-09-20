@@ -41,8 +41,8 @@ class SearchView: UIView {
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.returnKeyType = .done
-        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF)]
-        textField.attributedPlaceholder = NSAttributedString(string: "搜索词", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0xA0A0A0FF)])
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF)]
+        textField.attributedPlaceholder = NSAttributedString(string: "搜索词", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0xA0A0A0FF)])
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField

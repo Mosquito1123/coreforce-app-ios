@@ -25,7 +25,7 @@ class SearchCabinetListHeaderView: UIView {
         let view = SearchView()
         view.searchIconImage = UIImage(named: "search_list_icon_search")
         view.showRightView = false
-        view.backgroundColor = UIColor(rgba:0xF7F8FAFF)
+        view.backgroundColor = UIColor(hex:0xF7F8FAFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

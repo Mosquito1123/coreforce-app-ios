@@ -179,7 +179,7 @@ class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{
         
         // 设置字体样式
         segmentedControl.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor(rgba: 0xA0A0A0FF),
+            NSAttributedString.Key.foregroundColor: UIColor(hex:0xA0A0A0FF),
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
         ]
         segmentedControl.selectedTitleTextAttributes = [

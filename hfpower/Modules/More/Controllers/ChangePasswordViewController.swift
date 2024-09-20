@@ -82,20 +82,20 @@ class ChangePasswordViewController: UIViewController,UIGestureRecognizerDelegate
             titleLabel = UILabel()
             titleLabel.text = "修改密码"
             titleLabel.font = UIFont.systemFont(ofSize: 26, weight: .medium)
-            titleLabel.textColor = UIColor(rgba: 0x333333FF)
+            titleLabel.textColor = UIColor(hex:0x333333FF)
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(titleLabel)
             
             subtitleLabel = UILabel()
             subtitleLabel.text = "密码必须6-16位数字和字母组合，如未设置过密码可不输入旧密码"
             subtitleLabel.font = UIFont.systemFont(ofSize: 14)
-            subtitleLabel.textColor = UIColor(rgba: 0x4D4D4DFF)
+            subtitleLabel.textColor = UIColor(hex:0x4D4D4DFF)
             subtitleLabel.numberOfLines = 0
             subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(subtitleLabel)
             
             oldPasswordInputView = LoginPasswordInputView()
-            oldPasswordInputView.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+            oldPasswordInputView.backgroundColor = UIColor(hex:0xF5F7FBFF)
             oldPasswordInputView.placeholder = "请输入旧密码"
             oldPasswordInputView.logoView.isHidden = true
             oldPasswordInputView.passwordTextFieldLeading.constant = 20
@@ -103,7 +103,7 @@ class ChangePasswordViewController: UIViewController,UIGestureRecognizerDelegate
             view.addSubview(oldPasswordInputView)
             
             passwordInputView = LoginPasswordInputView()
-            passwordInputView.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+            passwordInputView.backgroundColor = UIColor(hex:0xF5F7FBFF)
             passwordInputView.placeholder = "请设置新密码"
             passwordInputView.logoView.isHidden = true
             passwordInputView.passwordTextFieldLeading.constant = 20
@@ -111,7 +111,7 @@ class ChangePasswordViewController: UIViewController,UIGestureRecognizerDelegate
             view.addSubview(passwordInputView)
             
             confirmPasswordInputView = LoginPasswordInputView()
-            confirmPasswordInputView.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+            confirmPasswordInputView.backgroundColor = UIColor(hex:0xF5F7FBFF)
             confirmPasswordInputView.placeholder = "请再次输入新密码"
             confirmPasswordInputView.logoView.isHidden = true
             confirmPasswordInputView.passwordTextFieldLeading.constant = 20
@@ -121,8 +121,8 @@ class ChangePasswordViewController: UIViewController,UIGestureRecognizerDelegate
             submitButton = UIButton(type: .custom)
             submitButton.setTitle("确认修改", for: .normal)
             submitButton.setTitleColor(.white, for: .normal)
-            let imageEnabled = UIColor(rgba: 0x447AFEFF).toImage(size: CGSize(width: 1, height: 1))
-            let imageDisabled = UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.2).toImage(size: CGSize(width: 1, height: 1))
+            let imageEnabled = UIColor(hex:0x447AFEFF).toImage(size: CGSize(width: 1, height: 1))
+            let imageDisabled = UIColor(hex:0x447AFEFF).withAlphaComponent(0.2).toImage(size: CGSize(width: 1, height: 1))
             submitButton.setBackgroundImage(imageEnabled, for: .normal)
             submitButton.setBackgroundImage(imageDisabled, for: .disabled)
             submitButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
@@ -135,7 +135,7 @@ class ChangePasswordViewController: UIViewController,UIGestureRecognizerDelegate
             
             forgetPasswordButton = UIButton(type: .custom)
             forgetPasswordButton.setTitle("忘记密码", for: .normal)
-            forgetPasswordButton.setTitleColor(UIColor(rgba: 0x797979FF), for: .normal)
+            forgetPasswordButton.setTitleColor(UIColor(hex:0x797979FF), for: .normal)
             forgetPasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             forgetPasswordButton.addTarget(self, action: #selector(goToForgetPassword), for: .touchUpInside)
             forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false

@@ -31,7 +31,7 @@ class CabinetLocationView: UIView {
         let label = UILabel()
         label.text = "--"
         label.numberOfLines = 1
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 14,weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -42,7 +42,7 @@ class CabinetLocationView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("重新定位", for: .normal)
         button.setImage(UIImage(named: "device_refresh"), for: .normal)
-        button.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
         button.addTarget(self, action: #selector(actionButtonTapped(_:)), for: .touchUpInside)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.translatesAutoresizingMaskIntoConstraints = false

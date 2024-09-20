@@ -14,12 +14,12 @@ class CabinetFilterViewCell: UICollectionViewCell {
         didSet{
             self.titleLabel.text = model?.title
             if  model?.selected == true{
-                self.backgroundColor = UIColor(rgba: 0x416CFFFF).withAlphaComponent(0.1)
-                self.titleLabel.textColor = UIColor(rgba: 0x416CFFFF)
+                self.backgroundColor = UIColor(hex:0x416CFFFF).withAlphaComponent(0.1)
+                self.titleLabel.textColor = UIColor(hex:0x416CFFFF)
                 self.titleLabel.font = UIFont.systemFont(ofSize: 13,weight: .semibold)
             }else{
-                self.backgroundColor = UIColor(rgba: 0xF4F4F4FF)
-                self.titleLabel.textColor = UIColor(rgba: 0x262626FF)
+                self.backgroundColor = UIColor(hex:0xF4F4F4FF)
+                self.titleLabel.textColor = UIColor(hex:0x262626FF)
                 self.titleLabel.font = UIFont.systemFont(ofSize: 13)
             }
         }
@@ -28,7 +28,7 @@ class CabinetFilterViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x262626FF)
+        label.textColor = UIColor(hex:0x262626FF)
         label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -62,7 +62,7 @@ class CabinetFilterViewCell: UICollectionViewCell {
 private extension CabinetFilterViewCell {
     
     private func setupSubviews() {
-        self.backgroundColor = UIColor(rgba: 0xF4F4F4FF)
+        self.backgroundColor = UIColor(hex:0xF4F4F4FF)
         self.layer.cornerRadius = 18
         self.contentView.addSubview(self.titleLabel)
     }

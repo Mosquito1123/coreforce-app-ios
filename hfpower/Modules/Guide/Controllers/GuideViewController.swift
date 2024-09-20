@@ -27,8 +27,8 @@ class GuideViewController: UIViewController {
         button.setTitle("立即开启", for: .highlighted)
         button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .highlighted)
         button.isHidden = true
         button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         return button
@@ -69,7 +69,7 @@ private extension GuideViewController {
             let label = UILabel()
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
-            label.textColor = UIColor(rgba:0x262626FF)
+            label.textColor = UIColor(hex:0x262626FF)
             label.text = titles[i]
             label.frame = CGRectMake(frame.size.width*CGFloat(i)+frame.midX - 150/2,CGFloat(115.5),
                                      frame.size.width*150.0/375.0,35)
@@ -79,7 +79,7 @@ private extension GuideViewController {
             let label = UILabel()
             label.textAlignment = .center
             label.font = UIFont.systemFont(ofSize: 15)
-            label.textColor = UIColor(rgba:0x999999FF)
+            label.textColor = UIColor(hex:0x999999FF)
             label.text = subtitles[i]
             label.frame = CGRectMake(frame.size.width*CGFloat(i)+frame.midX - 185/2,CGFloat(156.5),
                                      frame.size.width*185/375.0,21)
@@ -99,8 +99,8 @@ private extension GuideViewController {
         
         pageControl.numberOfPages = numOfPages
         pageControl.currentPage = 0
-        pageControl.currentPageIndicatorTintColor = UIColor(rgba:0x447AFEFF)
-        pageControl.pageIndicatorTintColor = UIColor(rgba:0xF0F0F0FF)
+        pageControl.currentPageIndicatorTintColor = UIColor(hex:0x447AFEFF)
+        pageControl.pageIndicatorTintColor = UIColor(hex:0xF0F0F0FF)
         pageControl.backgroundColor = UIColor.white
         pageControl.hidesForSinglePage = true
         self.view.addSubview(scrollView)

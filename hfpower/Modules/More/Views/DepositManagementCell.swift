@@ -45,7 +45,7 @@ class DepositManagementCell: UITableViewCell {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(rgba: 0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -55,7 +55,7 @@ class DepositManagementCell: UITableViewCell {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.text = "135****1234"
-        label.textColor = UIColor(rgba: 0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textAlignment = .right
         label.numberOfLines = 0
@@ -92,7 +92,7 @@ private extension DepositManagementCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(contentLabel)
@@ -152,7 +152,7 @@ class DepositManagementHeaderView:UITableViewHeaderFooterView{
     }
     private func setupSubviews() {
 //        self.contentView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         
     }
     private func setupLayout() {

@@ -36,7 +36,7 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         let backgroundView = UIView(frame: self.view.bounds)
-        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        backgroundView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         // 设置背景图
         let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
         backgroundImageView.contentMode = .scaleAspectFill
@@ -82,7 +82,7 @@ class BatteryDetailViewController: BaseViewController,ListAdapterDataSource {
         collectionView.collectionViewLayout.invalidateLayout()
         collectionView.frame = view.bounds
         let backgroundView = UIView(frame: self.view.bounds)
-        backgroundView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        backgroundView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         // 设置背景图
         let backgroundImageView = UIImageView(image: UIImage(named: "device_background"))
         backgroundImageView.contentMode = .scaleAspectFill
@@ -154,7 +154,7 @@ private extension BatteryDetailViewController {
     }
     
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         
         
         view.addSubview(collectionView)

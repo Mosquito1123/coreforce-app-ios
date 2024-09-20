@@ -15,7 +15,7 @@ class ContactInfoViewCell: UICollectionViewCell {
     lazy var contactLabel: UILabel = {
         let label = UILabel()
         label.text = "客服电话："
-        label.textColor = UIColor(rgba: 0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,8 +28,8 @@ class ContactInfoViewCell: UICollectionViewCell {
         button.setTitle("400-6789-509", for: .normal)
         button.setTitle("400-6789-509", for: .highlighted)
 
-        button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .normal)
-        button.setTitleColor(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5), for: .highlighted)
        
         button.addAction(for: .touchUpInside) {
             if let phoneURL = URL(string: "tel://400-6789-509"), UIApplication.shared.canOpenURL(phoneURL) {
@@ -69,7 +69,7 @@ class ContactInfoViewCell: UICollectionViewCell {
 private extension ContactInfoViewCell {
     
     private func setupSubviews() {
-        self.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.contentView.addSubview(self.contactLabel)
         self.contentView.addSubview(self.phoneNumberButton)
         phoneNumberButton.sizeToFit()

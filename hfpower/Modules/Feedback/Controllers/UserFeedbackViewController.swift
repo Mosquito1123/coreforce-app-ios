@@ -32,7 +32,7 @@ class UserFeedbackViewController: BaseViewController,UITextFieldDelegate {
     }()
     lazy var detailTextView:UITextView = {
         let view = UITextView()
-        view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -87,7 +87,7 @@ private extension UserFeedbackViewController {
         appearance.shadowImage = UIColor.white.toImage()
         
         // 设置标题文本属性为白色
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(hex:0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
         
         // 设置大标题文本属性为白色
         self.navigationItem.standardAppearance = appearance

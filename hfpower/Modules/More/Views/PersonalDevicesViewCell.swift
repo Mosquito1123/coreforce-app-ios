@@ -139,10 +139,10 @@ class PersonalDevicesViewCell: PersonalContentViewCell {
     lazy var batteryRentalView: PersonalRentalView = {
         let rentalView = PersonalRentalView()
         rentalView.titleLabel.text = "骑行无忧，单电续航超百公里！！"
-        rentalView.titleLabel.textColor = UIColor(rgba:0x12B858FF)
-        rentalView.backgroundColor = UIColor(rgba:0x39D97CFF).withAlphaComponent(0.1)
-        rentalView.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).toImage(), for: .normal)
-        rentalView.sureButton.setBackgroundImage(UIColor(rgba:0x39D97CFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        rentalView.titleLabel.textColor = UIColor(hex:0x12B858FF)
+        rentalView.backgroundColor = UIColor(hex:0x39D97CFF).withAlphaComponent(0.1)
+        rentalView.sureButton.setBackgroundImage(UIColor(hex:0x39D97CFF).toImage(), for: .normal)
+        rentalView.sureButton.setBackgroundImage(UIColor(hex:0x39D97CFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         rentalView.sureButton.setTitle("扫码租电", for: .normal)
         rentalView.sureButton.setTitle("扫码租电", for: .highlighted)
 
@@ -269,7 +269,7 @@ class PersonalRentalView:UIView{
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "核蜂动力向每一位骑士致敬！！"
-        label.textColor = UIColor(rgba:0x447AFEFF)
+        label.textColor = UIColor(hex:0x447AFEFF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -278,8 +278,8 @@ class PersonalRentalView:UIView{
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 0, y: 0, width: 82, height: 31)
         button.tintAdjustmentMode = .automatic
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setImage(UIImage(named: "ic_arrow_right"), for: .normal)
         button.setImage(UIImage(named: "ic_arrow_right"), for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
@@ -303,7 +303,7 @@ class PersonalRentalView:UIView{
         super.init(coder: coder)
     }
     private func setupSubviews() {
-        self.backgroundColor = UIColor(rgba:0x447AFEFF).withAlphaComponent(0.1)
+        self.backgroundColor = UIColor(hex:0x447AFEFF).withAlphaComponent(0.1)
         self.layer.cornerRadius = 12
         self.addSubview(titleLabel)
         self.addSubview(sureButton)
@@ -338,8 +338,8 @@ class PersonalExpirationView:UIView{
             let attributedString = NSMutableAttributedString(string: fullText,attributes: [.font:UIFont.systemFont(ofSize: 12)])
 
             // 定义颜色
-            let defaultColor = UIColor(rgba:0x333333FF)
-            let specialColor = UIColor(rgba:0xFF4D4FFF)
+            let defaultColor = UIColor(hex:0x333333FF)
+            let specialColor = UIColor(hex:0xFF4D4FFF)
 
             // 设置默认颜色
             attributedString.addAttribute(.foregroundColor, value: defaultColor, range: NSRange(location: 0, length: fullText.count))
@@ -358,8 +358,8 @@ class PersonalExpirationView:UIView{
             let attributedString = NSMutableAttributedString(string: fullText,attributes: [.font:UIFont.systemFont(ofSize: 12)])
 
             // 定义颜色
-            let defaultColor = UIColor(rgba:0x333333FF)
-            let specialColor = UIColor(rgba:0xFF4D4FFF)
+            let defaultColor = UIColor(hex:0x333333FF)
+            let specialColor = UIColor(hex:0xFF4D4FFF)
 
             // 设置默认颜色
             attributedString.addAttribute(.foregroundColor, value: defaultColor, range: NSRange(location: 0, length: fullText.count))
@@ -379,8 +379,8 @@ class PersonalExpirationView:UIView{
         let attributedString = NSMutableAttributedString(string: fullText,attributes: [.font:UIFont.systemFont(ofSize: 12)])
 
         // 定义颜色
-        let defaultColor = UIColor(rgba:0x333333FF)
-        let specialColor = UIColor(rgba:0xFF4D4FFF)
+        let defaultColor = UIColor(hex:0x333333FF)
+        let specialColor = UIColor(hex:0xFF4D4FFF)
 
         // 设置默认颜色
         attributedString.addAttribute(.foregroundColor, value: defaultColor, range: NSRange(location: 0, length: fullText.count))
@@ -416,8 +416,8 @@ class PersonalExpirationView:UIView{
         button.setBackgroundImage(layerView.asImage(), for: .highlighted)
         button.setImage(UIImage(named: "ic_arrow_right_brown"), for: .normal)
         button.setImage(UIImage(named: "ic_arrow_right_brown"), for: .highlighted)
-        button.setTitleColor(UIColor(rgba:0x6C4627FF), for: .normal)
-        button.setTitleColor(UIColor(rgba:0x6C4627FF), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0x6C4627FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x6C4627FF), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         button.setTitle("立即续租", for: .normal)
         button.setTitle("立即续租", for: .highlighted)
@@ -437,7 +437,7 @@ class PersonalExpirationView:UIView{
         super.init(coder: coder)
     }
     private func setupSubviews() {
-        self.backgroundColor = UIColor(rgba:0xFFEBE9FF)
+        self.backgroundColor = UIColor(hex:0xFFEBE9FF)
         self.layer.cornerRadius = 10
         self.addSubview(titleLabel)
         self.addSubview(sureButton)

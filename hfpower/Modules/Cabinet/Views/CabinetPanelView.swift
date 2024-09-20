@@ -26,7 +26,7 @@ class CabinetPanelView: UIView {
         label.text = ""
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = UIColor(rgba:0x262626FF)
+        label.textColor = UIColor(hex:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,7 +42,7 @@ class CabinetPanelView: UIView {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
         button.setImage(UIImage(named: "icon_arrow_right"), for: .normal)
         button.setTitle("详情", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -55,7 +55,7 @@ class CabinetPanelView: UIView {
         label.text = "营业时间：24h"
         label.numberOfLines = 0
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = UIColor(rgba:0x999999FF)
+        label.textColor = UIColor(hex:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -64,7 +64,7 @@ class CabinetPanelView: UIView {
         label.numberOfLines = 0
         label.text = "100m · 骑行1分钟"
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,7 +79,7 @@ class CabinetPanelView: UIView {
         label.numberOfLines = 0
         label.text = "李沧区青山路700号"
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = UIColor(rgba:0x999999FF)
+        label.textColor = UIColor(hex:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -88,8 +88,8 @@ class CabinetPanelView: UIView {
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
         button.setTitle("可租赁", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x165DFFFF), for: .normal)
-        button.backgroundColor = UIColor(rgba:0x165DFFFF).withAlphaComponent(0.1)
+        button.setTitleColor(UIColor(hex:0x165DFFFF), for: .normal)
+        button.backgroundColor = UIColor(hex:0x165DFFFF).withAlphaComponent(0.1)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -97,10 +97,10 @@ class CabinetPanelView: UIView {
     lazy var depositStatusButton:UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("可寄存", for: .normal)
-        button.setTitleColor(UIColor(rgba:0xFF7D00FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0xFF7D00FF), for: .normal)
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
-        button.backgroundColor = UIColor(rgba:0xFFF7E8FF)
+        button.backgroundColor = UIColor(hex:0xFFF7E8FF)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -110,7 +110,7 @@ class CabinetPanelView: UIView {
         // 设置按钮的圆角和边框
         button.tintAdjustmentMode = .automatic
         button.setTitle("导航", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x1D2129FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x1D2129FF), for: .normal)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
 
@@ -118,7 +118,7 @@ class CabinetPanelView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
         button.layer.cornerRadius = 25
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(rgba:0xE5E6EBFF).cgColor
+        button.layer.borderColor = UIColor(hex:0xE5E6EBFF).cgColor
         button.addTarget(self, action: #selector(navigateButtonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -129,8 +129,8 @@ class CabinetPanelView: UIView {
         button.setTitle("扫码换电", for: .normal)
         button.tintAdjustmentMode = .automatic
         button.setTitleColor(UIColor.white, for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
 
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
@@ -148,7 +148,7 @@ class CabinetPanelView: UIView {
    
     lazy var topLineView:UIView = {
        let view = UIView()
-        view.backgroundColor = UIColor(rgba:0xEDEDEDFF)
+        view.backgroundColor = UIColor(hex:0xEDEDEDFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -28,8 +28,8 @@ class LoginVCodeInputView: UIView {
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.enablesReturnKeyAutomatically = true
         textField.keyboardType = .asciiCapableNumberPad
-        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0x333333FF)]
-        textField.attributedPlaceholder = NSAttributedString(string: "请输入验证码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(rgba:0xA0A0A0FF)])
+        textField.defaultTextAttributes = [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0x333333FF)]
+        textField.attributedPlaceholder = NSAttributedString(string: "请输入验证码", attributes: [.font:UIFont.systemFont(ofSize: 16),.foregroundColor:UIColor(hex:0xA0A0A0FF)])
         textField.returnKeyType = .done
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -38,8 +38,8 @@ class LoginVCodeInputView: UIView {
     lazy var sendButton:UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("获取验证码", for:.normal)
-        button.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
-        button.setTitleColor(UIColor(rgba:0x447AFEFF).withAlphaComponent(0.8), for: .disabled)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x447AFEFF).withAlphaComponent(0.8), for: .disabled)
 
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.addTarget(self, action: #selector(sendVCode(_:)), for: .touchUpInside)
@@ -51,7 +51,7 @@ class LoginVCodeInputView: UIView {
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(rgba:0xF5F7FBFF)
+        self.backgroundColor = UIColor(hex:0xF5F7FBFF)
         self.layer.cornerRadius = 25
         setupSubviews()
         setupLayout()
@@ -98,7 +98,7 @@ extension LoginVCodeInputView :UITextFieldDelegate{
         return true
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.layer.borderColor = UIColor(rgba:0x3171EFFF).cgColor
+        self.layer.borderColor = UIColor(hex:0x3171EFFF).cgColor
         self.layer.borderWidth = 1.5
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -155,7 +155,7 @@ extension LoginVCodeInputView :UITextFieldDelegate{
             seconds = 60
             sendButton.isEnabled = true // Enable the button after 60 seconds
             sendButton.setTitle("重新发送", for: .normal)
-            sendButton.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
+            sendButton.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
 
         }
     }

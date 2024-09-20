@@ -21,7 +21,7 @@ class InviteCodeViewController: BaseViewController {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = ""
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,8 +33,8 @@ class InviteCodeViewController: BaseViewController {
         button.setTitleColor(.white, for: .highlighted)
         button.tintAdjustmentMode = .automatic
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba:0x447AFEFF).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .highlighted)
         button.layer.cornerRadius = 22
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(inviteButtonClicked(_:)), for: .touchUpInside)
@@ -92,7 +92,7 @@ private extension InviteCodeViewController {
         appearance.shadowImage = UIColor.white.toImage()
         
         // 设置标题文本属性为白色
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(hex:0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
         
         // 设置大标题文本属性为白色
         self.navigationItem.standardAppearance = appearance
@@ -101,7 +101,7 @@ private extension InviteCodeViewController {
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.view.addSubview(titleLabel)
         self.view.addSubview(inviteButton)
     }

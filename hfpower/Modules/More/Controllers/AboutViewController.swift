@@ -21,7 +21,7 @@ class AboutViewController: BaseViewController {
         tableView.register(AboutListViewCell.self, forCellReuseIdentifier: AboutListViewCell.cellIdentifier())
         tableView.separatorStyle = .none
         tableView.tableHeaderView = AboutTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
-        tableView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        tableView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ private extension AboutViewController {
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.view.addSubview(self.tableView)
     }
     

@@ -82,7 +82,7 @@ private extension BaseTableViewController {
         appearance.shadowImage = UIColor.white.toImage()
         
         // 设置标题文本属性为白色
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(hex:0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
         
         // 设置大标题文本属性为白色
         self.navigationItem.standardAppearance = appearance

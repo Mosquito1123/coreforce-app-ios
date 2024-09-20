@@ -20,7 +20,7 @@ class LowPowerReminderViewController: BaseViewController {
         let tableView = UITableView()
         tableView.register(LowPowerReminderListViewCell.self, forCellReuseIdentifier: LowPowerReminderListViewCell.cellIdentifier())
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        tableView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ private extension LowPowerReminderViewController {
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.view.addSubview(self.tableView)
     }
     

@@ -15,7 +15,7 @@ class LocationChooseView: UIView {
     lazy var currentLocationButton:UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(CityCodeManager.shared.cityName, for: .normal)
-        button.setTitleColor(UIColor(rgba:0x333333FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x333333FF), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         button.addTarget(self, action: #selector(goToCityChoose(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -23,8 +23,8 @@ class LocationChooseView: UIView {
     }()
     lazy var currentLocationStatusButton:UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(TriangleDrawer.drawDownwardTriangle(width: 7.9, height: 4.64,color: UIColor(rgba:0x333333FF) ), for: .normal)
-        button.setImage(TriangleDrawer.drawUpwardTriangle(width: 7.9, height: 4.64,color: UIColor(rgba:0x333333FF) ), for: .selected)
+        button.setImage(TriangleDrawer.drawDownwardTriangle(width: 7.9, height: 4.64,color: UIColor(hex:0x333333FF) ), for: .normal)
+        button.setImage(TriangleDrawer.drawUpwardTriangle(width: 7.9, height: 4.64,color: UIColor(hex:0x333333FF) ), for: .selected)
         button.addTarget(self, action: #selector(goToCityChoose(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

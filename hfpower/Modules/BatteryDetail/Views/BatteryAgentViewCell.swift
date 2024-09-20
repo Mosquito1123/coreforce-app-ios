@@ -46,7 +46,7 @@ class BatteryAgentViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = UIColor(rgba: 0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -56,7 +56,7 @@ class BatteryAgentViewCell: UICollectionViewCell {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = UIColor(rgba: 0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textAlignment = .right
         label.numberOfLines = 0
@@ -65,7 +65,7 @@ class BatteryAgentViewCell: UICollectionViewCell {
     }()
     lazy var extraLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(rgba: 0xFF3A3AFF)
+        label.textColor = UIColor(hex:0xFF3A3AFF)
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .right
         label.numberOfLines = 0

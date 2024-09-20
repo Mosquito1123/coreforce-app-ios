@@ -31,7 +31,7 @@ class LowPowerReminderListViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x222222FF)
+        label.textColor = UIColor(hex:0x222222FF)
         label.font = UIFont.systemFont(ofSize: 15)
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,13 +41,13 @@ class LowPowerReminderListViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor(rgba:0xA0A0A0FF)
+        label.textColor = UIColor(hex:0xA0A0A0FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     lazy var switchButton:UISwitch = {
         let switchButton = UISwitch()
-        switchButton.onTintColor = UIColor(rgba: 0x447AFEFF)
+        switchButton.onTintColor = UIColor(hex:0x447AFEFF)
         switchButton.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
 
         switchButton.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +78,7 @@ class LowPowerReminderListViewCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        switchButton.backgroundColor = UIColor(rgba:0xCED4E0FF)
+        switchButton.backgroundColor = UIColor(hex:0xCED4E0FF)
         switchButton.layer.cornerRadius = switchButton.frame.height / 2.0
         switchButton.layer.masksToBounds = true
     }
@@ -89,7 +89,7 @@ private extension LowPowerReminderListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.contentView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.titleLabel)
         self.containerView.addSubview(self.contentLabel)

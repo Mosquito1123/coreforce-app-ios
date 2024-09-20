@@ -14,14 +14,14 @@ class DepositManagementTableFooterView: UIView {
     // MARK: - Subviews
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private lazy var headerView:UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -34,7 +34,7 @@ class DepositManagementTableFooterView: UIView {
     lazy var titleLabel:UILabel = {
         let label = UILabel()
         label.text = "押金必读"
-        label.textColor = UIColor(rgba:0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,14 +43,14 @@ class DepositManagementTableFooterView: UIView {
     lazy var pointView1:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
+        view.backgroundColor = UIColor(hex:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel1:UILabel  = {
         let label = UILabel()
         label.text = "若您有租赁中的车辆或电池，则押金无法退回，请先退租电池或车辆再尝试取回押金。"
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,14 +59,14 @@ class DepositManagementTableFooterView: UIView {
     lazy var pointView2:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
+        view.backgroundColor = UIColor(hex:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel2:UILabel  = {
         let label = UILabel()
         label.text = "若您使用支付宝预授权支付押金，则退押相当于释放支付宝预授权冻结的金额，请至支付宝账单查看解冻情况。"
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -75,14 +75,14 @@ class DepositManagementTableFooterView: UIView {
     lazy var pointView3:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
+        view.backgroundColor = UIColor(hex:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel3:UILabel  = {
         let label = UILabel()
         label.text = "若您在使用过程中发生了逾期、损坏设备、丢失设备等情况，则产生的相关费用将在押金中扣除。"
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -91,14 +91,14 @@ class DepositManagementTableFooterView: UIView {
     lazy var pointView4:UIView  = {
         let view = UIView()
         view.layer.cornerRadius = 2.5
-        view.backgroundColor = UIColor(rgba:0xD2D2D2FF)
+        view.backgroundColor = UIColor(hex:0xD2D2D2FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var pointLabel4:UILabel  = {
         let label = UILabel()
         label.text = "押金将在您提出退回申请的48小时之内原路返回。"
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false

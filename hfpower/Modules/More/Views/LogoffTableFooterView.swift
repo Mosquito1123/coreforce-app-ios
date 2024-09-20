@@ -14,7 +14,7 @@ class LogoffTableFooterView: UIView {
     // MARK: - Subviews
     lazy var groupView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         view.layer.cornerRadius = 12
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -44,8 +44,8 @@ class LogoffTableFooterView: UIView {
         button.setTitle("400-6789-509", for: .normal)
         button.setTitle("400-6789-509", for: .highlighted)
 
-        button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .normal)
-        button.setTitleColor(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5), for: .highlighted)
 
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.addTarget(self, action: #selector(phoneNumberTapped(_:)), for: .touchUpInside)

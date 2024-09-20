@@ -43,7 +43,7 @@ class CustomerServicePagerViewCell: UITableViewCell ,UITableViewDelegate,UITable
         let label = UILabel()
         label.text = "常见问题"
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 18,weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

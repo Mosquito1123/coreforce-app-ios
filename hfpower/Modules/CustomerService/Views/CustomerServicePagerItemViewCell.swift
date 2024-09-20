@@ -21,7 +21,7 @@ class CustomerServicePagerItemViewCell: UITableViewCell {
     lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0xFF9F18FF)
+        label.textColor = UIColor(hex:0xFF9F18FF)
         label.font = UIFont.systemFont(ofSize: 15,weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -29,7 +29,7 @@ class CustomerServicePagerItemViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

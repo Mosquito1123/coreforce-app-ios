@@ -123,8 +123,8 @@ private extension MessageListViewController {
     }
     
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
-        self.tableView.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
+        self.view.backgroundColor = UIColor(hex:0xF6F6F6FF)
+        self.tableView.backgroundColor = UIColor(hex:0xF6F6F6FF)
         self.view.addSubview(self.tableView)
         
     }

@@ -21,8 +21,8 @@ class BatteryReplacementTableFooterView: UIView {
         button.setTitle("卡仓取电", for: .highlighted)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.white.withAlphaComponent(0.5), for: .highlighted)
-        button.setBackgroundImage(UIColor(rgba: 0x8178F0FF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba: 0x8178F0FF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x8178F0FF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x8178F0FF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         button.setImage(UIImage(named: "fetch_cell"), for: .normal)
         button.setImage(UIImage(named: "fetch_cell"), for: .selected)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
@@ -33,7 +33,7 @@ class BatteryReplacementTableFooterView: UIView {
     }()
     lazy var groupView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         view.layer.cornerRadius = 12
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

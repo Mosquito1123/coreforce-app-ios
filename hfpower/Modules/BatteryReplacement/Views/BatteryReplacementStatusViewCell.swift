@@ -17,40 +17,40 @@ class BatteryReplacementStatusViewCell: BaseTableViewCell<BatteryReplacementStat
             if item.type == 0{
                 self.statusButton.setTitle("\(item.id ?? 0)", for: .normal)
                 self.statusButton.setTitleColor(.white, for: .normal)
-                self.statusButton.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-                self.contentLabel.textColor = UIColor(rgba:0xEA4E42FF)
-                self.titleLabel.textColor = UIColor(rgba: 0x333333FF)
-                self.topLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
-                self.bottomLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+                self.statusButton.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+                self.contentLabel.textColor = UIColor(hex:0xEA4E42FF)
+                self.titleLabel.textColor = UIColor(hex:0x333333FF)
+                self.topLineView.backgroundColor = UIColor(hex:0xE5E6EBFF)
+                self.bottomLineView.backgroundColor = UIColor(hex:0xE5E6EBFF)
 
             }else if item.type == 1{
                 self.statusButton.setTitle("\(item.id ?? 0)", for: .normal)
                 self.statusButton.setTitleColor(.white, for: .normal)
-                self.statusButton.setBackgroundImage(UIColor(rgba: 0xE5E6EBFF).toImage(), for: .normal)
-                self.contentLabel.textColor = UIColor(rgba:0x86909CFF)
-                self.titleLabel.textColor = UIColor(rgba: 0x86909CFF)
-                self.topLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
-                self.bottomLineView.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+                self.statusButton.setBackgroundImage(UIColor(hex:0xE5E6EBFF).toImage(), for: .normal)
+                self.contentLabel.textColor = UIColor(hex:0x86909CFF)
+                self.titleLabel.textColor = UIColor(hex:0x86909CFF)
+                self.topLineView.backgroundColor = UIColor(hex:0xE5E6EBFF)
+                self.bottomLineView.backgroundColor = UIColor(hex:0xE5E6EBFF)
             }else if item.type == 2{
                 self.statusButton.setTitle("", for: .normal)
                 self.statusButton.setTitleColor(.white, for: .normal)
                 self.statusButton.setBackgroundImage(UIImage(named: "selected"), for: .normal)
-                self.contentLabel.textColor = UIColor(rgba:0x666666FF)
-                self.titleLabel.textColor = UIColor(rgba: 0x333333FF)
-                self.topLineView.backgroundColor = UIColor(rgba: 0x447AFEFF)
-                self.bottomLineView.backgroundColor = UIColor(rgba: 0x447AFEFF)
+                self.contentLabel.textColor = UIColor(hex:0x666666FF)
+                self.titleLabel.textColor = UIColor(hex:0x333333FF)
+                self.topLineView.backgroundColor = UIColor(hex:0x447AFEFF)
+                self.bottomLineView.backgroundColor = UIColor(hex:0x447AFEFF)
             }
         }
     }
     lazy var topLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+        view.backgroundColor = UIColor(hex:0xE5E6EBFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var bottomLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(rgba: 0xE5E6EBFF)
+        view.backgroundColor = UIColor(hex:0xE5E6EBFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -58,7 +58,7 @@ class BatteryReplacementStatusViewCell: BaseTableViewCell<BatteryReplacementStat
         let label = UILabel()
         label.text = "取走电池"
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -67,7 +67,7 @@ class BatteryReplacementStatusViewCell: BaseTableViewCell<BatteryReplacementStat
         let label = UILabel()
         label.text = "如未正常弹开仓门，请点击【卡仓取电】扫码"
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -81,8 +81,8 @@ class BatteryReplacementStatusViewCell: BaseTableViewCell<BatteryReplacementStat
         button.setTitle("1", for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .highlighted)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

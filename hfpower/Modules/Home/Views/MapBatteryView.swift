@@ -91,19 +91,19 @@ class MapBatteryContentView: UIButton {
             setNeedsLayout()
         }
     }
-    var batteryContentColor:UIColor = UIColor(rgba:0x22C788FF){
+    var batteryContentColor:UIColor = UIColor(hex:0x22C788FF){
         didSet{
             setNeedsLayout()
             
         }
     }
-    var errorBatteryContentColor:UIColor = UIColor(rgba:0xFF3B30FF){
+    var errorBatteryContentColor:UIColor = UIColor(hex:0xFF3B30FF){
         didSet{
             setNeedsLayout()
             
         }
     }
-    var warningBatteryContentColor:UIColor = UIColor(rgba:0xFAAD14FF){
+    var warningBatteryContentColor:UIColor = UIColor(hex:0xFAAD14FF){
         didSet{
             setNeedsLayout()
             

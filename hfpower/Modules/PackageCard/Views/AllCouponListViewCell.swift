@@ -13,7 +13,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "有效期至：2023.05.06 12:5"
-            label.textColor = UIColor(rgba:0x333333FF)
+            label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 12)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -21,7 +21,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.layer.cornerRadius = 1
-            self.backgroundColor = UIColor(rgba:0xF9F9FBFF)
+            self.backgroundColor = UIColor(hex:0xF9F9FBFF)
             self.addSubview(titleLabel)
             NSLayoutConstraint.activate([
                 titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 6),
@@ -46,7 +46,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
             let label = UILabel()
             label.text = "¥"
             label.numberOfLines = 0
-            label.textColor = UIColor(rgba:0xFFFFFFFF)
+            label.textColor = UIColor(hex:0xFFFFFFFF)
             label.font = UIFont(name: "DIN Alternate Bold", size: 14)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -54,7 +54,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         lazy var titleLabel: UILabel = {
             let label = UILabel()
             label.numberOfLines = 0
-            label.textColor = UIColor(rgba:0xFFFFFFFF)
+            label.textColor = UIColor(hex:0xFFFFFFFF)
             label.font = UIFont(name: "DIN Alternate Bold", size: 22)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -62,7 +62,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         lazy var contentLabel: UILabel = {
             let label = UILabel()
             label.numberOfLines = 0
-            label.textColor = UIColor(rgba:0xFFFFFFFF)
+            label.textColor = UIColor(hex:0xFFFFFFFF)
             label.font = UIFont.systemFont(ofSize: 12)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -117,21 +117,21 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         if status == 2{
             statusButton.isHidden = false
             statusButton.setTitle("已使用", for: .normal)
-            markView.updateGradientColors(startColor: UIColor(rgba: 0xD2D2D2FF), endColor: UIColor(rgba: 0xD2D2D2FF))
+            markView.updateGradientColors(startColor: UIColor(hex:0xD2D2D2FF), endColor: UIColor(hex:0xD2D2D2FF))
         }else if status == 1{
             statusButton.isHidden = true
             switch couponType {
             case 1://押金券
-                markView.updateGradientColors(startColor: UIColor(rgba: 0xFFBC99FF), endColor: UIColor(rgba: 0xFF8760FF))
+                markView.updateGradientColors(startColor: UIColor(hex:0xFFBC99FF), endColor: UIColor(hex:0xFF8760FF))
             case 2://租金券
-                markView.updateGradientColors(startColor: UIColor(rgba: 0x307CEDFF), endColor: UIColor(rgba: 0x57B1F0FF))
+                markView.updateGradientColors(startColor: UIColor(hex:0x307CEDFF), endColor: UIColor(hex:0x57B1F0FF))
             default://其他
-                markView.updateGradientColors(startColor: UIColor(rgba: 0xFFA5A5FF), endColor: UIColor(rgba: 0xFF6C6CFF))
+                markView.updateGradientColors(startColor: UIColor(hex:0xFFA5A5FF), endColor: UIColor(hex:0xFF6C6CFF))
             }
         }else if status == 3{
             statusButton.isHidden = false
             statusButton.setTitle("已过期", for: .normal)
-            markView.updateGradientColors(startColor: UIColor(rgba: 0xD2D2D2FF), endColor: UIColor(rgba: 0xD2D2D2FF))
+            markView.updateGradientColors(startColor: UIColor(hex:0xD2D2D2FF), endColor: UIColor(hex:0xD2D2D2FF))
 
 
         }
@@ -211,7 +211,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         let label = UILabel()
         label.text = "满80可用"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -220,7 +220,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         let label = UILabel()
         label.text = "--"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -232,7 +232,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         button.setTitle("已过期", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         button.setTitleColor(.lightGray, for: .normal)
-        button.layer.borderColor = UIColor(rgba: 0xA0A0A0FF).cgColor
+        button.layer.borderColor = UIColor(hex:0xA0A0A0FF).cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
@@ -278,7 +278,7 @@ private extension AllCouponListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.markView)
         self.containerView.addSubview(self.titleLabel)

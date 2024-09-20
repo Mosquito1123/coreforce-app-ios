@@ -50,7 +50,7 @@ class AllPackageCardViewController:BaseViewController{
         appearance.shadowImage = UIColor.white.toImage()
         
         // 设置标题文本属性为白色
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(hex:0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
         
         // 设置大标题文本属性为白色
         self.navigationItem.standardAppearance = appearance
@@ -88,7 +88,7 @@ private extension AllPackageCardContentViewController {
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.dataSource = self
         
         // Create bar
@@ -102,8 +102,8 @@ private extension AllPackageCardContentViewController {
      
             button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .medium)
             button.font = UIFont.systemFont(ofSize: 15)
-            button.tintColor = UIColor(rgba: 0x666666FF)
-            button.selectedTintColor = UIColor(rgba: 0x3171EFFF)
+            button.tintColor = UIColor(hex:0x666666FF)
+            button.selectedTintColor = UIColor(hex:0x3171EFFF)
 
         }
         // Add to view
@@ -285,8 +285,8 @@ private extension AllPackageCardListViewController {
     }
     
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
-        self.tableView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
+        self.tableView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.view.addSubview(self.tableView)
         
     }

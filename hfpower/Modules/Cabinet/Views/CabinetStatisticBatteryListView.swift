@@ -52,7 +52,7 @@ class CabinetStatisticBatteryListView: UIView {
         label.text = "电柜离线"
         label.numberOfLines = 0
         label.isHidden = true
-        label.textColor = UIColor(rgba:0x969FBBFF)
+        label.textColor = UIColor(hex:0x969FBBFF)
         label.font = UIFont.systemFont(ofSize: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -60,7 +60,7 @@ class CabinetStatisticBatteryListView: UIView {
     // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(rgba:0xF7F8FBFF)
+        self.backgroundColor = UIColor(hex:0xF7F8FBFF)
         self.layer.cornerRadius = 4
         setupSubviews()
         setupLayout()

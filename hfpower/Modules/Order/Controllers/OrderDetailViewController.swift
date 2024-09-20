@@ -15,9 +15,9 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
             button.setTitle("立即支付", for: .normal)
             button.setTitleColor(.white, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
-            button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-            button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .selected)
-            button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
+            button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+            button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .selected)
+            button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
             button.layer.cornerRadius = 21
             button.layer.masksToBounds = true
             button.translatesAutoresizingMaskIntoConstraints = false
@@ -27,13 +27,13 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
             let button = UIButton(type: .custom)
             button.setTitle("取消支付", for: .normal)
             button.tintAdjustmentMode = .automatic
-            button.setTitleColor(UIColor(rgba: 0x1D2129FF), for: .normal)
-            button.setTitleColor(UIColor(rgba: 0x1D2129FF).withAlphaComponent(0.5), for: .highlighted)
+            button.setTitleColor(UIColor(hex:0x1D2129FF), for: .normal)
+            button.setTitleColor(UIColor(hex:0x1D2129FF).withAlphaComponent(0.5), for: .highlighted)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
             button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
             button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
             button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .selected)
-            button.layer.borderColor = UIColor(rgba: 0xE5E6EBFF).cgColor
+            button.layer.borderColor = UIColor(hex:0xE5E6EBFF).cgColor
             button.layer.borderWidth = 1
             button.layer.cornerRadius = 21
             button.layer.masksToBounds = true
@@ -119,7 +119,7 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
         
         tableView.tableFooterView = tableFooterView
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(rgba:0xF6F6F6FF)
+        tableView.backgroundColor = UIColor(hex:0xF6F6F6FF)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -392,7 +392,7 @@ private extension OrderDetailViewController {
         appearance.shadowImage = UIColor.white.toImage()
         
         // 设置标题文本属性为白色
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(hex:0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
         
         // 设置大标题文本属性为白色
         self.navigationItem.standardAppearance = appearance

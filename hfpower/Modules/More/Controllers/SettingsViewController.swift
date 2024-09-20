@@ -26,7 +26,7 @@ class SettingsViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.backgroundView = UIView()
-        tableView.backgroundColor = UIColor(rgba:0xF7F8FAFF)
+        tableView.backgroundColor = UIColor(hex:0xF7F8FAFF)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +96,7 @@ private extension SettingsViewController {
         appearance.shadowImage = UIColor.white.toImage()
         
         // 设置标题文本属性为白色
-        appearance.titleTextAttributes = [.foregroundColor: UIColor(rgba: 0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(hex:0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
         
         // 设置大标题文本属性为白色
         self.navigationItem.standardAppearance = appearance

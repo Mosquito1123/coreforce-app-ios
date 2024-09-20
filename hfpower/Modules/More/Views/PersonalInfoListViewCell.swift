@@ -16,11 +16,11 @@ class PersonalInfoListViewCell: BaseTableViewCell<PersonalInfo> {
         self.titleLabel.text = element?.title
         self.contentLabel.text = element?.content
         if element?.isEditable == true{
-            self.contentLabel.textColor = UIColor(rgba: 0xF53F3FFF)
+            self.contentLabel.textColor = UIColor(hex:0xF53F3FFF)
         }else if element?.isEditable == false{
-            self.contentLabel.textColor = UIColor(rgba: 0x56C386FF)
+            self.contentLabel.textColor = UIColor(hex:0x56C386FF)
         }else{
-            self.contentLabel.textColor = UIColor(rgba:0x333333FF)
+            self.contentLabel.textColor = UIColor(hex:0x333333FF)
         }
         if element?.isNext == true{
             iconImageView.isHidden = false
@@ -46,7 +46,7 @@ class PersonalInfoListViewCell: BaseTableViewCell<PersonalInfo> {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,7 +54,7 @@ class PersonalInfoListViewCell: BaseTableViewCell<PersonalInfo> {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -95,7 +95,7 @@ private extension PersonalInfoListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.contentView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.titleLabel)
         self.containerView.addSubview(self.contentLabel)

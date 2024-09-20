@@ -16,7 +16,7 @@ class RecommendViewCell: BaseTableViewCell<BuyPackageCard>,UITextFieldDelegate {
             string: element?.subtitle ?? "",
             attributes: [
                 .font: UIFont.systemFont(ofSize: 16),
-                .foregroundColor: UIColor(rgba: 0xA0A0A0FF)
+                .foregroundColor: UIColor(hex:0xA0A0A0FF)
             ]
         )
     }
@@ -35,12 +35,12 @@ class RecommendViewCell: BaseTableViewCell<BuyPackageCard>,UITextFieldDelegate {
             self.isUserInteractionEnabled = enable
             titleLabel.isUserInteractionEnabled = enable
             titleLabel.font = enable ? UIFont.systemFont(ofSize: 17, weight: .regular) : UIFont.systemFont(ofSize: 17, weight: .medium)
-            titleLabel.textColor = enable ? UIColor(rgba: 0x8C8C8CFF) : UIColor(rgba: 0xD2D2D2FF)
+            titleLabel.textColor = enable ? UIColor(hex:0x8C8C8CFF) : UIColor(hex:0xD2D2D2FF)
             textField.attributedPlaceholder = NSAttributedString(
                 string: enable ? "点击输入推荐码，选填" : "与套餐卡无法同享",
                 attributes: [
                     .font: UIFont.systemFont(ofSize: 16, weight: .medium),
-                    .foregroundColor: UIColor(rgba: 0xD2D2D2FF)
+                    .foregroundColor: UIColor(hex:0xD2D2D2FF)
                 ]
             )
             textField.isEnabled = enable
@@ -64,7 +64,7 @@ class RecommendViewCell: BaseTableViewCell<BuyPackageCard>,UITextFieldDelegate {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "推荐码（选填）"
-        label.textColor = UIColor(rgba: 0x8C8C8CFF)
+        label.textColor = UIColor(hex:0x8C8C8CFF)
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -75,14 +75,14 @@ class RecommendViewCell: BaseTableViewCell<BuyPackageCard>,UITextFieldDelegate {
         textField.keyboardType = .numberPad
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.borderStyle = .none
-        textField.textColor = UIColor(rgba: 0x4D4D4DFF)
+        textField.textColor = UIColor(hex:0x4D4D4DFF)
         textField.delegate = self
         textField.textAlignment = .right
         textField.attributedPlaceholder = NSAttributedString(
             string: "点击输入或扫描二维码",
             attributes: [
                 .font: UIFont.systemFont(ofSize: 16),
-                .foregroundColor: UIColor(rgba: 0xA0A0A0FF)
+                .foregroundColor: UIColor(hex:0xA0A0A0FF)
             ]
         )
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +92,7 @@ class RecommendViewCell: BaseTableViewCell<BuyPackageCard>,UITextFieldDelegate {
     private lazy var scanButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "input_scan")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.tintColor = UIColor(rgba: 0x555555FF)
+        button.tintColor = UIColor(hex:0x555555FF)
         button.addTarget(self, action: #selector(scanButtonTapped(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

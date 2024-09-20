@@ -29,7 +29,7 @@ class ChangePhoneNumberVIdentityCodeViewController: UIViewController {
         let label = UILabel()
         label.text = "身份验证"
         label.font = UIFont.systemFont(ofSize: 26,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -38,14 +38,14 @@ class ChangePhoneNumberVIdentityCodeViewController: UIViewController {
         let label = UILabel()
         label.text = "当前手机号：132****1234"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     lazy var identityCodeInputView:LoginPasswordInputView = {
         let view = LoginPasswordInputView()
-        view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+        view.backgroundColor = UIColor(hex:0xF5F7FBFF)
         view.placeholder = "请输入身份证号"
         view.logoView.isHidden = true
         view.passwordTextFieldLeading.constant = 20
@@ -60,8 +60,8 @@ class ChangePhoneNumberVIdentityCodeViewController: UIViewController {
         button.setTitle("下一步，设置新手机号", for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
-        let imageEnabled = UIColor(rgba:0x447AFEFF).toImage()
-        let imageDisabled =  UIColor(rgba:0x447AFEFF).withAlphaComponent(0.2).toImage()
+        let imageEnabled = UIColor(hex:0x447AFEFF).toImage()
+        let imageDisabled =  UIColor(hex:0x447AFEFF).withAlphaComponent(0.2).toImage()
         button.setBackgroundImage(imageEnabled, for: .normal)
         button.setBackgroundImage(imageDisabled, for: .disabled)
 

@@ -29,7 +29,7 @@ class ChangePhoneNumberFinalViewController: UIViewController {
         let label = UILabel()
         label.text = "设置新手机号"
         label.font = UIFont.systemFont(ofSize: 26,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -38,21 +38,21 @@ class ChangePhoneNumberFinalViewController: UIViewController {
         let label = UILabel()
         label.text = "请输入新的可用手机号"
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = UIColor(rgba:0x4D4D4DFF)
+        label.textColor = UIColor(hex:0x4D4D4DFF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     lazy var accountInputView:LoginAccountInputView = {
         let view = LoginAccountInputView()
-        view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+        view.backgroundColor = UIColor(hex:0xF5F7FBFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     lazy var vCodeInputView:LoginVCodeInputView = {
         let view = LoginVCodeInputView()
         view.controller = self
-        view.backgroundColor = UIColor(rgba: 0xF5F7FBFF)
+        view.backgroundColor = UIColor(hex:0xF5F7FBFF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -64,8 +64,8 @@ class ChangePhoneNumberFinalViewController: UIViewController {
         button.setTitle("确认修改", for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white, for: .highlighted)
-        let imageEnabled = UIColor(rgba:0x447AFEFF).toImage()
-        let imageDisabled =  UIColor(rgba:0x447AFEFF).withAlphaComponent(0.2).toImage()
+        let imageEnabled = UIColor(hex:0x447AFEFF).toImage()
+        let imageDisabled =  UIColor(hex:0x447AFEFF).withAlphaComponent(0.2).toImage()
         button.setBackgroundImage(imageEnabled, for: .normal)
         button.setBackgroundImage(imageDisabled, for: .disabled)
 

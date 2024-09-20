@@ -15,7 +15,7 @@ class PersonalElementIconView: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "- -"
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 12,weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

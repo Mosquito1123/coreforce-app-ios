@@ -70,11 +70,11 @@ class BatteryLevelView: UIView {
         
         var batteryColor: UIColor
         if batteryLevel >= 0.8 {
-            batteryColor = UIColor(rgba:0x22C788FF) ?? .green
+            batteryColor = UIColor(hex:0x22C788FF) ?? .green
         } else if batteryLevel > 0.2 {
-            batteryColor = UIColor(rgba:0xFAAD14FF) ?? .yellow
+            batteryColor = UIColor(hex:0xFAAD14FF) ?? .yellow
         } else {
-            batteryColor = UIColor(rgba:0xFF3B30FF) ?? .red
+            batteryColor = UIColor(hex:0xFF3B30FF) ?? .red
         }
         
         let batteryPath = UIBezierPath(roundedRect: batteryBarRect, cornerRadius: 3)

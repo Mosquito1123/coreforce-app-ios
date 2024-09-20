@@ -92,7 +92,7 @@ class PersonalViewCell: UITableViewCell {
     lazy var switchButton:UISwitch = {
         let switchButton = UISwitch()
         switchButton.isHidden = true
-        switchButton.onTintColor = UIColor(rgba: 0x447AFEFF)
+        switchButton.onTintColor = UIColor(hex:0x447AFEFF)
         switchButton.translatesAutoresizingMaskIntoConstraints = false
         return switchButton
     }()
@@ -100,7 +100,7 @@ class PersonalViewCell: UITableViewCell {
         let label = UILabel()
         label.isHidden = true
         label.text = "关闭后将不再推送所有APP通知"
-        label.textColor = UIColor(rgba: 0xA0A0A0FF)
+        label.textColor = UIColor(hex:0xA0A0A0FF)
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .right
         label.numberOfLines = 0
@@ -111,7 +111,7 @@ class PersonalViewCell: UITableViewCell {
     lazy var logoutLabel: UILabel = {
         let label = UILabel()
         label.text = "退出登录"
-        label.textColor = UIColor(rgba: 0xF53F3FFF)
+        label.textColor = UIColor(hex:0xF53F3FFF)
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -122,7 +122,7 @@ class PersonalViewCell: UITableViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(rgba: 0x1D2129FF)
+        label.textColor = UIColor(hex:0x1D2129FF)
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -132,7 +132,7 @@ class PersonalViewCell: UITableViewCell {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.text = "135****1234"
-        label.textColor = UIColor(rgba: 0xA0A0A0FF)
+        label.textColor = UIColor(hex:0xA0A0A0FF)
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .right
         label.numberOfLines = 0
@@ -175,7 +175,7 @@ private extension PersonalViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
         containerView.addSubview(logoutLabel)
@@ -259,7 +259,7 @@ class SettingsHeaderView:UITableViewHeaderFooterView{
     }
     private func setupSubviews() {
 //        self.contentView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         
     }
     private func setupLayout() {

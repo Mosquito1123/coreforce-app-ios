@@ -73,7 +73,7 @@ class BatteryStatusViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "80%"
         label.font = UIFont(name: "DIN Alternate Bold", size: 30)
-        label.textColor = UIColor(rgba:0x262626FF)
+        label.textColor = UIColor(hex:0x262626FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -82,7 +82,7 @@ class BatteryStatusViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "剩余电量"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -100,10 +100,10 @@ class BatteryStatusViewCell: UICollectionViewCell {
         button.layer.masksToBounds = true
         button.setTitle("使用中", for: .normal)
         button.setTitle("使用中", for: .highlighted)
-        button.setTitleColor(UIColor(rgba: 0x333333FF), for: .normal)
-        button.setTitleColor(UIColor(rgba: 0x333333FF), for: .highlighted)
-        button.setImage(UIColor(rgba: 0x447AFEFF).circularImage(diameter: 6), for: .normal)
-        button.setImage(UIColor(rgba: 0x447AFEFF).circularImage(diameter: 6), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0x333333FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x333333FF), for: .highlighted)
+        button.setImage(UIColor(hex:0x447AFEFF).circularImage(diameter: 6), for: .normal)
+        button.setImage(UIColor(hex:0x447AFEFF).circularImage(diameter: 6), for: .highlighted)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.6).toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.6).toImage(), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16,weight: .medium)
@@ -117,14 +117,14 @@ class BatteryStatusViewCell: UICollectionViewCell {
         let button = UIButton(type: .custom)
         // 设置按钮的圆角和边框
         button.setTitle("导航", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x333333FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x333333FF), for: .normal)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setImage(UIImage(named: "device_navigate"), for: .normal)
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(rgba:0xE5E6EBFF).cgColor
+        button.layer.borderColor = UIColor(hex:0xE5E6EBFF).cgColor
         button.layer.masksToBounds = true
         button.addAction(for: .touchUpInside) {
             self.navigateAction?()
@@ -137,8 +137,8 @@ class BatteryStatusViewCell: UICollectionViewCell {
         // 设置按钮的圆角和边框
         button.tintAdjustmentMode = .automatic
         button.setTitle("", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x262626FF), for: .normal)
-        button.setTitleColor(UIColor(rgba:0x262626FF), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0x262626FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x262626FF), for: .highlighted)
         button.setImage(UIImage(named: "device_refresh"), for: .normal)
         button.setImage(UIImage(named: "device_refresh"), for: .highlighted)
         // 设置按钮的标题字体和大小

@@ -28,7 +28,7 @@ class AboutListViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x666666FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.font = UIFont.systemFont(ofSize: 14)
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ class AboutListViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,7 +72,7 @@ private extension AboutListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.contentView.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.titleLabel)
         self.containerView.addSubview(self.contentLabel)

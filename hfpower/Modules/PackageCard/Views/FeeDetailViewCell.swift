@@ -36,7 +36,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
         label.numberOfLines = 0
         label.text = "费用结算"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

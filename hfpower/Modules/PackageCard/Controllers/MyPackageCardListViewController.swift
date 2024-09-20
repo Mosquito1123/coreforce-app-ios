@@ -19,7 +19,7 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.font = UIFont.systemFont(ofSize: 18,weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,8 +52,8 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
         button.setTitle("确定使用", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.white, for: .highlighted)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(rgba: 0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .normal)
         
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.addTarget(self, action: #selector(submitButtonClick(_:)), for: .touchUpInside)

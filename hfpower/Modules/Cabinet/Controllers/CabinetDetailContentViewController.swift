@@ -30,9 +30,9 @@ class CabinetDetailContentViewController: UIViewController {
                 chartDataSet.mode = .cubicBezier
                 chartDataSet.cubicIntensity = 0.2
                 
-                chartDataSet.colors = [UIColor(rgba:0x447AFEFF)]
-                let gradientColors = [UIColor(rgba:0x447AFEFF).cgColor,
-                                      UIColor(rgba:0x447AFEFF).withAlphaComponent(0).cgColor]
+                chartDataSet.colors = [UIColor(hex:0x447AFEFF)]
+                let gradientColors = [UIColor(hex:0x447AFEFF).cgColor,
+                                      UIColor(hex:0x447AFEFF).withAlphaComponent(0).cgColor]
                 let colorLocations: [CGFloat] = [1.0, 0.0] // 渐变位置
                 
                 let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors as CFArray, locations: colorLocations)!
@@ -51,17 +51,17 @@ class CabinetDetailContentViewController: UIViewController {
                 self.cabinetDetailContentView.chartView.contentView.leftAxis.granularity = 5
                 self.cabinetDetailContentView.chartView.contentView.leftAxis.granularityEnabled = true
                 self.cabinetDetailContentView.chartView.contentView.leftAxis.labelFont = UIFont.systemFont(ofSize: 10, weight: .light)
-                self.cabinetDetailContentView.chartView.contentView.leftAxis.labelTextColor = UIColor(rgba:0x4D4D4DFF)
+                self.cabinetDetailContentView.chartView.contentView.leftAxis.labelTextColor = UIColor(hex:0x4D4D4DFF)
                 self.cabinetDetailContentView.chartView.contentView.xAxis.axisMaximum = 24
                 self.cabinetDetailContentView.chartView.contentView.xAxis.axisMinimum = 0
                 self.cabinetDetailContentView.chartView.contentView.xAxis.labelFont = UIFont.systemFont(ofSize: 10, weight: .light)
                 self.cabinetDetailContentView.chartView.contentView.xAxis.drawGridLinesEnabled = false
-                self.cabinetDetailContentView.chartView.contentView.xAxis.axisLineColor = UIColor(rgba:0x447AFEFF).withAlphaComponent(0.3) .withAlphaComponent(0.3)
+                self.cabinetDetailContentView.chartView.contentView.xAxis.axisLineColor = UIColor(hex:0x447AFEFF).withAlphaComponent(0.3) .withAlphaComponent(0.3)
                 self.cabinetDetailContentView.chartView.contentView.xAxis.granularity = 4
                 self.cabinetDetailContentView.chartView.contentView.xAxis.granularityEnabled = true
                 self.cabinetDetailContentView.chartView.contentView.xAxis.valueFormatter = TimeValueFormatter()
                 self.cabinetDetailContentView.chartView.contentView.xAxis.labelPosition = .bottom
-                self.cabinetDetailContentView.chartView.contentView.xAxis.labelTextColor = UIColor(rgba:0x4D4D4DFF)
+                self.cabinetDetailContentView.chartView.contentView.xAxis.labelTextColor = UIColor(hex:0x4D4D4DFF)
                 self.cabinetDetailContentView.chartView.contentView.leftAxis.drawAxisLineEnabled = false
                 self.cabinetDetailContentView.chartView.contentView.leftAxis.drawGridLinesEnabled = false
                 self.cabinetDetailContentView.chartView.contentView.doubleTapToZoomEnabled = true

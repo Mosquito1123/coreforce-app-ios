@@ -34,7 +34,7 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         label.numberOfLines = 1
         label.text = "金海牛能源环境产业园A座"
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.textColor = UIColor(rgba:0x262626FF)
+        label.textColor = UIColor(hex:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,7 +42,7 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         let button = UIButton(type:.custom)
         button.setImage(UIImage(named: "icon_arrow_right"), for: .normal)
         button.setTitle("详情", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         button.addTarget(self, action: #selector(detailButtonAction(_:)), for: .touchUpInside)
@@ -54,7 +54,7 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         label.text = "营业时间：24h"
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(rgba:0x999999FF)
+        label.textColor = UIColor(hex:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -63,7 +63,7 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         label.numberOfLines = 0
         label.text = "100m · 骑行1分钟"
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -79,7 +79,7 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         label.numberOfLines = 0
         label.text = "李沧区青山路700号"
         label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(rgba:0x999999FF)
+        label.textColor = UIColor(hex:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -88,8 +88,8 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
         button.setTitle("可租赁", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x165DFFFF), for: .normal)
-        button.backgroundColor = UIColor(rgba:0x165DFFFF).withAlphaComponent(0.1)
+        button.setTitleColor(UIColor(hex:0x165DFFFF), for: .normal)
+        button.backgroundColor = UIColor(hex:0x165DFFFF).withAlphaComponent(0.1)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -97,10 +97,10 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
     lazy var depositStatusButton:UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("可寄存", for: .normal)
-        button.setTitleColor(UIColor(rgba:0xFF7D00FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0xFF7D00FF), for: .normal)
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
-        button.backgroundColor = UIColor(rgba:0xFFF7E8FF)
+        button.backgroundColor = UIColor(hex:0xFFF7E8FF)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
 
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -110,14 +110,14 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         let button = UIButton(type: .custom)
         // 设置按钮的圆角和边框
         button.setTitle("导航", for: .normal)
-        button.setTitleColor(UIColor(rgba:0x333333FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x333333FF), for: .normal)
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setImage(UIImage(named: "device_navigate"), for: .normal)
         // 设置按钮的标题字体和大小
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(rgba:0xE5E6EBFF).cgColor
+        button.layer.borderColor = UIColor(hex:0xE5E6EBFF).cgColor
         button.addTarget(self, action: #selector(navigateButtonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -129,7 +129,7 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
     }()
     lazy var lineView:UIView = {
        let view = UIView()
-        view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

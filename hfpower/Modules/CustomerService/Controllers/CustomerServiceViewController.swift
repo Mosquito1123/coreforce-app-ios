@@ -89,8 +89,8 @@ class CustomerServiceContentViewController: TabmanViewController {
     lazy var contactButton:UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("联系我们", for: .normal)
-        button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .normal)
-        button.setTitleColor(UIColor(rgba: 0x447AFEFF), for: .selected)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x447AFEFF), for: .selected)
         button.setImage(UIImage(named: "customer_service_phone"), for: .normal)
         button.setImage(UIImage(named: "customer_service_phone"), for: .highlighted)
         button.setImage(UIImage(named: "customer_service_phone"), for: .selected)
@@ -152,7 +152,7 @@ private extension CustomerServiceContentViewController {
     
     
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba:0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.view.insertSubview(backgroundImageView, at: 0)
         self.dataSource = self
         
@@ -168,8 +168,8 @@ private extension CustomerServiceContentViewController {
             
             button.selectedFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
             button.font = UIFont.systemFont(ofSize: 15)
-            button.tintColor = UIColor(rgba: 0xFFFFFFFF).withAlphaComponent(0.7)
-            button.selectedTintColor = UIColor(rgba: 0xFFFFFFFF)
+            button.tintColor = UIColor(hex:0xFFFFFFFF).withAlphaComponent(0.7)
+            button.selectedTintColor = UIColor(hex:0xFFFFFFFF)
             
         }
         // Add to view

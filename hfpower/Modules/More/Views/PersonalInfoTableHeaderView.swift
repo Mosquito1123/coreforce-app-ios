@@ -8,7 +8,7 @@
 import UIKit
 
 class PersonalInfoTableHeaderView: UIView {
-
+    
     // MARK: - Accessor
     var editAction:ButtonActionBlock?
     // MARK: - Subviews
@@ -45,34 +45,34 @@ class PersonalInfoTableHeaderView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
 }
 
 // MARK: - Setup
 private extension PersonalInfoTableHeaderView {
     
     private func setupSubviews() {
-        self.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.addSubview(self.avatarImageView)
         self.addSubview(self.editButton)
     }
     
     private func setupLayout() {
         // 布局头像视图
-                NSLayoutConstraint.activate([
-                    avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-                    avatarImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-                    avatarImageView.widthAnchor.constraint(equalToConstant: 100),
-                    avatarImageView.heightAnchor.constraint(equalToConstant: 100)
-                ])
-                
-                // 布局编辑按钮
-                NSLayoutConstraint.activate([
-                    editButton.widthAnchor.constraint(equalToConstant: 33),
-                    editButton.heightAnchor.constraint(equalToConstant: 33),
-                    editButton.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
-                    editButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor)
-                ])
+        NSLayoutConstraint.activate([
+            avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            avatarImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 100),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 100)
+        ])
+        
+        // 布局编辑按钮
+        NSLayoutConstraint.activate([
+            editButton.widthAnchor.constraint(equalToConstant: 33),
+            editButton.heightAnchor.constraint(equalToConstant: 33),
+            editButton.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
+            editButton.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor)
+        ])
     }
     
 }

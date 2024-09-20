@@ -73,7 +73,7 @@ private extension PersonalInfoViewController {
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(rgba: 0xF7F7F7FF)
+        self.view.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.view.addSubview(self.tableView)
         let tableHeaderView = PersonalInfoTableHeaderView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 180))
         tableHeaderView.editAction = { sender in

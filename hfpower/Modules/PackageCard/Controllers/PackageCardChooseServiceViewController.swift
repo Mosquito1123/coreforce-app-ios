@@ -17,8 +17,8 @@ class PackageCardChooseServiceViewController: BaseTableViewController<PackageCar
         button.tintAdjustmentMode = .automatic
         button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
         button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
-        button.setTitleColor(UIColor(rgba: 0x333333FF), for: .normal)
-        button.setTitleColor(UIColor(rgba: 0x333333FF), for: .highlighted)
+        button.setTitleColor(UIColor(hex:0x333333FF), for: .normal)
+        button.setTitleColor(UIColor(hex:0x333333FF), for: .highlighted)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17,weight: .semibold)
         button.setTitle(CityCodeManager.shared.cityName, for: .normal)
         button.setTitle(CityCodeManager.shared.cityName, for: .highlighted)

@@ -13,7 +13,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "订单类型："
-            label.textColor = UIColor(rgba:0x666666FF)
+            label.textColor = UIColor(hex:0x666666FF)
             label.font = UIFont.systemFont(ofSize: 14)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -23,7 +23,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             label.numberOfLines = 0
             label.textAlignment = .left
             label.text = "¥2000 "
-            label.textColor = UIColor(rgba:0x333333FF)
+            label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -32,7 +32,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "订单金额："
-            label.textColor = UIColor(rgba:0x666666FF)
+            label.textColor = UIColor(hex:0x666666FF)
             label.font = UIFont.systemFont(ofSize: 14)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -42,7 +42,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             label.numberOfLines = 0
             label.textAlignment = .left
             label.text = "¥2000 "
-            label.textColor = UIColor(rgba:0xFF6565FF)
+            label.textColor = UIColor(hex:0xFF6565FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -51,7 +51,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "订单时间："
-            label.textColor = UIColor(rgba:0x666666FF)
+            label.textColor = UIColor(hex:0x666666FF)
             label.font = UIFont.systemFont(ofSize: 14)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -61,7 +61,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             label.numberOfLines = 0
             label.textAlignment = .left
             label.text = "¥2000 "
-            label.textColor = UIColor(rgba:0x333333FF)
+            label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -69,7 +69,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.layer.cornerRadius = 12
-            self.backgroundColor = UIColor(rgba:0xF9F9FBFF)
+            self.backgroundColor = UIColor(hex:0xF9F9FBFF)
             self.addSubview(titleLabel1)
             self.addSubview(contentLabel1)
             self.addSubview(titleLabel2)
@@ -110,7 +110,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "退款金额： "
-            label.textColor = UIColor(rgba:0x666666FF)
+            label.textColor = UIColor(hex:0x666666FF)
             label.font = UIFont.systemFont(ofSize: 14)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -119,7 +119,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.text = "¥2000 "
-            label.textColor = UIColor(rgba:0xFF6565FF)
+            label.textColor = UIColor(hex:0xFF6565FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -127,7 +127,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.layer.cornerRadius = 12
-            self.backgroundColor = UIColor(rgba:0xFFF6F6FF)
+            self.backgroundColor = UIColor(hex:0xFFF6F6FF)
             self.addSubview(titleLabel)
             self.addSubview(contentLabel)
             NSLayoutConstraint.activate([
@@ -154,32 +154,32 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
         switch payStatus {
         case -1:
             self.statusLabel.text = "异常"
-            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+            self.statusLabel.textColor = UIColor(hex:0xFF6565FF)
 
         case 0:
             self.statusLabel.text = "取消/过期"
-            self.statusLabel.textColor = UIColor(rgba:0xA0A0A0FF)
+            self.statusLabel.textColor = UIColor(hex:0xA0A0A0FF)
             self.refundView.contentLabel.text = "￥\(element?.payableAmount ?? 0)"
 
 
         case 1:
             self.statusLabel.text = "待支付"
-            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+            self.statusLabel.textColor = UIColor(hex:0xFF6565FF)
 
         case 2:
             self.statusLabel.text = "已支付"
-            self.statusLabel.textColor = UIColor(rgba:0x447AFEFF)
+            self.statusLabel.textColor = UIColor(hex:0x447AFEFF)
         case 3:
             self.statusLabel.text = "无需支付"
-            self.statusLabel.textColor = UIColor(rgba:0xA0A0A0FF)
+            self.statusLabel.textColor = UIColor(hex:0xA0A0A0FF)
 
         case 4:
             self.statusLabel.text = "支付异常"
-            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+            self.statusLabel.textColor = UIColor(hex:0xFF6565FF)
 
         default:
             self.statusLabel.text = "异常"
-            self.statusLabel.textColor = UIColor(rgba:0xFF6565FF)
+            self.statusLabel.textColor = UIColor(hex:0xFF6565FF)
 
         }
         let deviceType = element?.deviceType ?? 0
@@ -231,7 +231,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
         let label = UILabel()
         label.text = "TQSO202308091234"
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(rgba:0x333333FF)
+        label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -240,7 +240,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
         let label = UILabel()
         label.text = "已支付"
         label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
-        label.textColor = UIColor(rgba:0x447AFEFF)
+        label.textColor = UIColor(hex:0x447AFEFF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -286,7 +286,7 @@ private extension OrderListViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.backgroundColor = UIColor(rgba: 0xF6F6F6FF)
+        self.backgroundColor = UIColor(hex:0xF6F6F6FF)
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(self.detailView)
         self.containerView.addSubview(self.titleLabel)
