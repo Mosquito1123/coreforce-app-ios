@@ -10,8 +10,7 @@ import UIKit
 class CabinetPanelView: UIView {
 
     // MARK: - Accessor
-    var navigateAction:ButtonActionBlock?
-    var scanAction:ButtonActionBlock?
+
     var dropDownAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
     var giftAction:ButtonActionBlock?{
@@ -105,41 +104,6 @@ class CabinetPanelView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    lazy var navigateButton:UIButton = {
-        let button = UIButton(type: .custom)
-        // 设置按钮的圆角和边框
-        button.tintAdjustmentMode = .automatic
-        button.setTitle("导航", for: .normal)
-        button.setTitleColor(UIColor(hex:0x1D2129FF), for: .normal)
-        button.setBackgroundImage(UIColor.white.toImage(), for: .normal)
-        button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).toImage(), for: .highlighted)
-
-        // 设置按钮的标题字体和大小
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
-        button.layer.cornerRadius = 25
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(hex:0xE5E6EBFF).cgColor
-        button.addTarget(self, action: #selector(navigateButtonAction(_:)), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    lazy var scanButton:UIButton = {
-        let button = UIButton(type: .custom)
-        // 设置按钮的圆角和边框
-        button.setTitle("扫码换电", for: .normal)
-        button.tintAdjustmentMode = .automatic
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
-
-        // 设置按钮的标题字体和大小
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15,weight: .medium)
-        button.layer.cornerRadius = 25
-        button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(scanButtonAction(_:)), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     lazy var statisticView: CabinetStatisticView = {
         let view = CabinetStatisticView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -165,7 +129,6 @@ class CabinetPanelView: UIView {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        navigateButton.setImagePosition(type: .imageLeft, Space: 5)
         detailButton.setImagePosition(type: .imageRight, Space: 6)
        
     }
@@ -186,8 +149,7 @@ private extension CabinetPanelView {
         addSubview(locationImageView)
         addSubview(locationLabel)
         addSubview(statisticView)
-        addSubview(navigateButton)
-        addSubview(scanButton)
+      
     }
     
     private func setupLayout() {
@@ -233,18 +195,11 @@ private extension CabinetPanelView {
             
             statisticView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             statisticView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            statisticView.bottomAnchor.constraint(equalTo: navigateButton.topAnchor, constant: -14),
             statisticView.heightAnchor.constraint(equalToConstant: 160),
 
 
 
-            navigateButton.widthAnchor.constraint(equalToConstant: 165),
-            navigateButton.heightAnchor.constraint(equalToConstant: 50),
-            navigateButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            scanButton.widthAnchor.constraint(equalToConstant: 165),
-            scanButton.heightAnchor.constraint(equalToConstant: 50),
-            scanButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            scanButton.centerYAnchor.constraint(equalTo: navigateButton.centerYAnchor),
+            
 
 
         ])
@@ -262,12 +217,7 @@ extension CabinetPanelView {
     @objc func dropDownButtonAction(_ sender:UIButton){
         self.dropDownAction?(sender)
     }
-    @objc func navigateButtonAction(_ sender:UIButton){
-        self.navigateAction?(sender)
-    }
-    @objc func scanButtonAction(_ sender:UIButton){
-        self.scanAction?(sender)
-    }
+    
     @objc func detailButtonAction(_ sender:UIButton){
         self.detailAction?(sender)
     }

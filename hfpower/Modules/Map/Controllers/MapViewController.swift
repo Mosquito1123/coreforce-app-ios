@@ -456,6 +456,7 @@ extension MapViewController{
                 self.mapView.setVisibleMapRect(expandedMapRect, animated: true)
             }
             fpc.delegate = self
+            fpc.contentMode = .fitToBounds
             fpc.isRemovalInteractionEnabled = true
             fpc.contentInsetAdjustmentBehavior = .always
             fpc.surfaceView.appearance = {
@@ -749,7 +750,7 @@ class RemovablePanelLayout: FloatingPanelLayout {
     let initialState: FloatingPanelState = .half
     let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
         .full: FloatingPanelLayoutAnchor(absoluteInset: 93, edge: .top, referenceGuide: .safeArea),
-        .half: FloatingPanelLayoutAnchor(absoluteInset: 390, edge: .bottom, referenceGuide: .safeArea)
+        .half: FloatingPanelLayoutAnchor(absoluteInset: 400, edge: .bottom, referenceGuide: .safeArea)
     ]
     
     func backdropAlpha(for state: FloatingPanelState) -> CGFloat {

@@ -86,6 +86,9 @@ class PersonalInfoListViewCell: BaseTableViewCell<PersonalInfo> {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        //初始化
+        setupSubviews()
+        setupLayout()
     }
 
 }

@@ -117,6 +117,7 @@ class PackageCardChooseServiceViewCell: BaseTableViewCell<PackageCardChooseServi
         button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(sureButtonTapped(_:)), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

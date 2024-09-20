@@ -33,7 +33,7 @@ class CabinetPanelViewController: UIViewController {
                 let cyclingTimeInSeconds = walkingTimeInSeconds / 4.5 // 假设电动车速度是步行的 4.5 倍
                 
                 // 时间格式化// 距离格式化
-                let cyclingTimeFormatted = String.formatTime(seconds: cyclingTimeInSeconds) 
+                let cyclingTimeFormatted = String.formatTime(seconds: cyclingTimeInSeconds)
                 let distanceFormatted = String.formatDistance(meters: route.distance)
                 self.cabinetPanelView.rideLabel.text = "\(distanceFormatted) · 骑行\(cyclingTimeFormatted)"
 
@@ -46,8 +46,16 @@ class CabinetPanelViewController: UIViewController {
         }
     }
     var mapController:MapViewController?
-    var navigateAction:ButtonActionBlock?
-    var scanAction:ButtonActionBlock?
+    var navigateAction:ButtonActionBlock?{
+        didSet{
+            self.cabinetPanelBottomView.navigateAction = navigateAction
+        }
+    }
+    var scanAction:ButtonActionBlock?{
+        didSet{
+            self.cabinetPanelBottomView.scanAction = scanAction
+        }
+    }
     var dropDownAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
     var giftAction:ButtonActionBlock?{
@@ -58,6 +66,11 @@ class CabinetPanelViewController: UIViewController {
     // MARK: - Subviews
     lazy var cabinetPanelView: CabinetPanelView = {
         var panelView = CabinetPanelView()
+        panelView.translatesAutoresizingMaskIntoConstraints = false
+        return panelView
+    }()
+    lazy var cabinetPanelBottomView: CabinetPanelBottomView = {
+        var panelView = CabinetPanelBottomView()
         panelView.translatesAutoresizingMaskIntoConstraints = false
         return panelView
     }()
@@ -83,9 +96,8 @@ private extension CabinetPanelViewController {
     private func setupSubviews() {
         view.backgroundColor = .white
         view.addSubview(self.cabinetPanelView)
+        view.addSubview(self.cabinetPanelBottomView)
         self.cabinetPanelView.statisticView.showTop = true
-        self.cabinetPanelView.navigateAction = self.navigateAction
-        self.cabinetPanelView.scanAction = self.scanAction
         self.cabinetPanelView.detailAction = self.detailAction
         self.cabinetPanelView.dropDownAction = self.dropDownAction
 
@@ -95,9 +107,12 @@ private extension CabinetPanelViewController {
         NSLayoutConstraint.activate([
             cabinetPanelView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             cabinetPanelView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            cabinetPanelView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            cabinetPanelView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -49 - 12 - 12 - 22),
             cabinetPanelView.topAnchor.constraint(equalTo: self.view.topAnchor),
-
+            cabinetPanelBottomView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            cabinetPanelBottomView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            cabinetPanelBottomView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            cabinetPanelBottomView.heightAnchor.constraint(equalToConstant: 49 + 12 + 12 + 20),
         ])
     }
 }

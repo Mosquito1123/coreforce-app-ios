@@ -7,13 +7,13 @@
 
 import UIKit
 
-class LogoffListViewCell: UITableViewCell {
+class LogoffListViewCell: BaseTableViewCell<Logoff> {
     
     // MARK: - Accessor
-    var element:Logoff?{
-        didSet{
-            self.pointLabel.text = element?.title
-        }
+   
+    override func configure() {
+        self.pointLabel.text = element?.title
+
     }
     // MARK: - Subviews
     lazy var pointView:UIView  = {
@@ -33,11 +33,11 @@ class LogoffListViewCell: UITableViewCell {
         return label
     }()
     // MARK: - Static
-    class func cellIdentifier() -> String {
+    override class func cellIdentifier() -> String {
         return String(describing: self)
     }
     
-    class func cell(with tableView: UITableView) -> LogoffListViewCell {
+    override class func cell(with tableView: UITableView) -> LogoffListViewCell {
         let identifier = cellIdentifier()
         if let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? LogoffListViewCell { return cell }
         return LogoffListViewCell(style: .default, reuseIdentifier: identifier)
@@ -53,6 +53,8 @@ class LogoffListViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder:coder)
+        setupSubviews()
+        setupLayout()
     }
 
 }
