@@ -26,7 +26,7 @@ class SettingsViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.backgroundView = UIView()
-        tableView.backgroundColor = UIColor(hex:0xF7F8FAFF)
+        tableView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -125,10 +125,16 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsHeaderView.viewIdentifier()) as? SettingsHeaderView else {return UIView()}
         return view
     }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        16
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsHeaderView.viewIdentifier()) as? SettingsHeaderView else {return UIView()}
+        return view
     }
-
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.items.count
     }
