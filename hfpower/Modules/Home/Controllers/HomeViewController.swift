@@ -382,7 +382,15 @@ private extension HomeViewController {
         footerStackView.addArrangedSubview(refreshView)
         let filterView = MapFeatureView(.filter) { sender, mapFeatureType in
             let contentVC = CabinetFilterViewController()
+            contentVC.typeItem = self.typeItem
+            contentVC.powerItem = self.powerItem
             contentVC.closeAction = { sender in
+                self.hideFloatingPanel(contentVC)
+            }
+            contentVC.sureAction = { sender,typeItem,powerItem in
+                self.typeItem = typeItem
+                self.powerItem = powerItem
+                self.updateCabinetList(coordinate:self.mapView.centerCoordinate,largeTypeId: self.typeItem?.content,powerLevel: self.powerItem?.content)
                 self.hideFloatingPanel(contentVC)
             }
             self.showFloatingPanel(contentVC)
@@ -426,8 +434,7 @@ private extension HomeViewController {
 // MARK: - Action
 @objc private extension HomeViewController {
     @objc func handleCityChanged(_ notification:Notification){
-        
-        self.updateCabinetList(coordinate: nil)
+        self.updateCabinetList(coordinate:nil,largeTypeId: self.typeItem?.content,powerLevel: self.powerItem?.content)
         self.moveMap()
     }
     @objc func needLogin(_ sender:UIButton){

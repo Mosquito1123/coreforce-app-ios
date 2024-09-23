@@ -65,6 +65,8 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     
     
     // MARK: - Accessor
+    var typeItem:CabinetFilterItem?
+    var powerItem:CabinetFilterItem?
     lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         // 在这里可以进行其他的配置
@@ -139,7 +141,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         present(alert, animated: true, completion: nil)
     }
     
-    func updateCabinetList(coordinate: CLLocationCoordinate2D?){
+    func updateCabinetList(coordinate: CLLocationCoordinate2D?,largeTypeId:String? = nil,powerLevel:String? = nil){
         let code = CityCodeManager.shared.cityCode ?? "370200"
         var params = [String: Any]()
         let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
@@ -152,6 +154,12 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         }
         if let lon = coordinate?.longitude{
             params["lon"] = lon
+        }
+        if let largeTypeId = largeTypeId {
+            params["largeTypeId"] = largeTypeId
+        }
+        if let powerLevel = powerLevel {
+            params["powerLevel"] = powerLevel
         }
         params["pageSize"] = 100
         self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
@@ -627,8 +635,8 @@ extension MapViewController {
         }
         //        self.mapView.regionCallBack?(mapView.region)
         // 加载数据
-        updateCabinetList(coordinate: mapView.centerCoordinate)
-        
+        self.updateCabinetList(coordinate:mapView.centerCoordinate,largeTypeId: self.typeItem?.content,powerLevel: self.powerItem?.content)
+
         
         
     }

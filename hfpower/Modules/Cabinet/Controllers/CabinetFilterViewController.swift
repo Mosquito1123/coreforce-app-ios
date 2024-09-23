@@ -10,8 +10,10 @@ import UIKit
 class CabinetFilterViewController: UIViewController {
     
     // MARK: - Accessor
-    var sureAction:ButtonActionBlock?
+    var sureAction:((_ sender:UIButton,_ typeItem:CabinetFilterItem?,_ powerItem:CabinetFilterItem?)->Void)?
     var closeAction:ButtonActionBlock?
+    var typeItem:CabinetFilterItem?
+    var powerItem:CabinetFilterItem?
     var items = [CabinetFilter](){
         didSet{
             self.collectionView.reloadData()
@@ -98,11 +100,22 @@ class CabinetFilterViewController: UIViewController {
                 let items = (HFBatteryTypeList.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryTypeList]) ?? []
 //                self.items = items
                 var temp  = [CabinetFilterItem]()
-                temp.append(CabinetFilterItem(id: 0, title: "全部", content: "", selected: true))
-                temp.append(contentsOf: items.map { CabinetFilterItem(id: $0.id.intValue, title: $0.name, content: $0.name, selected: false)})
+                temp.append(CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true))
+                temp.append(contentsOf: items.map { CabinetFilterItem(id: $0.id.intValue, title: $0.name, content: $0.id.stringValue, selected: false)})
+                var typeTemp = temp.map { item in
+                    var cItem = item
+                    cItem.selected = item.id == self.typeItem?.id
+                    return cItem
+                }
+                var powerTemp = [CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),CabinetFilterItem(id: 1, title: ">90%", content: "1", selected: false)].map { item in
+                    var cItem = item
+                    cItem.selected = item.id == self.powerItem?.id
+                    return cItem
+                }
+                    
                 self.items = [
-                    CabinetFilter(id: 0, title: "电池型号", filterItems: temp),
-                    CabinetFilter(id: 1, title: "电池电量", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: ">90%", content: "", selected: false)]),
+                    CabinetFilter(id: 0, title: "电池型号",type:.type, filterItems: typeTemp),
+                    CabinetFilter(id: 1, title: "电池电量",type: .power,filterItems: powerTemp),
 //                    CabinetFilter(id: 2, title: "电柜", filterItems: [CabinetFilterItem(id: 0, title: "全部", content: "", selected: true),CabinetFilterItem(id: 1, title: "可租赁", content: "", selected: false),CabinetFilterItem(id: 2, title: "可寄存", content: "", selected: false),CabinetFilterItem(id: 3, title: "24h", content: "", selected: false)]),
                 ]
 
@@ -223,7 +236,17 @@ private extension CabinetFilterViewController {
         self.closeAction?(sender)
     }
     @objc func sureButtonTapped(_ sender:UIButton){
-        self.sureAction?(sender)
+        let typeItem = self.items.first { filter in
+            return filter.type == .type
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        let powerItem = self.items.first { filter in
+            return filter.type == .power
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        self.sureAction?(sender,typeItem,powerItem)
     }
 }
 
