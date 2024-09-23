@@ -68,7 +68,7 @@ private extension OrderDetailFooterView {
         NSLayoutConstraint.activate([
             
             contactLabel.topAnchor.constraint(equalTo: self.topAnchor,constant: 32),
-            contactLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor,constant: -36),
+            contactLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor,constant: -4*15),
             phoneNumberButton.centerYAnchor.constraint(equalTo: self.contactLabel.centerYAnchor),
             phoneNumberButton.leadingAnchor.constraint(equalTo: contactLabel.trailingAnchor,constant: 5.5),
             

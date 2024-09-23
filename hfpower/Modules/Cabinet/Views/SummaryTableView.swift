@@ -10,7 +10,7 @@ import UIKit
 class SummaryTableView: UIView {
     
     // MARK: - Accessor
-    var items:[[String]] = [[]]{
+    var items:[[String]] = [["48V","0","0"],["60V","0","0"]]{
         didSet{
             stackView.arrangedSubviews.forEach { view in
                 if view.tag != 99{

@@ -144,6 +144,29 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .relocated, object: nil)
 
     }
+    func isiPhoneXScreen() -> Bool {
+        
+        guard #available(iOS 11.0, *) else {
+            
+            return false
+            
+        }
+        
+        
+        if let bottom = UIApplication.shared.windows.first?.safeAreaInsets.bottom{
+            let isX = bottom  > 0
+            
+            print("是不是--->\(isX)")
+            
+            return isX
+        }else{
+            return false
+        }
+        
+        
+        
+    }
+        
     func setupTabbar() {
         // Set background color
         if #available(iOS 13.0, *) {
@@ -151,7 +174,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
             
             // Critical line of code to handle the tabBar background color
             appearance.configureWithTransparentBackground()
-            appearance.backgroundImage = UIImage(named: "tab_bar_background")?.resized(toSize:  CGSize(width: UIScreen.main.bounds.size.width, height: 130))
+            appearance.backgroundImage = self.isiPhoneXScreen() ? UIImage(named: "tab_bar_background")?.resized(toSize:  CGSize(width: UIScreen.main.bounds.size.width, height: 130)):UIImage(named: "tab_bar_background")?.resized(toSize:  CGSize(width: UIScreen.main.bounds.size.width, height: 110))
             appearance.shadowImage = UIColor.clear.toImage()
             appearance.backgroundImageContentMode = .bottom
             self.tabBar.standardAppearance = appearance

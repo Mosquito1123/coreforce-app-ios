@@ -102,12 +102,12 @@ class CabinetFilterViewController: UIViewController {
                 var temp  = [CabinetFilterItem]()
                 temp.append(CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true))
                 temp.append(contentsOf: items.map { CabinetFilterItem(id: $0.id.intValue, title: $0.name, content: $0.id.stringValue, selected: false)})
-                var typeTemp = temp.map { item in
+                let typeTemp = temp.map { item in
                     var cItem = item
                     cItem.selected = item.id == self.typeItem?.id
                     return cItem
                 }
-                var powerTemp = [CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),CabinetFilterItem(id: 1, title: ">90%", content: "1", selected: false)].map { item in
+                let powerTemp = [CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),CabinetFilterItem(id: 1, title: ">90%", content: "1", selected: false)].map { item in
                     var cItem = item
                     cItem.selected = item.id == self.powerItem?.id
                     return cItem

@@ -46,9 +46,12 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
             self.cabinetDetailContentController.cabinetDetailContentView.statisticView.batteryListView.batteryLevels = gridList.sorted { $0.batteryCapacityPercent.doubleValue > $1.batteryCapacityPercent.doubleValue}.prefix(3).map { CGFloat($0.batteryCapacityPercent.doubleValue)/100.0 }
         }
     }
-    var extraInfo:[HFCabinetExtraInfo] = []{
+    var extraInfo:[HFCabinetExtraInfo]?{
         didSet{
-            self.cabinetDetailContentController.cabinetDetailContentView.statisticView.summaryTableView.items = extraInfo.map { [$0.largeTypeName,$0.changeCount.stringValue,$0.count.stringValue] }
+            if let extraInfox = extraInfo,extraInfox.count > 0 {
+                self.cabinetDetailContentController.cabinetDetailContentView.statisticView.summaryTableView.items = extraInfox.map { [$0.largeTypeName,$0.changeCount.stringValue,$0.count.stringValue] }
+
+            }
         }
     }
     var cabinet:HFCabinet?{
@@ -144,7 +147,7 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
                 self.cabinet = cabinetDetail?.cabinet
                 self.cabinetExchangeForecastDatas = cabinetDetail?.cabinetExchangeForecast ?? []
                 self.gridList = cabinetDetail?.gridList ?? []
-                self.extraInfo = (cabinetDetail?.cabinet.extraInfo  as? [HFCabinetExtraInfo]) ?? []
+                self.extraInfo = cabinetDetail?.cabinet.extraInfo  as? [HFCabinetExtraInfo]
                 
             }
         } error: { error in

@@ -187,11 +187,11 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
         let authOrderStatus = orderDetail?.authOrderStatus ?? 0
         switch authOrderStatus {
         case 0:
-            return "支付宝预授权中"
+            return "支付宝信用免押中"
         case 1:
-            return "支付宝已授权"
+            return "支付宝信用免押"
         case 2:
-            return "押金支付授权"
+            return "押金支付"
         default:
             return "无"
         }
@@ -206,10 +206,10 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                 let batteryTypeName = orderDetail?.batteryTypeName ?? ""
                 let agentName = orderDetail?.agentName ?? ""
                 let createAt = orderDetail?.createAt ?? ""
-                let duration = orderDetail?.duration ?? 0
+                let duration = "\(orderDetail?.duration ?? 0)天"
                 let rentString = String(format: "%.2f元", orderDetail?.rent ?? 0.0)
                 let depositString = String(format: "%.2f元", orderDetail?.deposit ?? 0.0)
-                let couponDiscountAmountString = String(format: "%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
+                let couponDiscountAmountString = String(format: "-%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
                 let planString = orderDetail?.payMethod == 12 ? String(format: "租电套餐%d天", orderDetail?.payVoucherDays ?? 0.0):"无"
                 let rentDetailString = String(format: "¥%.2f/%d天x%d", orderDetail?.rent ?? 0, orderDetail?.duration ?? 0, orderDetail?.leaseDuration ?? 0)
                 let paidString = String(format: "%.2f元", (orderDetail?.totalAmount ?? 0.0) - (orderDetail?.couponDiscountAmount ?? 0.0))
@@ -247,10 +247,10 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                 let locomotiveNumber = orderDetail?.locomotiveNumber ?? ""
                 let agentName = orderDetail?.agentName ?? ""
                 let createAt = orderDetail?.createAt ?? ""
-                let duration = orderDetail?.duration ?? 0
+                let duration = "\(orderDetail?.duration ?? 0)天"
                 let rentString = String(format: "%.2f元", orderDetail?.rent ?? 0.0)
                 let depositString = String(format: "%.2f元", orderDetail?.deposit ?? 0.0)
-                let couponDiscountAmountString = String(format: "%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
+                let couponDiscountAmountString = String(format: "-%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
                 let planString = orderDetail?.payMethod == 12 ? String(format: "租电套餐%d天", orderDetail?.payVoucherDays ?? 0.0):"无"
                 let rentDetailString = String(format: "¥%.2f/%d天x%d", orderDetail?.rent ?? 0, orderDetail?.duration ?? 0, orderDetail?.leaseDuration ?? 0)
                 let paidString = String(format: "%.2f元", (orderDetail?.totalAmount ?? 0.0) - (orderDetail?.couponDiscountAmount ?? 0.0))
@@ -288,10 +288,10 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
                 let batteryTypeName = orderDetail?.batteryTypeName ?? ""
                 let agentName = orderDetail?.agentName ?? ""
                 let createAt = orderDetail?.createAt ?? ""
-                let duration = orderDetail?.duration ?? 0
+                let duration = "\(orderDetail?.duration ?? 0)天"
                 let rentString = String(format: "%.2f元", orderDetail?.rent ?? 0.0)
                 let depositString = String(format: "%.2f元", orderDetail?.deposit ?? 0.0)
-                let couponDiscountAmountString = String(format: "%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
+                let couponDiscountAmountString = String(format: "-%.2f元", orderDetail?.couponDiscountAmount ?? 0.0)
                 let planString = orderDetail?.payMethod == 12 ? String(format: "租电套餐%d天", orderDetail?.payVoucherDays ?? 0.0):"无"
                 let rentDetailString = String(format: "¥%.2f/%d天x%d", orderDetail?.rent ?? 0, orderDetail?.duration ?? 0, orderDetail?.leaseDuration ?? 0)
                 let paidString = String(format: "%.2f元", (orderDetail?.totalAmount ?? 0.0) - (orderDetail?.couponDiscountAmount ?? 0.0))

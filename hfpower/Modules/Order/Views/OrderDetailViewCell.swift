@@ -32,7 +32,7 @@ class OrderDetailViewCell: UITableViewCell {
         didSet{
             self.titleLabel.text = element?.title
             self.contentLabel.text = element?.content
-            self.extraLabel.text = element?.extra
+//            self.extraLabel.text = element?.extra
             
         }
     }

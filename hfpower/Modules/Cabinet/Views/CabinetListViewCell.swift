@@ -16,8 +16,10 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         self.statisticView.batteryListView.onLine = element?.onLine.boolValue ?? false
         let topThree = (element?.topThreeGrids as? [HFGridList]) ?? []
         self.statisticView.batteryListView.batteryLevels = topThree.map { CGFloat($0.batteryCapacityPercent.doubleValue)/100.0 }
-        let extraInfos = (element?.extraInfo as? [HFCabinetExtraInfo]) ?? []
-        self.statisticView.summaryTableView.items = extraInfos.map { [$0.largeTypeName,$0.changeCount.stringValue,$0.count.stringValue] }
+        if let extraInfos = (element?.extraInfo as? [HFCabinetExtraInfo]),extraInfos.count > 0{
+            self.statisticView.summaryTableView.items = extraInfos.map { [$0.largeTypeName,$0.changeCount.stringValue,$0.count.stringValue] }
+
+        }
         self.rentStatusButton.isHidden = !(element?.rentReturnBattery.boolValue ?? true)
         self.depositStatusButton.isHidden = !(element?.rentReturnBattery.boolValue ?? true)
     }

@@ -42,11 +42,11 @@ class SettingsViewController: BaseViewController {
         setupSubviews()
         setupLayout()
         self.items = [
-            Settings(id: 0,title: "",items: [
-                SettingsItem(id: 0, title: "低电量提醒", content: "",type: 0),
-                SettingsItem(id: 1, title: "消息通知", content: "关闭后将不再推送所有APP通知", selected: true,type: 1),
-
-            ]),
+//            Settings(id: 0,title: "",items: [
+//                SettingsItem(id: 0, title: "低电量提醒", content: "",type: 0),
+//                SettingsItem(id: 1, title: "消息通知", content: "关闭后将不再推送所有APP通知", selected: true,type: 1),
+//
+//            ]),
             Settings(id: 1,title: "",items: [
                 SettingsItem(id: 0, title: "修改密码", content: "",type: 0),
                 SettingsItem(id: 1, title: "修改手机号", content: AccountManager.shared.phoneNum ?? "", selected: true,type: 2),

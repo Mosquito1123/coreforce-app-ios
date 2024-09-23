@@ -46,7 +46,8 @@ class BatteryTypeListViewCell: BaseTableViewCell<HFBatteryTypeList> {
         label.text = "续航60-80公里，适合全职及众包骑手"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor(hex:0x666666FF)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
+        label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

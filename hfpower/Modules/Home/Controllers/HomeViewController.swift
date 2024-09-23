@@ -356,8 +356,10 @@ private extension HomeViewController {
         }
        
         packageCardView.goToBuyPackageCardAction = { sender in
-            let vc=PackageCardChooseServiceViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc=PackageCardChooseServiceViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+            let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
         }
         headerStackView.addArrangedSubview(packageCardView)
         
