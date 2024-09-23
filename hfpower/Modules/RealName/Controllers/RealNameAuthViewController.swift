@@ -228,9 +228,8 @@ private extension RealNameAuthViewController {
             p["certName"] = name
             p["certNo"] = number
         }
-        /*NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpInit(params: p)) { result in
-            switch result {
-            case.success(let response):
+        self.postData(memberRpInitUrl, param: p, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let certifyId = body["certifyId"] as? String{
                 var extParams: [String: Any] = [
                     ZIM_EXT_PARAMS_KEY_OCR_BOTTOM_BUTTON_COLOR: "394DBF",
                     ZIM_EXT_PARAMS_KEY_OCR_FACE_CIRCLE_COLOR: "394DBF",
@@ -240,19 +239,21 @@ private extension RealNameAuthViewController {
                     "imageOrientation": "right"
                 ]
                 extParams["currentCtr"] = self
-                AliyunFaceAuthFacade.verify(with: response?.certifyId ?? "", extParams: extParams) { zimResponse in
+                AliyunFaceAuthFacade.verify(with: certifyId, extParams: extParams) { zimResponse in
                     switch zimResponse.code {
                         
                     case .ZIMResponseSuccess:
-                        /*NetworkService<MemberAPI,MemberRpResponse>().request(.memberRpDescribe(certifyId: response?.certifyId ?? "")) { result in
-                            switch result{
-                            case .success:
-                                AccountManager.shared.isAuth = 1
-                                self.navigationController?.dismiss(animated: true)
-                            case .failure(let error):
-                                self.showError(withStatus: error.localizedDescription)
+                        self.postData(memberRpDescribeUrl, param: ["certifyId":certifyId], isLoading: true) { responseObject in
+                            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let code = body["code"] as? String,code == "200"{
+                                let nav = UINavigationController(rootViewController: MainTabBarController())
+                                UIViewController.ex_keyWindow()?.rootViewController = nav
                             }
-                        }             */
+                        } error: { error in
+                            self.showError(withStatus: error.localizedDescription)
+
+                        }
+
+                        
 
                     case .ZIMInternalError:
                         self.showError(withStatus: "初始化失败")
@@ -269,11 +270,11 @@ private extension RealNameAuthViewController {
                         
                     }
                 }
-            case .failure(let error):
-                
-                self.showError(withStatus: error.localizedDescription)
             }
-        }             */
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+
+        }
 
     }
     
