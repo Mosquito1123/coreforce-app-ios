@@ -34,6 +34,7 @@ PODS:
     - LookinServer/Core
   - MJExtension (3.0.17)
   - MJRefresh (3.7.9)
+  - MKDropdownMenu (1.4)
   - Moya (15.0.0):
     - Moya/Core (= 15.0.0)
   - Moya/Core (15.0.0):
@@ -51,7 +52,6 @@ PODS:
   - Tabman (3.2.0):
     - Pageboy (~> 4.2.0)
   - WechatOpenSDK-XCFramework (2.0.4)
-  - YNDropDownMenu (3.1.0)
   - ZLPhotoBrowser (4.5.3):
     - ZLPhotoBrowser/Core (= 4.5.3)
   - ZLPhotoBrowser/Core (4.5.3)
@@ -72,6 +72,7 @@ DEPENDENCIES:
   - LookinServer/Swift
   - MJExtension (~> 3.0.16)
   - MJRefresh
+  - MKDropdownMenu
   - Moya
   - SDCAlertView
   - SnapKit
@@ -82,7 +83,6 @@ DEPENDENCIES:
   - SwipeCellKit
   - Tabman
   - WechatOpenSDK-XCFramework
-  - YNDropDownMenu
   - ZLPhotoBrowser
 
 SPEC REPOS:
@@ -103,6 +103,7 @@ SPEC REPOS:
     - LookinServer
     - MJExtension
     - MJRefresh
+    - MKDropdownMenu
     - Moya
     - Pageboy
     - SDCAlertView
@@ -114,7 +115,6 @@ SPEC REPOS:
     - SwipeCellKit
     - Tabman
     - WechatOpenSDK-XCFramework
-    - YNDropDownMenu
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
@@ -134,6 +134,7 @@ SPEC CHECKSUMS:
   LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
   MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
+  MKDropdownMenu: 269df4a41d21a1db684ce8bc709befe419fc5bae
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   Pageboy: 7f7886f61c76633df635861bf7839caf2cabdb3e
   SDCAlertView: cec2dd84906b1fb30490ea59f50d1666f797be6f
@@ -145,9 +146,8 @@ SPEC CHECKSUMS:
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
   Tabman: 49f9181a2bfe5c29d002864dac2de8e0b7ea9180
   WechatOpenSDK-XCFramework: 36fb2bea0754266c17184adf4963d7e6ff98b69f
-  YNDropDownMenu: 9c88e36c5f913bc614aaf0f3d0a7968f6251268b
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: 57094cf93f49715130f190b88b8ccf5af61ffe3e
+PODFILE CHECKSUM: db15f0dd520bbc96a27135690bd45af299f74c0c
 
 COCOAPODS: 1.15.2

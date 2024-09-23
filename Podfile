@@ -14,8 +14,8 @@ target 'hfpower' do
   pod "Tabman"
   #  网络 https://github.com/Alamofire/Alamofire
   pod 'Alamofire'
-  # 筛选视图 https://github.com/younatics/YNDropDownMenu.git
-  pod 'YNDropDownMenu'
+#   筛选视图 https://github.com/younatics/YNDropDownMenu.git
+#  pod 'YNDropDownMenu'
   #  网络 https://github.com/Moya/Moya.git
   pod 'Moya'
   #  JSON解析 https://github.com/kakaopensource/KakaJSON.git
@@ -45,4 +45,5 @@ target 'hfpower' do
   pod 'AlipaySDK-iOS'
   pod 'AFNetworking', '~> 4.0.1'
   pod 'MJExtension', '~> 3.0.16'
+  pod 'MKDropdownMenu'
 end

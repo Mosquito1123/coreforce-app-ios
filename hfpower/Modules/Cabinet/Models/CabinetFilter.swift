@@ -10,6 +10,8 @@ import KakaJSON
 struct CabinetFilter:Convertible{
     var id:Int?
     var title:String?
+    var icon:String?
+    var type:SearchCabinetListType?
     var filterItems:[CabinetFilterItem]?
     
 }

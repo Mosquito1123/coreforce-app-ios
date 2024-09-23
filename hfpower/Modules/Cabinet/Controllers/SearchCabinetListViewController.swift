@@ -7,8 +7,89 @@
 
 import UIKit
 import CoreLocation
-class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCell,HFCabinet>,CLLocationManagerDelegate {
-    
+import MKDropdownMenu
+enum SearchCabinetListType:Int{
+    case distance
+    case type
+    case power
+}
+
+class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCell,HFCabinet>,CLLocationManagerDelegate,MKDropdownMenuDataSource,MKDropdownMenuDelegate,UITextFieldDelegate{
+    func numberOfComponents(in dropdownMenu: MKDropdownMenu) -> Int {
+        return components.count
+    }
+    func dropdownMenu(_ dropdownMenu: MKDropdownMenu, numberOfRowsInComponent component: Int) -> Int {
+        let items = self.components[component].filterItems ?? []
+        return items.count
+    }
+    func dropdownMenu(_ dropdownMenu: MKDropdownMenu, shouldUseFullRowWidthForComponent component: Int) -> Bool {
+        return true
+    }
+    func dropdownMenu(_ dropdownMenu: MKDropdownMenu, attributedTitleForComponent component: Int) -> NSAttributedString? {
+        let componentTitle = self.components[component].title ?? ""
+        return NSAttributedString(string: componentTitle, attributes: [NSAttributedString.Key.foregroundColor:UIColor(hex:0x666666FF),NSAttributedString.Key.font:UIFont.systemFont(ofSize: 13)])
+    }
+    func dropdownMenu(_ dropdownMenu: MKDropdownMenu, attributedTitleForSelectedComponent component: Int) -> NSAttributedString? {
+        let componentTitle = self.components[component].title ?? ""
+        return NSAttributedString(string: componentTitle, attributes: [NSAttributedString.Key.foregroundColor:UIColor(hex:0x1D2129FF),NSAttributedString.Key.font:UIFont.systemFont(ofSize: 13, weight: .medium)])
+    }
+    func dropdownMenu(_ dropdownMenu: MKDropdownMenu, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let rowTitle = self.components[component].filterItems?[row].title ?? ""
+        let selected = self.components[component].filterItems?[row].selected ?? false
+        return NSAttributedString(string: rowTitle, attributes: [NSAttributedString.Key.foregroundColor:selected ? UIColor(hex:0x165DFFFF):UIColor(hex:0x1D2129FF),NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14)])
+    }
+    func dropdownMenu(_ dropdownMenu: MKDropdownMenu, accessoryViewForRow row: Int, forComponent component: Int) -> UIView? {
+        let selected = self.components[component].filterItems?[row].selected ?? false
+        return selected ? UIImageView(image: UIImage(named: "icon_accessory_selected")) : nil
+    }
+    func dropdownMenu(_ dropdownMenu: MKDropdownMenu, didSelectRow row: Int, inComponent component: Int) {
+        self.components[component].filterItems = self.components[component].filterItems?.map { option in
+                    var newOption = option
+                    newOption.selected = false
+                    return newOption
+                }
+                
+                // 设置当前选中的选项为 true
+        self.components[component].filterItems?[row].selected = true
+        dropdownMenu.reloadComponent(component)
+//        dropdownMenu.closeAllComponents(animated: true)
+        let distanceItem = self.components.first { filter in
+            return filter.type == .distance
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        let typeItem = self.components.first { filter in
+            return filter.type == .type
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        let powerItem = self.components.first { filter in
+            return filter.type == .power
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        updateData(coordinate: self.coordinate,location:self.headerView.searchView.textField.text, distance: distanceItem?.content,largeTypeId: typeItem?.content,powerLevel:powerItem?.content)
+    }
+    var components:[CabinetFilter] = [
+        
+        CabinetFilter(id: 0, title: "距离最近", icon: "distance", type: .distance,filterItems:
+                        [
+                            CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
+                            CabinetFilterItem(id: 1, title: "1km", content: "1000", selected: false),
+        ]),
+        CabinetFilter(id: 1, title: "电池类型", icon: "type", type: .type,filterItems: [
+            CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
+        ]),
+        CabinetFilter(id: 2, title: "电池电量", icon: "power", type: .power,filterItems: [
+            CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
+            CabinetFilterItem(id: 1, title: ">90%", content: "1", selected: false),
+        ]),
+        
+    ]{
+        didSet{
+            self.filterView.reloadAllComponents()
+        }
+    }
     // MARK: - Accessor
     var coordinate: CLLocationCoordinate2D?
     lazy var locationManager: CLLocationManager = {
@@ -22,6 +103,7 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
     // MARK: - Subviews
     lazy var headerView: SearchCabinetListHeaderView = {
         let view = SearchCabinetListHeaderView()
+        view.searchView.textField.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -30,7 +112,22 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+    lazy var filterView:MKDropdownMenu = {
+        let view = MKDropdownMenu()
+        view.backgroundColor = UIColor(hex:0xF7F7F7FF)
+        view.componentSeparatorColor = UIColor(hex:0xF7F7F7FF)
+        view.rowSeparatorColor = UIColor.white
+        view.selectedComponentBackgroundColor = UIColor.white
+        view.dropdownBackgroundColor = UIColor.white
+        view.dropdownShowsBorder = false
+        view.dropdownShowsTopRowSeparator = false
+        view.dropdownShowsBottomRowSeparator = false
+        view.disclosureIndicatorImage = UIImage(named: "icon_arrow_down")
+        view.dataSource = self
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +135,44 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         setupNavbar()
         setupSubviews()
         setupLayout()
+        loadComponentsData()
         updateData(coordinate: self.coordinate)
     }
-    
+    func loadComponentsData(){
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+
+        var params = [String: Any]()
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+
+        self.getData(largeTypeUrl, param: params, isLoading:false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+               let list = body["list"] as? [[String:Any]]{
+                let items = (HFBatteryTypeList.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryTypeList]) ?? []
+//                self.items = items
+                var temp  = [CabinetFilterItem]()
+                temp.append(CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true))
+                temp.append(contentsOf: items.map { CabinetFilterItem(id: $0.id.intValue, title: $0.name, content: $0.id.stringValue, selected: false)})
+                self.components = [
+                    
+                    CabinetFilter(id: 0, title: "距离最近", icon: "distance", type: .distance,filterItems:
+                                    [
+                                        CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
+                                        CabinetFilterItem(id: 1, title: "1km", content: "1000", selected: false),
+                    ]),
+                    CabinetFilter(id: 1, title: "电池类型", icon: "type", type: .type,filterItems:temp),
+                    CabinetFilter(id: 2, title: "电池电量", icon: "power", type: .power,filterItems: [
+                        CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
+                        CabinetFilterItem(id: 1, title: ">90%", content: "1", selected: false),
+                    ]),
+                    
+                ]
+
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+        
+    }
 
     // 根据阿拉伯数字返回对应的中文数字
     func convertToChineseDate(dateString: String) -> String {
@@ -68,7 +200,7 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         
         return chineseFormattedDate
     }
-    func updateData(coordinate: CLLocationCoordinate2D?){
+    func updateData(coordinate: CLLocationCoordinate2D?,location:String? = nil,distance:String? = nil,largeTypeId:String? = nil,powerLevel:String? = nil) {
         locationView.location = formatDateToChinese(date: Date())
 
         let code = CityCodeManager.shared.cityCode ?? "370200"
@@ -80,6 +212,19 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
         params["lon"] = coordinate?.longitude ?? 0
         params["lat"] = coordinate?.latitude ?? 0
+        if let locationx = location {
+            params["location"] = locationx
+
+        }
+        if let distance = distance {
+            params["distance"] = distance
+        }
+        if let largeTypeId = largeTypeId {
+            params["largeTypeId"] = largeTypeId
+        }
+        if let powerLevel = powerLevel {
+            params["powerLevel"] = powerLevel
+        }
         self.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]]{
@@ -116,7 +261,24 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         }
         
     }
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let distanceItem = self.components.first { filter in
+            return filter.type == .distance
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        let typeItem = self.components.first { filter in
+            return filter.type == .type
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        let powerItem = self.components.first { filter in
+            return filter.type == .power
+        }?.filterItems?.first(where: { item in
+            return item.selected == true
+        })
+        updateData(coordinate: self.coordinate,location:textField.text, distance: distanceItem?.content,largeTypeId: typeItem?.content,powerLevel:powerItem?.content)
+    }
 }
 
 // MARK: - Setup
@@ -161,6 +323,7 @@ private extension SearchCabinetListViewController {
         }
         view.addSubview(locationView)
         view.addSubview(tableView)
+        view.addSubview(filterView)
        
     }
     
@@ -174,9 +337,12 @@ private extension SearchCabinetListViewController {
             locationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             locationView.heightAnchor.constraint(equalToConstant: 44),
             locationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            
+            filterView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            filterView.topAnchor.constraint(equalTo: locationView.bottomAnchor),
+            filterView.heightAnchor.constraint(equalToConstant: 44),
+            filterView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: locationView.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: filterView.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
 
@@ -206,7 +372,22 @@ extension SearchCabinetListViewController{
                 NotificationCenter.default.post(name: .cityChanged, object: nil)
                 self.locationView.location = self.formatDateToChinese(date: Date())
                 self.locationManager.stopUpdatingLocation()
-                self.updateData(coordinate: self.coordinate)
+                let distanceItem = self.components.first { filter in
+                    return filter.type == .distance
+                }?.filterItems?.first(where: { item in
+                    return item.selected == true
+                })
+                let typeItem = self.components.first { filter in
+                    return filter.type == .type
+                }?.filterItems?.first(where: { item in
+                    return item.selected == true
+                })
+                let powerItem = self.components.first { filter in
+                    return filter.type == .power
+                }?.filterItems?.first(where: { item in
+                    return item.selected == true
+                })
+                self.updateData(coordinate: self.coordinate,location:self.headerView.searchView.textField.text, distance: distanceItem?.content,largeTypeId: typeItem?.content,powerLevel:powerItem?.content)
                 
 
             }
