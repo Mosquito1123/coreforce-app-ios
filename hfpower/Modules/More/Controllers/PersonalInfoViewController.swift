@@ -35,9 +35,9 @@ class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCe
                         headerView.avatarImageView.kf.setImage(with: URL(string: "\(rootRequest)/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
                     }
                     self.items = [
-                        PersonalInfo(id: 0, title:  "用户姓名",content: memberData.realName == "" ? memberData.phoneNum:memberData.realName,isNext: false),
+                        PersonalInfo(id: 0, title:  "用户姓名",content: memberData.realName,isNext: false),
                         PersonalInfo(id: 1, title: "性别",content: memberData.status == 1 ? "男":"女",isNext: false),
-                        PersonalInfo(id: 2, title: "手机号",content: memberData.phoneNum,isNext: true),
+                        PersonalInfo(id: 2, title: "手机号",content: memberData.phoneNum.maskPhoneNumber(),isNext: true),
                         PersonalInfo(id: 3, title: "实名认证",content: memberData.isAuth == 1 ? "已实名认证":"未实名，前往认证",isEditable: memberData.isAuth != 1, isNext: true),
                        
 
