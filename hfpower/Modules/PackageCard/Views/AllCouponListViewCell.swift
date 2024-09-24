@@ -161,8 +161,9 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
             markView.titleLabel.text = "免押"
             markView.unitLabel.isHidden = true
             markView.contentLabel.text = "免押券"
-            contentLabel.text = "可免押"
-            titleLabel.isHidden = true
+            contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))押金"
+            titleLabel.text = (item.freeDepositCount != 0) ? "免押\(item.freeDepositCount)次":"永久免押"
+            titleLabel.isHidden = false
         
         case 6://
             markView.titleLabel.text = "\(item.discountAmount )"
