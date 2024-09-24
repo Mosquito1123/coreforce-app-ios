@@ -71,8 +71,10 @@ private extension GuideViewController {
             label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
             label.textColor = UIColor(hex:0x262626FF)
             label.text = titles[i]
-            label.frame = CGRectMake(frame.size.width*CGFloat(i)+frame.midX - 150/2,CGFloat(115.5),
-                                     frame.size.width*150.0/375.0,35)
+            label.numberOfLines = 0
+            label.adjustsFontSizeToFitWidth = true
+            label.frame = CGRectMake(frame.size.width*CGFloat(i)+frame.midX - 185/2,CGFloat(115.5),
+                                     frame.size.width*185.0/375.0,35)
             scrollView.addSubview(label)
         }
         for i in 0..<subtitles.count{
@@ -81,8 +83,10 @@ private extension GuideViewController {
             label.font = UIFont.systemFont(ofSize: 15)
             label.textColor = UIColor(hex:0x999999FF)
             label.text = subtitles[i]
-            label.frame = CGRectMake(frame.size.width*CGFloat(i)+frame.midX - 185/2,CGFloat(156.5),
-                                     frame.size.width*185/375.0,21)
+            label.numberOfLines = 0
+            label.adjustsFontSizeToFitWidth = true
+            label.frame = CGRectMake(frame.size.width*CGFloat(i)+frame.midX - 200/2,CGFloat(156.5),
+                                     frame.size.width*200/375.0,21)
             scrollView.addSubview(label)
         }
         for i in 0..<numOfPages{

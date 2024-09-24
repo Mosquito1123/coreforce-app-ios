@@ -84,6 +84,7 @@ private extension LogOffViewController {
                     let mainController = nav
                     UIViewController.ex_keyWindow()?.rootViewController = mainController
                     HFKeyedArchiverTool.removeData()
+                    AccountManager.shared.clearAccount()
                 } error: { error in
                     self.showError(withStatus: error.localizedDescription)
                 }

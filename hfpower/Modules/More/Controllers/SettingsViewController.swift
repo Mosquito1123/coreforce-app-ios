@@ -49,7 +49,7 @@ class SettingsViewController: BaseViewController {
 //            ]),
             Settings(id: 1,title: "",items: [
                 SettingsItem(id: 0, title: "修改密码", content: "",type: 0),
-                SettingsItem(id: 1, title: "修改手机号", content: AccountManager.shared.phoneNum ?? "", selected: true,type: 2),
+                SettingsItem(id: 1, title: "修改手机号", content: AccountManager.shared.phoneNum?.maskPhoneNumber() ?? "", selected: true,type: 2),
 
             ]),
             Settings(id: 2,title: "",items: [
@@ -219,6 +219,7 @@ private extension SettingsViewController {
                 let mainController = nav
                 UIViewController.ex_keyWindow()?.rootViewController = mainController
                 HFKeyedArchiverTool.removeData()
+                AccountManager.shared.clearAccount()
                 self.hasLogoutBlock?()
             } error: { error in
                 self.showError(withStatus: error.localizedDescription)

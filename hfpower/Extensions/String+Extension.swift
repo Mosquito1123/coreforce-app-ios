@@ -102,6 +102,15 @@ extension String {
         }
     }
 }
+extension String{
+    func maskPhoneNumber() -> String {
+        guard self.count == 11 else { return self } // 确保是11位手机号
+        
+        let start = self.prefix(3) // 获取前三位
+        let end = self.suffix(4)    // 获取后四位
+        return "\(start)xxxx\(end)"         // 拼接成新的格式
+    }
+}
 extension String {
   func formattedDate(format: String = "yyyy-MM-dd") -> String? {
     let dateFormatter = DateFormatter()
