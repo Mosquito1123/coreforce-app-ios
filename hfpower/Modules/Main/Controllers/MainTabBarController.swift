@@ -218,8 +218,14 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         
         NSLayoutConstraint.activate([
             centerButton.centerXAnchor.constraint(equalTo: self.tabBar.centerXAnchor),
-            centerButton.bottomAnchor.constraint(equalTo: self.tabBar.safeAreaLayoutGuide.bottomAnchor, constant: 14)
+            self.isiPhoneXScreen() ? centerButton.bottomAnchor.constraint(equalTo: self.tabBar.safeAreaLayoutGuide.bottomAnchor, constant: 14):centerButton.bottomAnchor.constraint(equalTo: self.tabBar.safeAreaLayoutGuide.bottomAnchor, constant: -12),
         ])
+        self.postData(memberAgreementUrl, param: [:], isLoading: false) { responseObject in
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
     }
     
     // MARK: - Button Action

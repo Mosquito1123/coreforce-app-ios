@@ -228,7 +228,7 @@ private extension RealNameAuthViewController {
             p["certName"] = name
             p["certNo"] = number
         }
-        self.postData(memberRpInitUrl, param: p, isLoading: false) { responseObject in
+        self.postData(memberRpInitUrl, param: p, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let certifyId = body["certifyId"] as? String{
                 var extParams: [String: Any] = [
                     ZIM_EXT_PARAMS_KEY_OCR_BOTTOM_BUTTON_COLOR: "394DBF",
