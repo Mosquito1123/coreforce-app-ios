@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SwipeCellKit
 enum BaseCellCornerType{
     case first
     case last
     case all
     case none
 }
-class BaseTableViewCell<ItemType>: UITableViewCell {
+class BaseTableViewCell<ItemType>: SwipeTableViewCell {
     
     // MARK: - Accessor
     var element: ItemType? {

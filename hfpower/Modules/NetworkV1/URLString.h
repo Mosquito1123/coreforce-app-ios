@@ -87,6 +87,7 @@
 #define returnCheckUrl @"/app/api/battery/return/check"//运营商扫码退租状态
 #define buyPackageCardUrl @"/app/api/payVoucher/main/order"//套餐卡下单
 #define ourPackageCardUrl @"/app/api/payVoucher/main/list"//在售套餐卡列表
+#define refundPackageCardUrl @"/app/api/payVoucher/refund"//套餐卡退款
 #define gridOpenUrl @"/app/api/grid/open"//卡仓取电
 #define mileageUrl @"/app/api/member/mileage"
 #define largeTypeParentUrl @"/app/api/largeTypeParent/list"

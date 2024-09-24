@@ -9,6 +9,7 @@ import UIKit
 import Tabman
 import Pageboy
 import MJRefresh
+import SwipeCellKit
 class AllPackageCardViewController:BaseViewController{
     public let content = AllPackageCardContentViewController()
     override func viewDidLoad() {
@@ -271,13 +272,33 @@ class AllPackageCardListViewController:BaseTableViewController<AllPackageCardLis
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cellx = cell as? AllPackageCardListViewCell{
+            cellx.delegate = self
             cellx.useNowBlock = { render in
             }
         }
     }
     
 }
-
+extension AllPackageCardListViewController: SwipeTableViewCellDelegate{
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let refundAction = SwipeAction(style: .destructive, title: "退款") { action, indexPath in
+            // 退款操作
+            let item = self.items[indexPath.row]
+            self.postData(refundPackageCardUrl, param: ["id":item.id], isLoading: true) { responseObject in
+                self.showWindowInfo(withStatus: "退款成功")
+                self.loadData()
+            } error: { error in
+                self.showError(withStatus: error.localizedDescription)
+            }
+        }
+        
+        
+        return [refundAction]
+    }
+    
+}
 // MARK: - Setup
 private extension AllPackageCardListViewController {
     
