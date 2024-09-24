@@ -6,8 +6,14 @@
 //
 
 import UIKit
-
-class BaseTableViewController<CellType:BaseTableViewCell<ItemType>,ItemType>: BaseViewController,UITableViewDelegate,UITableViewDataSource {
+import EmptyDataSet_Swift
+class BaseTableViewController<CellType:BaseTableViewCell<ItemType>,ItemType>: BaseViewController,EmptyDataSetDelegate,EmptyDataSetSource,UITableViewDelegate,UITableViewDataSource {
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        return NSAttributedString(string: "暂无内容",attributes: [.font:UIFont.systemFont(ofSize: 14),.foregroundColor:UIColor(hex: 0x999999FF)])
+    }
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "no_data")
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
     }
@@ -45,6 +51,8 @@ class BaseTableViewController<CellType:BaseTableViewCell<ItemType>,ItemType>: Ba
         tableView.backgroundColor = UIColor.clear
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import EmptyStateKit
+
 class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupon> {
     
     // MARK: - Accessor
@@ -15,7 +15,6 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupo
             self.titleLabel.text = title
         }
     }
-    var noCoupon = TableState.noCoupon
     // MARK: - Subviews
     lazy var titleLabel: UILabel = {
         let label = UILabel()

@@ -19,7 +19,7 @@ PODS:
   - DGCharts (5.1.0):
     - DGCharts/Core (= 5.1.0)
   - DGCharts/Core (5.1.0)
-  - EmptyStateKit (1.1.0)
+  - EmptyDataSet-Swift (5.0.0)
   - FloatingPanel (2.8.3)
   - FSPagerView (0.8.3)
   - HMSegmentedControl (1.5.6)
@@ -61,7 +61,7 @@ DEPENDENCIES:
   - Alamofire
   - AlipaySDK-iOS
   - DGCharts
-  - EmptyStateKit
+  - EmptyDataSet-Swift (~> 5.0.0)
   - FloatingPanel
   - FSPagerView
   - HMSegmentedControl
@@ -91,7 +91,7 @@ SPEC REPOS:
     - Alamofire
     - AlipaySDK-iOS
     - DGCharts
-    - EmptyStateKit
+    - EmptyDataSet-Swift
     - FloatingPanel
     - FSPagerView
     - HMSegmentedControl
@@ -122,7 +122,7 @@ SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   AlipaySDK-iOS: 5e6011fbd546e7db6b43c1f527d164ee63f3d7cb
   DGCharts: 1c6daf585b6cfc78807af44ea690d357c410627f
-  EmptyStateKit: dc41e9ce5c6089f67a49d063bce73ade9f2ba73f
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
   FloatingPanel: 0f9b89c6d4318842311bec6f6026fb18ca2a2c90
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
@@ -148,6 +148,6 @@ SPEC CHECKSUMS:
   WechatOpenSDK-XCFramework: 36fb2bea0754266c17184adf4963d7e6ff98b69f
   ZLPhotoBrowser: 6955723c7ec2be71f45c6f89ba4d2bec83e73d68
 
-PODFILE CHECKSUM: db15f0dd520bbc96a27135690bd45af299f74c0c
+PODFILE CHECKSUM: bc0cf66b336460a2e7a2544dacb21d510e5f1f94
 
 COCOAPODS: 1.15.2

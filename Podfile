@@ -14,8 +14,8 @@ target 'hfpower' do
   pod "Tabman"
   #  网络 https://github.com/Alamofire/Alamofire
   pod 'Alamofire'
-#   筛选视图 https://github.com/younatics/YNDropDownMenu.git
-#  pod 'YNDropDownMenu'
+  #  列表背景图 https://github.com/Xiaoye220/EmptyDataSet-Swift.git
+  pod 'EmptyDataSet-Swift', '~> 5.0.0'
   #  网络 https://github.com/Moya/Moya.git
   pod 'Moya'
   #  JSON解析 https://github.com/kakaopensource/KakaJSON.git
@@ -37,7 +37,6 @@ target 'hfpower' do
   pod 'FSPagerView'
   pod 'DGCharts'
   pod 'Kingfisher'
-  pod 'EmptyStateKit'
   pod 'SwipeCellKit'
   pod 'IGListKit', '~> 5.0.0'
   pod 'HMSegmentedControl'
