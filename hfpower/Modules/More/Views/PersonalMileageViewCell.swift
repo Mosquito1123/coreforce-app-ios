@@ -64,6 +64,7 @@ class PersonalMileageViewCell: PersonalContentViewCell {
 private extension PersonalMileageViewCell {
     
     private func setupSubviews() {
+        self.iconImageView.isHidden = false
         let view10 = PersonalIconView()
         view10.iconImageView.image = UIImage(named: "mileage")
         view10.tag = 10

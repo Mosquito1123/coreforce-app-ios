@@ -10,6 +10,7 @@ import UIKit
 class PersonalContentViewCell: UITableViewCell {
     
     // MARK: - Accessor
+    var tapped:((UITapGestureRecognizer) -> Void)?
     var bottomMargin:NSLayoutConstraint!
     // MARK: - Subviews
     lazy var mainView: UIView = {
@@ -25,6 +26,13 @@ class PersonalContentViewCell: UITableViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
+    }()
+    lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "small_detail_icon")
+        imageView.isHidden = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -66,7 +74,11 @@ private extension PersonalContentViewCell {
     private func setupSubviews() {
         self.contentView.addSubview(self.mainView)
         self.mainView.addSubview(self.titleLabel)
+        self.mainView.addSubview(self.iconImageView)
         self.mainView.addSubview(self.stackView)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(_:)))
+        self.iconImageView.isUserInteractionEnabled = true
+        self.iconImageView.addGestureRecognizer(tap)
     }
     
     private func setupLayout() {
@@ -85,6 +97,11 @@ private extension PersonalContentViewCell {
             self.stackView.leadingAnchor.constraint(equalTo: self.mainView.leadingAnchor, constant: 14),
             self.stackView.trailingAnchor.constraint(equalTo: self.mainView.trailingAnchor, constant: -14),
             self.stackView.bottomAnchor.constraint(equalTo: self.mainView.bottomAnchor, constant: -14),
+            self.iconImageView.leadingAnchor.constraint(equalTo: self.titleLabel.trailingAnchor,constant: 3),
+            self.iconImageView.bottomAnchor.constraint(equalTo: self.titleLabel.bottomAnchor,constant: -5),
+            self.iconImageView.widthAnchor.constraint(equalToConstant: 18),
+            self.iconImageView.heightAnchor.constraint(equalToConstant: 18),
+
         ])
     }
     
@@ -97,7 +114,9 @@ extension PersonalContentViewCell {
 
 // MARK: - Action
 @objc private extension PersonalContentViewCell {
-    
+    @objc func tapAction(_ sender: UITapGestureRecognizer) {
+        self.tapped?(sender)
+    }
 }
 
 // MARK: - Private

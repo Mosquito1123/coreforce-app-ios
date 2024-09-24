@@ -171,7 +171,7 @@ extension UIViewController{
             }
             alert.addAction(cancelAction)
         }
-        let okAction = AlertAction(title: "确定", style: .preferred) { alertAction in
+        let okAction = AlertAction(title: "确认", style: .preferred) { alertAction in
             okAction()
         }
         alert.addAction(okAction)

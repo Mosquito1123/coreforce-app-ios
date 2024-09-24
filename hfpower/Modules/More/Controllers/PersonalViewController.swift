@@ -268,6 +268,12 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                 self.navigationController?.pushViewController(allCouponViewController, animated: true)
             }
         }else if let contentCell = cell as? PersonalMileageViewCell{
+            contentCell.tapped = { tap in
+                self.showAlertController(titleText: "", messageText: "当前里程为理论预估值，实际电池续航与驾驶习惯、交通状况、时速、承重、温度等有关") {
+                    
+                }
+                
+            }
             contentCell.titleLabel.text = item.title
             contentCell.extra = item.extra as? [String:Any]
         }else if let contentCell = cell as? PersonalOthersViewCell{
