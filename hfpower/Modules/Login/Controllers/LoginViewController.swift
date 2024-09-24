@@ -270,6 +270,7 @@ private extension LoginViewController {
             "type": "pw"
         ], isLoading: true, success: { (responseObject) in
             // Save account name to UserDefaults
+            self.showSuccess(withStatus: "登录成功")
             AccountManager.shared.phoneNum = self.accountInputView.phoneNumberTextField.text
             
             // Save account using HFKeyedArchiverTool

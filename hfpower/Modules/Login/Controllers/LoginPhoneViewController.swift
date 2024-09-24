@@ -278,7 +278,8 @@ private extension LoginPhoneViewController {
             if let head = (responseObject as? [String:Any])?["head"] as? [String: Any],
                let retFlag = head["retFlag"] as? String,
                retFlag == "00000" {
-                
+                self.showSuccess(withStatus: "登录成功")
+
                 // Save the account name to UserDefaults
                 AccountManager.shared.phoneNum = phoneNum
 
