@@ -265,9 +265,15 @@ extension BikeRentalViewController:UITableViewDataSource,UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = self.items[indexPath.row]
+        var item = self.items[indexPath.row]
         if item.title  == "已购套餐"{
             let myPackageCardListViewController = MyPackageCardListViewController()
+            myPackageCardListViewController.selectedBlock = { model in
+                if let packageCard = model{
+                    item.boughtPackageCard = packageCard
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()
