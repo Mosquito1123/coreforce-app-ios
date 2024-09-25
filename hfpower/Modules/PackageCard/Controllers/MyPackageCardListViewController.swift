@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import MJRefresh
+class MyPackageCardListViewController: BaseTableViewController<MyPackageCardListViewCell,HFPackageCardModel> {
 
-class MyPackageCardListViewController: BaseTableViewController<MyPackageCardListViewCell,PackageCard> {
-    
     // MARK: - Accessor
+    var selectedBlock:((_ model:HFPackageCardModel?)->())?
+    var deviceNumber:String = ""
+    var pageNum = 1
+    var pageCount = 1
     override var title: String?{
         didSet{
             self.titleLabel.text = title
@@ -53,7 +57,7 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.white, for: .highlighted)
         button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.addTarget(self, action: #selector(submitButtonClick(_:)), for: .touchUpInside)
@@ -74,7 +78,110 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
 
         setupNavbar()
         setupSubviews()
+        setupRefreshControl()
         setupLayout()
+        loadData()
+    }
+    func setupRefreshControl() {
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefreshing))
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefreshing))
+    }
+    @objc func headerRefreshing() {
+        // Implement your header refresh logic here
+        // ...
+        self.items.removeAll()
+        pageNum = 1
+        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                self.items = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel] ?? [])
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_header?.endRefreshing()
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
+
+        
+
+    }
+
+    @objc func footerRefreshing() {
+        // Implement your footer refresh logic here
+        // ...
+        if pageNum + 1 > pageCount {
+            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+            return
+        }
+        pageNum = pageNum + 1
+        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                let addItems = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel] ?? [])
+                self.items.append(contentsOf: addItems)
+                self.tableView.mj_footer?.endRefreshing()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.endRefreshing()
+        }
+        
+
+    }
+    func loadData(){
+        pageNum = 1
+        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                self.items = (HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel] ?? [])
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
+       
+
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 更新选中状态
+                for i in 0..<items.count {
+                    items[i].selected = NSNumber(value: (i == indexPath.row) ? !items[i].selected.boolValue : false)
+                }
+                
+                tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -100,7 +207,7 @@ private extension MyPackageCardListViewController {
         mainView.addSubview(tableView)
         mainView.addSubview(submitButtonBackgroundView)
         submitButtonBackgroundView.addSubview(submitButton)
-        self.items = [PackageCard()]
+        
     }
     
     private func setupLayout() {
@@ -158,10 +265,18 @@ private extension MyPackageCardListViewController {
 // MARK: - Action
 @objc private extension MyPackageCardListViewController {
     @objc func close(_ sender:UIButton){
+        self.selectedBlock?(nil)
         self.dismiss(animated: true)
     }
     @objc func submitButtonClick(_ sender:UIButton){
-        
+        var selectedItems = [HFPackageCardModel]()
+        for item in self.items {
+            if item.selected.boolValue {
+                selectedItems.append(item)
+            }
+        }
+        self.selectedBlock?(selectedItems.first)
+        self.dismiss(animated: true)
     }
 }
 

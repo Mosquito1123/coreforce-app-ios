@@ -108,7 +108,7 @@ extension String{
         
         let start = self.prefix(3) // 获取前三位
         let end = self.suffix(4)    // 获取后四位
-        return "\(start)xxxx\(end)"         // 拼接成新的格式
+        return "\(start)****\(end)"         // 拼接成新的格式
     }
 }
 extension String {

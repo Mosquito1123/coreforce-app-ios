@@ -6,10 +6,16 @@
 //
 
 import UIKit
-
-class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupon> {
+import MJRefresh
+class CouponListViewController: BaseTableViewController<CouponListViewCell,HFCouponData> {
     
     // MARK: - Accessor
+    var selectedBlock:((_ model:HFCouponData?)->())?
+    var couponType:Int = 1
+    var deviceNumber:String = ""
+    var amount:String = "0"
+    var pageNum = 1
+    var pageCount = 1
     override var title: String?{
         didSet{
             self.titleLabel.text = title
@@ -53,7 +59,7 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupo
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.white, for: .highlighted)
         button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(), for: .normal)
-        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex:0x447AFEFF).withAlphaComponent(0.5).toImage(), for: .highlighted)
         
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.addTarget(self, action: #selector(submitButtonClick(_:)), for: .touchUpInside)
@@ -71,19 +77,168 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,Coupo
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupSubviews()
+        setupRefreshControl()
         setupLayout()
-        /*空白页占位
-                 tableView.emptyState.format = noCoupon.format
-                 tableView.emptyState.show(noCoupon)
-         */
         self.loadData()
-
+        
+    }
+    func setupRefreshControl() {
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(footerRefreshing))
+        tableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(headerRefreshing))
+    }
+    @objc func headerRefreshing() {
+        // Implement your header refresh logic here
+        // ...
+        self.items.removeAll()
+        pageNum = 1
+        var params = [String: Any]()
+        var urlString = couponMatchingUrl
+        switch couponType{
+        case 1:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = couponMatchingUrl
+        case 2:
+            params["locomotiveNumber"] = self.deviceNumber
+            urlString = locomotiveCouponMatchingUrl
+        case 3:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = changeCardCouponMatchingUrl
+        default:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = couponMatchingUrl
+        }
+        params["page"] = self.pageNum
+        params["amount"] = self.amount
+        self.getData(urlString, param: params, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                self.items = (HFCouponData.mj_objectArray(withKeyValuesArray: dataList) as? [HFCouponData] ?? [])
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_header?.endRefreshing()
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
+        
+        
+        
+    }
+    
+    @objc func footerRefreshing() {
+        // Implement your footer refresh logic here
+        // ...
+        if pageNum + 1 > pageCount {
+            self.tableView.mj_footer?.endRefreshingWithNoMoreData()
+            return
+        }
+        pageNum = pageNum + 1
+        var params = [String: Any]()
+        var urlString = couponMatchingUrl
+        switch couponType{
+        case 1:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = couponMatchingUrl
+        case 2:
+            params["locomotiveNumber"] = self.deviceNumber
+            urlString = locomotiveCouponMatchingUrl
+        case 3:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = changeCardCouponMatchingUrl
+        default:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = couponMatchingUrl
+        }
+        params["page"] = self.pageNum
+        params["amount"] = self.amount
+        self.getData(urlString, param: params, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                let addItems = (HFCouponData.mj_objectArray(withKeyValuesArray: dataList) as? [HFCouponData] ?? [])
+                self.items.append(contentsOf: addItems)
+                self.tableView.mj_footer?.endRefreshing()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.endRefreshing()
+        }
+        
+        
     }
     func loadData(){
+        pageNum = 1
+        var params = [String: Any]()
+        var urlString = couponMatchingUrl
+        switch couponType{
+        case 1:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = couponMatchingUrl
+        case 2:
+            params["locomotiveNumber"] = self.deviceNumber
+            urlString = locomotiveCouponMatchingUrl
+        case 3:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = changeCardCouponMatchingUrl
+        default:
+            params["batteryNumber"] = self.deviceNumber
+            urlString = couponMatchingUrl
+        }
+        params["page"] = self.pageNum
+        params["amount"] = self.amount
+        self.getData(urlString, param: params, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                self.items = (HFCouponData.mj_objectArray(withKeyValuesArray: dataList) as? [HFCouponData] ?? [])
+                self.pageNum = 1
+                
+                let total = pageResult["total"] as? NSNumber ?? 0
+                let size = pageResult["size"] as? NSNumber ?? 1
+                
+                self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
+                
+                self.tableView.mj_header?.endRefreshing()
+                self.tableView.mj_footer?.resetNoMoreData()
+            }
+            
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            self.pageNum = 1
+            self.pageCount = 1
+            self.tableView.mj_footer?.resetNoMoreData()
+        }
         
+        
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 更新选中状态
+        for i in 0..<items.count {
+            items[i].selected = NSNumber(value: (i == indexPath.row) ? !items[i].selected.boolValue : false)
+        }
+        
+        tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -98,7 +253,7 @@ private extension CouponListViewController {
         self.title = "我的优惠券"
         
     }
-   
+    
     private func setupSubviews() {
         self.view.backgroundColor = .clear
         
@@ -110,7 +265,6 @@ private extension CouponListViewController {
         tableView.backgroundColor = UIColor(hex:0xF8F8F8FF)
         mainView.addSubview(submitButtonBackgroundView)
         submitButtonBackgroundView.addSubview(submitButton)
-        self.items = [Coupon()]
     }
     
     private func setupLayout() {
@@ -168,10 +322,18 @@ private extension CouponListViewController {
 // MARK: - Action
 @objc private extension CouponListViewController {
     @objc func close(_ sender:UIButton){
+        self.selectedBlock?(nil)
         self.dismiss(animated: true)
     }
     @objc func submitButtonClick(_ sender:UIButton){
-        
+        var selectedItems = [HFCouponData]()
+        for item in self.items {
+            if item.selected.boolValue {
+                selectedItems.append(item)
+            }
+        }
+        self.selectedBlock?(selectedItems.first)
+        self.dismiss(animated: true)
     }
 }
 

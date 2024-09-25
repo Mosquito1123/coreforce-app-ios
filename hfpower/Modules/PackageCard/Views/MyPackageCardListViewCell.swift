@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPackageCardListViewCell: BaseTableViewCell<PackageCard> {
+class MyPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     
     // MARK: - Accessor
     override func configure() {

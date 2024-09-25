@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        WXApi.registerApp("wxfbe855af004db917", universalLink: "https://www.coreforce.cn/app/")
+        WXApi.registerApp("wxfbe855af004db917", universalLink: "https://www.coreforce.cn/admin/")
         return true
     }
     
@@ -104,7 +104,7 @@ class WXPayTools: NSObject, WXApiDelegate {
     
     // 回调
     func handleOpen(url: URL) -> Bool {
-        if url.absoluteString.contains("\("wxfbe855af004db917")://pay/") {
+        if url.absoluteString.contains("wxfbe855af004db917://pay/") || url.absoluteString.contains("wechat://pay/") {
             return WXApi.handleOpen(url, delegate: self)
         } else {
             return WXApi.handleOpen(url, delegate: self)
@@ -134,7 +134,7 @@ class WXPayTools: NSObject, WXApiDelegate {
             let partnerId = dataDict["partnerId"] as? String,
             let prepayId = dataDict["prepayId"] as? String,
             let nonceStr = dataDict["nonceStr"] as? String,
-            let timeStamp = dataDict["timeStamp"] as? UInt32,
+            let timeStamp = dataDict["timeStamp"] as? String,
             let sign = dataDict["sign"] as? String
         else { return nil }
         
@@ -143,7 +143,7 @@ class WXPayTools: NSObject, WXApiDelegate {
         request.prepayId = prepayId
         request.package = "Sign=WXPay"
         request.nonceStr = nonceStr
-        request.timeStamp = timeStamp
+        request.timeStamp = UInt32(timeStamp) ?? 0
         request.sign = sign
         return request
     }

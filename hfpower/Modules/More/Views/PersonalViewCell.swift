@@ -257,15 +257,26 @@ class SettingsHeaderView:UITableViewHeaderFooterView{
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    @available(iOS 14.0, *)
+    override func updateConfiguration(using state: UIViewConfigurationState) {
+        var content = self.defaultContentConfiguration()
+        content.text = ""
+        content.secondaryText = ""
+        
+        self.contentConfiguration = content
+    }
+ 
     private func setupSubviews() {
-//        self.contentView.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
+        if #available(iOS 14.0, *) {
+            self.automaticallyUpdatesContentConfiguration = true
+        } else {
+            // Fallback on earlier versions
+        }
         
     }
     private func setupLayout() {
-//        NSLayoutConstraint.activate([
-//            self.contentView.heightAnchor.constraint(equalToConstant: 16)
-//        ])
+
         
     }
 }

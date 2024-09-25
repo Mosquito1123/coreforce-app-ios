@@ -12,7 +12,11 @@ protocol BatteryRentalViewControllerDelegate{
 }
 class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     var batteryNumber:String = ""
-    @objc var batteryType:HFBatteryRentalTypeInfo?
+    @objc var batteryType:HFBatteryRentalTypeInfo?{
+        didSet{
+            self.batteryNumber = batteryType?.batteryNumber ?? ""
+        }
+    }
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
     // MARK: - Accessor
@@ -394,6 +398,7 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
         let item = self.items[indexPath.row]
         if item.title  == "已购套餐"{
             let myPackageCardListViewController = MyPackageCardListViewController()
+            myPackageCardListViewController.deviceNumber = self.batteryNumber
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()
@@ -408,6 +413,8 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
             self.present(nav, animated: true, completion: nil)
         }else if item.title == "费用结算"{
             let couponListViewController = CouponListViewController()
+            couponListViewController.couponType = 1
+            couponListViewController.deviceNumber = self.batteryNumber
             let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()

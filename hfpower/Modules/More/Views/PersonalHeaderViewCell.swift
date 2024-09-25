@@ -13,8 +13,8 @@ class PersonalHeaderViewCell: UITableViewCell {
     var element:PersonalList?{
         didSet{
             if let member = element?.extra as? HFMember{
-                let lastFour = String(member.phoneNum.suffix(4)).padding(toLength: 4, withPad: "x", startingAt: 0)
-                titleLabel.text = member.nickname != "" ? "\(member.nickname)_\(lastFour)":"\("未知")_\(lastFour)"
+                let lastFour = String(member.phoneNum.suffix(4)).padding(toLength: 4, withPad: "*", startingAt: 0)
+                titleLabel.text = member.realName != "" ? "\(member.realName)_\(lastFour)":"\("用户")_\(lastFour)"
                 subTitleLabel.text = member.phoneNum.maskPhoneNumber()
                 authorityButton.isVerified = member.isAuth == 1
                 headerImageView.kf.setImage(with: URL(string: "\(rootRequest)/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])

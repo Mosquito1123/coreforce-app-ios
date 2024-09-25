@@ -195,7 +195,7 @@ class AllPackageCardListViewController:BaseTableViewController<AllPackageCardLis
                 let size = pageResult["size"] as? NSNumber ?? 1
                 
                 self.pageCount = Int(ceil(total.doubleValue / size.doubleValue))
-                
+
                 self.tableView.mj_header?.endRefreshing()
                 self.tableView.mj_footer?.resetNoMoreData()
             }

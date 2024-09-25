@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CouponListViewCell: BaseTableViewCell<Coupon> {
+class CouponListViewCell: BaseTableViewCell<HFCouponData> {
     class PeriodView:UIView{
         lazy var titleLabel: UILabel = {
             let label = UILabel()

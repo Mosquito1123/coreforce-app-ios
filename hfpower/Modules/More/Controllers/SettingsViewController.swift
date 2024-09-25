@@ -23,12 +23,20 @@ class SettingsViewController: BaseViewController {
         let tableView = UITableView()
         tableView.register(PersonalViewCell.self, forCellReuseIdentifier: PersonalViewCell.cellIdentifier())
         tableView.register(SettingsHeaderView.self, forHeaderFooterViewReuseIdentifier: SettingsHeaderView.viewIdentifier())
-        tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
-        tableView.backgroundView = UIView()
         tableView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedSectionHeaderHeight = 12
+        tableView.estimatedSectionFooterHeight = 0
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
+        tableView.sectionHeaderHeight = 12
+        tableView.sectionFooterHeight = 0
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -37,7 +45,6 @@ class SettingsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.debounce  = Debounce(interval: 0.2)
-        self.view.backgroundColor = UIColor.white
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -104,6 +111,7 @@ private extension SettingsViewController {
     }
     
     private func setupSubviews() {
+        self.view.backgroundColor = UIColor.white
         view.addSubview(tableView)
         
     }
@@ -112,8 +120,8 @@ private extension SettingsViewController {
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
         ])
     }
@@ -130,7 +138,7 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
         return view
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
+        return 12
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1

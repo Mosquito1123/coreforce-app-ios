@@ -11,7 +11,7 @@ protocol BikeRentalViewControllerDelegate{
 }
 class BikeRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     @objc var batteryType:HFBatteryTypeList?
-
+    var bikeNumber:String = ""
     // MARK: - Accessor
     var items = [BuyPackageCard](){
         didSet{
@@ -282,6 +282,8 @@ extension BikeRentalViewController:UITableViewDataSource,UITableViewDelegate {
             self.present(nav, animated: true, completion: nil)
         }else if item.title == "费用结算"{
             let couponListViewController = CouponListViewController()
+            couponListViewController.couponType = 2
+            couponListViewController.deviceNumber = self.bikeNumber
             let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()

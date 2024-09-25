@@ -12,6 +12,7 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     @objc var batteryType:HFBatteryTypeList?
 
     // MARK: - Accessor
+    var batteryNumber:String = ""
     var items = [BuyPackageCard](){
         didSet{
             self.tableView.reloadData()
@@ -329,6 +330,7 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
         let item = self.items[indexPath.row]
         if item.title  == "已购套餐"{
             let myPackageCardListViewController = MyPackageCardListViewController()
+            myPackageCardListViewController.deviceNumber = self.batteryNumber
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()
@@ -343,6 +345,8 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
             self.present(nav, animated: true, completion: nil)
         }else if item.title == "费用结算"{
             let couponListViewController = CouponListViewController()
+            couponListViewController.couponType = 1
+            couponListViewController.deviceNumber = self.batteryNumber
             let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()
