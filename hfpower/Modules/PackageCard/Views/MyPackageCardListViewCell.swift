@@ -12,6 +12,28 @@ class MyPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     // MARK: - Accessor
     override func configure() {
         guard let item = element else {return}
+        statusImageView.image = item.selected.boolValue ? UIImage(named: "selected"):UIImage(named: "unselected")
+        containerView.image = item.selected.boolValue ? UIImage(named: "my_package_card_background_selected"):UIImage(named: "my_package_card_background_unselected")
+        switch item.deviceType.intValue {
+        case 1:
+            self.leftTopLabel.text = "租电套餐"
+        default:
+            self.leftTopLabel.text = "租车套餐"
+
+        }
+        self.titleLabel.text = "\(item.price)元/\(item.days)天"
+        self.periodLabel.text = "有效期：\(item.startDate)至\(item.endDate)"
+        let attributedText = NSAttributedString(string: "￥\(item.originalPrice)",
+                                                attributes: [
+                                                    .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                                                    .foregroundColor: UIColor(hex:0xA0A0A0FF),
+                                                    .font: UIFont.systemFont(ofSize: 12)
+                                                ])
+      
+        
+        self.tipsLabel.text = "限\(item.cityName)使用"
+        
+    
     
     }
     // MARK: - Subviews

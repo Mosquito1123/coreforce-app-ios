@@ -24,7 +24,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
 
         }
         self.titleLabel.text = "\(item.price)元/\(item.days)天"
-        self.periodLabel.text = "有效期至：\(item.endDate)"
+        self.periodLabel.text = "有效期：\(item.startDate)至\(item.endDate)"
         let attributedText = NSAttributedString(string: "￥\(item.originalPrice)",
                                                 attributes: [
                                                     .strikethroughStyle: NSUnderlineStyle.single.rawValue,

@@ -210,7 +210,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "满80可用"
+        label.text = "--"
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
@@ -230,7 +230,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
     lazy var statusButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintAdjustmentMode = .automatic
-        button.setTitle("已过期", for: .normal)
+        button.setTitle("--", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         button.setTitleColor(.lightGray, for: .normal)
         button.layer.borderColor = UIColor(hex:0xA0A0A0FF).cgColor
