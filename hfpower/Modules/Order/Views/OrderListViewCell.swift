@@ -238,7 +238,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
     }()
     lazy var statusLabel: UILabel = {
         let label = UILabel()
-        label.text = "已支付"
+        label.text = "--"
         label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
         label.textColor = UIColor(hex:0x447AFEFF)
         label.numberOfLines = 0

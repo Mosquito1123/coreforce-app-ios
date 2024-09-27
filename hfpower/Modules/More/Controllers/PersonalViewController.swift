@@ -231,6 +231,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.batteryRenewAction = { sender in
                 //电池续租
                 let batteryRenewViewController = BatteryRenewViewController()
+                batteryRenewViewController.batteryType = HFBatteryRentalTypeInfo.mj_object(withKeyValues: HFKeyedArchiverTool.batteryDataList().first?.mj_keyValues())
                 self.navigationController?.pushViewController(batteryRenewViewController, animated: true)
             }
             contentCell.bikeDetailAction = { sender in
@@ -245,6 +246,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.bikeRenewAction = { sender in
                 //电车续租
                 let bikeRenewViewController = BikeRenewViewController()
+                bikeRenewViewController.bikeDetail = HFKeyedArchiverTool.bikeDetailList().first
                 self.navigationController?.pushViewController(bikeRenewViewController, animated: true)
             }
         }else if let contentCell = cell as? PersonalAssetsViewCell{

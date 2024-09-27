@@ -17,9 +17,19 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
         self.batteryRentLabel.text = "\(String(format: "约合%0.2f元/天", packageCard.price.doubleValue/packageCard.days.doubleValue)) x\(packageCard.days)"
         self.batteryRentAmountLabel.text = "\(packageCard.price)元"
         self.selectedPlanDetailLabel.text = "\(packageCard.price)元/\(packageCard.days)天"
-        guard let depositAmount = element?.batteryType?.batteryDeposit else {return}
-        self.batteryDepositAmountLabel.text = "\(depositAmount)元"
-
+        
+        if let bikeDetail = element?.bikeDetail{
+            self.batteryDepositLabel.text = "电车押金"
+            self.batteryDepositAmountLabel.text = "\(bikeDetail.planDeposit)元"
+            self.batteryRentLabel.text = "电车租金"
+        }else{
+            if let batteryType = element?.batteryType{
+                self.batteryRentLabel.text = "电池租金"
+                self.batteryDepositLabel.text = "电池押金"
+                let depositAmount = batteryType.batteryDeposit
+                self.batteryDepositAmountLabel.text = "\(depositAmount)元"
+            }
+        }
 
 
     }
@@ -43,7 +53,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     private let batteryRentLabel: UILabel = {
         let label = UILabel()
-        label.text = "电池租金"
+        label.text = "--租金"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +81,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     private let batteryDepositLabel: UILabel = {
         let label = UILabel()
-        label.text = "电池押金"
+        label.text = "--押金"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +109,7 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     private let selectedPlanDetailLabel: UILabel = {
         let label = UILabel()
-        label.text = "299元/60天"
+        label.text = "--元/--天"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         label.translatesAutoresizingMaskIntoConstraints = false

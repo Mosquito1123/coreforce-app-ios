@@ -19,5 +19,5 @@ struct BuyPackageCard:Convertible{
     var packageCard:HFPackageCardModel?
     var boughtPackageCard:HFPackageCardModel?
     var batteryType:HFBatteryRentalTypeInfo?
-
+    var bikeDetail:HFBikeDetail?
 }

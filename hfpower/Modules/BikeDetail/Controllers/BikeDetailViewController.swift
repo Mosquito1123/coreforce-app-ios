@@ -300,6 +300,7 @@ class BikeActionSectionController: ListSectionController {
     override func didSelectItem(at index: Int) {
         if bikeAction.items[index].id == 1{
             let bikeRenewViewController = BikeRenewViewController()
+            bikeRenewViewController.bikeDetail = HFKeyedArchiverTool.bikeDetailList().first
             self.viewController?.navigationController?.pushViewController(bikeRenewViewController, animated: true)
         }else if bikeAction.items[index].id == 0{//退租
             self.viewController?.showAlertController(titleText: "提示", messageText: "请携带电车到运营商扫码退机车", okAction: {

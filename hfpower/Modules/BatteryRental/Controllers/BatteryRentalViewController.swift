@@ -19,6 +19,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
+    var payDeposit:Bool = true
     // MARK: - Accessor
     var items = [BuyPackageCard](){
         didSet{
@@ -60,12 +61,8 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         setupNavbar()
         setupSubviews()
         setupLayout()
-        if self.batteryNumber.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
-            refreshPackageCard()
-        }else{
-            self.loadBatteryData()
-
-        }
+        self.loadBatteryData()
+       
         
     }
     func refreshPackageCard(){
@@ -102,9 +99,14 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                 depositService1.content = "退租后，押金可退"
                 depositService1.selected = NSNumber(booleanLiteral: false)
                 depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
-                let temp = [
+                var temp = self.payDeposit ? [
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
                     BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
+                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
+                ]:[
+                    BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
                     BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
                     BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
@@ -128,6 +130,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         params["batteryNumber"] = batteryNumber
         self.getData(batteryUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let battery = body["battery"] as? [String:Any]{
+                self.batteryType = HFBatteryRentalTypeInfo.mj_object(withKeyValues: battery)
                 if let payingOrderId = body["payingOrderId"] as? NSNumber{
                     self.showAlertController(titleText: "温馨提示", messageText: "您有订单尚未完成支付，取消订单将会返还已使用优惠券到您账户，是否取消？", okAction: {
                         let orderDetailVC = OrderDetailViewController()
@@ -154,9 +157,10 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                         self.navigationController?.pushViewController(payWeb, animated: true)
                     }else{
                         if let payDeposit = body["payDeposit"] as? Bool,!payDeposit{//不需要押金
-                            
+                            self.payDeposit = false
                         }else{//需要押金
-                            
+                            self.payDeposit = true
+
                         }
                         self.refreshPackageCard()
                     }
@@ -432,6 +436,7 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
             let couponListViewController = CouponListViewController()
             couponListViewController.couponType = 1
             couponListViewController.deviceNumber = self.batteryNumber
+            couponListViewController.amount = self.packageCard?.price.stringValue ?? "0"
             let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()

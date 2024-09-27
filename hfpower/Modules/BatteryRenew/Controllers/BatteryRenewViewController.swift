@@ -10,10 +10,15 @@ import UIKit
 class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     // MARK: - Accessor
     var id:NSNumber = 0
-    @objc var batteryType:HFBatteryTypeList?
+    @objc var batteryType:HFBatteryRentalTypeInfo?{
+        didSet{
+            self.batteryNumber = batteryType?.batteryNumber ?? ""
+        }
+    }
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
     var batteryNumber:String = ""
+    var payDeposit:Bool = true
     var items = [BuyPackageCard](){
         didSet{
             self.tableView.reloadData()
@@ -96,9 +101,10 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
                         self.navigationController?.pushViewController(payWeb, animated: true)
                     }else{
                         if let payDeposit = body["payDeposit"] as? Bool,!payDeposit{//不需要押金
-                            
+                            self.payDeposit = false
                         }else{//需要押金
-                            
+                            self.payDeposit = true
+
                         }
                         self.refreshPackageCard()
                     }
@@ -121,7 +127,7 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
         self.getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
                 var items = [BuyPackageCard]()
-                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.name, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
+                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.batteryTypeName, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
                 let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
                 if limitedList.count != 0{
                     items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
@@ -132,7 +138,7 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
                 }
                 let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
                 if buyList.count != 0{
-                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.name, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
+                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.batteryTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
                 }
                 items.append(BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()))
                 self.items = items
@@ -282,6 +288,11 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
                 newCell?.cancelAllSelected()
                 
                 self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
+                self.updateItem(where: { packageCard in
+                    return packageCard.identifier == newPackageCard.identifier
+                }, with: newPackageCard)
             }
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -292,6 +303,11 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
                 newCell?.cancelAllSelected()
                 
                 self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
+                self.updateItem(where: { packageCard in
+                    return packageCard.identifier == newPackageCard.identifier
+                }, with: newPackageCard)
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -301,6 +317,11 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
                 let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
                 limitedCell?.cancelAllSelected()
                 self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
+                self.updateItem(where: { packageCard in
+                    return packageCard.identifier == newPackageCard.identifier
+                }, with: newPackageCard)
             }
         }else if let cellx = cell as? RecommendViewCell{
             cellx.scanAction = { [weak self] _ in
@@ -313,6 +334,19 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
             }
         }
         return cell
+    }
+    func updateItem(where condition: (BuyPackageCard) -> Bool, with newItem: BuyPackageCard) {
+        // 1. 查找符合条件的项的索引
+        if let index = self.items.firstIndex(where: condition) {
+            // 2. 替换数据源中的这一项
+            self.items[index] = newItem
+            
+            // 3. 构建索引路径，表示要刷新的位置
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            // 4. 刷新指定的 Cell，无论是否显示
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
     func getCell<T: UITableViewCell>(byType object: T.Type) -> T?{
         if let index = self.items.firstIndex(where: { $0.identifier == String(describing: object) }) {
@@ -365,6 +399,7 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
             let couponListViewController = CouponListViewController()
             couponListViewController.couponType = 1
             couponListViewController.deviceNumber = self.batteryNumber
+            couponListViewController.amount = self.packageCard?.price.stringValue ?? "0"
             let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()
