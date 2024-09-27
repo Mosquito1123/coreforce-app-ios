@@ -183,7 +183,7 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,HFAllOr
                            let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {
                 let dataArray = HFAllOrder.mj_objectArray(withKeyValuesArray: dataList) as? [HFAllOrder]
-                self.items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+                self.items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus.intValue == self.payStatus }
                 self.pageNum = 1
                 // 设置页码
                 
@@ -219,7 +219,7 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,HFAllOr
                            let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {
                 let dataArray = HFAllOrder.mj_objectArray(withKeyValuesArray: dataList) as? [HFAllOrder]
-                let items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+                let items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus.intValue == self.payStatus }
                 self.items.append(contentsOf: items)
                 self.tableView.mj_footer?.endRefreshing()
                 
@@ -251,7 +251,7 @@ class OrderListViewController: BaseTableViewController<OrderListViewCell,HFAllOr
                            let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {
                 let dataArray = HFAllOrder.mj_objectArray(withKeyValuesArray: dataList) as? [HFAllOrder]
-                self.items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus == self.payStatus }
+                self.items = (dataArray ?? []).filter { self.payStatus == 999 ? true:$0.payStatus.intValue == self.payStatus }
                 self.pageNum = 1
                 // 设置页码
                 

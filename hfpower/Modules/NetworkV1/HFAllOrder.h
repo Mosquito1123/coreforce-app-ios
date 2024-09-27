@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)int memberId;
 @property(nonatomic,assign)int memberPhoneNum;
 @property(nonatomic,copy)NSString* orderNo;
-@property(nonatomic,assign)int payStatus;
+@property(nonatomic,copy)NSNumber *payStatus;
 @property(nonatomic,assign)int planId;
 @property(nonatomic,assign)int storeId;
 @property(nonatomic,assign)int type;

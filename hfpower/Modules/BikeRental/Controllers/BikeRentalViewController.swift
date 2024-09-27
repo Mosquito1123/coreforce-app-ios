@@ -10,9 +10,12 @@ protocol BikeRentalViewControllerDelegate{
     func rentBike(number:String?)
 }
 class BikeRentalViewController: UIViewController,UIGestureRecognizerDelegate{
+ 
+    // MARK: - Accessor
     @objc var batteryType:HFBatteryTypeList?
     var bikeNumber:String = ""
-    // MARK: - Accessor
+    var depositService:HFDepositService?
+    var packageCard:HFPackageCardModel?
     var items = [BuyPackageCard](){
         didSet{
             self.tableView.reloadData()
@@ -270,10 +273,21 @@ extension BikeRentalViewController:UITableViewDataSource,UITableViewDelegate {
             let myPackageCardListViewController = MyPackageCardListViewController()
             myPackageCardListViewController.selectedBlock = { model in
                 if let packageCard = model{
-                    item.boughtPackageCard = packageCard
-                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
+                    commonCell?.cancelAllSelected()
+                    let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
+                    limitedCell?.cancelAllSelected()
+                    let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
+                    newCell?.cancelAllSelected()
+                    
                 }
+                self.bottomView.model = model
+                self.packageCard = model
+                item.boughtPackageCard = model
+                self.items[indexPath.row] = item
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
+      
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()

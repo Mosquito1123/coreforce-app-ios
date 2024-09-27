@@ -22,7 +22,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.textAlignment = .left
-            label.text = "¥2000 "
+            label.text = "¥--"
             label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.textAlignment = .left
-            label.text = "¥2000 "
+            label.text = "¥--"
             label.textColor = UIColor(hex:0xFF6565FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
             let label = UILabel()
             label.numberOfLines = 0
             label.textAlignment = .left
-            label.text = "¥2000 "
+            label.text = "¥--"
             label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +118,7 @@ class OrderListViewCell: BaseTableViewCell<HFAllOrder> {
         lazy var contentLabel: UILabel = {
             let label = UILabel()
             label.numberOfLines = 0
-            label.text = "¥2000 "
+            label.text = "¥--"
             label.textColor = UIColor(hex:0xFF6565FF)
             label.font = UIFont.systemFont(ofSize: 14,weight: .medium)
             label.translatesAutoresizingMaskIntoConstraints = false
