@@ -12,6 +12,7 @@ protocol BatteryRentalViewControllerDelegate{
 }
 class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     var batteryNumber:String = ""
+    var batteryDetail:HFBatteryDetail?
     @objc var batteryType:HFBatteryRentalTypeInfo?{
         didSet{
             self.batteryNumber = batteryType?.batteryNumber ?? ""
@@ -19,6 +20,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
+    var boughtPackageCard:HFPackageCardModel?
     var coupon:HFCouponData?
     var payDeposit:Bool = true
     // MARK: - Accessor
@@ -94,12 +96,14 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                 depositService0.content = "芝麻信用>550分"
                 depositService0.selected = NSNumber(booleanLiteral: true)
                 depositService0.amount = "0元"
+                depositService0.authOrder = 1
                 let depositService1 = HFDepositService()
                 depositService1.id = 1
                 depositService1.title = "支付押金"
                 depositService1.content = "退租后，押金可退"
                 depositService1.selected = NSNumber(booleanLiteral: false)
                 depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
+                depositService1.authOrder = 0
                 let temp = self.payDeposit ? [
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
                     BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
@@ -130,7 +134,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         params["batteryNumber"] = batteryNumber
         self.getData(batteryUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let battery = body["battery"] as? [String:Any]{
-                self.batteryType = HFBatteryRentalTypeInfo.mj_object(withKeyValues: battery)
+                self.batteryDetail = HFBatteryDetail.mj_object(withKeyValues: battery)
                 if let payingOrderId = body["payingOrderId"] as? NSNumber{
                     self.showAlertController(titleText: "温馨提示", messageText: "您有订单尚未完成支付，取消订单将会返还已使用优惠券到您账户，是否取消？",okText: "确认支付", okAction: {
                         let orderDetailVC = OrderDetailViewController()
@@ -177,7 +181,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     
     fileprivate func updateDatas(){
-        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType,coupon: self.coupon,depositService: self.depositService)
+        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType,batteryDetail: self.batteryDetail,coupon: self.coupon,depositService: self.depositService)
         self.updateItem(where: { packageCard in
             return packageCard.identifier == newPackageCard.identifier
         }, with: newPackageCard)
@@ -252,7 +256,6 @@ private extension BatteryRentalViewController {
     func placeAnOrder(payChannel:Int){
         var params = [String: Any]()
         params["batteryNumber"] = self.batteryNumber
-        params["leaseDuration"] = self.packageCard?.days ?? 0
         if let coupon = self.coupon{
             params["couponId"] = coupon.id
         }
@@ -260,10 +263,22 @@ private extension BatteryRentalViewController {
             params["storeMemberNumber"] = cellx.content
 
         }
-        params["storeMemberId"] = self.packageCard?.memberId ?? 0
-        params["agentId"] = self.batteryType?.agentId
-        params["authOrder"] = self.depositService?.authOrder ?? 1
-        params["payVoucherId"] = self.packageCard?.id
+        
+      
+        params["authOrder"] = self.depositService?.authOrder.intValue ?? 1
+        if let packageCard = self.boughtPackageCard{
+            params["leaseDuration"] = packageCard.days
+            params["payVoucherId"] = packageCard.id
+            params["storeMemberId"] = packageCard.storeMemberId
+            if let agentId = self.batteryType?.agentId{
+                params["agentId"] = agentId
+            }
+
+
+        }else{
+            params["leaseDuration"] = self.packageCard?.days ?? 0
+
+        }
         self.postData(orderUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
                 if let authData = body["authData"] as? String{
@@ -470,6 +485,7 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                     newCell?.cancelAllSelected()
                     
                 }
+                self.boughtPackageCard = model
                 self.packageCard = model
                 item.boughtPackageCard = model
                 self.items[indexPath.row] = item

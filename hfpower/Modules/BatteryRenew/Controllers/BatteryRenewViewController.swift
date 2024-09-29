@@ -14,6 +14,7 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
             self.batteryNumber = batteryType?.batteryNumber ?? ""
         }
     }
+    var boughtPackageCard:HFPackageCardModel?
     var batteryDetail:HFBatteryDetail?
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
@@ -92,12 +93,14 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
                 depositService0.content = "芝麻信用>550分"
                 depositService0.selected = NSNumber(booleanLiteral: true)
                 depositService0.amount = "0元"
+                depositService0.authOrder = 1
                 let depositService1 = HFDepositService()
                 depositService1.id = 1
                 depositService1.title = "支付押金"
                 depositService1.content = "退租后，押金可退"
                 depositService1.selected = NSNumber(booleanLiteral: false)
                 depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
+                depositService1.authOrder = 0
                 let temp = self.payDeposit ? [
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
                     BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
@@ -276,7 +279,6 @@ private extension BatteryRenewViewController {
     func placeAnOrder(payChannel:Int){
         var params = [String: Any]()
         params["batteryNumber"] = self.batteryNumber
-        params["leaseDuration"] = self.packageCard?.days ?? 0
         if let coupon = self.coupon{
             params["couponId"] = coupon.id
         }
@@ -284,10 +286,19 @@ private extension BatteryRenewViewController {
             params["storeMemberNumber"] = cellx.content
 
         }
-        params["storeMemberId"] = self.packageCard?.memberId ?? 0
-        params["agentId"] = self.batteryType?.agentId
         params["authOrder"] = self.depositService?.authOrder ?? 1
-        params["payVoucherId"] = self.packageCard?.id
+        if let packageCard = self.boughtPackageCard{
+            params["leaseDuration"] = packageCard.days
+            params["payVoucherId"] = packageCard.id
+            params["storeMemberId"] = packageCard.storeMemberId
+            if let agentId = self.batteryType?.agentId{
+                params["agentId"] = agentId
+            }
+
+        }else{
+            params["leaseDuration"] = self.packageCard?.days ?? 0
+
+        }
         self.postData(renewalUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
                 if let authData = body["authData"] as? String{

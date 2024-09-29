@@ -25,11 +25,6 @@ class BatteryRentalChooseTypeViewController: BaseTableViewController<BatteryRent
         if let cellx = cell as? BatteryRentalChooseTypeViewCell{
             cellx.sureAction = { sender in
                 let batteryRentalViewController = BatteryRentalViewController()
-                let batteryType = HFBatteryTypeList()
-                let smallBatteryType = self.items[indexPath.row]
-                batteryType.name = smallBatteryType.batteryTypeName
-                batteryType.enduranceMemo = smallBatteryType.batteryVoltage
-                batteryType.id = smallBatteryType.largeTypeId
                 batteryRentalViewController.batteryType = self.items[indexPath.row]
                 self.navigationController?.pushViewController(batteryRentalViewController, animated: true)
             }

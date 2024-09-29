@@ -55,7 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSNumber *selected;
 @property (nonatomic, strong) NSNumber *cellType;
 @property (nonatomic, strong) NSNumber *count;
-
+@property (nonatomic, strong) NSNumber *storeMemberId;
+@property (nonatomic, strong) NSString *storeMemberNumber;
 @end
 
 NS_ASSUME_NONNULL_END
