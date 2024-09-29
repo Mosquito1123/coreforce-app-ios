@@ -155,6 +155,9 @@ class BikeRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                     }
                     
                 }
+            }else{
+                self.showWindowInfo(withStatus: "当前电车已出租或不可用，请重新选择电车")
+                self.navigationController?.popViewController(animated: true)
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)

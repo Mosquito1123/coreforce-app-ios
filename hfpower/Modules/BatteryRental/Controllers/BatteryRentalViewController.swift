@@ -127,7 +127,6 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     func loadBatteryData(){
         var params = [String: Any]()
-
         params["batteryNumber"] = batteryNumber
         self.getData(batteryUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let battery = body["battery"] as? [String:Any]{

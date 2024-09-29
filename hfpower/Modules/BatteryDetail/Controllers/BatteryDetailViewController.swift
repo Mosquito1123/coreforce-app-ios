@@ -313,6 +313,8 @@ class BatteryActionSectionController: ListSectionController {
     override func didSelectItem(at index: Int) {
         if batteryAction.items[index].id == 0{
             let batteryRenewViewController = BatteryRenewViewController()
+            batteryRenewViewController.batteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number  ?? ""
+            batteryRenewViewController.batteryDetail = HFKeyedArchiverTool.batteryDataList().first
             self.viewController?.navigationController?.pushViewController(batteryRenewViewController, animated: true)
         }else if batteryAction.items[index].id == 1{//响铃
             if let batteryDetail = HFKeyedArchiverTool.batteryDataList().first{

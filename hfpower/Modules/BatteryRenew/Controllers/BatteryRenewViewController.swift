@@ -9,12 +9,12 @@ import UIKit
 
 class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     // MARK: - Accessor
-    var id:NSNumber = 0
     @objc var batteryType:HFBatteryRentalTypeInfo?{
         didSet{
             self.batteryNumber = batteryType?.batteryNumber ?? ""
         }
     }
+    var batteryDetail:HFBatteryDetail?
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
     var coupon:HFCouponData?
@@ -65,7 +65,59 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
 
     }
     func refreshPackageCard(){
-        self.refreshCouponList()
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+        
+        var params = [String: Any]()
+        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        params["largeTypeId"] = self.batteryType?.largeTypeId
+        self.getData(ourPackageCardUrl, param: params, isLoading: false) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
+                var items = [BuyPackageCard]()
+                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.batteryTypeName, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
+                let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
+                if limitedList.count != 0{
+                    items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
+                }
+                let newList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 3}
+                if newList.count != 0{
+                    items.append(BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList))
+                }
+                let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
+                if buyList.count != 0{
+                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.batteryTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
+                }
+                let depositService0 = HFDepositService()
+                depositService0.id = 0
+                depositService0.title = "支付宝免押"
+                depositService0.content = "芝麻信用>550分"
+                depositService0.selected = NSNumber(booleanLiteral: true)
+                depositService0.amount = "0元"
+                let depositService1 = HFDepositService()
+                depositService1.id = 1
+                depositService1.title = "支付押金"
+                depositService1.content = "退租后，押金可退"
+                depositService1.selected = NSNumber(booleanLiteral: false)
+                depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
+                let temp = self.payDeposit ? [
+                    BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
+                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
+                ]:[
+                    BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
+                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
+                ]
+                items.append(contentsOf: temp)
+                self.items = items
+                
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
 
     }
     func refreshCouponList(){
@@ -73,11 +125,13 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     func loadBatteryData(){
         var params = [String: Any]()
-        
-        params["batteryId"] = self.id
+        params["batteryNumber"] = self.batteryNumber
+        if let id = self.batteryDetail?.id{
+            params["batteryId"] = id
+        }
         self.getData(batteryUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let battery = body["battery"] as? [String:Any]{
-                self.batteryType = HFBatteryRentalTypeInfo.mj_object(withKeyValues: battery)
+                self.batteryDetail = HFBatteryDetail.mj_object(withKeyValues: battery)
                 if let payingOrderId = body["payingOrderId"] as? NSNumber{
                     self.showAlertController(titleText: "温馨提示", messageText: "您有订单尚未完成支付，取消订单将会返还已使用优惠券到您账户，是否取消？", okAction: {
                         let orderDetailVC = OrderDetailViewController()

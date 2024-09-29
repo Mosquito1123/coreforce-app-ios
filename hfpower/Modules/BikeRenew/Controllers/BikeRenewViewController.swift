@@ -65,8 +65,8 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     func refreshPackageCard(){
         var items = [BuyPackageCard]()
-        var buyList = [1,2,3,5,7,10,20,30,60,90,180].enumerated().map { (index,value) in
-            var packageCard = HFPackageCardModel()
+        let buyList = [1,2,3,5,7,10,20,30,60,90,180].enumerated().map { (index,value) in
+            let packageCard = HFPackageCardModel()
             packageCard.id = NSNumber(value: index)
             packageCard.price = NSNumber(value:(self.bikeDetail?.planRent ?? 0) * value)
             packageCard.days = NSNumber(value:(self.bikeDetail?.duration.doubleValue ?? 0)*value)
@@ -153,6 +153,9 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
                     }
                     
                 }
+            }else{
+                self.showWindowInfo(withStatus: "当前电车已出租或不可用，请重新选择电车")
+                self.navigationController?.popViewController(animated: true)
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)

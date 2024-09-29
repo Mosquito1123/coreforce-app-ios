@@ -18,7 +18,9 @@ class PersonalViewController: BaseViewController, BatteryRentalViewControllerDel
     }
     
     func rentBattery(number: String?) {
-        
+        let batteryRentalViewController = BatteryRentalViewController()
+        batteryRentalViewController.batteryNumber = number ?? ""
+        self.navigationController?.pushViewController(batteryRentalViewController, animated: true)
     }
     
     func cabinetRentBattery(number: String?) {
@@ -233,7 +235,8 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.batteryRenewAction = { sender in
                 //电池续租
                 let batteryRenewViewController = BatteryRenewViewController()
-                batteryRenewViewController.batteryType = HFBatteryRentalTypeInfo.mj_object(withKeyValues: HFKeyedArchiverTool.batteryDataList().first?.mj_keyValues())
+                batteryRenewViewController.batteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number  ?? ""
+                batteryRenewViewController.batteryDetail = HFKeyedArchiverTool.batteryDataList().first
                 self.navigationController?.pushViewController(batteryRenewViewController, animated: true)
             }
             contentCell.bikeDetailAction = { sender in
