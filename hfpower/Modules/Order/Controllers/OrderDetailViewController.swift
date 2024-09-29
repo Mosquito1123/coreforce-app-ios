@@ -428,7 +428,7 @@ private extension OrderDetailViewController {
                 
                 if section == 1,row == 0{//取消
                 }else if section == 0,row == 0{//微信支付
-                    self.postData(orderPayUrl, param: ["payChannel":1,"from":"app","orderId":id], isLoading: true) { responseObject in
+                    self.postData(orderPayUrl, param: ["payMethod":1,"from":"app","orderId":id], isLoading: true) { responseObject in
                         if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
                             if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
                                 self.wxPay(payDataModel)
@@ -439,7 +439,7 @@ private extension OrderDetailViewController {
                     }
                     
                 }else if section == 0,row == 1{//支付宝支付
-                    self.postData(orderPayUrl, param: ["payChannel":2,"from":"app","orderId":id], isLoading: true) { responseObject in
+                    self.postData(orderPayUrl, param: ["payMethod":2,"from":"app","orderId":id], isLoading: true) { responseObject in
                         if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
                             self.alipay(payDataString)
                             
