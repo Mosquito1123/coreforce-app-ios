@@ -12,8 +12,8 @@
 #define HFBikeDetailFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"HFBikeDetailFile.data"]
 #define HFActivityListFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"HFActivityListFile.data"]
 #define HFBatteryDepositOrderInfoFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"HFBatteryDepositOrderInfoFile.data"]
-#define rootRequest @"http://www.coreforce.cn"//根目录请求
-#define inviteRequest @"http://www.coreforce.cn"//活动根目录请求
+#define rootRequest @"http://test9375.coreforce.cn"//根目录请求
+#define inviteRequest @"http://test9375.coreforce.cn"//活动根目录请求
 //#define inviteRequest @"http://192.168.110.105:5173"//活动测试根目录
 
 #define batteryListUrl @"/app/api/battery/list"//电池列表接口

@@ -42,21 +42,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 跳转支付宝客户端进行支付，处理支付结果
             AlipaySDK.defaultService()?.processOrder(withPaymentResult: url, standbyCallback: nil)
         }
+        handleAuthorization(url: url)
         
-        AlipaySDK.defaultService()?.processAuth_V2Result(url, standbyCallback: { resultDic in
-            if let result = resultDic?["result"] as? String {
-                var authCode: String?
-                let resultArr = result.components(separatedBy: "&")
-                for subResult in resultArr where subResult.hasPrefix("auth_code=") {
-                    authCode = String(subResult.dropFirst(10))
-                    break
-                }
-            }
-        })
         
         return false
     }
-    
+    // 在需要授权的地方调用这个方法
+    func handleAuthorization(url: URL) {
+        AlipaySDK.defaultService().processAuth_V2Result(url) { resultDic in
+            // 解析 auth code
+            if let result = resultDic?["result"] as? String {
+                var authCode: String?
+                let resultArray = result.components(separatedBy: "&")
+                for subResult in resultArray {
+                    if subResult.hasPrefix("auth_code=") {
+                        authCode = String(subResult.dropFirst("auth_code=".count))
+                        break
+                    }
+                }
+                
+                // 处理 authCode，例如存储或发送给服务器
+                if let code = authCode {
+                    print("Auth Code: \(code)")
+                } else {
+                    print("Auth code not found")
+                }
+            } else {
+                print("Result dictionary is nil or does not contain 'result'")
+            }
+        }
+    }
     // 处理 Universal Link(通用链接)
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         let resultWeChat = WXPayTools.sharedInstance.handleOpen(universalLink: userActivity)

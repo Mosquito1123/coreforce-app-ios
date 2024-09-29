@@ -157,7 +157,7 @@ extension UIViewController{
         }))
         alert.present()
     }
-    func showAlertController(titleText: String, messageText: String, okAction: @escaping () -> Void, isCancelAlert: Bool = false, cancelAction: @escaping () -> Void = {}) {
+    func showAlertController(titleText: String, messageText: String,okText:String="确认",okAction: @escaping () -> Void, isCancelAlert: Bool = false,cancelText:String="取消", cancelAction: @escaping () -> Void = {}) {
         // Create attributed text
         let title = NSAttributedString(string: titleText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16,weight: .medium),.foregroundColor:UIColor.black])
         let p = NSMutableParagraphStyle()
@@ -166,12 +166,12 @@ extension UIViewController{
         let alert = AlertController(attributedTitle: title, attributedMessage: message, preferredStyle: .alert)
         
         if isCancelAlert {
-            let cancelAction = AlertAction(title: "取消", style: .normal) { _ in
+            let cancelAction = AlertAction(title: cancelText, style: .normal) { _ in
                 cancelAction()
             }
             alert.addAction(cancelAction)
         }
-        let okAction = AlertAction(title: "确认", style: .preferred) { alertAction in
+        let okAction = AlertAction(title: okText, style: .preferred) { alertAction in
             okAction()
         }
         alert.addAction(okAction)

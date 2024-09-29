@@ -132,11 +132,11 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let battery = body["battery"] as? [String:Any]{
                 self.batteryType = HFBatteryRentalTypeInfo.mj_object(withKeyValues: battery)
                 if let payingOrderId = body["payingOrderId"] as? NSNumber{
-                    self.showAlertController(titleText: "温馨提示", messageText: "您有订单尚未完成支付，取消订单将会返还已使用优惠券到您账户，是否取消？", okAction: {
+                    self.showAlertController(titleText: "温馨提示", messageText: "您有订单尚未完成支付，取消订单将会返还已使用优惠券到您账户，是否取消？",okText: "确认支付", okAction: {
                         let orderDetailVC = OrderDetailViewController()
                         orderDetailVC.id = payingOrderId
                         self.navigationController?.pushViewController(orderDetailVC, animated: true)
-                    },isCancelAlert: true) {
+                    },isCancelAlert: true,cancelText: "取消订单") {
                         self.postData(orderCancelUrl,
                                  param: ["orderId": payingOrderId],
                                  isLoading: true,
@@ -268,6 +268,20 @@ private extension BatteryRentalViewController {
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
                 if let authData = body["authData"] as? String{
                     self.alipayAuth(authData)
+                    if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                        let orderDetailVC = OrderDetailViewController()
+                        orderDetailVC.id = orderDetail.id
+                        self.navigationController?.pushViewController(orderDetailVC, animated: true)
+                        // 移除当前 ViewControllerA
+                        if let viewControllers = self.navigationController?.viewControllers {
+                            // 创建一个新的视图控制器数组
+                            var newStack = viewControllers
+                            newStack.removeAll { vc in
+                                return vc == self
+                            } // 移除当前视图控制器
+                            self.navigationController?.setViewControllers(newStack, animated: false) // 更新导航栈
+                        }
+                    }
                 }else{
                     if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
                         self.postData(orderPayUrl, param: ["orderId":orderDetail.id,"payMethod":payChannel], isLoading: true) { responseObject in
