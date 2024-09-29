@@ -20,4 +20,6 @@ struct BuyPackageCard:Convertible{
     var boughtPackageCard:HFPackageCardModel?
     var batteryType:HFBatteryRentalTypeInfo?
     var bikeDetail:HFBikeDetail?
+    var coupon:HFCouponData?
+    var depositService:HFDepositService?
 }

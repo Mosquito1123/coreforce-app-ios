@@ -19,6 +19,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
+    var coupon:HFCouponData?
     var payDeposit:Bool = true
     // MARK: - Accessor
     var items = [BuyPackageCard](){
@@ -99,7 +100,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                 depositService1.content = "退租后，押金可退"
                 depositService1.selected = NSNumber(booleanLiteral: false)
                 depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
-                var temp = self.payDeposit ? [
+                let temp = self.payDeposit ? [
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
                     BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
                     BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
@@ -176,7 +177,12 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
 
     }
     
-    
+    fileprivate func updateDatas(){
+        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType,coupon: self.coupon,depositService: self.depositService)
+        self.updateItem(where: { packageCard in
+            return packageCard.identifier == newPackageCard.identifier
+        }, with: newPackageCard)
+    }
 }
 
 // MARK: - Setup
@@ -218,30 +224,14 @@ private extension BatteryRentalViewController {
         bottomView.submittedAction = {sender in
             self.showActionSheet(["wechat","alipay"], ["微信支付","支付宝支付"], "取消") { section, row in
                 self.presentedViewController?.dismiss(animated: true)
-                let id = self.bottomView.model?.id ?? 0
                 
                 if section == 1,row == 0{//取消
                 }else if section == 0,row == 0{//微信支付
-                    self.postData(buyPackageCardUrl, param: ["payChannel":1,"from":"app","id":id], isLoading: true) { responseObject in
-                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
-                            if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
-                                self.wxPay(payDataModel)
-                            }
-                        }
-                    } error: { error in
-                        self.showError(withStatus: error.localizedDescription)
-                    }
+                    self.placeAnOrder(payChannel: 1)
                     
                 }else if section == 0,row == 1{//支付宝支付
-                    self.postData(buyPackageCardUrl, param: ["payChannel":2,"from":"app","id":id], isLoading: true) { responseObject in
-                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
-                            self.alipay(payDataString)
-                            
-                        }
-                    } error: { error in
-                        self.showError(withStatus: error.localizedDescription)
+                    self.placeAnOrder(payChannel: 2)
 
-                    }
                 }
             }
         }
@@ -259,6 +249,69 @@ private extension BatteryRentalViewController {
             bottomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             bottomView.heightAnchor.constraint(equalToConstant: 90)
         ])
+    }
+    func placeAnOrder(payChannel:Int){
+        var params = [String: Any]()
+        params["batteryNumber"] = self.batteryNumber
+        params["leaseDuration"] = self.packageCard?.days ?? 0
+        if let coupon = self.coupon{
+            params["couponId"] = coupon.id
+        }
+        if  let cellx = self.getCell(byType: RecommendViewCell.self){
+            params["storeMemberNumber"] = cellx.content
+
+        }
+        params["storeMemberId"] = self.packageCard?.memberId ?? 0
+        params["agentId"] = self.batteryType?.agentId
+        params["authOrder"] = self.depositService?.authOrder ?? 0
+        params["payVoucherId"] = self.packageCard?.id
+        self.postData(orderUrl, param: params, isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
+                if let authData = body["authData"] as? String{
+                    self.alipayAuth(authData)
+                }else{
+                    if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                        self.postData(orderPayUrl, param: ["orderId":orderDetail.id,"payMethod":payChannel], isLoading: true) { responseObject in
+                            
+                            if payChannel == 1{
+                                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
+                                    if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
+                                        self.wxPay(payDataModel)
+                                    }
+                                }
+                            }else if payChannel == 2{
+                                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
+                                    self.alipay(payDataString)
+                                    
+                                }
+                            }
+                            
+                            
+                        } error: { error in
+                            self.showError(withStatus: error.localizedDescription)
+
+                        }
+                    }
+                    
+
+                }
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
+    }
+    func alipayAuth(_ payDataString:String!){
+        AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
+            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
+                if resultStatus == 9000{
+                    self.showSuccess(withStatus: "支付宝信用免押成功")
+                }else{
+                    self.showError(withStatus: "支付宝信用免押失败")
+
+                }
+            }
+        }
     }
     func alipay(_ payDataString:String!){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
@@ -315,12 +368,8 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                 let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
                 newCell?.cancelAllSelected()
                 
-                self.bottomView.model = item.items?[indexPath.item]
                 self.packageCard = item.items?[indexPath.item]
-                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
-                self.updateItem(where: { packageCard in
-                    return packageCard.identifier == newPackageCard.identifier
-                }, with: newPackageCard)
+                self.updateDatas()
             }
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -330,12 +379,9 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                 let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
                 newCell?.cancelAllSelected()
                 
-                self.bottomView.model = item.items?[indexPath.item]
                 self.packageCard = item.items?[indexPath.item]
-                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
-                self.updateItem(where: { packageCard in
-                    return packageCard.identifier == newPackageCard.identifier
-                }, with: newPackageCard)
+                self.updateDatas()
+
                
 
             }
@@ -346,20 +392,17 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                 
                 let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
                 limitedCell?.cancelAllSelected()
-                self.bottomView.model = item.items?[indexPath.item]
                 self.packageCard = item.items?[indexPath.item]
-                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType)
-                self.updateItem(where: { packageCard in
-                    return packageCard.identifier == newPackageCard.identifier
-                }, with: newPackageCard)
+                self.updateDatas()
+
 
             }
         }else if let cellx = cell as? DepositServiceViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
                 self.depositService = item.depositServices?[indexPath.item]
+                self.updateDatas()
+
             }
-        }else if let cellx = cell as? FeeDetailViewCell{
-            
         }else if let cellx = cell as? RecommendViewCell{
             cellx.scanAction = { [weak self] _ in
                 let scanVC = HFScanViewController()
@@ -373,6 +416,7 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
         return cell
     }
     func updateItem(where condition: (BuyPackageCard) -> Bool, with newItem: BuyPackageCard) {
+        self.bottomView.element = newItem
         // 1. 查找符合条件的项的索引
         if let index = self.items.firstIndex(where: condition) {
             // 2. 替换数据源中的这一项
@@ -404,7 +448,7 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
             let myPackageCardListViewController = MyPackageCardListViewController()
             myPackageCardListViewController.deviceNumber = self.batteryNumber
             myPackageCardListViewController.selectedBlock = { model in
-                if let packageCard = model{
+                if let _ = model{
                     let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
                     commonCell?.cancelAllSelected()
                     let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
@@ -413,11 +457,11 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                     newCell?.cancelAllSelected()
                     
                 }
-                self.bottomView.model = model
                 self.packageCard = model
                 item.boughtPackageCard = model
                 self.items[indexPath.row] = item
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                self.updateDatas()
             }
       
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
@@ -437,6 +481,10 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
             couponListViewController.couponType = 1
             couponListViewController.deviceNumber = self.batteryNumber
             couponListViewController.amount = self.packageCard?.price.stringValue ?? "0"
+            couponListViewController.selectedBlock = { coupon in
+                self.coupon = coupon
+                self.updateDatas()
+            }
             let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()

@@ -9,7 +9,9 @@ import UIKit
 
 class MainTabBarController: UITabBarController,UITabBarControllerDelegate,BatteryRentalViewControllerDelegate,BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
     func rentBike(number: String?) {
-        
+        let bikeRentalViewController = BikeRentalViewController()
+        bikeRentalViewController.bikeNumber = number ?? ""
+        self.navigationController?.pushViewController(bikeRentalViewController, animated: true)
     }
     
     

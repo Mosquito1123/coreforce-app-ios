@@ -15,9 +15,9 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
         guard let packageCard = element?.packageCard else { return  }
         
         self.batteryRentLabel.text = "\(String(format: "约合%0.2f元/天", packageCard.price.doubleValue/packageCard.days.doubleValue)) x\(packageCard.days)"
-        self.batteryRentAmountLabel.text = "\(packageCard.price)元"
-        self.selectedPlanDetailLabel.text = "\(packageCard.price)元/\(packageCard.days)天"
-        
+        self.batteryRentAmountLabel.text = String(format: "%0.2f元", packageCard.price.doubleValue)
+        self.selectedPlanDetailLabel.text = "\(String(format: "%0.2f元", packageCard.price.doubleValue))/\(packageCard.days)天"
+        self.couponDetailLabel.text = element?.coupon?.name ?? ""
         if let bikeDetail = element?.bikeDetail{
             self.batteryDepositLabel.text = "电车押金"
             self.batteryDepositAmountLabel.text = "\(bikeDetail.planDeposit)元"

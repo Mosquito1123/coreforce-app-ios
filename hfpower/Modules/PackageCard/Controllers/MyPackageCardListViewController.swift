@@ -91,7 +91,7 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
         // ...
         self.items.removeAll()
         pageNum = 1
-        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: false) { responseObject in
+        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
                let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {
@@ -128,7 +128,7 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
             return
         }
         pageNum = pageNum + 1
-        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: false) { responseObject in
+        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
                let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {
@@ -149,7 +149,7 @@ class MyPackageCardListViewController: BaseTableViewController<MyPackageCardList
     }
     func loadData(){
         pageNum = 1
-        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: false) { responseObject in
+        self.getData(packageCardListUrl, param: ["page":self.pageNum,"batteryNum":self.deviceNumber,"status":0], isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
                let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {

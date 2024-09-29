@@ -112,7 +112,7 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,HFCou
         }
         params["page"] = self.pageNum
         params["amount"] = self.amount
-        self.getData(urlString, param: params, isLoading: false) { responseObject in
+        self.getData(urlString, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
                let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {
@@ -167,7 +167,7 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,HFCou
         }
         params["page"] = self.pageNum
         params["amount"] = self.amount
-        self.getData(urlString, param: params, isLoading: false) { responseObject in
+        self.getData(urlString, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
                let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {
@@ -206,7 +206,7 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,HFCou
         }
         params["page"] = self.pageNum
         params["amount"] = self.amount
-        self.getData(urlString, param: params, isLoading: false) { responseObject in
+        self.getData(urlString, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
                let pageResult = body["pageResult"] as? [String: Any],
                let dataList = pageResult["dataList"] as? [[String: Any]] {

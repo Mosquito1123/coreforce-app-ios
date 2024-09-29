@@ -18,6 +18,7 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     var bikeNumber:String = ""
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
+    var coupon:HFCouponData?
     var items = [BuyPackageCard](){
         didSet{
             self.tableView.reloadData()
@@ -79,12 +80,14 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
         depositService0.content = "芝麻信用>550分"
         depositService0.selected = NSNumber(booleanLiteral: true)
         depositService0.amount = "0元"
+        depositService0.authOrder = NSNumber(integerLiteral: 1)
         let depositService1 = HFDepositService()
         depositService1.id = 1
         depositService1.title = "支付押金"
         depositService1.content = "退租后，押金可退"
         depositService1.selected = NSNumber(booleanLiteral: false)
         depositService1.amount = "\(self.bikeDetail?.planDeposit ?? 0)元"
+        depositService1.authOrder = NSNumber(integerLiteral: 0)
         var temp = self.payDeposit ? [
 //            BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
             BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
@@ -112,6 +115,7 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
         }
         self.getData(locomotiveUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let bike = body["locomotive"] as? [String:Any]{
+                self.bikeDetail = HFBikeDetail.mj_object(withKeyValues: bike)
                 if let payingOrderId = body["payingOrderId"] as? NSNumber{
                     self.showAlertController(titleText: "温馨提示", messageText: "您有订单尚未完成支付，取消订单将会返还已使用优惠券到您账户，是否取消？", okAction: {
                         let orderDetailVC = OrderDetailViewController()
@@ -196,30 +200,14 @@ private extension BikeRenewViewController {
         bottomView.submittedAction = {sender in
             self.showActionSheet(["wechat","alipay"], ["微信支付","支付宝支付"], "取消") { section, row in
                 self.presentedViewController?.dismiss(animated: true)
-                let id = self.bottomView.model?.id ?? 0
                 
                 if section == 1,row == 0{//取消
                 }else if section == 0,row == 0{//微信支付
-                    self.postData(buyPackageCardUrl, param: ["payChannel":1,"from":"app","id":id], isLoading: true) { responseObject in
-                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
-                            if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
-                                self.wxPay(payDataModel)
-                            }
-                        }
-                    } error: { error in
-                        self.showError(withStatus: error.localizedDescription)
-                    }
+                    self.placeAnOrder(payChannel: 1)
+
                     
                 }else if section == 0,row == 1{//支付宝支付
-                    self.postData(buyPackageCardUrl, param: ["payChannel":2,"from":"app","id":id], isLoading: true) { responseObject in
-                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
-                            self.alipay(payDataString)
-                            
-                        }
-                    } error: { error in
-                        self.showError(withStatus: error.localizedDescription)
-
-                    }
+                    self.placeAnOrder(payChannel: 2)
                 }
             }
         }
@@ -237,6 +225,68 @@ private extension BikeRenewViewController {
             bottomView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             bottomView.heightAnchor.constraint(equalToConstant: 90)
         ])
+    }
+    func placeAnOrder(payChannel:Int){
+        var params = [String: Any]()
+        params["locomotiveNumber"] = self.bikeNumber
+        params["locomotiveLeaseDuration"] = self.packageCard?.days ?? 0
+        if let coupon = self.coupon{
+            params["locomotiveCouponId"] = coupon.id
+        }
+        if  let cellx = self.getCell(byType: RecommendViewCell.self){
+            params["storeMemberNumber"] = cellx.content
+
+        }
+        params["storeMemberId"] = self.bikeDetail?.memberId
+        params["agentId"] = self.bikeDetail?.agentId
+        params["authOrder"] = self.depositService?.authOrder ?? 0
+        self.postData(renewalUrl, param: params, isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
+                if let authData = body["authData"] as? String{
+                    self.alipayAuth(authData)
+                }else{
+                    if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                        self.postData(orderPayUrl, param: ["orderId":orderDetail.id,"payMethod":payChannel], isLoading: true) { responseObject in
+                            
+                            if payChannel == 1{
+                                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
+                                    if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
+                                        self.wxPay(payDataModel)
+                                    }
+                                }
+                            }else if payChannel == 2{
+                                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
+                                    self.alipay(payDataString)
+                                    
+                                }
+                            }
+                            
+                            
+                        } error: { error in
+                            self.showError(withStatus: error.localizedDescription)
+
+                        }
+                    }
+                    
+
+                }
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
+    }
+    func alipayAuth(_ payDataString:String!){
+        AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
+            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
+                if resultStatus == 9000{
+                    self.showSuccess(withStatus: "支付宝信用免押成功")
+                }else{
+                    self.showError(withStatus: "支付宝信用免押失败")
+
+                }
+            }
+        }
     }
     func alipay(_ payDataString:String!){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
@@ -293,12 +343,9 @@ extension BikeRenewViewController:UITableViewDataSource,UITableViewDelegate {
                 let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
                 newCell?.cancelAllSelected()
                 
-                self.bottomView.model = item.items?[indexPath.item]
                 self.packageCard = item.items?[indexPath.item]
-                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,bikeDetail: self.bikeDetail)
-                self.updateItem(where: { packageCard in
-                    return packageCard.identifier == newPackageCard.identifier
-                }, with: newPackageCard)
+                self.updateDatas()
+
             }
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -308,12 +355,9 @@ extension BikeRenewViewController:UITableViewDataSource,UITableViewDelegate {
                 let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
                 newCell?.cancelAllSelected()
                 
-                self.bottomView.model = item.items?[indexPath.item]
                 self.packageCard = item.items?[indexPath.item]
-                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,bikeDetail: self.bikeDetail)
-                self.updateItem(where: { packageCard in
-                    return packageCard.identifier == newPackageCard.identifier
-                }, with: newPackageCard)
+                self.updateDatas()
+
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -322,17 +366,29 @@ extension BikeRenewViewController:UITableViewDataSource,UITableViewDelegate {
                 
                 let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
                 limitedCell?.cancelAllSelected()
-                self.bottomView.model = item.items?[indexPath.item]
                 self.packageCard = item.items?[indexPath.item]
-                let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,bikeDetail: self.bikeDetail)
-                self.updateItem(where: { packageCard in
-                    return packageCard.identifier == newPackageCard.identifier
-                }, with: newPackageCard)
+                self.updateDatas()
+            }
+        }else if let cellx = cell as? DepositServiceViewCell{
+            cellx.didSelectItemBlock = {(collectionView,indexPath) in
+                self.depositService = item.depositServices?[indexPath.item]
+                self.updateDatas()
+
+            }
+        }else if let cellx = cell as? RecommendViewCell{
+            cellx.scanAction = { [weak self] _ in
+                let scanVC = HFScanViewController()
+                scanVC.resultBlock = { [weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                    cellx.content = $0.strScanned
+                }
+                self?.navigationController?.pushViewController(scanVC, animated: true)
             }
         }
         return cell
     }
     func updateItem(where condition: (BuyPackageCard) -> Bool, with newItem: BuyPackageCard) {
+        self.bottomView.element = newItem
         // 1. 查找符合条件的项的索引
         if let index = self.items.firstIndex(where: condition) {
             // 2. 替换数据源中的这一项
@@ -363,7 +419,7 @@ extension BikeRenewViewController:UITableViewDataSource,UITableViewDelegate {
         if item.title  == "已购套餐"{
             let myPackageCardListViewController = MyPackageCardListViewController()
             myPackageCardListViewController.selectedBlock = { model in
-                if let packageCard = model{
+                if let _ = model{
                     let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
                     commonCell?.cancelAllSelected()
                     let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
@@ -372,11 +428,11 @@ extension BikeRenewViewController:UITableViewDataSource,UITableViewDelegate {
                     newCell?.cancelAllSelected()
                     
                 }
-                self.bottomView.model = model
                 self.packageCard = model
                 item.boughtPackageCard = model
                 self.items[indexPath.row] = item
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                self.updateDatas()
             }
       
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
@@ -395,6 +451,10 @@ extension BikeRenewViewController:UITableViewDataSource,UITableViewDelegate {
             let couponListViewController = CouponListViewController()
             couponListViewController.couponType = 2
             couponListViewController.deviceNumber = self.bikeNumber
+            couponListViewController.selectedBlock = { coupon in
+                self.coupon = coupon
+                self.updateDatas()
+            }
             couponListViewController.amount = self.packageCard?.price.stringValue ?? "0"
             let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
@@ -408,13 +468,14 @@ extension BikeRenewViewController:UITableViewDataSource,UITableViewDelegate {
             }
             
             self.present(nav, animated: true, completion: nil)
-        }else if item.title == "电池型号"{
-            //           let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-            //            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
-            
         }
     }
-    
+    fileprivate func updateDatas(){
+        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,bikeDetail: self.bikeDetail,coupon: self.coupon,depositService: self.depositService)
+        self.updateItem(where: { packageCard in
+            return packageCard.identifier == newPackageCard.identifier
+        }, with: newPackageCard)
+    }
     
 }
 

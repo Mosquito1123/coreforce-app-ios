@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSNumber *selected;
 @property (nonatomic, strong) NSString *amount;
+@property (nonatomic, strong) NSNumber *authOrder;
 
 @end
 

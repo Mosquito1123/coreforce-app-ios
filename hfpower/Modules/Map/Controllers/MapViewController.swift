@@ -10,7 +10,10 @@ import MapKit
 import FloatingPanel
 class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
     func rentBike(number: String?) {
-        
+        let bikeRentalViewController = BikeRentalViewController()
+        bikeRentalViewController.bikeNumber = number ?? ""
+        self.navigationController?.pushViewController(bikeRentalViewController, animated: true)
+
     }
     
     func batteryReplacement(id: Int?, number: String?) {

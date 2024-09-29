@@ -8,7 +8,9 @@
 import UIKit
 class PersonalViewController: BaseViewController, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
     func rentBike(number: String?) {
-        
+        let bikeRentalViewController = BikeRentalViewController()
+        bikeRentalViewController.bikeNumber = number ?? ""
+        self.navigationController?.pushViewController(bikeRentalViewController, animated: true)
     }
     
     func batteryReplacement(id: Int?, number: String?) {
