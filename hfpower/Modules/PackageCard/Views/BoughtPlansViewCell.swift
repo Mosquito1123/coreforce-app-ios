@@ -14,6 +14,8 @@ class BoughtPlansViewCell: BaseTableViewCell<BuyPackageCard> {
         self.titleLabel.text = element?.title
         if let packageCard = element?.boughtPackageCard{
             self.contentLabel.text = "\(packageCard.price)元/\(packageCard.days)天"
+        }else{
+            self.contentLabel.text = "--元/--天"
         }
         
     }

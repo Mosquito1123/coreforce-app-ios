@@ -77,7 +77,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         self.getData(ourPackageCardUrl, param: params, isLoading: false) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
                 var items = [BuyPackageCard]()
-                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.batteryTypeName, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
+                items.append(BuyPackageCard(title: "电池型号",subtitle: "", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type",batteryType: self.batteryType))
                 let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
                 if limitedList.count != 0{
                     items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
@@ -111,7 +111,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                     BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
                 ]:[
-                    BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier(),boughtPackageCard: self.boughtPackageCard),
                     BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
                     BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
@@ -181,7 +181,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     
     fileprivate func updateDatas(){
-        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType,batteryDetail: self.batteryDetail,coupon: self.coupon,depositService: self.depositService)
+        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,boughtPackageCard: self.boughtPackageCard,batteryType: self.batteryType,batteryDetail: self.batteryDetail,coupon: self.coupon,depositService: self.depositService)
         self.updateItem(where: { packageCard in
             return packageCard.identifier == newPackageCard.identifier
         }, with: newPackageCard)
@@ -265,7 +265,9 @@ private extension BatteryRentalViewController {
         }
         
       
-        params["authOrder"] = self.depositService?.authOrder.intValue ?? 1
+        if let authOrder = self.depositService{
+            params["authOrder"] = authOrder
+        }
         if let packageCard = self.boughtPackageCard{
             params["leaseDuration"] = packageCard.days
             params["payVoucherId"] = packageCard.id
@@ -476,7 +478,6 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
             let myPackageCardListViewController = MyPackageCardListViewController()
             myPackageCardListViewController.deviceNumber = self.batteryNumber
             myPackageCardListViewController.selectedBlock = { model in
-                if let _ = model{
                     let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
                     commonCell?.cancelAllSelected()
                     let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
@@ -484,7 +485,7 @@ extension BatteryRentalViewController:UITableViewDataSource,UITableViewDelegate 
                     let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
                     newCell?.cancelAllSelected()
                     
-                }
+                
                 self.boughtPackageCard = model
                 self.packageCard = model
                 item.boughtPackageCard = model

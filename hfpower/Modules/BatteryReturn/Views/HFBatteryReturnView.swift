@@ -86,14 +86,24 @@ class HFBatteryReturnView: UIView {
         button.addTarget(self, action: #selector(phoneCodeBtnClicked), for: .touchUpInside)
         return button
     }()
-    
+    lazy var hLineView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: self.frame.height - 42 - 14 - 14, width: self.frame.width, height: 0.5))
+        view.backgroundColor = UIColor(hex:0xE5E6EBFF)
+        return view
+    }()
+    lazy var vLineView: UIView = {
+        let view = UIView(frame: CGRect(x: self.frame.midX , y: self.frame.height - 42 - 14 - 14, width: 0.5, height: 42 + 14 + 14))
+        view.backgroundColor = UIColor(hex:0xE5E6EBFF)
+        return view
+    }()
     lazy var returnBattery: UIButton = {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: 24, y: self.frame.height - 42 - 14, width: (self.frame.width - 48 - 12) / 2, height: 42)
         button.layer.cornerRadius = 21
-        button.backgroundColor = UIColor.lightGray
+        button.backgroundColor = UIColor.white
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.setTitle("取消", for: .normal)
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(hex: 0x333333FF), for: .normal)
         button.addTarget(self, action: #selector(returnBatteryClicked), for: .touchUpInside)
         return button
     }()
@@ -102,9 +112,10 @@ class HFBatteryReturnView: UIView {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: returnBattery.frame.maxX + 12, y: self.frame.height - 42 - 14, width: (self.frame.width - 48 - 12) / 2, height: 42)
         button.layer.cornerRadius = 21
-        button.backgroundColor = UIColor(hex:0x447AFEFF)
+        button.backgroundColor = UIColor(hex:0xFFFFFFFF)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.setTitle("确认已归还", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor(hex: 0x447AFEFF), for: .normal)
         button.addTarget(self, action: #selector(verifyReturnBatteryClicked), for: .touchUpInside)
         return button
     }()
@@ -117,6 +128,8 @@ class HFBatteryReturnView: UIView {
         self.addSubview(hintTwo)
         self.addSubview(scanCabintBtn)
         self.addSubview(phoneCodeBtn)
+        self.addSubview(hLineView)
+        self.addSubview(vLineView)
         self.addSubview(returnBattery)
         self.addSubview(verifyReturn)
     }

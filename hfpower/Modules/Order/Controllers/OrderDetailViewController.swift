@@ -116,7 +116,11 @@ class OrderDetailViewController: BaseViewController,UITableViewDelegate,UITableV
         tableView.register(OrderDetailViewCell.self, forCellReuseIdentifier: OrderDetailViewCell.cellIdentifier())
         tableView.register(OrderDetailHeaderView.self, forHeaderFooterViewReuseIdentifier: OrderDetailHeaderView.viewIdentifier())
         let tableFooterView = OrderDetailFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 67))
-        
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
         tableView.tableFooterView = tableFooterView
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(hex:0xF6F6F6FF)

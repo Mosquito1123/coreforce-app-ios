@@ -10,10 +10,36 @@ import UIKit
 class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     
     // MARK: - Accessor
-    var useNowBlock:ButtonActionBlock?
+    var useNowBlock:ButtonActionBlock?{
+        didSet{
+            self.useNowButton.addTarget(self, action: #selector(useNow(_:)), for: .touchUpInside)
+        }
+    }
     var perDayLabelLeading:NSLayoutConstraint!
     var perDayLabelTop:NSLayoutConstraint!
+    func addDays(timestamp timestampString:String,with days:Int)->String{
+      
+        // 创建日期格式化器
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
+        // 将字符串转换为日期
+        if let date = dateFormatter.date(from: timestampString) {
+            // 获取日历
+            let calendar = Calendar.current
+            
+            // 添加一天
+            if let newDate = calendar.date(byAdding: .day, value: days, to: date) {
+                // 转换为字符串
+                let newTimestampString = dateFormatter.string(from: newDate)
+                print("原始时间戳: \(timestampString)")
+                print("添加一天后的时间戳字符串: \(newTimestampString)")
+                return newTimestampString
+                
+            }
+        }
+        return timestampString
+    }
     override func configure() {
         guard let item = element else {return}
         switch item.deviceType.intValue {
@@ -24,7 +50,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
 
         }
         self.titleLabel.text = "\(item.price)元/\(item.days)天"
-        self.periodLabel.text = "有效期：\(item.startDate)至\(item.endDate)"
+        self.periodLabel.text = item.remainDays.intValue != 0 ? "有效期至：\(self.addDays(timestamp: item.createAt, with: item.remainDays.intValue))":"永久有效"
         let attributedText = NSAttributedString(string: "￥\(item.originalPrice)",
                                                 attributes: [
                                                     .strikethroughStyle: NSUnderlineStyle.single.rawValue,
@@ -49,6 +75,7 @@ class AllPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     lazy var containerView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "my_package_card_background_unselected")
+        view.isUserInteractionEnabled = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return  view
     }()

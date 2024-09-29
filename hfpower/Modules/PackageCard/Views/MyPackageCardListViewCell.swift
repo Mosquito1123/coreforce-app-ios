@@ -10,6 +10,29 @@ import UIKit
 class MyPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
     
     // MARK: - Accessor
+    func addDays(timestamp timestampString:String,with days:Int)->String{
+      
+        // 创建日期格式化器
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        // 将字符串转换为日期
+        if let date = dateFormatter.date(from: timestampString) {
+            // 获取日历
+            let calendar = Calendar.current
+            
+            // 添加一天
+            if let newDate = calendar.date(byAdding: .day, value: days, to: date) {
+                // 转换为字符串
+                let newTimestampString = dateFormatter.string(from: newDate)
+                print("原始时间戳: \(timestampString)")
+                print("添加一天后的时间戳字符串: \(newTimestampString)")
+                return newTimestampString
+                
+            }
+        }
+        return timestampString
+    }
     override func configure() {
         guard let item = element else {return}
         statusImageView.image = item.selected.boolValue ? UIImage(named: "selected"):UIImage(named: "unselected")
@@ -22,10 +45,7 @@ class MyPackageCardListViewCell: BaseTableViewCell<HFPackageCardModel> {
 
         }
         self.titleLabel.text = "\(item.price)元/\(item.days)天"
-        self.periodLabel.text = "有效期：\(item.startDate)至\(item.endDate)"
-        
-      
-        
+        self.periodLabel.text = item.remainDays.intValue != 0 ? "有效期至：\(self.addDays(timestamp: item.createAt, with: item.remainDays.intValue))":"永久有效"
         self.tipsLabel.text = "限\(item.cityName)使用"
         
     

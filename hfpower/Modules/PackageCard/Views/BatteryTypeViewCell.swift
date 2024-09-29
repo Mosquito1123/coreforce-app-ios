@@ -13,7 +13,11 @@ class BatteryTypeViewCell: BaseTableViewCell<BuyPackageCard> {
     override func configure() {
         self.iconImageView.image = UIImage(named: element?.icon ?? "")
         self.titleLabel.text = element?.title
-        self.contentLabel.text = element?.subtitle
+        if let batteryType = element?.batteryType{
+            self.contentLabel.text = "\(batteryType.batteryNumber)\n\n\(batteryType.largeTypeName)"
+        }else if let batteryDetail = element?.batteryDetail{
+            self.contentLabel.text = "\(batteryDetail.number)\n\n\(batteryDetail.largeTypeName)"
+        }
     }
     // MARK: - Subviews
     lazy var containerView: UIView = {
@@ -39,7 +43,8 @@ class BatteryTypeViewCell: BaseTableViewCell<BuyPackageCard> {
     }()
     lazy var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "64V36AH"
+        label.text = "--\n\n--"
+        label.textAlignment = .right
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
@@ -96,12 +101,12 @@ private extension BatteryTypeViewCell {
             iconImageView.heightAnchor.constraint(equalToConstant: 18),
             iconImageView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor,constant: 12),
             iconImageView.topAnchor.constraint(equalTo: self.containerView.topAnchor,constant: 16),
-            iconImageView.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor,constant: -16),
             iconImageView.trailingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor,constant: -10),
             self.titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentLabel.leadingAnchor,constant: -12),
-            self.titleLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor),
-            self.titleLabel.centerYAnchor.constraint(equalTo: contentLabel.centerYAnchor),
+            self.titleLabel.topAnchor.constraint(equalTo: self.containerView.topAnchor,constant: 16),
+            self.titleLabel.firstBaselineAnchor.constraint(equalTo: self.contentLabel.firstBaselineAnchor),
             self.contentLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -14),
+            self.contentLabel.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor,constant: -16),
         ])
     }
     

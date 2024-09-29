@@ -668,6 +668,7 @@
 		049BDFE32C19981A00C46D6D /* HomeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeManager.swift; sourceTree = "<group>"; };
 		049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDepositInfo.swift; sourceTree = "<group>"; };
 		049BDFE72C199FAD00C46D6D /* MainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManager.swift; sourceTree = "<group>"; };
+		04A2FA122CA9C41F00C2BE41 /* sLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sLocation.gpx; sourceTree = "<group>"; };
 		04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRpResponse.swift; sourceTree = "<group>"; };
 		04A5E51E2C1C253400787551 /* HFScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFScanViewController.swift; sourceTree = "<group>"; };
 		04A5E5202C1C25B000787551 /* MyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCodeViewController.swift; sourceTree = "<group>"; };
@@ -2228,6 +2229,7 @@
 				331C90C82BC6C60100BB534F /* LaunchScreen.storyboard */,
 				331C90CB2BC6C60100BB534F /* Info.plist */,
 				045164E32C1A9C5600ABE7F1 /* SwiftiOS-Bridging-Header.h */,
+				04A2FA122CA9C41F00C2BE41 /* sLocation.gpx */,
 			);
 			path = hfpower;
 			sourceTree = "<group>";

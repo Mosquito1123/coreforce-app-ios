@@ -80,6 +80,11 @@ class DepositManagementViewController: BaseViewController,UITableViewDelegate,UI
         tableView.tableFooterView = tableFooterView
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(hex:0xF7F7F7FF)
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        } else {
+            // Fallback on earlier versions
+        }
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false

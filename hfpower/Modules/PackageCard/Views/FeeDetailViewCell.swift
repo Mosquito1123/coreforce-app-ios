@@ -28,7 +28,13 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
                 self.batteryDepositLabel.text = "电池押金"
                 let depositAmount = batteryType.batteryDeposit
                 self.batteryDepositAmountLabel.text = "\(depositAmount)元"
+            }else if let batteryDetail = element?.batteryDetail{
+                self.batteryRentLabel.text = "电池租金"
+                self.batteryDepositLabel.text = "电池押金"
+                let depositAmount = batteryDetail.batteryDeposit
+                self.batteryDepositAmountLabel.text = "\(depositAmount)元"
             }
+            
         }
 
 

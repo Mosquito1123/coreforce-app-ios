@@ -9,13 +9,12 @@ import UIKit
 
 class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     // MARK: - Accessor
-    @objc var batteryType:HFBatteryRentalTypeInfo?{
+    var boughtPackageCard:HFPackageCardModel?
+    var batteryDetail:HFBatteryDetail?{
         didSet{
-            self.batteryNumber = batteryType?.batteryNumber ?? ""
+            self.batteryNumber = batteryDetail?.number ?? ""
         }
     }
-    var boughtPackageCard:HFPackageCardModel?
-    var batteryDetail:HFBatteryDetail?
     var depositService:HFDepositService?
     var packageCard:HFPackageCardModel?
     var coupon:HFCouponData?
@@ -70,11 +69,13 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
         
         var params = [String: Any]()
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        params["largeTypeId"] = self.batteryType?.largeTypeId
+        if let largeTypeId = self.batteryDetail?.largeTypeId{
+            params["largeTypeId"] = largeTypeId
+        }
         self.getData(ourPackageCardUrl, param: params, isLoading: false) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
                 var items = [BuyPackageCard]()
-                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.batteryTypeName, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
+                items.append(BuyPackageCard(title: "电池型号",subtitle: "", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type",batteryDetail:self.batteryDetail))
                 let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
                 if limitedList.count != 0{
                     items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
@@ -85,7 +86,7 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
                 }
                 let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
                 if buyList.count != 0{
-                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.batteryTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
+                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryDetail?.largeTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
                 }
                 let depositService0 = HFDepositService()
                 depositService0.id = 0
@@ -99,17 +100,17 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
                 depositService1.title = "支付押金"
                 depositService1.content = "退租后，押金可退"
                 depositService1.selected = NSNumber(booleanLiteral: false)
-                depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
+                depositService1.amount = "\(self.batteryDetail?.number ?? "")元"
                 depositService1.authOrder = 0
                 let temp = self.payDeposit ? [
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
                     BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
-                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryDetail: self.batteryDetail),
                     BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
                 ]:[
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
-                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryDetail: self.batteryDetail),
                     BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
                 ]
@@ -178,36 +179,7 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
         }
         
     }
-    func loadData(){
-        let code = CityCodeManager.shared.cityCode ?? "370200"
-        
-        var params = [String: Any]()
-        params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        params["largeTypeId"] = self.batteryType?.id
-        self.getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
-                var items = [BuyPackageCard]()
-                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.batteryTypeName, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
-                let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
-                if limitedList.count != 0{
-                    items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
-                }
-                let newList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 3}
-                if newList.count != 0{
-                    items.append(BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList))
-                }
-                let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
-                if buyList.count != 0{
-                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.batteryTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
-                }
-                items.append(BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()))
-                self.items = items
-            }
-        } error: { error in
-            self.showError(withStatus: error.localizedDescription)
-        }
-        
-    }
+    
     
 }
 
@@ -215,7 +187,7 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
 private extension BatteryRenewViewController {
     
     private func setupNavbar() {
-        self.title = "电车续费"
+        self.title = "电池续费"
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
@@ -286,12 +258,14 @@ private extension BatteryRenewViewController {
             params["storeMemberNumber"] = cellx.content
 
         }
-        params["authOrder"] = self.depositService?.authOrder ?? 1
+        if let authOrder = self.depositService{
+            params["authOrder"] = authOrder
+        }
         if let packageCard = self.boughtPackageCard{
             params["leaseDuration"] = packageCard.days
             params["payVoucherId"] = packageCard.id
             params["storeMemberId"] = packageCard.storeMemberId
-            if let agentId = self.batteryType?.agentId{
+            if let agentId = self.batteryDetail?.agentId{
                 params["agentId"] = agentId
             }
 
@@ -544,7 +518,7 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
         }
     }
     fileprivate func updateDatas(){
-        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType,coupon: self.coupon,depositService: self.depositService)
+        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryDetail: self.batteryDetail,coupon: self.coupon,depositService: self.depositService)
         self.updateItem(where: { packageCard in
             return packageCard.identifier == newPackageCard.identifier
         }, with: newPackageCard)

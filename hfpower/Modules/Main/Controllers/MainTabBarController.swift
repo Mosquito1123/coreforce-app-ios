@@ -320,28 +320,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
             self.showError(withStatus: error.localizedDescription)
         }
 
-        /*NetworkService<BusinessAPI,CabinetScanResponse>().request(.cabinetScan(cabinetNumber: number, batteryId: id)) { result in
-            switch result {
-            case .success(let response):
-                
-                if response?.status == 1{
-                    self.showAlertController(titleText: "提示", messageText: "柜中电池电量低于更换电池是否替换") {
-                        let batteryReplacementViewController = BatteryReplacementViewController()
-                        batteryReplacementViewController.opNo = response?.opNo ?? ""
-                        self.navigationController?.pushViewController(batteryReplacementViewController, animated: true)
-                    }cancelAction: {
-                        
-                    }
-                }else if response?.status == 2{
-                    let batteryReplacementViewController = BatteryReplacementViewController()
-                    batteryReplacementViewController.opNo = response?.opNo ?? ""
-                    self.navigationController?.pushViewController(batteryReplacementViewController, animated: true)
-                }
-            case .failure(let failure):
-                self.showError(withStatus: failure.localizedDescription)
-                
-            }
-        }             */
+        
 
     }
     func addRoundedCorners() {

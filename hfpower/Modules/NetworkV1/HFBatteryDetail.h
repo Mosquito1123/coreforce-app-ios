@@ -56,6 +56,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)BOOL isRefundChangeFee;//是否退换换电费
 @property(nonatomic,copy)NSString* changeEndDateMember;//换电有效期
 @property(nonatomic,assign)int changeRemainTimesMember;//剩余换电次数
+@property (nonatomic, strong) NSNumber *ringStatus;
+@property (nonatomic, strong) NSNumber *monthRent;
+@property (nonatomic, strong) NSNumber *batteryDeposit;
+@property (nonatomic, strong) NSNumber *duration;
+@property (nonatomic, strong) NSString *largeTypeName;
+@property (nonatomic, strong) NSNumber *deposit;
+@property (nonatomic, strong) NSString *storeName;
+@property (nonatomic, strong) NSNumber *gpsOnLine;
+@property (nonatomic, strong) NSNumber *largeTypeId;
+
 @end
 
 NS_ASSUME_NONNULL_END
