@@ -70,9 +70,10 @@ class BikeRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         let buyList = [1,2,3,5,7,10].enumerated().map { (index,value) in
             let packageCard = HFPackageCardModel()
             packageCard.id = NSNumber(value: index)
-            packageCard.price = NSNumber(value: (self.bikeDetail?.planRent ?? 0)*value)
-            packageCard.days = NSNumber(value: value)
-            packageCard.originalPrice = NSNumber(value: (self.bikeDetail?.planRent ?? 0)*value + 10)
+            packageCard.price = NSNumber(value:(self.bikeDetail?.planRent ?? 0) * value)
+            packageCard.days = NSNumber(value:(self.bikeDetail?.duration.doubleValue ?? 0)*value)
+            packageCard.count = NSNumber(value:value)
+            packageCard.originalPrice = NSNumber(value: (self.bikeDetail?.planRent ?? 0)*value * 1.2)
             return packageCard
         }
         items.append(BuyPackageCard(title: "机车套餐",subtitle: "", identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
@@ -230,7 +231,7 @@ private extension BikeRentalViewController {
     func placeAnOrder(payChannel:Int){
         var params = [String: Any]()
         params["locomotiveNumber"] = self.bikeNumber
-        params["locomotiveLeaseDuration"] = self.packageCard?.days ?? 0
+        params["locomotiveLeaseDuration"] = self.packageCard?.count ?? 0
         if let coupon = self.coupon{
             params["locomotiveCouponId"] = coupon.id
         }
@@ -240,7 +241,7 @@ private extension BikeRentalViewController {
         }
         params["storeMemberId"] = self.bikeDetail?.memberId
         params["agentId"] = self.bikeDetail?.agentId
-        params["authOrder"] = self.depositService?.authOrder ?? 0
+        params["authOrder"] = self.depositService?.authOrder ?? 1
         self.postData(orderUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
                 if let authData = body["authData"] as? String{

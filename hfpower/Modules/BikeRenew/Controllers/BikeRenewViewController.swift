@@ -68,9 +68,10 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
         var buyList = [1,2,3,5,7,10,20,30,60,90,180].enumerated().map { (index,value) in
             var packageCard = HFPackageCardModel()
             packageCard.id = NSNumber(value: index)
-            packageCard.price = NSNumber(value: (self.bikeDetail?.planRent ?? 0)*value)
-            packageCard.days = NSNumber(value: value)
-            packageCard.originalPrice = NSNumber(value: (self.bikeDetail?.planRent ?? 0)*value + 10)
+            packageCard.price = NSNumber(value:(self.bikeDetail?.planRent ?? 0) * value)
+            packageCard.days = NSNumber(value:(self.bikeDetail?.duration.doubleValue ?? 0)*value)
+            packageCard.count = NSNumber(value:value)
+            packageCard.originalPrice = NSNumber(value: (self.bikeDetail?.planRent ?? 0)*value * 1.2)
             return packageCard
         }
         items.append(BuyPackageCard(title: "机车套餐",subtitle: "", identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
@@ -88,7 +89,7 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
         depositService1.selected = NSNumber(booleanLiteral: false)
         depositService1.amount = "\(self.bikeDetail?.planDeposit ?? 0)元"
         depositService1.authOrder = NSNumber(integerLiteral: 0)
-        var temp = self.payDeposit ? [
+        let temp = self.payDeposit ? [
 //            BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
             BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
             BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,bikeDetail: self.bikeDetail),
@@ -229,7 +230,7 @@ private extension BikeRenewViewController {
     func placeAnOrder(payChannel:Int){
         var params = [String: Any]()
         params["locomotiveNumber"] = self.bikeNumber
-        params["locomotiveLeaseDuration"] = self.packageCard?.days ?? 0
+        params["locomotiveLeaseDuration"] = self.packageCard?.count ?? 0
         if let coupon = self.coupon{
             params["locomotiveCouponId"] = coupon.id
         }
@@ -239,7 +240,7 @@ private extension BikeRenewViewController {
         }
         params["storeMemberId"] = self.bikeDetail?.memberId
         params["agentId"] = self.bikeDetail?.agentId
-        params["authOrder"] = self.depositService?.authOrder ?? 0
+        params["authOrder"] = self.depositService?.authOrder ?? 1
         self.postData(renewalUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
                 if let authData = body["authData"] as? String{

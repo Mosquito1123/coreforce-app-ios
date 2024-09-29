@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *tag;
 @property (nonatomic, strong) NSNumber *selected;
 @property (nonatomic, strong) NSNumber *cellType;
+@property (nonatomic, strong) NSNumber *count;
 
 @end
 

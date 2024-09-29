@@ -44,6 +44,14 @@ class HFScanTool{
                         vc.cabinetRentBattery(number: typeName)
                     }
                 }else if resultStr == "l" {//机车
+                    if let firstBikeNumber = HFKeyedArchiverTool.bikeDetailList().first?.number, firstBikeNumber == typeName {
+                        let batteryVC = BikeDetailViewController()
+                        vc.navigationController?.pushViewController(batteryVC, animated: true)
+                        return
+                    } else if let firstBikeNumber = HFKeyedArchiverTool.bikeDetailList().first?.number, firstBikeNumber != typeName {
+                        vc.showError(withStatus: "已租电车，请勿重复租车")
+                        return
+                    }
                     vc.rentBike(number: typeName)
                 }else{
                     vc.showError(withStatus: "二维码错误，请扫核蜂换电有关二维码进行扫码")

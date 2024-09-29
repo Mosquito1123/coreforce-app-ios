@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)NSInteger rentStatus;
 @property(nonatomic,assign)NSInteger type;
 //@property(nonatomic,assign)int vin;
+@property(nonatomic,copy)NSNumber* duration;
 @property(nonatomic,copy)NSString* vin;
 @property(nonatomic,assign)NSInteger memberPhoneNum;
 @property(nonatomic,assign)NSInteger originalOrderId;

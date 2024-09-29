@@ -263,7 +263,7 @@ private extension BatteryRentalViewController {
         }
         params["storeMemberId"] = self.packageCard?.memberId ?? 0
         params["agentId"] = self.batteryType?.agentId
-        params["authOrder"] = self.depositService?.authOrder ?? 0
+        params["authOrder"] = self.depositService?.authOrder ?? 1
         params["payVoucherId"] = self.packageCard?.id
         self.postData(orderUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{

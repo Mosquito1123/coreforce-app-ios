@@ -18,7 +18,7 @@ class BuyPackageCardBottomView: UIView {
             let bikeDeposit =  element?.bikeDetail?.planDeposit ?? 0
             let authOrder = element?.depositServices?.first(where: { ds in
                 return ds.selected.boolValue
-            })?.authOrder ?? 0
+            })?.authOrder ?? 1
             var total = 0.0
             let discountAmount = element?.coupon?.discountAmount ?? 0
             if let couponType = element?.coupon?.couponType{
