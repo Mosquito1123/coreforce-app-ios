@@ -15,7 +15,7 @@ class BoughtPlansViewCell: BaseTableViewCell<BuyPackageCard> {
         if let packageCard = element?.boughtPackageCard{
             self.contentLabel.text = "\(packageCard.price)元/\(packageCard.days)天"
         }else{
-            self.contentLabel.text = "--元/--天"
+            self.contentLabel.text = ""
         }
         
     }
@@ -39,7 +39,7 @@ class BoughtPlansViewCell: BaseTableViewCell<BuyPackageCard> {
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "--元/--天"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(hex:0x333333FF)
         label.translatesAutoresizingMaskIntoConstraints = false

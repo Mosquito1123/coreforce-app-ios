@@ -12,35 +12,61 @@ class BuyPackageCardBottomView: UIView {
     // MARK: - Accessor
     var element:BuyPackageCard?{
         didSet{
-
-            let originalPrice = element?.packageCard?.price.doubleValue ?? 0
-            let batteryDeposit = (element?.batteryType?.batteryDeposit as? NSString)?.doubleValue ?? 0
-            let bikeDeposit =  element?.bikeDetail?.planDeposit ?? 0
-            let authOrder = element?.depositServices?.first(where: { ds in
-                return ds.selected.boolValue
-            })?.authOrder ?? 1
-            var total = 0.0
-            let discountAmount = element?.coupon?.discountAmount ?? 0
-            if let couponType = element?.coupon?.couponType{
-                if couponType == 4 || couponType == 5 || authOrder == 1{
-                    total = originalPrice - discountAmount
+            if let boughtPackageCard = element?.boughtPackageCard{
+                var total = 0.0
+                let batteryDeposit = (element?.batteryType?.batteryDeposit as? NSString)?.doubleValue ?? 0
+                let bikeDeposit =  element?.bikeDetail?.planDeposit ?? 0
+                let authOrder = element?.depositService?.authOrder ?? 1
+                let discountAmount = element?.coupon?.discountAmount ?? 0
+                if let couponType = element?.coupon?.couponType{
+                    if couponType == 4 || couponType == 5 || authOrder == 1{
+                        total = 0
+                    }else{
+                        total = batteryDeposit + bikeDeposit
+                    }
                 }else{
-                    total = originalPrice + batteryDeposit + bikeDeposit - discountAmount
+                    if authOrder == 1{
+                        total = 0
+
+                    }else{
+                        total =  batteryDeposit + bikeDeposit
+                    }
+
                 }
+                let nf = NumberFormatter()
+                nf.maximumFractionDigits = 2
+                nf.minimumFractionDigits = 0
+                self.totalLabel.text = nf.string(from: NSNumber(value: total))
+                self.submitButton.isEnabled = total >= 0 && self.statusButton.isSelected
             }else{
-                if authOrder == 1{
-                    total = originalPrice
-
+                let originalPrice = element?.packageCard?.price.doubleValue ?? 0
+                let batteryDeposit = (element?.batteryType?.batteryDeposit as? NSString)?.doubleValue ?? 0
+                let bikeDeposit =  element?.bikeDetail?.planDeposit ?? 0
+                let authOrder = element?.depositService?.authOrder ?? 1
+                var total = 0.0
+                let discountAmount = element?.coupon?.discountAmount ?? 0
+                if let couponType = element?.coupon?.couponType{
+                    if couponType == 4 || couponType == 5 || authOrder == 1{
+                        total = originalPrice - discountAmount
+                    }else{
+                        total = originalPrice + batteryDeposit + bikeDeposit - discountAmount
+                    }
                 }else{
-                    total = originalPrice + batteryDeposit + bikeDeposit
-                }
+                    if authOrder == 1{
+                        total = originalPrice
 
+                    }else{
+                        total = originalPrice + batteryDeposit + bikeDeposit
+                    }
+
+                }
+                let nf = NumberFormatter()
+                nf.maximumFractionDigits = 2
+                nf.minimumFractionDigits = 0
+                self.totalLabel.text = nf.string(from: NSNumber(value: total))
+                self.submitButton.isEnabled = total >= 0 && self.statusButton.isSelected
             }
-            let nf = NumberFormatter()
-            nf.maximumFractionDigits = 2
-            nf.minimumFractionDigits = 0
-            self.totalLabel.text = nf.string(from: NSNumber(value: total))
-            self.submitButton.isEnabled = total >= 0 && self.statusButton.isSelected
+            
         }
     }
     // MARK: - Subviews
@@ -162,7 +188,7 @@ private extension BuyPackageCardBottomView {
         addSubview(privacyView)
         addSubview(statusButton)
         addSubview(submitButton)
-        submitButton.isEnabled = element?.packageCard?.price != nil && self.statusButton.isSelected
+        submitButton.isEnabled = element?.packageCard?.price != nil && element?.boughtPackageCard != nil && self.statusButton.isSelected
     }
     
     private func setupLayout() {
@@ -205,7 +231,7 @@ extension BuyPackageCardBottomView {
     @objc private func statusChanged(_ button: UIButton) {
         button.isSelected = !button.isSelected
         if let model = self.element {
-            self.submitButton.isEnabled = model.packageCard?.price != nil && button.isSelected
+            self.submitButton.isEnabled = model.packageCard?.price != nil && model.boughtPackageCard != nil && button.isSelected
         }
     }
     
