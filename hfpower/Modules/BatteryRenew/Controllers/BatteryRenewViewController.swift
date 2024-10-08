@@ -100,11 +100,11 @@ class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
                 depositService1.title = "支付押金"
                 depositService1.content = "退租后，押金可退"
                 depositService1.selected = NSNumber(booleanLiteral: false)
-                depositService1.amount = "\(self.batteryDetail?.number ?? "")元"
+                depositService1.amount = "\(self.batteryDetail?.batteryDeposit ?? 0)元"
                 depositService1.authOrder = 0
                 let temp = self.payDeposit ? [
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier()),
-                    BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
+                    BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1],batteryDetail: self.batteryDetail),
                     BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryDetail: self.batteryDetail),
                     BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
@@ -290,7 +290,9 @@ private extension BatteryRenewViewController {
                 params["storeMemberNumber"] = cellx.content
 
             }
-            params["authOrder"] = self.depositService?.authOrder ?? 1
+            if let authOrder = self.depositService?.authOrder{
+                params["authOrder"] = authOrder
+            }
             if let packageCard = self.boughtPackageCard{
                 params["leaseDuration"] = packageCard.days
                 params["payVoucherId"] = packageCard.id
@@ -443,8 +445,8 @@ private extension BatteryRenewViewController {
     }
     func alipayAuth(_ payDataString:String!){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
-            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
-                if resultStatus == 9000{
+            if let resultStatus = resultDic?["resultStatus"] as? String{
+                if resultStatus == "9000"{
                     self.showSuccess(withStatus: "支付宝信用免押成功")
                 }else{
                     self.showError(withStatus: "支付宝信用免押失败")
@@ -455,8 +457,8 @@ private extension BatteryRenewViewController {
     }
     func alipay(_ payDataString:String!,successBlock: @escaping () -> Void,failureBlock: @escaping () -> Void){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
-            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
-                if resultStatus == 9000{
+            if let resultStatus = resultDic?["resultStatus"] as? String{
+                if resultStatus == "9000"{
                     successBlock()
 
                 }else{

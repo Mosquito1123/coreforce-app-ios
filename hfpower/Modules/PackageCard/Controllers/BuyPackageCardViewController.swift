@@ -145,8 +145,8 @@ private extension BuyPackageCardViewController {
     }
     func alipay(_ payDataString:String!){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
-            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
-                if resultStatus == 9000{
+            if let resultStatus = resultDic?["resultStatus"] as? String{
+                if resultStatus == "9000"{
                     self.navigationController?.popToRootViewController(animated: true)
 
                 }else{

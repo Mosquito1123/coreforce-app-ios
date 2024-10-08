@@ -297,8 +297,8 @@ private extension BikeRentalViewController {
     }
     func alipayAuth(_ payDataString:String!){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
-            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
-                if resultStatus == 9000{
+            if let resultStatus = resultDic?["resultStatus"] as? String{
+                if resultStatus == "9000"{
                     self.showSuccess(withStatus: "支付宝信用免押成功")
                 }else{
                     self.showError(withStatus: "支付宝信用免押失败")
@@ -309,8 +309,8 @@ private extension BikeRentalViewController {
     }
     func alipay(_ payDataString:String!){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
-            if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
-                if resultStatus == 9000{
+            if let resultStatus = resultDic?["resultStatus"] as? String{
+                if resultStatus == "9000"{
                     self.navigationController?.popToRootViewController(animated: true)
 
                 }else{

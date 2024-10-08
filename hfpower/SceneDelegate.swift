@@ -56,7 +56,45 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         
     }
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+           
+            
+            if url.host == "safepay" {
+                // 跳转支付宝客户端进行支付，处理支付结果
+                AlipaySDK.defaultService()?.processOrder(withPaymentResult: url, standbyCallback: nil)
+            }else{
+                let _ = WXPayTools.sharedInstance.handleOpen(url: url)
 
+            }
+            handleAuthorization(url: url)
+        }
+    }
+    // 在需要授权的地方调用这个方法
+    func handleAuthorization(url: URL) {
+        AlipaySDK.defaultService().processAuth_V2Result(url) { resultDic in
+            // 解析 auth code
+            if let result = resultDic?["result"] as? String {
+                var authCode: String?
+                let resultArray = result.components(separatedBy: "&")
+                for subResult in resultArray {
+                    if subResult.hasPrefix("auth_code=") {
+                        authCode = String(subResult.dropFirst("auth_code=".count))
+                        break
+                    }
+                }
+                
+                // 处理 authCode，例如存储或发送给服务器
+                if let code = authCode {
+                    print("Auth Code: \(code)")
+                } else {
+                    print("Auth code not found")
+                }
+            } else {
+                print("Result dictionary is nil or does not contain 'result'")
+            }
+        }
+    }
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

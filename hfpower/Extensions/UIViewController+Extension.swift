@@ -211,7 +211,6 @@ extension UIViewController{
         
         // Create the alert
         let alert = AlertController(attributedTitle: attributedString, attributedMessage: message, preferredStyle: .alert)
-        alert.visualStyle.width = (311.0/375.0)
         // Add buttons
         let cancelButton = UIButton(type: .custom)
         cancelButton.layer.cornerRadius = 20
