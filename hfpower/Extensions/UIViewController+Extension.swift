@@ -212,6 +212,7 @@ extension UIViewController{
         // Create the alert
         let alert = AlertController(attributedTitle: attributedString, attributedMessage: message, preferredStyle: .alert)
         // Add buttons
+        alert.visualStyle.backgroundColor = .white
         let cancelButton = UIButton(type: .custom)
         cancelButton.layer.cornerRadius = 20
         cancelButton.layer.masksToBounds = true
@@ -264,7 +265,7 @@ extension UIViewController{
         ])
         
         // Present the alert
-        alert.present()
+        self.present(alert, animated: true)
     }
     func showActionSheet(_ iconNames:[String],_ methods:[String],_ cancelTitle:String,_ handler:HandlerAction?){
         var list = [NSAttributedString]()
