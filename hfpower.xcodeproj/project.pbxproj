@@ -268,6 +268,7 @@
 		049BDFE42C19981A00C46D6D /* HomeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE32C19981A00C46D6D /* HomeManager.swift */; };
 		049BDFE62C19988700C46D6D /* BatteryDepositInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */; };
 		049BDFE82C199FAD00C46D6D /* MainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049BDFE72C199FAD00C46D6D /* MainManager.swift */; };
+		04A2FA182CB50F2700C2BE41 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A2FA172CB50F2700C2BE41 /* WalletViewController.swift */; };
 		04A5E5172C1AD53E00787551 /* MemberRpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */; };
 		04A5E51F2C1C253400787551 /* HFScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5E51E2C1C253400787551 /* HFScanViewController.swift */; };
 		04A5E5212C1C25B000787551 /* MyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A5E5202C1C25B000787551 /* MyCodeViewController.swift */; };
@@ -669,6 +670,7 @@
 		049BDFE52C19988700C46D6D /* BatteryDepositInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryDepositInfo.swift; sourceTree = "<group>"; };
 		049BDFE72C199FAD00C46D6D /* MainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManager.swift; sourceTree = "<group>"; };
 		04A2FA122CA9C41F00C2BE41 /* sLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = sLocation.gpx; sourceTree = "<group>"; };
+		04A2FA172CB50F2700C2BE41 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		04A5E5162C1AD53E00787551 /* MemberRpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRpResponse.swift; sourceTree = "<group>"; };
 		04A5E51E2C1C253400787551 /* HFScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFScanViewController.swift; sourceTree = "<group>"; };
 		04A5E5202C1C25B000787551 /* MyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCodeViewController.swift; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 		0415AF1A2BC9155D00E9290D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				04A2FA132CB50EE400C2BE41 /* Wallet */,
 				0425F1CC2C94AA1E008135E5 /* BatteryReturn */,
 				0495A54E2C92E42100C2D03A /* BikeRental */,
 				0495A5482C92E38400C2D03A /* BikeRenew */,
@@ -2077,6 +2080,38 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		04A2FA132CB50EE400C2BE41 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				04A2FA162CB50F0000C2BE41 /* Models */,
+				04A2FA152CB50EF900C2BE41 /* Views */,
+				04A2FA142CB50EEE00C2BE41 /* Controllers */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		04A2FA142CB50EEE00C2BE41 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				04A2FA172CB50F2700C2BE41 /* WalletViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		04A2FA152CB50EF900C2BE41 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		04A2FA162CB50F0000C2BE41 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		04A5E51A2C1C24CA00787551 /* Scan */ = {
 			isa = PBXGroup;
 			children = (
@@ -2636,6 +2671,7 @@
 				04FB1C002C25667A00F47E79 /* CabinetDetailResponse.swift in Sources */,
 				04F096B52C91883600C989A7 /* HFCabinetExtraInfo.m in Sources */,
 				04F4CFC92C75825400F5F764 /* BatteryStatusViewCell.swift in Sources */,
+				04A2FA182CB50F2700C2BE41 /* WalletViewController.swift in Sources */,
 				0415AF3C2BCCBD8D00E9290D /* BusinessAPI.swift in Sources */,
 				0451657C2C1AC0DF00ABE7F1 /* UIAlertController+IDCardExtend.m in Sources */,
 				04F4CFAF2C731CCD00F5F764 /* OrderDetail.swift in Sources */,

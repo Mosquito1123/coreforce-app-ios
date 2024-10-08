@@ -51,6 +51,8 @@
 #define batteryUrl @"/app/api/battery"//查询电池接口
 #define renewalUrl @"app/api/renewal"//下单详情接口
 #define orderUrl @"/app/api/order"//订单详情接口
+#define newRenewalUrl @"app/api/v2/renewal"//下单详情接口
+#define newOrderUrl @"/app/api/v2/order"//订单详情接口
 #define orderAuthUrl @"/app/api/order/auth"//订单预授权详情接口
 #define orderCancelUrl @"/app/api/order/cancel"//取消订单接口
 #define batteryTimeChangeCardCancelUrl @"/app/api/batteryTimeChangeCard/cancel"//换点卡取消订单接口

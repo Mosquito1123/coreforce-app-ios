@@ -249,89 +249,197 @@ private extension BatteryRenewViewController {
         ])
     }
     func placeAnOrder(payChannel:Int){
-        var params = [String: Any]()
-        params["batteryNumber"] = self.batteryNumber
-        if let coupon = self.coupon{
-            params["couponId"] = coupon.id
-        }
-        if  let cellx = self.getCell(byType: RecommendViewCell.self){
-            params["storeMemberNumber"] = cellx.content
-
-        }
-        if let authOrder = self.depositService{
-            params["authOrder"] = authOrder
-        }
-        if let packageCard = self.boughtPackageCard{
-            params["leaseDuration"] = packageCard.days
-            params["payVoucherId"] = packageCard.id
-            params["storeMemberId"] = packageCard.memberId
-            if let agentId = self.batteryDetail?.agentId{
-                params["agentId"] = agentId
-            }
-
-        }else{
-            if let days = self.packageCard?.days{
-                params["leaseDuration"] = days
-            }
-
-        }
-        self.postData(renewalUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
-                if let authData = body["authData"] as? String{
-                    self.alipayAuth(authData)
-                    if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
-                        let orderDetailVC = OrderDetailViewController()
-                        orderDetailVC.id = orderDetail.id
-                        self.navigationController?.pushViewController(orderDetailVC, animated: true)
-                        // 移除当前 ViewControllerA
-                        if let viewControllers = self.navigationController?.viewControllers {
-                            // 创建一个新的视图控制器数组
-                            var newStack = viewControllers
-                            newStack.removeAll { vc in
-                                return vc == self
-                            } // 移除当前视图控制器
-                            self.navigationController?.setViewControllers(newStack, animated: false) // 更新导航栈
+        if let packageCard = self.packageCard{
+            if payChannel == 1{
+                
+                self.postData(buyPackageCardUrl, param: ["payChannel":1,"from":"app","id":packageCard.id], isLoading: true) { responseObject in
+                    if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
+                        if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
+                            self.wxPay(payDataModel) {
+                                
+                            } failureBlock: {
+                                self.showError(withStatus: "支付失败")
+                            }
                         }
                     }
-                }else{
-                    if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
-                        let finalValue = orderDetail.totalAmount - orderDetail.couponDiscountAmount
-                        if finalValue == 0.0{
-                            self.showSuccess(withStatus: "支付成功")
-                            self.navigationController?.popToRootViewController(animated: true)
-
-                        }else{
-                            self.postData(orderPayUrl, param: ["orderId":orderDetail.id,"payMethod":payChannel], isLoading: true) { responseObject in
-                                
-                                if payChannel == 1{
-                                    if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
-                                        if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
-                                            self.wxPay(payDataModel)
-                                        }
-                                    }
-                                }else if payChannel == 2{
-                                    if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
-                                        self.alipay(payDataString)
-                                        
-                                    }
-                                }
-                                
-                                
-                            } error: { error in
-                                self.showError(withStatus: error.localizedDescription)
-
-                            }
+                } error: { error in
+                    self.showError(withStatus: error.localizedDescription)
+                }
+            }else if payChannel == 2{
+                self.postData(buyPackageCardUrl, param: ["payChannel":2,"from":"app","id":packageCard.id], isLoading: true) { responseObject in
+                    if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
+                        self.alipay(payDataString) {
+                            
+                        } failureBlock: {
+                            self.showError(withStatus: "支付失败")
                         }
                         
                     }
-                    
+                } error: { error in
+                    self.showError(withStatus: error.localizedDescription)
 
                 }
             }
-        } error: { error in
-            self.showError(withStatus: error.localizedDescription)
-        }
+        }else{
+            var params = [String: Any]()
+            params["batteryNumber"] = self.batteryNumber
+            if let coupon = self.coupon{
+                params["couponId"] = coupon.id
+            }
+            if  let cellx = self.getCell(byType: RecommendViewCell.self){
+                params["storeMemberNumber"] = cellx.content
 
+            }
+            params["authOrder"] = self.depositService?.authOrder ?? 1
+            if let packageCard = self.boughtPackageCard{
+                params["leaseDuration"] = packageCard.days
+                params["payVoucherId"] = packageCard.id
+                params["storeMemberId"] = packageCard.memberId
+                if let agentId = self.batteryDetail?.agentId{
+                    params["agentId"] = agentId
+                }
+
+            }
+            self.postData(newRenewalUrl, param: params, isLoading: true) { responseObject in
+                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any]{
+                    if let authData = body["authData"] as? String{
+                        self.alipayAuth(authData)
+                        if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                            let orderDetailVC = OrderDetailViewController()
+                            orderDetailVC.id = orderDetail.id
+                            self.navigationController?.pushViewController(orderDetailVC, animated: true)
+                            // 移除当前 ViewControllerA
+                            if let viewControllers = self.navigationController?.viewControllers {
+                                // 创建一个新的视图控制器数组
+                                var newStack = viewControllers
+                                newStack.removeAll { vc in
+                                    return vc == self
+                                } // 移除当前视图控制器
+                                self.navigationController?.setViewControllers(newStack, animated: false) // 更新导航栈
+                            }
+                        }
+                    }else{
+                        if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                            let finalValue = orderDetail.totalAmount - orderDetail.couponDiscountAmount
+                            if finalValue == 0.0{
+                                self.presentCustomAlert(withImage: "icon_success", titleText: "支付成功", messageText: "您已成功购买套餐，可前往已购套餐查看。", cancel: "取消", {
+                                    
+                                }, sure: "查看") {
+                                    self.navigationController?.popToRootViewController(animated: true)
+                                }
+
+                            }else{
+                                self.postData(orderPayUrl, param: ["orderId":orderDetail.id,"payMethod":payChannel], isLoading: true) { responseObject in
+                                    
+                                    if payChannel == 1{
+                                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
+                                            if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
+                                                self.wxPay(payDataModel) {
+                                                    self.presentCustomAlert(withImage: "icon_success", titleText: "支付成功", messageText: "您已成功购买套餐，可前往已购套餐查看。", cancel: "取消", {
+                                                        
+                                                    }, sure: "查看") {
+                                                        self.navigationController?.popToRootViewController(animated: true)
+                                                    }
+                                                } failureBlock: {
+                                                    self.presentCustomAlert(withImage: "icon_failure", titleText: "支付失败", messageText: "您的订单支付失败，是否取消订单？", cancel: "取消订单", {
+                                                        if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                                                            self.postData(orderCancelUrl,
+                                                                          param: ["orderId": orderDetail.id],
+                                                                     isLoading: true,
+                                                                     success: { [weak self] responseObject in
+                                                                self?.navigationController?.popViewController(animated: true)
+                                                            },
+                                                                     error: { error in
+                                                                // 处理错误
+                                                                self.showError(withStatus: error.localizedDescription)
+                                                            })
+                                                        }
+                                                        
+                                                    }, sure: "继续支付") {
+                                                        if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                                                            let orderDetailVC = OrderDetailViewController()
+                                                            orderDetailVC.id = orderDetail.id
+                                                            self.navigationController?.pushViewController(orderDetailVC, animated: true)
+                                                            // 移除当前 ViewControllerA
+                                                            if let viewControllers = self.navigationController?.viewControllers {
+                                                                // 创建一个新的视图控制器数组
+                                                                var newStack = viewControllers
+                                                                newStack.removeAll { vc in
+                                                                    return vc == self
+                                                                } // 移除当前视图控制器
+                                                                self.navigationController?.setViewControllers(newStack, animated: false) // 更新导航栈
+                                                            }
+                                                        }
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }else if payChannel == 2{
+                                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
+                                            self.alipay(payDataString) {
+                                                self.presentCustomAlert(withImage: "icon_success", titleText: "支付成功", messageText: "您已成功购买套餐，可前往已购套餐查看。", cancel: "取消", {
+                                                    
+                                                }, sure: "查看") {
+                                                    self.navigationController?.popToRootViewController(animated: true)
+                                                }
+                                            } failureBlock: {
+                                                self.presentCustomAlert(withImage: "icon_failure", titleText: "支付失败", messageText: "您的订单支付失败，是否取消订单？", cancel: "取消订单", {
+                                                    if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                                                        self.postData(orderCancelUrl,
+                                                                      param: ["orderId": orderDetail.id],
+                                                                 isLoading: true,
+                                                                 success: { [weak self] responseObject in
+                                                            self?.navigationController?.popViewController(animated: true)
+                                                        },
+                                                                 error: { error in
+                                                            // 处理错误
+                                                            self.showError(withStatus: error.localizedDescription)
+                                                        })
+                                                    }
+                                                    
+                                                }, sure: "继续支付") {
+                                                    if let orderDetail = HFOrderDetailData.mj_object(withKeyValues: body["order"]){
+                                                        let orderDetailVC = OrderDetailViewController()
+                                                        orderDetailVC.id = orderDetail.id
+                                                        self.navigationController?.pushViewController(orderDetailVC, animated: true)
+                                                        // 移除当前 ViewControllerA
+                                                        if let viewControllers = self.navigationController?.viewControllers {
+                                                            // 创建一个新的视图控制器数组
+                                                            var newStack = viewControllers
+                                                            newStack.removeAll { vc in
+                                                                return vc == self
+                                                            } // 移除当前视图控制器
+                                                            self.navigationController?.setViewControllers(newStack, animated: false) // 更新导航栈
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                            
+                                        
+                                            
+                                        }
+                                    }
+                                    
+                                    
+                                } error: { error in
+                                    self.showError(withStatus: error.localizedDescription)
+
+                                }
+                            }
+                            
+                        }
+                        
+
+                    }
+                }
+            } error: { error in
+                self.showError(withStatus: error.localizedDescription)
+            }
+
+        }
+        
     }
     func alipayAuth(_ payDataString:String!){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
@@ -345,20 +453,20 @@ private extension BatteryRenewViewController {
             }
         }
     }
-    func alipay(_ payDataString:String!){
+    func alipay(_ payDataString:String!,successBlock: @escaping () -> Void,failureBlock: @escaping () -> Void){
         AlipaySDK.defaultService().payOrder(payDataString, fromScheme: "hefengdongliAliSDK") { resultDic in
             if let result = resultDic as? [String:Any],let resultStatus = result["resultStatus"] as? Int{
                 if resultStatus == 9000{
-                    self.navigationController?.popToRootViewController(animated: true)
+                    successBlock()
 
                 }else{
-                    self.showError(withStatus: "支付失败")
+                    failureBlock()
 
                 }
             }
         }
     }
-    func wxPay(_ payData:HFPayData){
+    func wxPay(_ payData:HFPayData,successBlock: @escaping () -> Void,failureBlock: @escaping () -> Void){
         let data: [String: Any] = [
                 "appId": payData.appid,
                 "nonceStr": payData.noncestr,
@@ -370,9 +478,9 @@ private extension BatteryRenewViewController {
             ]
             
         WXPayTools.sharedInstance.doWXPay(dataDict: data) {
-            self.navigationController?.popToRootViewController(animated: true)
+           successBlock()
         } payFailed: {
-            self.showError(withStatus: "支付失败")
+           failureBlock()
         }
 
     }
