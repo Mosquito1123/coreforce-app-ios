@@ -100,6 +100,7 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
         textView.delegate = self
         textView.isEditable = false
         textView.backgroundColor = UIColor.clear
+        textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         // 其他配置...
         textView.translatesAutoresizingMaskIntoConstraints = false
 
