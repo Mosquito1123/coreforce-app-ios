@@ -11,6 +11,7 @@ class BuyPackageCardViewController: BaseViewController {
     
     // MARK: - Accessor
     var batteryDetail:HFBatteryDetail?
+    var packageCard:HFPackageCardModel?
     @objc var batteryType:HFBatteryTypeList?
     var items = [BuyPackageCard](){
         didSet{
@@ -31,6 +32,7 @@ class BuyPackageCardViewController: BaseViewController {
         tableView.register(BuyPackageCardPlansViewCell.self, forCellReuseIdentifier: BuyPackageCardPlansViewCell.cellIdentifier())
         tableView.register(BoughtPlansViewCell.self, forCellReuseIdentifier: BoughtPlansViewCell.cellIdentifier())
         tableView.register(FeeDetailViewCell.self, forCellReuseIdentifier: FeeDetailViewCell.cellIdentifier())
+        tableView.register(FeeDetailSecondViewCell.self, forCellReuseIdentifier: FeeDetailSecondViewCell.cellIdentifier())
         tableView.register(RecommendViewCell.self, forCellReuseIdentifier: RecommendViewCell.cellIdentifier())
         tableView.register(UserIntroductionsViewCell.self, forCellReuseIdentifier: UserIntroductionsViewCell.cellIdentifier())
         tableView.register(DepositServiceViewCell.self, forCellReuseIdentifier: DepositServiceViewCell.cellIdentifier())
@@ -81,6 +83,7 @@ class BuyPackageCardViewController: BaseViewController {
                 if newList.count != 0{
                     items.append(BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList))
                 }
+                items.append(BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailSecondViewCell.cellIdentifier(),packageCard: self.packageCard,batteryDetail: self.batteryDetail))
                 
                 items.append(BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()))
                 self.items = items
@@ -107,7 +110,7 @@ private extension BuyPackageCardViewController {
         bottomView.submittedAction = {sender in
             self.showActionSheet(["wechat","alipay"], ["微信支付","支付宝支付"], "取消") { section, row in
                 self.presentedViewController?.dismiss(animated: true)
-                let id = self.bottomView.model?.id ?? 0
+                let id = self.packageCard?.id ?? 0
                 
                 if section == 1,row == 0{//取消
                 }else if section == 0,row == 0{//微信支付
@@ -203,8 +206,8 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
                 
                 let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
                 newCell?.cancelAllSelected()
-                
-                self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                self.updateDatas()
             }
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -213,8 +216,8 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
                 
                 let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
                 newCell?.cancelAllSelected()
-                
-                self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                self.updateDatas()
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
@@ -223,10 +226,31 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
                 
                 let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
                 limitedCell?.cancelAllSelected()
-                self.bottomView.model = item.items?[indexPath.item]
+                self.packageCard = item.items?[indexPath.item]
+                self.updateDatas()
             }
         }
         return cell
+    }
+    fileprivate func updateDatas(){
+        let newPackageCard  = BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailSecondViewCell.cellIdentifier(),packageCard: self.packageCard,batteryDetail:self.batteryDetail, bigType: self.batteryType)
+        self.updateItem(where: { packageCard in
+            return packageCard.identifier == newPackageCard.identifier
+        }, with: newPackageCard)
+    }
+    func updateItem(where condition: (BuyPackageCard) -> Bool, with newItem: BuyPackageCard) {
+        self.bottomView.element = newItem
+        // 1. 查找符合条件的项的索引
+        if let index = self.items.firstIndex(where: condition) {
+            // 2. 替换数据源中的这一项
+            self.items[index] = newItem
+            
+            // 3. 构建索引路径，表示要刷新的位置
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            // 4. 刷新指定的 Cell，无论是否显示
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
     func getCell<T: UITableViewCell>(byType object: T.Type) -> T?{
         if let index = self.items.firstIndex(where: { $0.identifier == String(describing: object) }) {
@@ -257,23 +281,6 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             }
             
             self.present(nav, animated: true, completion: nil)
-        }else if item.title == "费用结算"{
-            let couponListViewController = CouponListViewController()
-            let nav = UINavigationController(rootViewController: couponListViewController)
-            nav.modalPresentationStyle = .custom
-            let delegate =  CustomTransitioningDelegate()
-            nav.transitioningDelegate = delegate
-            
-            if #available(iOS 13.0, *) {
-                nav.isModalInPresentation = true
-            } else {
-                // Fallback on earlier versions
-            }
-            
-            self.present(nav, animated: true, completion: nil)
-        }else if item.title == "电池型号"{
-
-            
         }
     }
     

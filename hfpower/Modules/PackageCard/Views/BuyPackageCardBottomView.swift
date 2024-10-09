@@ -17,7 +17,7 @@ class BuyPackageCardBottomView: UIView {
                 let batteryDeposit = (element?.batteryType?.batteryDeposit as? NSString)?.doubleValue ?? 0
                 let bikeDeposit =  element?.bikeDetail?.planDeposit ?? 0
                 let authOrder = element?.depositService?.authOrder ?? 1
-                let discountAmount = element?.coupon?.discountAmount ?? 0
+                _ = element?.coupon?.discountAmount ?? 0
                 if let couponType = element?.coupon?.couponType{
                     if couponType == 4 || couponType == 5 || authOrder == 1{
                         total = 0
@@ -72,16 +72,7 @@ class BuyPackageCardBottomView: UIView {
     // MARK: - Subviews
     
     // MARK: - Lifecycle
-    var model: HFPackageCardModel? {
-        didSet {
-            guard let model = model else { return }
-            let nf = NumberFormatter()
-            nf.maximumFractionDigits = 2
-            nf.minimumFractionDigits = 0
-            self.totalLabel.text = nf.string(from: model.price )
-            self.submitButton.isEnabled = model.price.doubleValue != 0 && self.statusButton.isSelected
-        }
-    }
+   
     // MARK: - Subviews
     
     
