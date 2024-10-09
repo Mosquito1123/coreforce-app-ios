@@ -256,11 +256,13 @@ class BatteryRemainingTermSectionController: ListSectionController {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryRemainingTermViewCell.self, for: self, at: index) as? BatteryRemainingTermViewCell else {return UICollectionViewCell()}
+        guard let cell = collectionContext?.dequeueReusableCell(of: BatteryRemainingTermViewCell.self, for: self, at: index) as? BatteryRemainingTermViewCell else {return BatteryRemainingTermViewCell()}
         // 配置图片和状态
         cell.bottomView.getPackageCardBlock = { sender in
-            let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-            self.viewController?.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+            let buyPackageCardVC = BuyPackageCardViewController()
+            buyPackageCardVC.batteryDetail = HFKeyedArchiverTool.batteryDataList().first
+            self.viewController?.navigationController?.pushViewController(buyPackageCardVC, animated: true)
+          
             
         }
         cell.element = batteryRemainingTerm

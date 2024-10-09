@@ -77,7 +77,11 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
         self.getData(ourPackageCardUrl, param: params, isLoading: false) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
                 var items = [BuyPackageCard]()
-                items.append(BuyPackageCard(title: "电池型号",subtitle: "", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type",batteryType: self.batteryType))
+                items.append(BuyPackageCard(title: "电池型号",subtitle: "", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type",batteryType: self.batteryType,batteryDetail: self.batteryDetail))
+                let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
+                if buyList.count != 0{
+                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.batteryTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
+                }
                 let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
                 if limitedList.count != 0{
                     items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
@@ -86,10 +90,7 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                 if newList.count != 0{
                     items.append(BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList))
                 }
-                let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
-                if buyList.count != 0{
-                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.batteryTypeName, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
-                }
+                
                 let depositService0 = HFDepositService()
                 depositService0.id = 0
                 depositService0.title = "支付宝免押"
@@ -102,18 +103,18 @@ class BatteryRentalViewController: UIViewController,UIGestureRecognizerDelegate{
                 depositService1.title = "支付押金"
                 depositService1.content = "退租后，押金可退"
                 depositService1.selected = NSNumber(booleanLiteral: false)
-                depositService1.amount = "\(self.batteryType?.batteryDeposit ?? "")元"
+                depositService1.amount = "\(self.batteryDetail?.batteryDeposit ?? 0)元"
                 depositService1.authOrder = 0
                 let temp = self.payDeposit ? [
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier(),boughtPackageCard: self.boughtPackageCard),
                     BuyPackageCard(title: "押金服务",subtitle: "", identifier: DepositServiceViewCell.cellIdentifier(),depositServices: [depositService0,depositService1]),
-                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
-                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType,batteryDetail: self.batteryDetail),
+//                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
                 ]:[
                     BuyPackageCard(title: "已购套餐",subtitle: "", identifier: BoughtPlansViewCell.cellIdentifier(),boughtPackageCard: self.boughtPackageCard),
-                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType),
-                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
+                    BuyPackageCard(title: "费用结算",subtitle: "", identifier: FeeDetailViewCell.cellIdentifier(),packageCard: self.packageCard,batteryType: self.batteryType, batteryDetail:self.batteryDetail),
+//                    BuyPackageCard(title: "推荐码（选填）",subtitle: "点击输入或扫描二维码", identifier: RecommendViewCell.cellIdentifier()),
                     BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()),
                 ]
                 items.append(contentsOf: temp)

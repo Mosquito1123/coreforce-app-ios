@@ -23,4 +23,5 @@ struct BuyPackageCard:Convertible{
     var batteryDetail:HFBatteryDetail?
     var coupon:HFCouponData?
     var depositService:HFDepositService?
+    var bigType:HFBatteryTypeList?
 }

@@ -17,6 +17,8 @@ class BatteryTypeViewCell: BaseTableViewCell<BuyPackageCard> {
             self.contentLabel.text = "\(batteryType.batteryNumber)\n\n\(batteryType.largeTypeName)"
         }else if let batteryDetail = element?.batteryDetail{
             self.contentLabel.text = "\(batteryDetail.number)\n\n\(batteryDetail.largeTypeName)"
+        }else if let bigType = element?.bigType{
+            self.contentLabel.text = "\(bigType.name)\n\n\(bigType.parentName)"
         }
     }
     // MARK: - Subviews

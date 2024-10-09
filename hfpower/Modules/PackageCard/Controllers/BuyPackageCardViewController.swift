@@ -10,6 +10,7 @@ import UIKit
 class BuyPackageCardViewController: BaseViewController {
     
     // MARK: - Accessor
+    var batteryDetail:HFBatteryDetail?
     @objc var batteryType:HFBatteryTypeList?
     var items = [BuyPackageCard](){
         didSet{
@@ -59,11 +60,19 @@ class BuyPackageCardViewController: BaseViewController {
         
         var params = [String: Any]()
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        params["largeTypeId"] = self.batteryType?.id
+        if let batteryDetail = self.batteryDetail{
+            params["largeTypeId"] = batteryDetail.largeTypeId
+        }else{
+            params["largeTypeId"] = self.batteryType?.id
+        }
         self.getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let dataList = body["list"] as? [[String: Any]]{
                 var items = [BuyPackageCard]()
-                items.append(BuyPackageCard(title: "电池型号",subtitle: self.batteryType?.name, identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type"))
+                items.append(BuyPackageCard(title: "电池型号",subtitle: "", identifier: BatteryTypeViewCell.cellIdentifier(), icon:  "battery_type",batteryDetail: self.batteryDetail,bigType: self.batteryType))
+                let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
+                if buyList.count != 0{
+                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: "", identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
+                }
                 let limitedList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 2}
                 if limitedList.count != 0{
                     items.append(BuyPackageCard(title: "限时特惠",subtitle: "", identifier: LimitedTimePackageCardViewCell.cellIdentifier(),items: limitedList))
@@ -72,10 +81,7 @@ class BuyPackageCardViewController: BaseViewController {
                 if newList.count != 0{
                     items.append(BuyPackageCard(title: "新人专享",subtitle: "", identifier: NewComersPackageCardViewCell.cellIdentifier(),items: newList))
                 }
-                let buyList = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 1}
-                if buyList.count != 0{
-                    items.append(BuyPackageCard(title: "换电不限次套餐",subtitle: self.batteryType?.name, identifier: BuyPackageCardPlansViewCell.cellIdentifier(),items: buyList))
-                }
+                
                 items.append(BuyPackageCard(title: "用户须知",subtitle: "", identifier: UserIntroductionsViewCell.cellIdentifier()))
                 self.items = items
             }
@@ -266,8 +272,7 @@ extension BuyPackageCardViewController:UITableViewDataSource,UITableViewDelegate
             
             self.present(nav, animated: true, completion: nil)
         }else if item.title == "电池型号"{
-            //           let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-            //            self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+
             
         }
     }
