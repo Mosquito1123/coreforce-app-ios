@@ -245,8 +245,7 @@ private extension RealNameAuthViewController {
                     case .ZIMResponseSuccess:
                         self.postData(memberRpDescribeUrl, param: ["certifyId":certifyId], isLoading: true) { responseObject in
                             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let code = body["code"] as? String,code == "200"{
-                                let nav = UINavigationController(rootViewController: MainTabBarController())
-                                UIViewController.ex_keyWindow()?.rootViewController = nav
+                                self.navigationController?.popToRootViewController(animated: true)
                             }
                         } error: { error in
                             self.showError(withStatus: error.localizedDescription)

@@ -12,7 +12,7 @@ class BuyPackageCardBottomView: UIView {
     // MARK: - Accessor
     var element:BuyPackageCard?{
         didSet{
-            if let boughtPackageCard = element?.boughtPackageCard{
+            if let _ = element?.boughtPackageCard{
                 var total = 0.0
                 let batteryDeposit = (element?.batteryType?.batteryDeposit as? NSString)?.doubleValue ?? 0
                 let bikeDeposit =  element?.bikeDetail?.planDeposit ?? 0

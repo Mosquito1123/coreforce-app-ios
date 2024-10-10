@@ -65,7 +65,7 @@ class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
     }
     func refreshPackageCard(){
         var items = [BuyPackageCard]()
-        let buyList = [1,2,3,5,7,10,20,30,60,90,180].enumerated().map { (index,value) in
+        let buyList = [1,2,3,5,7,10].enumerated().map { (index,value) in
             let packageCard = HFPackageCardModel()
             packageCard.id = NSNumber(value: index)
             packageCard.price = NSNumber(value:(self.bikeDetail?.planRent ?? 0) * value)

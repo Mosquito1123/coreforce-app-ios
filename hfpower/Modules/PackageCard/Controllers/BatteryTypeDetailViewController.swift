@@ -64,6 +64,17 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
     }
     // Function to generate HTML string with dynamic parameters
     func generateBatteryDetailsHTML(_ batteryType:HFBatteryTypeList?) -> String {
+        let accessToken = HFKeyedArchiverTool.account().accessToken
+        var photoHTML = """
+
+                        """
+        if let photos = batteryType?.photo.components(separatedBy: ",").map({ photo in
+            return "\(rootRequest)/app/api/normal/read/photo?access_token=\(accessToken)&photo=\(photo)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
+        }) {
+            photoHTML = photos.map({ url in
+                return "<img src=\"\(url)\" alt = \"\(url)\">"
+            }).joined(separator: "")
+        }
         return """
         <!DOCTYPE html>
         <html lang="zh-CN">
@@ -94,17 +105,47 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                     padding: 10px;
                     background-color: #f7f7f7;
                 }
-                .image-wrapper {
-                    text-align: center;
+                /* 样式：设置轮播容器 */
+                .carousel {
+                    width: 100%; /* 设置轮播图的宽度 */
+                    max-width: 100%;
+                    overflow: hidden;
+                    position: relative;
+                    margin: 0 auto;
+                    border-radius: 20px; /* 为整个轮播容器添加圆角 */
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 可选：为容器添加阴影 */
                 }
-                .image-wrapper img {
-                    width: 100%;
-                    border-radius: 10px;
-                }
+
+                        
+                                /* 设置图片轨道 */
+                                .carousel-track {
+                                    display: flex;
+                                    transition: transform 0.5s ease-in-out;
+                                }
+
+                                /* 设置每张图片的样式 */
+                                .carousel img {
+                                    width: 100%;
+                                    height: 180px; /* 图片高度 */
+                                    border-radius: 20px; /* 为图片本身添加圆角，确保图片也圆角 */
+                                }
+
+                                /* 右下角标签的样式 */
+                                .carousel-index {
+                                    position: absolute;
+                                    bottom: 10px;
+                                    right: 10px;
+                                    background-color: rgba(0, 0, 0, 0.5); /* 半透明的黑色背景 */
+                                    color: white;
+                                    padding: 5px 10px;
+                                    border-radius: 10px; /* 标签边角圆滑 */
+                                    font-size: 14px; /* 字体大小 */
+                                }
                 .battery-details {
                     background-color: #fff;
                     padding: 10px;
                     border-radius: 20px;
+                    margin-top: 15px;
                     margin-bottom: 15px;
                     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
                 }
@@ -121,8 +162,9 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                 }
                 .battery-details span {
                     font-size: 14px;
-                    font-family: PingFangSC-Regular;
-                    color: #666;
+                    font-family: PingFangSC-Medium;
+                    font-weight: 500;
+                    color: #333;
                     margin-top: 5px;
                     margin-bottom: 5px;
                 }
@@ -160,38 +202,80 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
 
             <div class="container">
                 <div class="section-title">电池外观</div>
-                <div class="image-wrapper">
-                    <img src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng1fb4a837ab3b4d472b73624c21619e41cd57fc2f5fb6c2429dc7293365e47e23" alt="Battery Image">
-                </div>
+                <div class="carousel">
+                        <div class="carousel-track">
+                            <!-- 替换为动态生成的图片 URL -->
+                            \(photoHTML)
+                            <!-- 更多图片可以继续添加 -->
+                        </div>
+                        
+        <!-- 标签显示当前图片索引 -->
+                <div class="carousel-index">1/3</div>
+                    </div>
 
                 <div class="battery-details">
                     <div>
                         <span>电池型号</span>
                         <span class="highlight">\(batteryType?.name ?? "")</span>
                     </div>
-                    <div>
-                        <span>电池尺寸</span>
-                        <span>\(batteryType?.enduranceMemo ?? "")</span>
-                    </div>
                 </div>
-
-                <div class="section-title">电池介绍</div>
-                <p class="battery-description">
-                    \(batteryType?.batteryMemo ?? "")
-                </p>
-
-                <div class="section-title">电池续航</div>
-                <div class="battery-range">
+                <div class="battery-details">
                     <div>
-                        <span>电池续航</span>
-                        <span>\(batteryType?.minMileage ?? 0)km~\(batteryType?.maxMileage ?? 0)km</span>
+                        <span>电池介绍</span>
+                        <span></span>
                     </div>
-                    <p>
-                        （该续航里程范围仅供参考，需结合实际骑手车辆控制功率、车辆型号、车重、使用环境、温度、驾驶习惯等多种因素，以实际情况为准）
+                    <p class="battery-description">
+                        \(batteryType?.memo ?? "")
                     </p>
                 </div>
-            </div>
+                <div class="battery-details">
+                        <div>
+                            <span>电池续航</span>
+                            <span>\(batteryType?.minMileage ?? 0)km~\(batteryType?.maxMileage ?? 0)km</span>
+                        </div>
+                        <p  class="battery-description">
+                            （该续航里程范围仅供参考，需结合实际骑手车辆控制功率、车辆型号、车重、使用环境、温度、驾驶习惯等多种因素，以实际情况为准）
+                        </p>
+                </div>
+        <script>
+                const track = document.querySelector('.carousel-track');
+                const images = Array.from(track.children);
+                const indexLabel = document.querySelector('.carousel-index');
+                let currentIndex = 0;
+                const imageCount = images.length;
+                const autoSlideInterval = 3000; // 自动轮播的间隔时间（毫秒）
 
+                // 更新标签内容
+                function updateIndexLabel(index) {
+                    indexLabel.textContent = `${index + 1}/${imageCount}`;
+                }
+
+                function showImage(index) {
+                    const imageWidth = images[0].getBoundingClientRect().width;
+                    track.style.transform = `translateX(-${index * imageWidth}px)`;
+                    updateIndexLabel(index); // 显示当前图片的索引
+                }
+
+                function nextImage() {
+                    currentIndex = (currentIndex + 1) % imageCount; // 循环切换到下一张图片
+                    showImage(currentIndex);
+                }
+
+                // 自动轮播功能
+                let autoSlide = setInterval(nextImage, autoSlideInterval);
+
+                // 当鼠标悬停时，暂停自动轮播，移开后继续轮播
+                document.querySelector('.carousel').addEventListener('mouseover', () => {
+                    clearInterval(autoSlide);
+                });
+
+                document.querySelector('.carousel').addEventListener('mouseout', () => {
+                    autoSlide = setInterval(nextImage, autoSlideInterval);
+                });
+
+                // 初始化标签显示
+                updateIndexLabel(currentIndex);
+            </script>
         </body>
         </html>
 
