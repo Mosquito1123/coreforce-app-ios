@@ -103,14 +103,14 @@ class PersonalViewController: BaseViewController, BatteryRentalViewControllerDel
                                 PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
                                     PersonalListItem(title: "我的订单",icon: "order"),
                                     PersonalListItem(title: "购买套餐",icon: "buy"),
-                                    PersonalListItem(title: "电池寄存",icon: "post"),
+    //                                PersonalListItem(title: "电池寄存",icon: "post"),
                                     PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
-                                    PersonalListItem(title: "邀请有礼",icon: "invite"),
-                                    PersonalListItem(title: "用户反馈",icon:"remark"),
-                                    PersonalListItem(title: "用户指南",icon: "guide"),
-                                    PersonalListItem(title: "消息通知",icon: "message"),
+    //                                PersonalListItem(title: "邀请有礼",icon: "invite"),
+    //                                PersonalListItem(title: "用户反馈",icon:"remark"),
+    //                                PersonalListItem(title: "用户指南",icon: "guide"),
+    //                                PersonalListItem(title: "消息通知",icon: "message"),
                                     PersonalListItem(title: "常见问题",icon:"qa"),
-                                    PersonalListItem(title: "领券中心",icon: "coupon")
+    //                                PersonalListItem(title: "领券中心",icon: "coupon")
                                 ])]
                         
                     self.getData(mileageUrl, param: [:], isLoading: false) { responseObject in
@@ -137,14 +137,14 @@ class PersonalViewController: BaseViewController, BatteryRentalViewControllerDel
                             PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
                                 PersonalListItem(title: "我的订单",icon: "order"),
                                 PersonalListItem(title: "购买套餐",icon: "buy"),
-                                PersonalListItem(title: "电池寄存",icon: "post"),
+//                                PersonalListItem(title: "电池寄存",icon: "post"),
                                 PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
-                                PersonalListItem(title: "邀请有礼",icon: "invite"),
-                                PersonalListItem(title: "用户反馈",icon:"remark"),
-                                PersonalListItem(title: "用户指南",icon: "guide"),
-                                PersonalListItem(title: "消息通知",icon: "message"),
+//                                PersonalListItem(title: "邀请有礼",icon: "invite"),
+//                                PersonalListItem(title: "用户反馈",icon:"remark"),
+//                                PersonalListItem(title: "用户指南",icon: "guide"),
+//                                PersonalListItem(title: "消息通知",icon: "message"),
                                 PersonalListItem(title: "常见问题",icon:"qa"),
-                                PersonalListItem(title: "领券中心",icon: "coupon")
+//                                PersonalListItem(title: "领券中心",icon: "coupon")
                             ])]
                     }
                     
@@ -285,15 +285,15 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.extra = item.extra as? [String:Any]
         }else if let contentCell = cell as? PersonalOthersViewCell{
             contentCell.didSelectItemAtBlock = { collectionView,indexPath in
-                if indexPath.item == 0 {
+                let array = item.items ?? []
+                let x = array[indexPath.item]
+                if x.title == "我的订单" {
                     let allOrderVC = AllOrderViewController()
                     self.navigationController?.pushViewController(allOrderVC, animated: true)
-                }else if indexPath.item == 1{
+                }else if x.title == "购买套餐" {
                     let vc=PackageCardChooseServiceViewController()
                     self.navigationController?.pushViewController(vc, animated: true)
-                }else if indexPath.item == 2{
-                    self.showWindowInfo(withStatus: "暂未开放")
-                }else if indexPath.item == 3{
+                }else if x.title == "卡仓取电" {
                     let scanVC = HFScanViewController()
                     scanVC.resultBlock = { result in
                         if let resultString = result.strScanned{
@@ -315,28 +315,31 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                         
                     }
                     self.navigationController?.pushViewController(scanVC, animated: true)
-                }else if indexPath.item == 4{
-                    let inviteVC = InviteCodeViewController()
-                    self.navigationController?.pushViewController(inviteVC, animated: true)
-                    
-                }else if indexPath.item == 5{
-                    let userFeedbackVC = UserFeedbackViewController()
-                    self.navigationController?.pushViewController(userFeedbackVC, animated: true)
-                    
-                }else if indexPath.item == 6{
-                   let userGuideVC = UserGuideViewController()
-                    self.navigationController?.pushViewController(userGuideVC, animated: true)
-
-                }else if indexPath.item == 7{
-                    let messageListVC = MessageListViewController()
-                    self.navigationController?.pushViewController(messageListVC, animated: true)
-
-                }else if indexPath.item == 8{
+//                }else if indexPath.item == 4{
+//                    let inviteVC = InviteCodeViewController()
+//                    self.navigationController?.pushViewController(inviteVC, animated: true)
+//                    
+//                }else if indexPath.item == 5{
+//                    let userFeedbackVC = UserFeedbackViewController()
+//                    self.navigationController?.pushViewController(userFeedbackVC, animated: true)
+//                    
+//                }else if indexPath.item == 6{
+//                   let userGuideVC = UserGuideViewController()
+//                    self.navigationController?.pushViewController(userGuideVC, animated: true)
+//
+//                }else if indexPath.item == 7{
+//                    let messageListVC = MessageListViewController()
+//                    self.navigationController?.pushViewController(messageListVC, animated: true)
+//
+//                }else if indexPath.item == 8{
+//                    let customerVC = CustomerServiceViewController()
+//                    self.navigationController?.pushViewController(customerVC, animated: true)
+//                }else if indexPath.item == 9{
+//                    let allCouponViewController = AllCouponViewController()
+//                    self.navigationController?.pushViewController(allCouponViewController, animated: true)
+                }else if x.title == "常见问题"{
                     let customerVC = CustomerServiceViewController()
                     self.navigationController?.pushViewController(customerVC, animated: true)
-                }else if indexPath.item == 9{
-                    let allCouponViewController = AllCouponViewController()
-                    self.navigationController?.pushViewController(allCouponViewController, animated: true)
                 }
             }
             contentCell.titleLabel.text = item.title

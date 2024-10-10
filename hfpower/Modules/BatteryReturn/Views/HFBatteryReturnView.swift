@@ -25,7 +25,7 @@ class HFBatteryReturnView: UIView {
     
     var opNo: String? {
         didSet {
-            guard let opNo = opNo else { return }
+            guard let _ = opNo else { return }
             self.hintOne.text = "正在退租..."
             self.codeImageView.isHidden = true
             self.hintTwo.frame = CGRect(x: 20, y: hintOne.frame.maxY + 20, width: self.frame.width - 40, height: 80)
