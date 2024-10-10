@@ -109,6 +109,7 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                 .carousel {
                     width: 100%; /* 设置轮播图的宽度 */
                     max-width: 100%;
+                    height: 180px; /* 高度 */
                     overflow: hidden;
                     position: relative;
                     margin: 0 auto;
@@ -126,8 +127,8 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                                 /* 设置每张图片的样式 */
                                 .carousel img {
                                     width: 100%;
-                                    height: 180px; /* 图片高度 */
-                                    border-radius: 20px; /* 为图片本身添加圆角，确保图片也圆角 */
+                                    height: 100%; /* 图片高度 */
+                                    object-fit: cover;
                                 }
 
                                 /* 右下角标签的样式 */
