@@ -245,6 +245,7 @@ private extension RealNameAuthViewController {
                     case .ZIMResponseSuccess:
                         self.postData(memberRpDescribeUrl, param: ["certifyId":certifyId], isLoading: true) { responseObject in
                             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let code = body["code"] as? String,code == "200"{
+                                UIViewController.ex_keyWindow()?.showWindowSuccess(withStatus: "实名认证已通过")
                                 self.navigationController?.popToRootViewController(animated: true)
                             }
                         } error: { error in

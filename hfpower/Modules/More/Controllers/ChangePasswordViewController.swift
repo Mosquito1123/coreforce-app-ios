@@ -202,11 +202,10 @@ class ChangePasswordViewController: UIViewController,UIGestureRecognizerDelegate
         }
         
         @objc private func updateButtonState() {
-            let isOldPasswordEmpty = oldPasswordInputView.passwordTextField.text?.isEmpty ?? true
             let isPasswordEmpty = passwordInputView.passwordTextField.text?.isEmpty ?? true
             let isConfirmPasswordEmpty = confirmPasswordInputView.passwordTextField.text?.isEmpty ?? true
             
-            submitButton.isEnabled = !isOldPasswordEmpty && !isPasswordEmpty && !isConfirmPasswordEmpty
+            submitButton.isEnabled = !isPasswordEmpty && !isConfirmPasswordEmpty
         }
 }
 
