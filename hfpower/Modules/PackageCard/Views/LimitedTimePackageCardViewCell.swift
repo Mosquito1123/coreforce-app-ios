@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LimitedTimePackageCardViewCell: BaseTableViewCell<BuyPackageCard>,UICollectionViewDelegate,UICollectionViewDataSource {
+class LimitedTimePackageCardViewCell: BaseTableViewCell<BuyPackageCard>,UICollectionViewDelegate,UICollectionViewDataSource,BuyPackageCardProtocol {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.items.count
     }
@@ -48,7 +48,7 @@ class LimitedTimePackageCardViewCell: BaseTableViewCell<BuyPackageCard>,UICollec
         collectionView.reloadItems(at: indexPathsToReload)
         self.didSelectItemBlock?(collectionView,indexPath)
     }
-    func cancelAllSelected(){
+    @objc func cancelAllSelected(){
         var previouslySelectedIndex: IndexPath?
         
         // 遍历 items 找到已选中的 item，并记录它的 index

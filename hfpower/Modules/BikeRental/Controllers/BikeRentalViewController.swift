@@ -356,35 +356,24 @@ extension BikeRentalViewController:UITableViewDataSource,UITableViewDelegate {
         if let cellx = cell as? BuyPackageCardPlansViewCell{
             
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
-                limitedCell?.cancelAllSelected()
-                
-                let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
-                newCell?.cancelAllSelected()
-                
+                self.updateItem(byType: NewComersPackageCardViewCell.self)
+                self.updateItem(byType: LimitedTimePackageCardViewCell.self)
                 self.packageCard = item.items?[indexPath.item]
                 self.updateDatas()
 
             }
         }else if let cellx = cell as? LimitedTimePackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
-                commonCell?.cancelAllSelected()
-                
-                let newCell =  self.getCell(byType: NewComersPackageCardViewCell.self)
-                newCell?.cancelAllSelected()
-                
+                self.updateItem(byType: BuyPackageCardPlansViewCell.self)
+                self.updateItem(byType: NewComersPackageCardViewCell.self)
                 self.packageCard = item.items?[indexPath.item]
                 self.updateDatas()
 
             }
         }else if let cellx = cell as? NewComersPackageCardViewCell{
             cellx.didSelectItemBlock = {(collectionView,indexPath) in
-                let commonCell = self.getCell(byType: BuyPackageCardPlansViewCell.self)
-                commonCell?.cancelAllSelected()
-                
-                let limitedCell =  self.getCell(byType: LimitedTimePackageCardViewCell.self)
-                limitedCell?.cancelAllSelected()
+                self.updateItem(byType: BuyPackageCardPlansViewCell.self)
+                self.updateItem(byType: LimitedTimePackageCardViewCell.self)
                 self.packageCard = item.items?[indexPath.item]
                 self.updateDatas()
 
@@ -406,6 +395,29 @@ extension BikeRentalViewController:UITableViewDataSource,UITableViewDelegate {
             }
         }
         return cell
+    }
+    func updateItem<T: UITableViewCell>(byType object: T.Type){
+        let commonCell = self.getCell(byType: object)
+        let selector = #selector(BuyPackageCardProtocol.cancelAllSelected)
+
+        if commonCell?.responds(to: #selector(BuyPackageCardProtocol.cancelAllSelected)) == true{
+            commonCell?.perform(selector)
+        }
+        let commonItem = self.items.first { p in
+            return p.identifier == String(describing: object)
+        }
+        self.dataChange(commonItem)
+    }
+    private func dataChange(_ element:BuyPackageCard?){
+        if let items = element?.items{
+            for i in 0..<items.count {
+                if items[i].selected == NSNumber(value: true) {
+                    items[i].selected = NSNumber(value: false) // 取消选中
+                    break
+                }
+            }
+        }
+       
     }
     func updateItem(where condition: (BuyPackageCard) -> Bool, with newItem: BuyPackageCard) {
         self.bottomView.element = newItem
