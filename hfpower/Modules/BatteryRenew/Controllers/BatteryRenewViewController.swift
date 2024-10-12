@@ -595,7 +595,7 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var item = self.items[indexPath.row]
+        let item = self.items[indexPath.row]
         if item.title  == "已购套餐"{
             let myPackageCardListViewController = MyPackageCardListViewController()
             myPackageCardListViewController.deviceNumber = self.batteryNumber
