@@ -170,6 +170,10 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
     }
         
     func setupTabbar() {
+        // 调整 UITabBarItem 的标题位置偏移
+        let offset = UIOffset(horizontal: 0, vertical: 10) // X轴和Y轴的偏移量
+        UITabBarItem.appearance().titlePositionAdjustment = offset
+
         // Set background color
         if #available(iOS 13.0, *) {
             let appearance = UITabBarAppearance()
@@ -196,14 +200,14 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         let home = HomeViewController()
         home.tabBarItem.title = "首页"
         home.tabBarItem.image = UIImage(named: "map")
-        
+        home.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         let blank = UIViewController()
         blank.tabBarItem.isEnabled = false
         
         let more = PersonalViewController()
         more.tabBarItem.title = "我的"
         more.tabBarItem.image = UIImage(named: "my")
-        
+        more.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         self.viewControllers = [home, blank, more]
     }
     
