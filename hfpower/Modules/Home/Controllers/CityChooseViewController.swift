@@ -132,8 +132,12 @@ extension CityChooseViewController:UITableViewDelegate,UITableViewDataSource {
 //        tableView.deselectRow(at: indexPath, animated: true)
         let firstLetter = groupTitles[indexPath.section]
         let citysInAGroup = cityGroups[firstLetter] ?? [[String:Any]]()
-        CityCodeManager.shared.cityCode = citysInAGroup[indexPath.row]["code"] as? String
-        CityCodeManager.shared.cityName = citysInAGroup[indexPath.row]["name"] as? String
+        let cityCode = citysInAGroup[indexPath.row]["code"] as? String
+        let cityName = citysInAGroup[indexPath.row]["name"] as? String
+        
+        CityCodeManager.shared.cityCode = cityCode
+        CityCodeManager.shared.cityName = cityName
+        CityCodeManager.shared.saveToHistory(newValue: City(cityCode: cityCode, cityName: cityName))
         NotificationCenter.default.post(name: .cityChanged, object: nil)
         self.navigationController?.dismiss(animated: true)
     }
@@ -158,7 +162,7 @@ extension CityChooseViewController:UITableViewDelegate,UITableViewDataSource {
         //转换成成带音 调的拼音
         CFStringTransform(preString, nil, kCFStringTransformToLatin, false)
         //去掉音调
-        CFStringTransform(preString, nil, kCFStringTransformStripDiacritics, false)        
+        CFStringTransform(preString, nil, kCFStringTransformStripDiacritics, false)
         
         if cityMutableString.substring(to: 1).compare("长") == ComparisonResult.orderedSame{
             preString.replaceCharacters(in: NSRange(location: 0,length: 5), with: "chang")

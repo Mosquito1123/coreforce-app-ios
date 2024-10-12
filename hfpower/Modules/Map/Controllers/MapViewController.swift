@@ -214,6 +214,7 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                         
                         let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
                         CityCodeManager.shared.cityCode = code
+                        CityCodeManager.shared.saveToHistory(newValue: City(cityCode: code, cityName: placemarks?.first?.locality ?? ""))
                         NotificationCenter.default.post(name: .relocated, object: nil)
                         self.cabinetList()
                         

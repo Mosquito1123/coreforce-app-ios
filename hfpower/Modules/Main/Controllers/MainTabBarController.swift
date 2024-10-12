@@ -83,12 +83,16 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         
         headerView.locationChooseView.chooseCityAction = { sender in
             // Handle city choose action
+            /*
             let cityChooseVC = CityChooseViewController()
-            
+
             let nav = UINavigationController(rootViewController: cityChooseVC)
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .coverVertical
             self.present(nav, animated: true)
+             */
+            let cityHistoryVC = CityHistoryViewController()
+            self.navigationController?.pushViewController(cityHistoryVC, animated: true)
         }
         
         headerView.searchView.goToSearchServiceBlock = { textField in

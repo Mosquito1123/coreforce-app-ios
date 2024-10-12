@@ -369,6 +369,7 @@ extension SearchCabinetListViewController{
                 
                 let code =  CityCodeHelper().getCodeByName(placemarks?.first?.locality ?? "")
                 CityCodeManager.shared.cityCode = code
+                CityCodeManager.shared.saveToHistory(newValue: City(cityCode: code, cityName: placemarks?.first?.locality ?? ""))
                 NotificationCenter.default.post(name: .cityChanged, object: nil)
                 self.locationView.location = self.formatDateToChinese(date: Date())
                 self.locationManager.stopUpdatingLocation()
