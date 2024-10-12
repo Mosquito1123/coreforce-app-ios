@@ -99,8 +99,10 @@ class LoginPhoneViewController: UIViewController,UITextViewDelegate {
         let textView = UITextView()
         textView.delegate = self
         textView.isEditable = false
+        textView.textAlignment = .center
         textView.backgroundColor = UIColor.clear
-        textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        textView.textContainer.lineFragmentPadding = 0
         // 其他配置...
         textView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -190,7 +192,7 @@ private extension LoginPhoneViewController {
             loginBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 116),
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 80),
             logoImageView.heightAnchor.constraint(equalToConstant: 90),
@@ -229,13 +231,13 @@ private extension LoginPhoneViewController {
             verificationCodeButton.heightAnchor.constraint(equalToConstant: 40),
             
             // 隐私政策标签约束
-            privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 40),
+            privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 18),
             privacyPolicyAndUserAgreementTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            privacyPolicyAndUserAgreementTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 65),
+            privacyPolicyAndUserAgreementTextView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.7),
             privacyPolicyAndUserAgreementTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor ,constant: -8),
-            toggleButton.topAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.topAnchor , constant: 3),
+            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor ,constant: -4),
+            toggleButton.centerYAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.centerYAnchor),
             toggleButton.heightAnchor.constraint(equalToConstant: 25),
             toggleButton.widthAnchor.constraint(equalToConstant: 25),
             // 用户服务协议标签约束

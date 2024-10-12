@@ -13,7 +13,7 @@ class PersonalOthersViewCell: PersonalContentViewCell,UICollectionViewDelegate,U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PersonalElementIconViewCell.self), for: indexPath) as? PersonalElementIconViewCell else {return UICollectionViewCell()}
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PersonalElementIconViewCell.self), for: indexPath) as? PersonalElementIconViewCell else {return PersonalElementIconViewCell()}
         cell.elementIconView.titleLabel.text = self.items[indexPath.item].title
         cell.elementIconView.iconImageView.image = UIImage(named: self.items[indexPath.item].icon ?? "")
 

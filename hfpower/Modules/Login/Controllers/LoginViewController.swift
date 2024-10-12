@@ -93,7 +93,9 @@ class LoginViewController:UIViewController, UITextViewDelegate {
         textView.delegate = self
         textView.isEditable = false
         textView.backgroundColor = UIColor.clear
-        textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        textView.textAlignment = .center
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        textView.textContainer.lineFragmentPadding = 0
         // 其他配置...
         textView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -124,12 +126,7 @@ class LoginViewController:UIViewController, UITextViewDelegate {
     @objc func updateButtonState() {
         self.loginButton.isEnabled = !(self.accountInputView.phoneNumberTextField.text?.isEmpty ?? true) && !(self.passwordInputView.passwordTextField.text?.isEmpty ?? true)
     }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
-//
-//        
-//    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         toggleButton.isSelected = LoginModel.shared.agreement
@@ -173,7 +170,7 @@ private extension LoginViewController {
         
         let attributedString = NSMutableAttributedString(string: "阅读并同意《核蜂换电隐私政策》和《租赁协议》", attributes: [
             .font: UIFont.systemFont(ofSize: 12),
-            .foregroundColor: UIColor(hex:0x666666FF) 
+            .foregroundColor: UIColor(hex:0x666666FF)
         ])
         
         let privacyPolicyRange = (attributedString.string as NSString).range(of: "《核蜂换电隐私政策》")
@@ -200,7 +197,7 @@ private extension LoginViewController {
             loginBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 116),
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.widthAnchor.constraint(equalToConstant: 80),
             logoImageView.heightAnchor.constraint(equalToConstant: 90),
@@ -235,13 +232,13 @@ private extension LoginViewController {
             verificationCodeButton.heightAnchor.constraint(equalToConstant: 40),
             
             // 隐私政策标签约束
-            privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 40),
+            privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 18),
             privacyPolicyAndUserAgreementTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            privacyPolicyAndUserAgreementTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 65),
+            privacyPolicyAndUserAgreementTextView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.7),
             privacyPolicyAndUserAgreementTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor,constant: -8),
-            toggleButton.topAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.topAnchor , constant: 3),
+            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor,constant: -4),
+            toggleButton.centerYAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.centerYAnchor),
             toggleButton.heightAnchor.constraint(equalToConstant: 25),
             toggleButton.widthAnchor.constraint(equalToConstant: 25),
             // 用户服务协议标签约束

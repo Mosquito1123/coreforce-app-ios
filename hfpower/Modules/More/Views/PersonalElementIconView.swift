@@ -16,6 +16,9 @@ class PersonalElementIconView: UIView {
         let label = UILabel()
         label.text = "- -"
         label.textColor = UIColor(hex:0x666666FF)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 12,weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -59,7 +62,7 @@ private extension PersonalElementIconView {
                    titleLabel.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 10),
                    titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
                    titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-                   titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+                   titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
                ])
     }
     
