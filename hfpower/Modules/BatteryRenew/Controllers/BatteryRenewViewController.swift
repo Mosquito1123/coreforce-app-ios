@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BatteryRenewViewController: UIViewController,UIGestureRecognizerDelegate{
+class BatteryRenewViewController: BaseViewController{
     // MARK: - Accessor
     var boughtPackageCard:HFPackageCardModel?
     var batteryDetail:HFBatteryDetail?{
@@ -189,12 +189,14 @@ private extension BatteryRenewViewController {
     
     private func setupNavbar() {
         self.title = "电池续费"
-        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
         // 自定义返回按钮
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "back_arrow"), for: .normal)  // 设置自定义图片
+        backButton.setImage(UIImage(named: "back_arrow"), for: .selected)  // 设置自定义图片
+        backButton.setImage(UIImage(named: "back_arrow"), for: .highlighted)  // 设置自定义图片
+
         backButton.setTitle("", for: .normal)  // 设置标题
         backButton.setTitleColor(.black, for: .normal)  // 设置标题颜色
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -671,10 +673,7 @@ private extension BatteryRenewViewController {
 
 // MARK: - Action
 @objc private extension BatteryRenewViewController {
-    @objc func backButtonTapped() {
-        // 返回按钮的点击事件处理
-        self.navigationController?.popViewController(animated: true)
-    }
+    
 }
 
 // MARK: - Private

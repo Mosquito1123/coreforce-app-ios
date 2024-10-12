@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BikeRenewViewController: UIViewController,UIGestureRecognizerDelegate{
+class BikeRenewViewController: BaseViewController{
    
     // MARK: - Accessor
     @objc var bikeDetail:HFBikeDetail?{
@@ -170,7 +170,6 @@ private extension BikeRenewViewController {
     
     private func setupNavbar() {
         self.title = "电车续费"
-        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self;
         
         // 自定义返回按钮
@@ -516,10 +515,7 @@ private extension BikeRenewViewController {
 
 // MARK: - Action
 @objc private extension BikeRenewViewController {
-    @objc func backButtonTapped() {
-        // 返回按钮的点击事件处理
-        self.navigationController?.popViewController(animated: true)
-    }
+    
 }
 
 // MARK: - Private
