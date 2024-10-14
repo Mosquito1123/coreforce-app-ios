@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 import FloatingPanel
-class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate, RentalHandler {
     func rentBike(number: String?) {
         let bikeRentalViewController = BikeRentalViewController()
         bikeRentalViewController.bikeNumber = number ?? ""

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController,UITabBarControllerDelegate,BatteryRentalViewControllerDelegate,BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+class MainTabBarController: UITabBarController,UITabBarControllerDelegate,RentalHandler {
     func rentBike(number: String?) {
         let bikeRentalViewController = BikeRentalViewController()
         bikeRentalViewController.bikeNumber = number ?? ""

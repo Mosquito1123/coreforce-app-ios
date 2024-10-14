@@ -152,7 +152,7 @@ private extension AllPackageCardContentViewController {
 private extension AllPackageCardContentViewController {
     
 }
-class AllPackageCardListViewController:BaseTableViewController<AllPackageCardListViewCell,HFPackageCardModel>, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate{
+class AllPackageCardListViewController:BaseTableViewController<AllPackageCardListViewCell,HFPackageCardModel>, RentalHandler{
     func rentBike(number: String?) {
         
     }

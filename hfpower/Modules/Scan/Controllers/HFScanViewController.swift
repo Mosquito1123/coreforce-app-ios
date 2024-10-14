@@ -8,57 +8,74 @@
 import UIKit
 import swiftScan
 import HMSegmentedControl
-class HFScanTool{
+typealias RentalHandler = BatteryRentalViewControllerDelegate & BatteryReplacementViewControllerDelegate & BikeRentalViewControllerDelegate
+
+class HFScanTool {
     static let shared = HFScanTool()
-    func showScanController(from vc:UIViewController & BatteryRentalViewControllerDelegate & BatteryReplacementViewControllerDelegate & BikeRentalViewControllerDelegate,fromInput inputResultBlock:((String)->Void)? = nil){
+    
+    func showScanController(from vc: UIViewController & RentalHandler, fromInput inputResultBlock: ((String) -> Void)? = nil) {
+        
         let scanVC = HFScanViewController()
         scanVC.inputResultBlock = inputResultBlock
         scanVC.resultBlock = { result in
-            guard let resultString = result.strScanned else {return}
-            if resultString.contains("www.coreforce.cn") {
-                // 扫码获得类型
-                guard let startRange = resultString.range(of: "cn/"),
-                      let endRange = resultString.range(of: "?n") else { return }
+            guard let resultString = result.strScanned, resultString.contains("www.coreforce.cn") else { return }
+            
+            // 获取类型和型号
+            guard let startRange = resultString.range(of: "cn/"),
+                  let endRange = resultString.range(of: "?n"),
+                  let typeName = resultString.components(separatedBy: "n=").last else { return }
+            
+            let resultStr = String(resultString[startRange.upperBound..<endRange.lowerBound])
+            
+            switch resultStr {
+            case "b": // 电池
+                self.handleBattery(vc: vc, typeName: typeName)
                 
-                let range = startRange.upperBound..<endRange.lowerBound
-                let resultStr = String(resultString[range])
+            case "c": // 电柜
+                self.handleCabinet(vc: vc, typeName: typeName)
                 
-                // 获得 n= 型号字符串
-                let resultArray = resultString.components(separatedBy: "n=")
-                guard let typeName = resultArray.last else { return }
+            case "l": // 机车
+                self.handleBike(vc: vc, typeName: typeName)
                 
-                if resultStr == "b" {//电池
-                    if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber == typeName {
-                        let batteryVC = BatteryDetailViewController()
-                        vc.navigationController?.pushViewController(batteryVC, animated: true)
-                        return
-                    } else if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number, firstBatteryNumber != typeName {
-                        vc.showError(withStatus: "已租电池，请扫柜换电")
-                        return
-                    }
-                    vc.rentBattery(number: typeName)
-                } else if resultStr == "c" {//电柜
-                    if let battery = HFKeyedArchiverTool.batteryDataList().first{//换电
-                        vc.batteryReplacement(id: battery.id.intValue, number: typeName)
-                    }else{//新租
-                        vc.cabinetRentBattery(number: typeName)
-                    }
-                }else if resultStr == "l" {//机车
-                    if let firstBikeNumber = HFKeyedArchiverTool.bikeDetailList().first?.number, firstBikeNumber == typeName {
-                        let batteryVC = BikeDetailViewController()
-                        vc.navigationController?.pushViewController(batteryVC, animated: true)
-                        return
-                    } else if let firstBikeNumber = HFKeyedArchiverTool.bikeDetailList().first?.number, firstBikeNumber != typeName {
-                        vc.showError(withStatus: "已租电车，请勿重复租车")
-                        return
-                    }
-                    vc.rentBike(number: typeName)
-                }else{
-                    vc.showError(withStatus: "二维码错误，请扫核蜂换电有关二维码进行扫码")
-                }
+            default:
+                vc.showError(withStatus: "二维码错误，请扫核蜂换电有关二维码进行扫码")
             }
         }
         vc.navigationController?.pushViewController(scanVC, animated: true)
+    }
+    
+    private func handleBattery(vc: UIViewController & BatteryRentalViewControllerDelegate, typeName: String) {
+        if let firstBatteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number {
+            if firstBatteryNumber == typeName {
+                let batteryVC = BatteryDetailViewController()
+                vc.navigationController?.pushViewController(batteryVC, animated: true)
+            } else {
+                vc.showError(withStatus: "已租电池，请扫柜换电")
+            }
+        } else {
+            vc.rentBattery(number: typeName)
+        }
+    }
+    
+    private func handleCabinet(vc: UIViewController & BatteryReplacementViewControllerDelegate  & BatteryRentalViewControllerDelegate, typeName: String) {
+        if let battery = HFKeyedArchiverTool.batteryDataList().first {
+            vc.batteryReplacement(id: battery.id.intValue, number: typeName)
+        } else {
+            vc.cabinetRentBattery(number: typeName)
+        }
+    }
+    
+    private func handleBike(vc: UIViewController & BikeRentalViewControllerDelegate, typeName: String) {
+        if let firstBikeNumber = HFKeyedArchiverTool.bikeDetailList().first?.number {
+            if firstBikeNumber == typeName {
+                let bikeVC = BikeDetailViewController()
+                vc.navigationController?.pushViewController(bikeVC, animated: true)
+            } else {
+                vc.showError(withStatus: "已租电车，请勿重复租车")
+            }
+        } else {
+            vc.rentBike(number: typeName)
+        }
     }
 }
 class HFScanViewController: LBXScanViewController,UIGestureRecognizerDelegate{

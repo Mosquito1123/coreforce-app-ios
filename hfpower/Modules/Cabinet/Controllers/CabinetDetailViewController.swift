@@ -10,7 +10,7 @@ import FSPagerView
 import FloatingPanel
 import Kingfisher
 import CoreLocation
-class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate, FSPagerViewDataSource, FSPagerViewDelegate ,BatteryRentalViewControllerDelegate,BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate, FSPagerViewDataSource, FSPagerViewDelegate ,RentalHandler {
     func rentBike(number: String?) {
         
     }

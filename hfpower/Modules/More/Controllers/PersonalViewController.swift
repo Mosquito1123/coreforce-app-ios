@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class PersonalViewController: BaseViewController, BatteryRentalViewControllerDelegate, BatteryReplacementViewControllerDelegate, BikeRentalViewControllerDelegate {
+class PersonalViewController: BaseViewController, RentalHandler {
     func rentBike(number: String?) {
         let bikeRentalViewController = BikeRentalViewController()
         bikeRentalViewController.bikeNumber = number ?? ""
