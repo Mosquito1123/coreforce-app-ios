@@ -33,6 +33,8 @@
 		041AD21B2CBA510B002CD50B /* CityHistoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041AD21A2CBA510B002CD50B /* CityHistoryViewCell.swift */; };
 		041AD21D2CBA53C0002CD50B /* CityHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041AD21C2CBA53C0002CD50B /* CityHistory.swift */; };
 		041AD2232CBCBE0A002CD50B /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041AD2222CBCBE0A002CD50B /* FirstViewController.swift */; };
+		041AD2252CBD1DC4002CD50B /* FirstContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041AD2242CBD1DC4002CD50B /* FirstContentViewController.swift */; };
+		041AD2272CBD21F7002CD50B /* FirstContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041AD2262CBD21F7002CD50B /* FirstContent.swift */; };
 		04224DA52C09A6F50087066F /* CabinetStatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA42C09A6F50087066F /* CabinetStatisticView.swift */; };
 		04224DA72C09BCFA0087066F /* CabinetLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA62C09BCFA0087066F /* CabinetLocationView.swift */; };
 		04224DA92C09D37A0087066F /* CabinetStatisticBatteryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */; };
@@ -393,6 +395,8 @@
 		041AD21A2CBA510B002CD50B /* CityHistoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityHistoryViewCell.swift; sourceTree = "<group>"; };
 		041AD21C2CBA53C0002CD50B /* CityHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityHistory.swift; sourceTree = "<group>"; };
 		041AD2222CBCBE0A002CD50B /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		041AD2242CBD1DC4002CD50B /* FirstContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstContentViewController.swift; sourceTree = "<group>"; };
+		041AD2262CBD21F7002CD50B /* FirstContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstContent.swift; sourceTree = "<group>"; };
 		04224DA42C09A6F50087066F /* CabinetStatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticView.swift; sourceTree = "<group>"; };
 		04224DA62C09BCFA0087066F /* CabinetLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetLocationView.swift; sourceTree = "<group>"; };
 		04224DA82C09D37A0087066F /* CabinetStatisticBatteryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CabinetStatisticBatteryListView.swift; sourceTree = "<group>"; };
@@ -1183,6 +1187,7 @@
 		041AD21F2CBCBD6C002CD50B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				041AD2262CBD21F7002CD50B /* FirstContent.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1198,6 +1203,7 @@
 			isa = PBXGroup;
 			children = (
 				041AD2222CBCBE0A002CD50B /* FirstViewController.swift */,
+				041AD2242CBD1DC4002CD50B /* FirstContentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2564,6 +2570,7 @@
 				04F096B82C91A9D100C989A7 /* HFBatteryTypeInfo.m in Sources */,
 				042F2B2F2C19461500D27A04 /* CabinetAnnotationView.swift in Sources */,
 				04FFEE442C04A0CD00939B46 /* SearchView.swift in Sources */,
+				041AD2272CBD21F7002CD50B /* FirstContent.swift in Sources */,
 				048EE7602C3D481C0094A0CB /* PersonalInfoListViewCell.swift in Sources */,
 				048EE7572C3D3BB60094A0CB /* AboutListViewCell.swift in Sources */,
 				042CAE272C91CB0900EC67DC /* HFPackageCardModel.m in Sources */,
@@ -2757,6 +2764,7 @@
 				04F4CFC32C74A18A00F5F764 /* BikeSiteViewCell.swift in Sources */,
 				04224DA92C09D37A0087066F /* CabinetStatisticBatteryListView.swift in Sources */,
 				04FFEE332C00889400939B46 /* LoginPhoneViewController.swift in Sources */,
+				041AD2252CBD1DC4002CD50B /* FirstContentViewController.swift in Sources */,
 				046B4EF42C6E02AF00DCD5CB /* OrderListViewController.swift in Sources */,
 				04FFEE4C2C05AA1400939B46 /* NeedLoginView.swift in Sources */,
 				045215342C3BEDE10091FD1A /* Settings.swift in Sources */,

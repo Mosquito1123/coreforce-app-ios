@@ -37,12 +37,11 @@ class CustomerServiceDetailViewController: BaseViewController,WKNavigationDelega
        
        // WKNavigationDelegate: Optional, for handling page loads, errors, etc.
        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-           print("Finished loading the page")
            self.title = element.title
        }
        
        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-           print("Failed to load the page: \(error.localizedDescription)")
+           self.showError(withStatus: error.localizedDescription)
        }
        
        // You can add more methods for progress, back/forward actions, etc.

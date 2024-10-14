@@ -132,7 +132,6 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -234,6 +233,7 @@ private extension CabinetDetailViewController {
     }
     
     private func setupSubviews() {
+        self.view.backgroundColor = .white
         self.view.addSubview(pagerView)
 
         fpc.delegate = self
