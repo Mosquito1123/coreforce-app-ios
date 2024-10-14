@@ -58,7 +58,13 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         
     }
     func setupNavbarCustomerService(){
-        self.navigationItem.titleView = nil
+        let titleLabel = UILabel()
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.textAlignment = .center
+        titleLabel.text = "核蜂客服"
+        self.navigationItem.titleView = titleLabel
+        
         // 创建一个新的 UINavigationBarAppearance 实例
         let appearance = UINavigationBarAppearance()
         
