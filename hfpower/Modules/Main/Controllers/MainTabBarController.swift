@@ -57,7 +57,24 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         }
         
     }
-    
+    func setupNavbarCustomerService(){
+        self.navigationItem.titleView = nil
+        // 创建一个新的 UINavigationBarAppearance 实例
+        let appearance = UINavigationBarAppearance()
+        
+        appearance.configureWithTransparentBackground()
+        
+        // 设置背景色为白色
+        
+        // 设置标题文本属性为白色
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white,.font:UIFont.systemFont(ofSize: 18, weight: .semibold)]
+        
+        // 设置大标题文本属性为白色
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        
+        
+    }
     func setupNavbarMore() {
         self.navigationItem.titleView = nil
         
@@ -201,18 +218,29 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
         }
         
         // Create view controllers for the tab bar
+        let first = FirstViewController()
+        first.tabBarItem.title = "首页"
+        first.tabBarItem.image = UIImage(named: "home")
+        first.tabBarItem.selectedImage = UIImage(named: "home_selected")?.withRenderingMode(.alwaysOriginal)
+        first.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         let home = HomeViewController()
-        home.tabBarItem.title = "首页"
+        home.tabBarItem.title = "地图"
         home.tabBarItem.image = UIImage(named: "map")
+        home.tabBarItem.selectedImage = UIImage(named: "map_selected")?.withRenderingMode(.alwaysOriginal)
         home.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         let blank = UIViewController()
         blank.tabBarItem.isEnabled = false
-        
+        let customerService = CustomerServiceViewController()
+        customerService.tabBarItem.title = "客服"
+        customerService.tabBarItem.image = UIImage(named: "customer_service")
+        customerService.tabBarItem.selectedImage = UIImage(named: "customer_service_selected")?.withRenderingMode(.alwaysOriginal)
+        customerService.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
         let more = PersonalViewController()
         more.tabBarItem.title = "我的"
         more.tabBarItem.image = UIImage(named: "my")
+        more.tabBarItem.selectedImage = UIImage(named: "my_selected")?.withRenderingMode(.alwaysOriginal)
         more.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
-        self.viewControllers = [home, blank, more]
+        self.viewControllers = [first,home, blank, customerService,more]
     }
     
     // MARK: - Setup Center Button
@@ -266,6 +294,11 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Batter
             self.setupNavbarHome()
         }else if viewController is PersonalViewController{
             self.setupNavbarMore()
+        }else if viewController is CustomerServiceViewController{
+            self.setupNavbarCustomerService()
+        }else if viewController is FirstViewController{
+            self.setupNavbarHome()
+
         }
     }
     override var selectedIndex: Int{

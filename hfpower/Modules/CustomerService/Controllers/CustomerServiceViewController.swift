@@ -13,7 +13,7 @@ class CustomerServiceViewController:BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.title = "核蜂客服"
+        self.title = "客服"
         addChild(content)
         
         self.view.addSubview(content.view)
@@ -62,7 +62,6 @@ class CustomerServiceViewController:BaseViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
         setupNavbar()
         
     }
