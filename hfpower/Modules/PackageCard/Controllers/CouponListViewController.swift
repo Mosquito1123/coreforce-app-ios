@@ -32,7 +32,7 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,HFCou
     }()
     lazy var closeButton:UIButton = {
         let button = UIButton(type:.custom)
-        button.setImage(UIImage(named: "filter_close")?.resized(toSize: CGSize(width: 20, height: 20)), for: .normal)
+        button.setImage(UIImage(named: "filter_close"), for: .normal)
         button.addTarget(self, action: #selector(close(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

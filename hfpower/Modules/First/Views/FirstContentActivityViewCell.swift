@@ -42,8 +42,8 @@ class FirstContentActivityViewCell: BaseTableViewCell<FirstContentItem> {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     // MARK: - Static

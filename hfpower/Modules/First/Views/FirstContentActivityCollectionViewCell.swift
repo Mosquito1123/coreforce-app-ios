@@ -20,6 +20,7 @@ class FirstContentActivityCollectionViewCell: UICollectionViewCell {
         return  view
     }()
     // 懒加载视图
+    /*
     lazy var leftTopView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 60, height: 18))
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +46,14 @@ class FirstContentActivityCollectionViewCell: UICollectionViewCell {
         view.layer.addSublayer(gradientLayer)
         return view
     }()
-
+*/
+    lazy var leftTopView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "first_left_top_background")
+        imageView.isUserInteractionEnabled = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     lazy var leftTopLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 18))
         label.text = ""

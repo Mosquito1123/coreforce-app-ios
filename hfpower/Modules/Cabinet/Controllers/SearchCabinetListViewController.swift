@@ -131,7 +131,6 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -317,7 +316,7 @@ private extension SearchCabinetListViewController {
     }
    
     private func setupSubviews() {
-        
+        self.view.backgroundColor = UIColor.white
         locationView.relocate = { bt in
             self.locationManager.startUpdatingLocation()
         }
