@@ -9,6 +9,7 @@ import Foundation
 import KakaJSON
 struct FirstContent:Convertible{
     var id:Int?
+    var identifier:String?
     var title:String?
     var content:String?
     var extra:String?

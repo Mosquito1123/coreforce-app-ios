@@ -150,16 +150,16 @@ private extension FirstContentCabinetListHeaderView {
         // locationView 约束
         NSLayoutConstraint.activate([
             locationView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
-            locationView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            locationView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            locationView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            locationView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             locationView.heightAnchor.constraint(equalToConstant: 44) // 假设 locationView 高度为 44
         ])
         
         // filterView 约束
         NSLayoutConstraint.activate([
-            filterView.topAnchor.constraint(equalTo: locationView.bottomAnchor, constant: 8),
-            filterView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            filterView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            filterView.topAnchor.constraint(equalTo: locationView.bottomAnchor),
+            filterView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            filterView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             filterView.heightAnchor.constraint(equalToConstant: 44), // 假设 filterView 高度为 44
             filterView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -8)
         ])

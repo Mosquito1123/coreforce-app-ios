@@ -73,6 +73,7 @@ class FirstContentViewController: UIViewController {
 
         var xparams = [String: Any]()
         xparams["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        dispatchGroup.enter()
 
         self.getData(largeTypeUrl, param: xparams, isLoading:false) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
@@ -98,8 +99,12 @@ class FirstContentViewController: UIViewController {
                 ]
 
             }
+            dispatchGroup.leave()
+
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
+            dispatchGroup.leave()
+
         }
         // 请求电柜列表
         dispatchGroup.enter()
@@ -174,8 +179,11 @@ class FirstContentViewController: UIViewController {
             let cabinetList = cabinetItems.enumerated().map { (index,value) in
                 return FirstContentItem(id: index, identifier: CabinetListViewCell.cellIdentifier(), title: "",extra: value.mj_JSONString())
             }
-            let cabinetContent = FirstContent(id: 1, title: "电柜列表", items:cabinetList)
-            memberItems.append(cabinetContent)
+            if cabinetList.count > 0{
+                let cabinetContent = FirstContent(id: 1,identifier: FirstContentCabinetListHeaderView.viewIdentifier(), title: "电柜列表", items:cabinetList)
+                memberItems.append(cabinetContent)
+            }
+            
             self.items = memberItems // 这里合并数据逻辑可以根据需求调整
             self.components = components
             self.tableView.reloadData() // 刷新 UI
@@ -270,15 +278,18 @@ extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
         return self.items.count
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: FirstContentCabinetListHeaderView.viewIdentifier()) as? FirstContentCabinetListHeaderView else {return FirstContentCabinetListHeaderView()}
+        guard let sectionIdentifier = self.items[section].identifier else {return nil}
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionIdentifier) as? FirstContentCabinetListHeaderView else {return nil}
         view.components = self.components
         view.locationView.relocate = { bt in
             self.locationManager.startUpdatingLocation()
         }
+        
         return view
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 88
+        guard let _ = self.items[section].identifier else {return 0}
+        return 104
     }
 }
 
