@@ -143,7 +143,7 @@ class FirstContentPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
-        .full: FloatingPanelLayoutAnchor(absoluteInset: 0, edge: .top, referenceGuide: .safeArea),
+        .full: FloatingPanelLayoutAnchor(absoluteInset: 10, edge: .top, referenceGuide: .safeArea),
         .half: FloatingPanelLayoutAnchor(absoluteInset: 224, edge: .top, referenceGuide: .superview)
     ]
     

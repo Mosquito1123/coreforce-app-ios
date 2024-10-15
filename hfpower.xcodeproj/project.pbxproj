@@ -296,6 +296,8 @@
 		04BE42B02C129A1E002B78EA /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */; };
 		04BE42B42C12A198002B78EA /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B32C12A198002B78EA /* AccountManager.swift */; };
 		04BE42B62C12BC43002B78EA /* MemberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BE42B52C12BC42002B78EA /* MemberResponse.swift */; };
+		04BF69AD2CBE08B900EA6CA9 /* FirstContentActivityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF69AC2CBE08B900EA6CA9 /* FirstContentActivityViewCell.swift */; };
+		04BF69AF2CBE0A3A00EA6CA9 /* FirstContentActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BF69AE2CBE0A3A00EA6CA9 /* FirstContentActivityCollectionViewCell.swift */; };
 		04DE26892C3291920052D056 /* BoughtPlansViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */; };
 		04DE268B2C32A21C0052D056 /* DepositServiceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */; };
 		04DE268D2C32A5F90052D056 /* FeeDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */; };
@@ -704,6 +706,8 @@
 		04BE42AF2C129A1E002B78EA /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		04BE42B32C12A198002B78EA /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		04BE42B52C12BC42002B78EA /* MemberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberResponse.swift; sourceTree = "<group>"; };
+		04BF69AC2CBE08B900EA6CA9 /* FirstContentActivityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstContentActivityViewCell.swift; sourceTree = "<group>"; };
+		04BF69AE2CBE0A3A00EA6CA9 /* FirstContentActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstContentActivityCollectionViewCell.swift; sourceTree = "<group>"; };
 		04DE26882C3291920052D056 /* BoughtPlansViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoughtPlansViewCell.swift; sourceTree = "<group>"; };
 		04DE268A2C32A21C0052D056 /* DepositServiceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositServiceViewCell.swift; sourceTree = "<group>"; };
 		04DE268C2C32A5F90052D056 /* FeeDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeeDetailViewCell.swift; sourceTree = "<group>"; };
@@ -1195,6 +1199,8 @@
 		041AD2202CBCBD7B002CD50B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04BF69AC2CBE08B900EA6CA9 /* FirstContentActivityViewCell.swift */,
+				04BF69AE2CBE0A3A00EA6CA9 /* FirstContentActivityCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2597,6 +2603,7 @@
 				0443B9E12C0EB97600834069 /* SummaryTableView.swift in Sources */,
 				042849152C2436EC0011032F /* CabinetDetailContentViewController.swift in Sources */,
 				0495A55D2C9317B800C2D03A /* HFHelpList.m in Sources */,
+				04BF69AD2CBE08B900EA6CA9 /* FirstContentActivityViewCell.swift in Sources */,
 				04F096AF2C91777700C989A7 /* HFAllOrder.m in Sources */,
 				048EE7752C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift in Sources */,
 				044632612C8F1A8100DB8D37 /* AuthStatusView.swift in Sources */,
@@ -2801,6 +2808,7 @@
 				04741BEB2C23DC870094EE94 /* CabinetDetailViewController.swift in Sources */,
 				044632632C8F211E00DB8D37 /* InviteViewController.swift in Sources */,
 				331C90C02BC6C60000BB534F /* SceneDelegate.swift in Sources */,
+				04BF69AF2CBE0A3A00EA6CA9 /* FirstContentActivityCollectionViewCell.swift in Sources */,
 				042D85012C2BB8BC0049DDB5 /* PersonalElementView.swift in Sources */,
 				04F4CFC12C749EC500F5F764 /* BikeRemainingTermViewCell.swift in Sources */,
 				0495A55F2C931D7800C2D03A /* CustomerServiceDetailViewController.swift in Sources */,

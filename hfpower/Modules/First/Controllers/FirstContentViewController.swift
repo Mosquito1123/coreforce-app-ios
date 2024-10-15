@@ -7,9 +7,18 @@
 
 import UIKit
 import FloatingPanel
+import CoreLocation
 class FirstContentViewController: UIViewController {
     var fpc:FloatingPanelController?
     // MARK: - Accessor
+    lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        // 在这里可以进行其他的配置
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        return manager
+    }()
     var items:[FirstContent] = []{
         didSet{
             self.tableView.reloadData()
@@ -25,7 +34,7 @@ class FirstContentViewController: UIViewController {
         tableView.register(PersonalMileageViewCell.self, forCellReuseIdentifier: PersonalMileageViewCell.cellIdentifier())
         tableView.register(PersonalOthersViewCell.self, forCellReuseIdentifier: PersonalOthersViewCell.cellIdentifier())
         tableView.register(AuthorityViewCell.self, forCellReuseIdentifier: AuthorityViewCell.cellIdentifier())
-        
+        tableView.register(FirstContentActivityViewCell.self, forCellReuseIdentifier: FirstContentActivityViewCell.cellIdentifier())
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -44,12 +53,41 @@ class FirstContentViewController: UIViewController {
         setupSubviews()
         setupLayout()
         loadData()
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     func loadData(){
-        self.items = YourClass().items
+//        self.items = YourClass().items
+        self.getData(memberUrl, param: [:], isLoading: false) { responseObject in
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any] {
+                let memberData = HFMember.mj_object(withKeyValues: body["member"])
+
+                let isAuth = memberData?.isAuth
+                if isAuth == 1{
+                    let content = FirstContent(id: 0, title: "购买套餐", items: [
+                        FirstContentItem(id: 0, identifier: PersonalPackageCardViewCell.cellIdentifier(), title: "购买套餐"),
+                        FirstContentItem(id: 1, identifier: FirstContentActivityViewCell.cellIdentifier(), title: "活动优惠")
+
+                    ])
+                    self.items = [content]
+                }else{
+                    let content = FirstContent(id: 0, title: "未实名", items: [
+                        FirstContentItem(id: 0, identifier: AuthorityViewCell.cellIdentifier(), title: "未实名")
+                    ])
+                    self.items = [content]
+
+                }
+            }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
     }
 }
-
+extension FirstContentViewController:CLLocationManagerDelegate{
+    
+}
 // MARK: - Setup
 private extension FirstContentViewController {
     
@@ -58,7 +96,7 @@ private extension FirstContentViewController {
     }
    
     private func setupSubviews() {
-        self.view.backgroundColor = UIColor(hex: 0xF7F7F7FF)
+        self.view.backgroundColor = .white
         view.addSubview(tableView)
 
     }
@@ -105,6 +143,7 @@ private extension FirstContentViewController {
 private extension FirstContentViewController {
     
 }
+/*
 class YourClass {
     var items: [FirstContent] = []
 
@@ -118,3 +157,4 @@ class YourClass {
         }
     }
 }
+*/
