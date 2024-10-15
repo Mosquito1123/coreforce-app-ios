@@ -272,6 +272,11 @@ extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let item = self.items[indexPath.section].items?[indexPath.row],let identifier = item.identifier else {return UITableViewCell()}
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        if let cellx = cell as? CabinetListViewCell{
+            if let cabinet = HFCabinet.mj_object(withKeyValues: item.extra) {
+                cellx.element = cabinet
+            }
+        }
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -290,6 +295,39 @@ extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard let _ = self.items[section].identifier else {return 0}
         return 104
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = self.items[indexPath.section].items?[indexPath.row]
+        if item?.identifier == PersonalPackageCardViewCell.cellIdentifier(){
+            let vc=PackageCardChooseServiceViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if item?.identifier == AuthorityViewCell.cellIdentifier(){
+            let realNameAuthVC = RealNameAuthViewController()
+            self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+        }
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let item = self.items[indexPath.section].items?[indexPath.row]
+        guard let cabinet = HFCabinet.mj_object(withKeyValues: item?.extra) else {return }
+        if let cellx = cell as? CabinetListViewCell {
+            cellx.giftAction = { sender in
+                let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+                self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+            }
+            cellx.detailAction = { sender in
+                let cabinetDetailVC = CabinetDetailViewController()
+                cabinetDetailVC.id = cabinet.id
+                cabinetDetailVC.number = cabinet.number
+                self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
+            }
+            cellx.navigateAction = { sender in
+                
+                guard let lat = cabinet.bdLat?.doubleValue,let lng = cabinet.bdLon?.doubleValue,let number = cabinet.number else {
+                    self.showError(withStatus: "该电柜坐标数据有误")
+                    return}
+                self.mapNavigation(lat: lat, lng: lng, address: number, currentController: self)
+            }
+        }
     }
 }
 

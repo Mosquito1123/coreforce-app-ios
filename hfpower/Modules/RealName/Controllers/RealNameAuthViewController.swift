@@ -49,6 +49,7 @@ class RealNameAuthViewController: UIViewController,UIGestureRecognizerDelegate {
     
     private(set) lazy var IDCardIdentifyView: HFIDCardIdentifyView = {
         let view = HFIDCardIdentifyView()
+        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.buttonActionBlock = { [weak self] sender in
             guard let weakSelf = self else { return }

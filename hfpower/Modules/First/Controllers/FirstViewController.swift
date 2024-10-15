@@ -50,8 +50,25 @@ class FirstViewController: UIViewController,FSPagerViewDelegate, FSPagerViewData
         setupNavbar()
         setupSubviews()
         setupLayout()
+        loadData()
     }
-    
+    func loadData(){
+        let code = CityCodeManager.shared.cityCode ?? "370200"
+
+        var xparams = [String: Any]()
+        xparams["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        self.getData(activityBannerListUrl, param: xparams, isLoading: false) { responseObject in
+            guard let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                  let inviteList = body["inviteList"] as? [[String: Any]] else {
+                return
+            }
+            let modelList = HFActivityListModel.mj_objectArray(withKeyValuesArray: inviteList) as? [HFActivityListModel] ?? []
+
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
+
+    }
     
 }
 

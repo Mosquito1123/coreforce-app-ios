@@ -143,7 +143,7 @@ private extension FirstContentCabinetListHeaderView {
         self.contentView.backgroundColor = UIColor(hex:0xF7F7F7FF)
         self.contentView.addSubview(locationView)
         self.contentView.addSubview(filterView)
-        
+        self.locationView.location = ""
     }
     
     private func setupLayout() {
