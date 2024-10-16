@@ -10,11 +10,50 @@ import UIKit
 class FirstContentActivityCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Accessor
-    
+    var model: HFPackageCardModel? {
+        didSet {
+            guard let model = model else { return }
+           
+            
+//            if model.tag == "" {
+//                leftTopView.isHidden = true
+//                leftTopLabel.isHidden = true
+//            } else {
+//                leftTopView.isHidden = false
+//                leftTopLabel.isHidden = false
+//            }
+            leftTopLabel.text = "新人专享"
+            daysLabel.text = "\(model.days)天"
+            let nf = NumberFormatter()
+            nf.maximumFractionDigits = 2
+            nf.minimumFractionDigits = 0
+            planAmountLabel.text = nf.string(from: model.price )
+            let mf = NSMutableAttributedString()
+            let attributedTextTitle = NSAttributedString(string: "原价：",
+                                                    attributes: [
+                                                        .foregroundColor: UIColor(hex: 0xAAAAAAFF),
+                                                        .font: UIFont.systemFont(ofSize: 12)
+                                                    ])
+            mf.append(attributedTextTitle)
+
+            let attributedText = NSAttributedString(string: "\(nf.string(from: model.originalPrice ) ?? "0")元",
+                                                    attributes: [
+                                                        .strikethroughStyle: NSUnderlineStyle.single.rawValue,
+                                                        .foregroundColor: UIColor(hex: 0xAAAAAAFF),
+                                                        .font: UIFont.systemFont(ofSize: 12)
+                                                    ])
+            mf.append(attributedText)
+            originAmountLabel.attributedText = mf
+            let perMonthNumber = (model.price.doubleValue  )/(model.days.doubleValue )
+            planPerMonthLabel.text = "\(nf.string(from: NSNumber(value: perMonthNumber)) ?? "0")元/天"
+
+        }
+    }
     // MARK: - Subviews
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
+    lazy var containerView: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "first_package_card_background")
+        view.isUserInteractionEnabled = false
         view.layer.cornerRadius = 12
         view.translatesAutoresizingMaskIntoConstraints = false
         return  view
@@ -112,19 +151,27 @@ class FirstContentActivityCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.text = "999"
+        label.text = "--"
         label.textColor = UIColor(white: 51/255, alpha: 1)
         label.font = UIFont(name: "DIN Alternate Bold", size: 28)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
+    lazy var dashedLineView: DashedLineView = {
+        let view = DashedLineView()
+        view.backgroundColor = .white
+        view.dashColor = UIColor(hex: 0xBDC1CCFF)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     lazy var originAmountLabel: UILabel = {
         let label = UILabel()
         let attributedText = NSAttributedString(string: "￥--",
                                                 attributes: [
                                                     .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                                                    .foregroundColor: UIColor(red: 0.63, green: 0.63, blue: 0.63, alpha: 1),
+                                                    .foregroundColor: UIColor(hex: 0xAAAAAAFF),
                                                     .font: UIFont.systemFont(ofSize: 12)
                                                 ])
         label.attributedText = attributedText
@@ -137,8 +184,8 @@ class FirstContentActivityCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.text = ""
-        label.textColor = UIColor(red: 0.19, green: 0.44, blue: 0.94, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textColor = UIColor(hex: 0xF5746BFF)
+        label.font = UIFont.systemFont(ofSize: 11)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -149,8 +196,8 @@ class FirstContentActivityCollectionViewCell: UICollectionViewCell {
     
     class func cell(with collectionView: UICollectionView, for indexPath: IndexPath) -> FirstContentActivityCollectionViewCell {
         let identifier = cellIdentifier()
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? FirstContentActivityCollectionViewCell { return cell }
-        return FirstContentActivityCollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? FirstContentActivityCollectionViewCell else { return FirstContentActivityCollectionViewCell() }
+        return cell
     }
     
     // MARK: - Lifecycle
@@ -173,6 +220,7 @@ class FirstContentActivityCollectionViewCell: UICollectionViewCell {
 private extension FirstContentActivityCollectionViewCell {
     
     private func setupSubviews() {
+        self.contentView.backgroundColor = .clear
         contentView.addSubview(containerView)
 
         containerView.addSubview(titleLabel)
@@ -185,6 +233,7 @@ private extension FirstContentActivityCollectionViewCell {
         containerView.addSubview(planPerMonthLabel)
         containerView.addSubview(leftTopView)
         containerView.addSubview(leftTopLabel)
+        containerView.addSubview(dashedLineView)
     }
     
     private func setupLayout() {
@@ -214,7 +263,12 @@ private extension FirstContentActivityCollectionViewCell {
             originAmountLabel.topAnchor.constraint(equalTo: planAmountLabel.bottomAnchor, constant: 10),
 
             planPerMonthLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            planPerMonthLabel.topAnchor.constraint(equalTo: originAmountLabel.bottomAnchor, constant: 10)
+            planPerMonthLabel.topAnchor.constraint(equalTo: originAmountLabel.bottomAnchor, constant: 10),
+            self.dashedLineView.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -56),
+            self.dashedLineView.heightAnchor.constraint(equalToConstant: 0.5),
+            
+            self.dashedLineView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 7),
+            self.dashedLineView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -7),
         ])
     }
     

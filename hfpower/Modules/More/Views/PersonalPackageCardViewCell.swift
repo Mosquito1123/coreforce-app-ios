@@ -15,6 +15,7 @@ class PersonalPackageCardViewCell: UITableViewCell {
     lazy var mainView: UIImageView = {
         let mainView = UIImageView()
         mainView.image = UIImage(named: "package_card_button_bg")
+        mainView.isUserInteractionEnabled = true
         mainView.translatesAutoresizingMaskIntoConstraints = false
         return mainView
     }()
@@ -63,8 +64,7 @@ class PersonalPackageCardViewCell: UITableViewCell {
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
-        self.backgroundColor = .clear
+ 
 
         
         setupSubviews()
@@ -81,6 +81,8 @@ class PersonalPackageCardViewCell: UITableViewCell {
 private extension PersonalPackageCardViewCell {
     
     private func setupSubviews() {
+        self.selectionStyle = .none
+        self.backgroundColor = .clear
         self.contentView.addSubview(self.mainView)
         self.mainView.addSubview(iconView)
         self.mainView.addSubview(titleLabel)

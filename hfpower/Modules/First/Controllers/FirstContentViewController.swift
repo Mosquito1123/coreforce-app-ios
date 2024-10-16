@@ -65,11 +65,33 @@ class FirstContentViewController: UIViewController {
 
         // 用于存储请求结果的变量
         var components:[CabinetFilter] = [CabinetFilter]()
+        var newPackageCards:[HFPackageCardModel] = []
         var cabinetItems: [HFCabinet] = []
         var memberItems: [FirstContent] = []
-        var headerContent: FirstContent?
-        // 请求筛选条件
+        var showHeader:Bool = false
         let code = CityCodeManager.shared.cityCode ?? "370200"
+
+        var yparams = [String: Any]()
+        yparams["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
+        dispatchGroup.enter()
+
+        self.getData(ourPackageCardUrl, param: yparams, isLoading: true) { responseObject in
+            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+               let dataList = body["list"] as? [[String: Any]] {
+                
+                
+                
+                // 只提取新人专享套餐（category == 3）
+                newPackageCards = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 3 }
+                
+            }
+            dispatchGroup.leave()
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            dispatchGroup.leave()
+        }
+
+        // 请求筛选条件
 
         var xparams = [String: Any]()
         xparams["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
@@ -152,15 +174,12 @@ class FirstContentViewController: UIViewController {
                 let isAuth = memberData?.isAuth
                 
                 if isAuth == 1 {
-                    headerContent = FirstContent(id: 0, title: "购买套餐", items: [
-                        FirstContentItem(id: 0, identifier: PersonalPackageCardViewCell.cellIdentifier(), title: "购买套餐"),
-                        FirstContentItem(id: 1, identifier: FirstContentActivityViewCell.cellIdentifier(), title: "活动优惠")
-                    ])
+                    showHeader = true
+                   
                     
                 } else {
-                    headerContent = FirstContent(id: 0, title: "未实名", items: [
-                        FirstContentItem(id: 0, identifier: AuthorityViewCell.cellIdentifier(), title: "未实名")
-                    ])
+                    showHeader = false
+                    
 
                 }
             }
@@ -173,8 +192,22 @@ class FirstContentViewController: UIViewController {
         // 当两个请求都完成时的处理
         dispatchGroup.notify(queue: .main) {
             // 两个请求都完成后执行的操作
-            if let headerContentx = headerContent {
-                memberItems.append(headerContentx)
+            if showHeader {
+                let jsonString = HFPackageCardModel.mj_keyValuesArray(withObjectArray: newPackageCards).mj_JSONString()
+                let headerContent = FirstContent(id: 0, title: "购买套餐", items: [
+                    FirstContentItem(id: 0, identifier: PersonalPackageCardViewCell.cellIdentifier(), title: "购买套餐"),
+                    FirstContentItem(id: 1, identifier: FirstContentActivityViewCell.cellIdentifier(), title: "新人专享",extra: jsonString)
+                ])
+                memberItems.append(headerContent)
+
+            }else{
+                let jsonString = HFPackageCardModel.mj_keyValuesArray(withObjectArray: newPackageCards).mj_JSONString()
+
+                let headerContent = FirstContent(id: 0, title: "未实名", items: [
+                    FirstContentItem(id: 0, identifier: AuthorityViewCell.cellIdentifier(), title: "未实名"),
+                    FirstContentItem(id: 1, identifier: FirstContentActivityViewCell.cellIdentifier(), title: "新人专享",extra: jsonString)
+                ])
+                memberItems.append(headerContent)
             }
             let cabinetList = cabinetItems.enumerated().map { (index,value) in
                 return FirstContentItem(id: index, identifier: CabinetListViewCell.cellIdentifier(), title: "",extra: value.mj_JSONString())
@@ -327,6 +360,11 @@ extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.sureAction = { sender in
                 let vc=PackageCardChooseServiceViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }else if let contentCell = cell as? FirstContentActivityViewCell{
+            contentCell.didSelectItemBlock = { (collectionView,indexPath) in
+                let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
+                self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
             }
         }
     }
