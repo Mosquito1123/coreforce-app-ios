@@ -233,7 +233,7 @@ private extension LoginPhoneViewController {
             // 隐私政策标签约束
             privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 18),
             privacyPolicyAndUserAgreementTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            privacyPolicyAndUserAgreementTextView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.7),
+            privacyPolicyAndUserAgreementTextView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.75),
             privacyPolicyAndUserAgreementTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
             toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor ,constant: -4),

@@ -27,7 +27,7 @@ class PersonalViewController: BaseViewController, RentalHandler {
         self.postData(cabinetScanRentUrl, param: ["cabinetNumber":number ?? ""], isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let list = body["list"]{
                 if let typeList = HFBatteryRentalTypeInfo.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryRentalTypeInfo]{
-                  let batteryRentalChooseTypeViewController = BatteryRentalChooseTypeViewController()
+                    let batteryRentalChooseTypeViewController = BatteryRentalChooseTypeViewController()
                     batteryRentalChooseTypeViewController.items = typeList
                     self.navigationController?.pushViewController(batteryRentalChooseTypeViewController, animated: true)
                 }
@@ -94,25 +94,25 @@ class PersonalViewController: BaseViewController, RentalHandler {
                 let isAuth = memberData?.isAuth
                 if isAuth == 1{
                     
-                            self.items = [
-                                PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: memberData),
-                                PersonalList(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier()),
-                                PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
-                                PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
-                                PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier(),extra: nil),
-                                PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
-                                    PersonalListItem(title: "我的订单",icon: "order"),
-                                    PersonalListItem(title: "购买套餐",icon: "buy"),
-    //                                PersonalListItem(title: "电池寄存",icon: "post"),
-                                    PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
-    //                                PersonalListItem(title: "邀请有礼",icon: "invite"),
-    //                                PersonalListItem(title: "用户反馈",icon:"remark"),
-    //                                PersonalListItem(title: "用户指南",icon: "guide"),
-    //                                PersonalListItem(title: "消息通知",icon: "message"),
-                                    PersonalListItem(title: "常见问题",icon:"qa"),
-    //                                PersonalListItem(title: "领券中心",icon: "coupon")
-                                ])]
-                        
+                    self.items = [
+                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: memberData),
+                        PersonalList(title: "套餐卡",cellHeight: 71, identifier: PersonalPackageCardViewCell.cellIdentifier()),
+                        PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
+                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
+                        PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier(),extra: nil),
+                        PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
+                            PersonalListItem(title: "我的订单",icon: "order"),
+                            PersonalListItem(title: "购买套餐",icon: "buy"),
+                            //                                PersonalListItem(title: "电池寄存",icon: "post"),
+                            PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
+                            //                                PersonalListItem(title: "邀请有礼",icon: "invite"),
+                            //                                PersonalListItem(title: "用户反馈",icon:"remark"),
+                            //                                PersonalListItem(title: "用户指南",icon: "guide"),
+                            //                                PersonalListItem(title: "消息通知",icon: "message"),
+                            PersonalListItem(title: "常见问题",icon:"qa"),
+                            //                                PersonalListItem(title: "领券中心",icon: "coupon")
+                        ])]
+                    
                     self.getData(mileageUrl, param: [:], isLoading: false) { responseObject in
                         if let mileBody = (responseObject as? [String: Any])?["body"] as? [String: Any] {
                             if let index = self.items.firstIndex(where: { personal in
@@ -127,31 +127,31 @@ class PersonalViewController: BaseViewController, RentalHandler {
                     } error: { error in
                         self.showError(withStatus: error.localizedDescription)
                     }
-                    }else{
-                        self.items = [
-                            PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: memberData),
-                            PersonalList(title: "立即实名",cellHeight: 55, identifier: AuthorityViewCell.cellIdentifier()),
-                            PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
-                            PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
-                            PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
-                            PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
-                                PersonalListItem(title: "我的订单",icon: "order"),
-                                PersonalListItem(title: "购买套餐",icon: "buy"),
-//                                PersonalListItem(title: "电池寄存",icon: "post"),
-                                PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
-//                                PersonalListItem(title: "邀请有礼",icon: "invite"),
-//                                PersonalListItem(title: "用户反馈",icon:"remark"),
-//                                PersonalListItem(title: "用户指南",icon: "guide"),
-//                                PersonalListItem(title: "消息通知",icon: "message"),
-                                PersonalListItem(title: "常见问题",icon:"qa"),
-//                                PersonalListItem(title: "领券中心",icon: "coupon")
-                            ])]
-                    }
-                    
+                }else{
+                    self.items = [
+                        PersonalList(title: "头部",cellHeight: 112, identifier: PersonalHeaderViewCell.cellIdentifier(),extra: memberData),
+                        PersonalList(title: "立即实名",cellHeight: 55, identifier: AuthorityViewCell.cellIdentifier()),
+                        PersonalList(title: "我的设备",cellHeight: 250, identifier: PersonalDevicesViewCell.cellIdentifier()),
+                        PersonalList(title: "我的资产",cellHeight: 120, identifier: PersonalAssetsViewCell.cellIdentifier(),extra: body),
+                        PersonalList(title: "我的里程",cellHeight: 120, identifier: PersonalMileageViewCell.cellIdentifier()),
+                        PersonalList(title: "其他服务",cellHeight: 180, identifier: PersonalOthersViewCell.cellIdentifier(),items: [
+                            PersonalListItem(title: "我的订单",icon: "order"),
+                            PersonalListItem(title: "购买套餐",icon: "buy"),
+                            //                                PersonalListItem(title: "电池寄存",icon: "post"),
+                            PersonalListItem(title: "卡仓取电",icon: "fetch_b"),
+                            //                                PersonalListItem(title: "邀请有礼",icon: "invite"),
+                            //                                PersonalListItem(title: "用户反馈",icon:"remark"),
+                            //                                PersonalListItem(title: "用户指南",icon: "guide"),
+                            //                                PersonalListItem(title: "消息通知",icon: "message"),
+                            PersonalListItem(title: "常见问题",icon:"qa"),
+                            //                                PersonalListItem(title: "领券中心",icon: "coupon")
+                        ])]
                 }
-            } error: { error in
-                self.showError(withStatus: error.localizedDescription)
+                
             }
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+        }
         
         
         
@@ -230,7 +230,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
             contentCell.batteryRentAction = { sender in
                 //扫码租电
                 HFScanTool.shared.showScanController(from: self)
-
+                
             }
             contentCell.batteryRenewAction = { sender in
                 //电池续租
@@ -306,7 +306,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                                     } error: { error in
                                         self.showError(withStatus: error.localizedDescription)
                                     }
-
+                                    
                                 }
                             } else {
                                 self.showError(withStatus: "请扫描对应运营商电池柜二维码")
@@ -315,28 +315,30 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                         
                     }
                     self.navigationController?.pushViewController(scanVC, animated: true)
-//                }else if indexPath.item == 4{
-//                    let inviteVC = InviteCodeViewController()
-//                    self.navigationController?.pushViewController(inviteVC, animated: true)
-//                    
-//                }else if indexPath.item == 5{
-//                    let userFeedbackVC = UserFeedbackViewController()
-//                    self.navigationController?.pushViewController(userFeedbackVC, animated: true)
-//                    
-//                }else if indexPath.item == 6{
-//                   let userGuideVC = UserGuideViewController()
-//                    self.navigationController?.pushViewController(userGuideVC, animated: true)
-//
-//                }else if indexPath.item == 7{
-//                    let messageListVC = MessageListViewController()
-//                    self.navigationController?.pushViewController(messageListVC, animated: true)
-//
-//                }else if indexPath.item == 8{
-//                    let customerVC = CustomerServiceViewController()
-//                    self.navigationController?.pushViewController(customerVC, animated: true)
-//                }else if indexPath.item == 9{
-//                    let allCouponViewController = AllCouponViewController()
-//                    self.navigationController?.pushViewController(allCouponViewController, animated: true)
+                    /*
+                     }else if indexPath.item == 4{
+                     let inviteVC = InviteCodeViewController()
+                     self.navigationController?.pushViewController(inviteVC, animated: true)
+                     
+                     }else if indexPath.item == 5{
+                     let userFeedbackVC = UserFeedbackViewController()
+                     self.navigationController?.pushViewController(userFeedbackVC, animated: true)
+                     
+                     }else if indexPath.item == 6{
+                     let userGuideVC = UserGuideViewController()
+                     self.navigationController?.pushViewController(userGuideVC, animated: true)
+                     
+                     }else if indexPath.item == 7{
+                     let messageListVC = MessageListViewController()
+                     self.navigationController?.pushViewController(messageListVC, animated: true)
+                     
+                     }else if indexPath.item == 8{
+                     let customerVC = CustomerServiceViewController()
+                     self.navigationController?.pushViewController(customerVC, animated: true)
+                     }else if indexPath.item == 9{
+                     let allCouponViewController = AllCouponViewController()
+                     self.navigationController?.pushViewController(allCouponViewController, animated: true)
+                     */
                 }else if x.title == "常见问题"{
                     let customerVC = CustomerServiceViewController()
                     self.navigationController?.pushViewController(customerVC, animated: true)
