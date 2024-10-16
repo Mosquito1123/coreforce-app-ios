@@ -8,16 +8,19 @@
 import UIKit
 import FSPagerView
 import FloatingPanel
-
+import Kingfisher
 class FirstViewController: UIViewController,FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return imageUrls.count
+        return banners.count
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: String(describing: FSPagerViewCell.self), at: index)
-        let url = imageUrls[index]
-        cell.imageView?.kf.setImage(with: url,placeholder: UIImage(named: "no_data"))
+        let banner = banners[index]
+        let accessToken = HFKeyedArchiverTool.account().accessToken
+        let icon = banner.photo
+        let iconURLString = "\(rootRequest)/app/api/normal/read/photo?access_token=\(accessToken)&photo=\(icon)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
+        cell.imageView?.kf.setImage(with: URL(string: iconURLString),placeholder:UIImage(named: "banner_default"))
         
         return cell
     }
@@ -28,7 +31,7 @@ class FirstViewController: UIViewController,FSPagerViewDelegate, FSPagerViewData
     
     
     // MARK: - Accessor
-    var imageUrls = [URL]()
+    var banners = [HFActivityListModel]()
     let fpc = FloatingPanelController()
     let firstContent = FirstContentViewController()
     // MARK: - Subviews
@@ -50,7 +53,11 @@ class FirstViewController: UIViewController,FSPagerViewDelegate, FSPagerViewData
         setupNavbar()
         setupSubviews()
         setupLayout()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadData()
+
     }
     func loadData(){
         let code = CityCodeManager.shared.cityCode ?? "370200"
@@ -63,7 +70,8 @@ class FirstViewController: UIViewController,FSPagerViewDelegate, FSPagerViewData
                 return
             }
             let modelList = HFActivityListModel.mj_objectArray(withKeyValuesArray: inviteList) as? [HFActivityListModel] ?? []
-
+            self.banners = modelList
+            self.pagerView.reloadData()
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
         }

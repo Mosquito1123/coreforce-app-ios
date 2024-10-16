@@ -186,7 +186,6 @@ class FirstContentViewController: UIViewController {
             
             self.items = memberItems // 这里合并数据逻辑可以根据需求调整
             self.components = components
-            self.tableView.reloadData() // 刷新 UI
         }
 
     }
@@ -276,6 +275,8 @@ extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
             if let cabinet = HFCabinet.mj_object(withKeyValues: item.extra) {
                 cellx.element = cabinet
             }
+        }else if let cellx = cell as? FirstContentActivityViewCell{
+            cellx.element = item
         }
         return cell
     }

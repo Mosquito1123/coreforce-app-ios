@@ -10,6 +10,7 @@ import UIKit
 class FirstContentActivityViewCell: BaseTableViewCell<FirstContentItem> {
     
     // MARK: - Accessor
+    var gradientLayer:CAGradientLayer?
     var containerViewHeight:NSLayoutConstraint!
     var didSelectItemBlock:((_ collectionView: UICollectionView, _ indexPath: IndexPath)->Void)?
     override func configure() {
@@ -71,12 +72,19 @@ class FirstContentActivityViewCell: BaseTableViewCell<FirstContentItem> {
         setupLayout()
     }
     private func applyGradientBackground() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor(hex: 0xFFE6D8FF).cgColor, UIColor(hex: 0xF9F3F0FF).cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        gradientLayer.frame = containerView.bounds
-        containerView.layer.insertSublayer(gradientLayer, at: 0)
+        if let _ = self.gradientLayer{
+            return
+        }else{
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = [UIColor(hex: 0xFFE6D8FF).cgColor, UIColor(hex: 0xF9F3F0FF).cgColor]
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+            gradientLayer.cornerRadius = 12
+            gradientLayer.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 28))
+            containerView.layer.insertSublayer(gradientLayer, at: 0)
+            self.gradientLayer = gradientLayer
+        }
+        
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -103,7 +111,7 @@ private extension FirstContentActivityViewCell {
     
     private func setupSubviews() {
         self.selectionStyle = .none
-        self.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
+        self.backgroundColor = .white
         self.contentView.addSubview(self.containerView)
         self.containerView.addSubview(titleLabel)
         self.containerView.addSubview(collectionView)
