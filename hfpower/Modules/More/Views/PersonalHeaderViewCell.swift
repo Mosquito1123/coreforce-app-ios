@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 class PersonalHeaderViewCell: UITableViewCell {
     
     // MARK: - Accessor
@@ -17,7 +16,7 @@ class PersonalHeaderViewCell: UITableViewCell {
                 titleLabel.text = member.realName != "" ? "\(member.realName)":"\("用户")_\(lastFour)"
                 subTitleLabel.text = member.phoneNum.maskPhoneNumber()
                 authorityButton.isVerified = member.isAuth == 1
-                headerImageView.kf.setImage(with: URL(string: "\(rootRequest)/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
+                headerImageView.setHeaderImage(placeholder: UIImage(named: "setup-head-default"))
             }
         }
     }

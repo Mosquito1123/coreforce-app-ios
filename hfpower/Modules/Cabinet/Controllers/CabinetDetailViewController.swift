@@ -8,7 +8,6 @@
 import UIKit
 import FSPagerView
 import FloatingPanel
-import Kingfisher
 import CoreLocation
 class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate, FSPagerViewDataSource, FSPagerViewDelegate ,RentalHandler {
     func rentBike(number: String?) {
@@ -16,13 +15,13 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
     }
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return imageUrls.count
+        return cabinetIds.count
     }
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: String(describing: FSPagerViewCell.self), at: index)
-        let url = imageUrls[index]
-        cell.imageView?.kf.setImage(with: url,placeholder: UIImage(named: "no_data"))
+        let id = cabinetIds[index]
+        cell.imageView?.setCabinetImage(id: id, index: index + 1, placeholder: UIImage(named: "banner_default"))
         
         return cell
     }
@@ -30,9 +29,8 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
         
     }
     
-    var imageUrls = [URL]()
+    var cabinetIds = [Int]()
     // MARK: - Accessor
-    let base = rootRequest
     let fpc = FloatingPanelController()
     @objc var id:NSNumber?
     @objc var number:String?
@@ -80,24 +78,19 @@ class CabinetDetailViewController: UIViewController,UIGestureRecognizerDelegate,
 
                 
             })
-            var list = [String]()
+            var list = [Int]()
             let accessToken = HFKeyedArchiverTool.account().accessToken
             if let _ = cabinet?.photo1,let id = cabinet?.id {
-                let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(1)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
-                list.append(urlString)
+                list.append(Int(truncating: id))
             }
             if let _ = cabinet?.photo2,let id = cabinet?.id{
-                let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(2)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
-                list.append(urlString)
+                list.append(Int(truncating: id))
 
             }
             if let _ = cabinet?.photo3,let id = cabinet?.id{
-                let urlString = "\(base)/app/api/cabinet/photo?access_token=\(accessToken)&id=\(id)&photo=\(3)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
-                list.append(urlString)
+                list.append(Int(truncating: id))
             }
-            imageUrls = list.map({ urlString in
-                return URL(string: urlString) ?? URL(fileURLWithPath: "")
-            })
+            cabinetIds = list
             pagerView.reloadData()
         
         }

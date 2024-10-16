@@ -8,7 +8,6 @@
 import UIKit
 import FSPagerView
 import FloatingPanel
-import Kingfisher
 class FirstViewController: UIViewController,FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return banners.count
@@ -17,15 +16,11 @@ class FirstViewController: UIViewController,FSPagerViewDelegate, FSPagerViewData
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: String(describing: FSPagerViewCell.self), at: index)
         let banner = banners[index]
-        let accessToken = HFKeyedArchiverTool.account().accessToken
-        let icon = banner.photo
-        let iconURLString = "\(rootRequest)/app/api/normal/read/photo?access_token=\(accessToken)&photo=\(icon)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
-        cell.imageView?.kf.setImage(with: URL(string: iconURLString),placeholder:UIImage(named: "banner_default"))
-        
+        cell.imageView?.setImage(photoName: banner.photo, placeholder: UIImage(named: "banner_default"))
         return cell
     }
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        
+        pagerView.deselectItem(at: index, animated: true)
     }
     
     

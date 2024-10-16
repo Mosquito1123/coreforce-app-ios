@@ -69,7 +69,7 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
 
                         """
         if let photos = batteryType?.photo.components(separatedBy: ",").map({ photo in
-            return "\(rootRequest)/app/api/normal/read/photo?access_token=\(accessToken)&photo=\(photo)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
+            return String.imageURLPath(with: photo)
         }) {
             photoHTML = photos.map({ url in
                 return "<img src=\"\(url)\" alt = \"\(url)\">"

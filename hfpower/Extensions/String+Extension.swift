@@ -111,6 +111,13 @@ extension String{
         return "\(start)****\(end)"         // 拼接成新的格式
     }
 }
+extension String{
+    //HF 图片路径
+    static func imageURLPath(with photo:String) -> String {
+        let accessToken = HFKeyedArchiverTool.account().accessToken
+        return "\(rootRequest)/app/api/normal/read/photo?access_token=\(accessToken)&photo=\(photo)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
+    }
+}
 extension String {
   func formattedDate(format: String = "yyyy-MM-dd") -> String? {
     let dateFormatter = DateFormatter()

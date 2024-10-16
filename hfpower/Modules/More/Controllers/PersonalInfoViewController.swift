@@ -7,7 +7,6 @@
 
 import UIKit
 import ZLPhotoBrowser
-import Kingfisher
 class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCell,PersonalInfo> {
     
     // MARK: - Accessor
@@ -32,7 +31,8 @@ class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCe
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any] {
                 if let memberData = HFMember.mj_object(withKeyValues: body["member"]){
                     if let headerView = self.tableView.tableHeaderView as? PersonalInfoTableHeaderView{
-                        headerView.avatarImageView.kf.setImage(with: URL(string: "\(rootRequest)/app/api/member/headPic?access_token=\(HFKeyedArchiverTool.account().accessToken)"),placeholder: UIImage(named: "setup-head-default"),options: [.cacheOriginalImage])
+                        headerView.avatarImageView.setHeaderImage(placeholder: UIImage(named: "setup-head-default"))
+
                     }
                     self.items = [
                         PersonalInfo(id: 0, title:  "用户姓名",content: memberData.realName,isNext: false),

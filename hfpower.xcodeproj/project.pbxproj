@@ -216,6 +216,7 @@
 		046B4EF62C6E032600DCD5CB /* OrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF52C6E032600DCD5CB /* OrderList.swift */; };
 		046B4EF82C6F264600DCD5CB /* CommonInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF72C6F264600DCD5CB /* CommonInputView.swift */; };
 		046B4EFA2C6F2D7600DCD5CB /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */; };
+		046CCDD52CBFA2F100F8307E /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046CCDD42CBFA2F100F8307E /* UIImageView+Extension.swift */; };
 		04708F8D2C8FDFF0001E809C /* HFMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F8C2C8FDFF0001E809C /* HFMember.m */; };
 		04708F902C8FE0EB001E809C /* HFDepositData.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F8F2C8FE0EB001E809C /* HFDepositData.m */; };
 		04708F932C8FE194001E809C /* HFChangeCardInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04708F922C8FE194001E809C /* HFChangeCardInfo.m */; };
@@ -611,6 +612,7 @@
 		046B4EF52C6E032600DCD5CB /* OrderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderList.swift; sourceTree = "<group>"; };
 		046B4EF72C6F264600DCD5CB /* CommonInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonInputView.swift; sourceTree = "<group>"; };
 		046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		046CCDD42CBFA2F100F8307E /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		04708F8B2C8FDFF0001E809C /* HFMember.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFMember.h; sourceTree = "<group>"; };
 		04708F8C2C8FDFF0001E809C /* HFMember.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HFMember.m; sourceTree = "<group>"; };
 		04708F8E2C8FE0EB001E809C /* HFDepositData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HFDepositData.h; sourceTree = "<group>"; };
@@ -896,6 +898,7 @@
 				042849122C240A1C0011032F /* MapRect+Extension.swift */,
 				043C4C182C2EBB1200E887B9 /* UIView+Extension.swift */,
 				046B4EF92C6F2D7600DCD5CB /* UITextField+Extension.swift */,
+				046CCDD42CBFA2F100F8307E /* UIImageView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2609,6 +2612,7 @@
 				04BF69AD2CBE08B900EA6CA9 /* FirstContentActivityViewCell.swift in Sources */,
 				04F096AF2C91777700C989A7 /* HFAllOrder.m in Sources */,
 				048EE7752C3E5FD40094A0CB /* LimitedTimePackageCardViewCell.swift in Sources */,
+				046CCDD52CBFA2F100F8307E /* UIImageView+Extension.swift in Sources */,
 				044632612C8F1A8100DB8D37 /* AuthStatusView.swift in Sources */,
 				0443B9F42C10691C00834069 /* TokenResponse.swift in Sources */,
 				0451653D2C1AA40100ABE7F1 /* RealNameAuthViewController.swift in Sources */,

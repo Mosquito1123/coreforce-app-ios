@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 class BatteryTypeListViewCell: BaseTableViewCell<HFBatteryTypeList> {
     
     // MARK: - Accessor
@@ -14,10 +13,7 @@ class BatteryTypeListViewCell: BaseTableViewCell<HFBatteryTypeList> {
         if let batteryType = self.element{
             self.titleLabel.text = batteryType.name
             self.contentLabel.text = batteryType.batteryMemo
-            let accessToken = HFKeyedArchiverTool.account().accessToken
-            let icon = batteryType.batteryIcon
-            let iconURLString = "\(rootRequest)/app/api/normal/read/photo?access_token=\(accessToken)&photo=\(icon)&requestNo=\(Int.requestNo)&createTime=\(Date().currentTimeString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed) ?? "")"
-            self.iconImageView.kf.setImage(with: URL(string: iconURLString), placeholder: UIImage(named: "battery_type_default"))
+            self.iconImageView.setImage(photoName: batteryType.batteryIcon, placeholder: UIImage(named: "battery_type_default"))
         }
     }
     var sureAction:ButtonActionBlock?
