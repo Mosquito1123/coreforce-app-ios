@@ -60,168 +60,166 @@ class FirstContentViewController: UIViewController {
 
     }
 
-    func updateData(coordinate: CLLocationCoordinate2D?,location:String? = nil,distance:String? = nil,largeTypeId:String? = nil,powerLevel:String? = nil) {
+    func updateData(coordinate: CLLocationCoordinate2D?, location: String? = nil, distance: String? = nil, largeTypeId: String? = nil, powerLevel: String? = nil) {
         let dispatchGroup = DispatchGroup()
-
-        // 用于存储请求结果的变量
-        var components:[CabinetFilter] = [CabinetFilter]()
-        var newPackageCards:[HFPackageCardModel] = []
+        
+        // 定义用于存储请求结果的变量
+        var components: [CabinetFilter] = []
+        var newPackageCards: [HFPackageCardModel] = []
         var cabinetItems: [HFCabinet] = []
         var memberItems: [FirstContent] = []
-        var showHeader:Bool = false
-        let code = CityCodeManager.shared.cityCode ?? "370200"
+        var showHeader: Bool = false
+        let cityCode = CityCodeManager.shared.cityCode?.replacingLastTwoCharactersWithZeroes() ?? "370200"
 
-        var yparams = [String: Any]()
-        yparams["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        dispatchGroup.enter()
+        // 构建请求
+        let packageCardParams = ["cityCode": cityCode]
+        let cabinetParams = createCabinetParams(coordinate: coordinate, location: location, distance: distance, largeTypeId: largeTypeId, powerLevel: powerLevel, cityCode: cityCode)
 
-        self.getData(ourPackageCardUrl, param: yparams, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
-               let dataList = body["list"] as? [[String: Any]] {
-                
-                
-                
-                // 只提取新人专享套餐（category == 3）
-                newPackageCards = ((HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel]) ?? []).filter { $0.category == 3 }
-                
-            }
-            dispatchGroup.leave()
-        } error: { error in
-            self.showError(withStatus: error.localizedDescription)
-            dispatchGroup.leave()
+        // 请求套餐卡片数据
+        fetchPackageCards(with: packageCardParams, in: dispatchGroup) { result in
+            newPackageCards = result.filter { $0.category == 3 }
         }
 
-        // 请求筛选条件
-
-        var xparams = [String: Any]()
-        xparams["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        dispatchGroup.enter()
-
-        self.getData(largeTypeUrl, param: xparams, isLoading:false) { responseObject in
-            if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
-               let list = body["list"] as? [[String:Any]]{
-                let items = (HFBatteryTypeList.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryTypeList]) ?? []
-//                self.items = items
-                var temp  = [CabinetFilterItem]()
-                temp.append(CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true))
-                temp.append(contentsOf: items.map { CabinetFilterItem(id: $0.id.intValue, title: $0.name, content: $0.id.stringValue, selected: false)})
-                components = [
-                    
-                    CabinetFilter(id: 0, title: "距离最近", icon: "distance", type: .distance,filterItems:
-                                    [
-                                        CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
-                                        CabinetFilterItem(id: 1, title: "1km", content: "1000", selected: false),
-                    ]),
-                    CabinetFilter(id: 1, title: "电池类型", icon: "type", type: .type,filterItems:temp),
-                    CabinetFilter(id: 2, title: "电池电量", icon: "power", type: .power,filterItems: [
-                        CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
-                        CabinetFilterItem(id: 1, title: ">90%", content: "1", selected: false),
-                    ]),
-                    
-                ]
-
-            }
-            dispatchGroup.leave()
-
-        } error: { error in
-            self.showError(withStatus: error.localizedDescription)
-            dispatchGroup.leave()
-
-        }
-        // 请求电柜列表
-        dispatchGroup.enter()
-        let cityCode = CityCodeManager.shared.cityCode ?? "370200"
-        var params = [String: Any]()
-        let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
-
-        if orderInfo.id != nil {
-            params = ["tempStorageSw": true]
-        }
-        params["cityCode"] = cityCode.replacingLastTwoCharactersWithZeroes()
-        params["lon"] = coordinate?.longitude ?? 0
-        params["lat"] = coordinate?.latitude ?? 0
-        if let locationx = location {
-            params["location"] = locationx
-        }
-        if let distance = distance {
-            params["distance"] = distance
-        }
-        if let largeTypeId = largeTypeId {
-            params["largeTypeId"] = largeTypeId
-        }
-        if let powerLevel = powerLevel {
-            params["powerLevel"] = powerLevel
+        // 请求筛选条件数据
+        fetchFilterComponents(with: packageCardParams, in: dispatchGroup) { result in
+            components = result
         }
 
-        self.getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
-            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
-               let pageResult = body["pageResult"] as? [String: Any],
-               let dataList = pageResult["dataList"] as? [[String: Any]] {
-                let cabinetArray = (HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]) ?? []
-                cabinetItems = cabinetArray
-            }
-            dispatchGroup.leave() // 任务完成
-        } error: { error in
-            self.showError(withStatus: error.localizedDescription)
-            dispatchGroup.leave() // 即使出错也要leave，避免死锁
+        // 请求电柜列表数据
+        fetchCabinetList(with: cabinetParams, in: dispatchGroup) { result in
+            cabinetItems = result
         }
 
         // 请求会员信息
-        dispatchGroup.enter()
-        self.getData(memberUrl, param: [:], isLoading: false) { responseObject in
-            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any] {
-                let memberData = HFMember.mj_object(withKeyValues: body["member"])
-                let isAuth = memberData?.isAuth
-                
-                if isAuth == 1 {
-                    showHeader = true
-                   
-                    
-                } else {
-                    showHeader = false
-                    
-
-                }
-            }
-            dispatchGroup.leave() // 任务完成
-        } error: { error in
-            self.showError(withStatus: error.localizedDescription)
-            dispatchGroup.leave() // 即使出错也要leave
+        fetchMemberInfo(in: dispatchGroup) { isAuth in
+            showHeader = (isAuth == 1)
         }
 
-        // 当两个请求都完成时的处理
+        // 所有请求完成后的处理
         dispatchGroup.notify(queue: .main) {
-            // 两个请求都完成后执行的操作
-            if showHeader {
-                let jsonString = HFPackageCardModel.mj_keyValuesArray(withObjectArray: newPackageCards).mj_JSONString()
-                let headerContent = FirstContent(id: 0, title: "购买套餐", items: [
-                    FirstContentItem(id: 0, identifier: PersonalPackageCardViewCell.cellIdentifier(), title: "购买套餐"),
-                    FirstContentItem(id: 1, identifier: FirstContentActivityViewCell.cellIdentifier(), title: "新人专享",extra: jsonString)
-                ])
-                memberItems.append(headerContent)
-
-            }else{
-                let jsonString = HFPackageCardModel.mj_keyValuesArray(withObjectArray: newPackageCards).mj_JSONString()
-
-                let headerContent = FirstContent(id: 0, title: "未实名", items: [
-                    FirstContentItem(id: 0, identifier: AuthorityViewCell.cellIdentifier(), title: "未实名"),
-                    FirstContentItem(id: 1, identifier: FirstContentActivityViewCell.cellIdentifier(), title: "新人专享",extra: jsonString)
-                ])
-                memberItems.append(headerContent)
-            }
-            let cabinetList = cabinetItems.enumerated().map { (index,value) in
-                return FirstContentItem(id: index, identifier: CabinetListViewCell.cellIdentifier(), title: "",extra: value.mj_JSONString())
-            }
-            if cabinetList.count > 0{
-                let cabinetContent = FirstContent(id: 1,identifier: FirstContentCabinetListHeaderView.viewIdentifier(), title: "电柜列表", items:cabinetList)
-                memberItems.append(cabinetContent)
-            }
-            
-            self.items = memberItems // 这里合并数据逻辑可以根据需求调整
+            memberItems = self.prepareMemberItems(showHeader: showHeader, newPackageCards: newPackageCards, cabinetItems: cabinetItems)
+            self.items = memberItems
             self.components = components
         }
-
     }
+
+    // MARK: - Helper Methods
+
+    private func createCabinetParams(coordinate: CLLocationCoordinate2D?, location: String?, distance: String?, largeTypeId: String?, powerLevel: String?, cityCode: String) -> [String: Any] {
+        var params: [String: Any] = ["cityCode": cityCode]
+        if let coordinate = coordinate {
+            params["lon"] = coordinate.longitude
+            params["lat"] = coordinate.latitude
+        }
+        params["location"] = location
+        params["distance"] = distance
+        params["largeTypeId"] = largeTypeId
+        params["powerLevel"] = powerLevel
+        return params
+    }
+
+    private func fetchPackageCards(with params: [String: Any], in group: DispatchGroup, completion: @escaping ([HFPackageCardModel]) -> Void) {
+        group.enter()
+        getData(ourPackageCardUrl, param: params, isLoading: true) { responseObject in
+            guard let dataList = ((responseObject as? [String: Any])?["body"] as? [String: Any])?["list"] as? [[String: Any]] else {
+                completion([])
+                group.leave()
+                return
+            }
+            let packageCards = HFPackageCardModel.mj_objectArray(withKeyValuesArray: dataList) as? [HFPackageCardModel] ?? []
+            completion(packageCards)
+            group.leave()
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            group.leave()
+        }
+    }
+
+    private func fetchFilterComponents(with params: [String: Any], in group: DispatchGroup, completion: @escaping ([CabinetFilter]) -> Void) {
+        group.enter()
+        getData(largeTypeUrl, param: params, isLoading: false) { responseObject in
+            guard let list = ((responseObject as? [String: Any])?["body"] as? [String: Any])?["list"] as? [[String: Any]] else {
+                completion([])
+                group.leave()
+                return
+            }
+            let items = (HFBatteryTypeList.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryTypeList]) ?? []
+            let filterItems = items.map { CabinetFilterItem(id: $0.id.intValue, title: $0.name, content: $0.id.stringValue, selected: false) }
+            let components: [CabinetFilter] = [
+                CabinetFilter(id: 0, title: "距离最近", icon: "distance", type: .distance, filterItems: [
+                    CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
+                    CabinetFilterItem(id: 1, title: "1km", content: "1000", selected: false)
+                ]),
+                CabinetFilter(id: 1, title: "电池类型", icon: "type", type: .type, filterItems: [CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true)] + filterItems),
+                CabinetFilter(id: 2, title: "电池电量", icon: "power", type: .power, filterItems: [
+                    CabinetFilterItem(id: 0, title: "全部", content: nil, selected: true),
+                    CabinetFilterItem(id: 1, title: ">90%", content: "1", selected: false)
+                ])
+            ]
+            completion(components)
+            group.leave()
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            group.leave()
+        }
+    }
+
+    private func fetchCabinetList(with params: [String: Any], in group: DispatchGroup, completion: @escaping ([HFCabinet]) -> Void) {
+        group.enter()
+        getData(cabinetListUrl, param: params, isLoading: true) { responseObject in
+            guard let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                      let pageResult = body["pageResult"] as? [String: Any],
+          let dataList = pageResult["dataList"] as? [[String: Any]] else {
+                completion([])
+                group.leave()
+                return
+            }
+            let cabinetItems = HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet] ?? []
+            completion(cabinetItems)
+            group.leave()
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            group.leave()
+        }
+    }
+
+    private func fetchMemberInfo(in group: DispatchGroup, completion: @escaping (Int) -> Void) {
+        group.enter()
+        getData(memberUrl, param: [:], isLoading: false) { responseObject in
+            guard let memberData = HFMember.mj_object(withKeyValues: ((responseObject as? [String: Any])?["body"] as? [String: Any])?["member"]) else {
+                completion(0)
+                group.leave()
+                return
+            }
+            completion(Int(truncating: memberData.isAuth))
+            group.leave()
+        } error: { error in
+            self.showError(withStatus: error.localizedDescription)
+            group.leave()
+        }
+    }
+
+    private func prepareMemberItems(showHeader: Bool, newPackageCards: [HFPackageCardModel], cabinetItems: [HFCabinet]) -> [FirstContent] {
+        var memberItems: [FirstContent] = []
+        let jsonString = HFPackageCardModel.mj_keyValuesArray(withObjectArray: newPackageCards).mj_JSONString()
+        
+        let headerContent = FirstContent(id: 0, title: showHeader ? "购买套餐" : "未实名", items: [
+            FirstContentItem(id: 0, identifier: showHeader ? PersonalPackageCardViewCell.cellIdentifier() : AuthorityViewCell.cellIdentifier(), title: showHeader ? "购买套餐" : "未实名"),
+            FirstContentItem(id: 1, identifier: FirstContentActivityViewCell.cellIdentifier(), title: "新人专享", extra: jsonString)
+        ])
+        memberItems.append(headerContent)
+
+        if !cabinetItems.isEmpty {
+            let cabinetList = cabinetItems.enumerated().map { (index, value) in
+                FirstContentItem(id: index, identifier: CabinetListViewCell.cellIdentifier(), title: "", extra: value.mj_JSONString())
+            }
+            let cabinetContent = FirstContent(id: 1, identifier: FirstContentCabinetListHeaderView.viewIdentifier(), title: "电柜列表", items: cabinetList)
+            memberItems.append(cabinetContent)
+        }
+        
+        return memberItems
+    }
+
 }
 extension FirstContentViewController:CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -297,77 +295,119 @@ private extension FirstContentViewController {
 
 // MARK: - Public
 extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items[section].items?.count ?? 0
+    // MARK: - TableView DataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return items.count
     }
-    
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items[section].items?.count ?? 0
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let item = self.items[indexPath.section].items?[indexPath.row],let identifier = item.identifier else {return UITableViewCell()}
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        if let cellx = cell as? CabinetListViewCell{
-            if let cabinet = HFCabinet.mj_object(withKeyValues: item.extra) {
-                cellx.element = cabinet
-            }
-        }else if let cellx = cell as? FirstContentActivityViewCell{
-            cellx.element = item
+        guard let item = items[indexPath.section].items?[indexPath.row],
+              let identifier = item.identifier else {
+            return UITableViewCell()
         }
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        configureCell(cell, with: item)
         return cell
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.items.count
-    }
+
+    // MARK: - TableView Delegate
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let sectionIdentifier = self.items[section].identifier else {return nil}
-        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionIdentifier) as? FirstContentCabinetListHeaderView else {return nil}
-        view.components = self.components
-        view.locationView.relocate = { bt in
-            self.locationManager.startUpdatingLocation()
+        guard let sectionIdentifier = items[section].identifier,
+              let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionIdentifier) as? FirstContentCabinetListHeaderView else {
+            return nil
         }
-        
+
+        view.components = components
+        view.locationView.relocate = { [weak self] _ in
+            self?.locationManager.startUpdatingLocation()
+        }
+        view.componentsBlock = { [weak self] distance,largeTypeId,powerLevel in
+            self?.updateData(coordinate: self?.coordinate, distance: distance,largeTypeId: largeTypeId,powerLevel:powerLevel)
+        }
+
         return view
     }
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let _ = self.items[section].identifier else {return 0}
-        return 104
+        return items[section].identifier != nil ? 88 : 0
     }
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let item = self.items[indexPath.section].items?[indexPath.row]
-        if let cellx = cell as? CabinetListViewCell {
-            guard let cabinet = HFCabinet.mj_object(withKeyValues: item?.extra) else {return }
-            cellx.giftAction = { sender in
-                let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-                self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
+        guard let item = items[indexPath.section].items?[indexPath.row] else { return }
+        configureCellActions(cell, with: item)
+    }
+
+    // MARK: - Cell Configuration
+    private func configureCell(_ cell: UITableViewCell, with item: FirstContentItem) {
+        switch cell {
+        case let cabinetCell as CabinetListViewCell:
+            if let cabinet = HFCabinet.mj_object(withKeyValues: item.extra) {
+                cabinetCell.element = cabinet
             }
-            cellx.detailAction = { sender in
-                let cabinetDetailVC = CabinetDetailViewController()
-                cabinetDetailVC.id = cabinet.id
-                cabinetDetailVC.number = cabinet.number
-                self.navigationController?.pushViewController(cabinetDetailVC, animated: true)
-            }
-            cellx.navigateAction = { sender in
-                
-                guard let lat = cabinet.bdLat?.doubleValue,let lng = cabinet.bdLon?.doubleValue,let number = cabinet.number else {
-                    self.showError(withStatus: "该电柜坐标数据有误")
-                    return}
-                self.mapNavigation(lat: lat, lng: lng, address: number, currentController: self)
-            }
-        }else if  let contentCell = cell as? AuthorityViewCell{
-            contentCell.sureAction = { sender in
-                let realNameAuthVC = RealNameAuthViewController()
-                self.navigationController?.pushViewController(realNameAuthVC, animated: true)
-            }
-        }else if let contentCell = cell as? PersonalPackageCardViewCell{
-            contentCell.sureAction = { sender in
-                let vc=PackageCardChooseServiceViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }else if let contentCell = cell as? FirstContentActivityViewCell{
-            contentCell.didSelectItemBlock = { (collectionView,indexPath) in
-                let chooseBatteryTypeViewController =  ChooseBatteryTypeViewController()
-                self.navigationController?.pushViewController(chooseBatteryTypeViewController, animated: true)
-            }
+        case let activityCell as FirstContentActivityViewCell:
+            activityCell.element = item
+        default:
+            break
         }
     }
+
+    private func configureCellActions(_ cell: UITableViewCell, with item: FirstContentItem) {
+        switch cell {
+        case let cabinetCell as CabinetListViewCell:
+            configureCabinetCellActions(cabinetCell, with: item)
+        case let authorityCell as AuthorityViewCell:
+            authorityCell.sureAction = { [weak self] _ in
+                self?.navigateTo(RealNameAuthViewController())
+            }
+        case let packageCardCell as PersonalPackageCardViewCell:
+            packageCardCell.sureAction = { [weak self] _ in
+                self?.navigateTo(PackageCardChooseServiceViewController())
+            }
+        case let activityCell as FirstContentActivityViewCell:
+            activityCell.didSelectItemBlock = { [weak self] _, _ in
+                self?.navigateTo(ChooseBatteryTypeViewController())
+            }
+        default:
+            break
+        }
+    }
+
+    // MARK: - Cabinet Cell Actions
+    private func configureCabinetCellActions(_ cell: CabinetListViewCell, with item: FirstContentItem) {
+        guard let cabinet = HFCabinet.mj_object(withKeyValues: item.extra) else { return }
+
+        cell.giftAction = { [weak self] _ in
+            self?.navigateTo(ChooseBatteryTypeViewController())
+        }
+
+        cell.detailAction = { [weak self] _ in
+            let detailVC = CabinetDetailViewController()
+            detailVC.id = cabinet.id
+            detailVC.number = cabinet.number
+            self?.navigationController?.pushViewController(detailVC, animated: true)
+        }
+
+        cell.navigateAction = { [weak self] _ in
+            guard let lat = cabinet.bdLat?.doubleValue,
+                  let lng = cabinet.bdLon?.doubleValue,
+                  let number = cabinet.number else {
+                self?.showError(withStatus: "该电柜坐标数据有误")
+                return
+            }
+            self?.mapNavigation(lat: lat, lng: lng, address: number, currentController: self)
+        }
+    }
+
+    // MARK: - Navigation Helper
+    private func navigateTo(_ viewController: UIViewController) {
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+
 }
 
 // MARK: - Request
@@ -384,18 +424,4 @@ private extension FirstContentViewController {
 private extension FirstContentViewController {
     
 }
-/*
-class YourClass {
-    var items: [FirstContent] = []
 
-    init() {
-        // 使用循环生成 100 个 FirstContent
-        for i in 0..<100 {
-            let content = FirstContent(id: i, title: "内容 \(i)", items: [
-                FirstContentItem(id: 0, identifier: PersonalPackageCardViewCell.cellIdentifier(), title: "购买套餐 \(i)")
-            ])
-            items.append(content)
-        }
-    }
-}
-*/

@@ -36,7 +36,7 @@ class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCe
                     }
                     self.items = [
                         PersonalInfo(id: 0, title:  "用户姓名",content: memberData.realName,isNext: false),
-                        PersonalInfo(id: 1, title: "性别",content: memberData.status == 1 ? "男":"女",isNext: false),
+                        PersonalInfo(id: 1, title: "性别",content: self.gender(from: memberData.idCard),isNext: false),
                         PersonalInfo(id: 2, title: "手机号",content: memberData.phoneNum.maskPhoneNumber(),isNext: true),
                         PersonalInfo(id: 3, title: "实名认证",content: memberData.isAuth == 1 ? "已实名认证":"未实名，前往认证",isEditable: memberData.isAuth != 1, isNext: true),
                        
@@ -52,6 +52,27 @@ class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCe
         }
 
     }
+    func gender(from idNumber: String) -> String? {
+        // 判断身份证号长度是否为18位
+        guard idNumber.count == 18 else {
+            return nil // 无效的身份证号
+        }
+
+        // 获取倒数第二位字符
+        let index = idNumber.index(idNumber.endIndex, offsetBy: -2)
+        let genderDigit = idNumber[index]
+
+        // 判断是否为数字并转换为整数
+        if let genderNumber = Int(String(genderDigit)) {
+            // 奇数为男性，偶数为女性
+            return genderNumber % 2 == 0 ? "女" : "男"
+        } else {
+            return nil // 无效的性别标识符
+        }
+    }
+
+    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.items[indexPath.row]
         if item.title == "实名认证" && item.isEditable == true{

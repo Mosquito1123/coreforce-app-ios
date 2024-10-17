@@ -15,13 +15,6 @@ class FirstContentActivityCollectionViewCell: UICollectionViewCell {
             guard let model = model else { return }
            
             
-//            if model.tag == "" {
-//                leftTopView.isHidden = true
-//                leftTopLabel.isHidden = true
-//            } else {
-//                leftTopView.isHidden = false
-//                leftTopLabel.isHidden = false
-//            }
             leftTopLabel.text = "新人专享"
             daysLabel.text = "\(model.days)天"
             let nf = NumberFormatter()
