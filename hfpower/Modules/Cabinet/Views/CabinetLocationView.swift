@@ -12,7 +12,22 @@ class CabinetLocationView: UIView {
     // MARK: - Accessor
     var location:String?{
         didSet{
-            textLabel.text = "\(CityCodeManager.shared.cityName ?? "")\(location ?? "")"
+            if let placemark = CityCodeManager.shared.placemark {
+                // 获取详细地址
+                /*
+                let country = placemark.country ?? ""
+                let administrativeArea = placemark.administrativeArea ?? ""
+                let locality = placemark.locality ?? ""
+                 */
+                let subLocality = placemark.subLocality ?? ""
+                let thoroughfare = placemark.thoroughfare ?? ""
+                /*
+                let postalCode = placemark.postalCode ?? ""
+                */
+                let address = "\(subLocality)\(thoroughfare)"
+                textLabel.text = "\(address)\(location ?? "")"
+                
+            }
         }
     }
     var relocate:ButtonActionBlock?

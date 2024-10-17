@@ -200,7 +200,7 @@ class SearchCabinetListViewController: BaseTableViewController<CabinetListViewCe
         return chineseFormattedDate
     }
     func updateData(coordinate: CLLocationCoordinate2D?,location:String? = nil,distance:String? = nil,largeTypeId:String? = nil,powerLevel:String? = nil) {
-        locationView.location = formatDateToChinese(date: Date())
+        locationView.location = ""
 
         let code = CityCodeManager.shared.cityCode ?? "370200"
         var params = [String: Any]()
@@ -370,7 +370,6 @@ extension SearchCabinetListViewController{
                 CityCodeManager.shared.cityCode = code
                 CityCodeManager.shared.saveToHistory(newValue: City(cityCode: code, cityName: placemarks?.first?.locality ?? ""))
                 NotificationCenter.default.post(name: .cityChanged, object: nil)
-                self.locationView.location = self.formatDateToChinese(date: Date())
                 self.locationManager.stopUpdatingLocation()
                 let distanceItem = self.components.first { filter in
                     return filter.type == .distance

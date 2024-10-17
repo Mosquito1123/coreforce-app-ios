@@ -367,7 +367,7 @@ private extension HomeViewController {
         
         
         let listView = MapFeatureView(.list) { sender, mapFeatureType in
-            let cabinetListViewController = CabinetListViewController()
+            let cabinetListViewController = SearchCabinetListViewController()
             cabinetListViewController.coordinate = self.mapView.centerCoordinate
             self.navigationController?.pushViewController(cabinetListViewController, animated: true)
         }

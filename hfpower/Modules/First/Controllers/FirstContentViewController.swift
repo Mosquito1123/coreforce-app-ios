@@ -241,7 +241,6 @@ extension FirstContentViewController:CLLocationManagerDelegate{
                 CityCodeManager.shared.cityCode = code
                 CityCodeManager.shared.saveToHistory(newValue: City(cityCode: code, cityName: placemarks?.first?.locality ?? ""))
                 NotificationCenter.default.post(name: .cityChanged, object: nil)
-//                self.locationView.location = self.formatDateToChinese(date: Date())
                 self.locationManager.stopUpdatingLocation()
                 let distanceItem = self.components.first { filter in
                     return filter.type == .distance
@@ -323,6 +322,7 @@ extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
         }
 
         view.components = components
+        view.locationView.location = ""
         view.locationView.relocate = { [weak self] _ in
             self?.locationManager.startUpdatingLocation()
         }
