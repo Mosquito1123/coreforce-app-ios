@@ -16,7 +16,8 @@ class CabinetPanelViewController: UIViewController {
             self.cabinetPanelView.locationLabel.text = annotation?.cabinet?.location
             self.cabinetPanelView.statisticView.batteryListView.onLine = annotation?.cabinet?.onLine.boolValue ?? false
             self.cabinetPanelView.rentStatusButton.isHidden = !(annotation?.cabinet?.rentReturnBattery.boolValue ?? true)
-            self.cabinetPanelView.depositStatusButton.isHidden = !(annotation?.cabinet?.rentReturnBattery.boolValue ?? true)
+//            self.cabinetPanelView.depositStatusButton.isHidden = !(annotation?.cabinet?.rentReturnBattery.boolValue ?? true)
+            self.cabinetPanelView.depositStatusButton.isHidden = true
             let topThree = (annotation?.cabinet?.topThreeGrids as? [HFGridList]) ?? []
             self.cabinetPanelView.statisticView.batteryListView.batteryLevels = topThree.map { CGFloat($0.batteryCapacityPercent.doubleValue)/100.0 }
             if let extraInfos = (annotation?.cabinet?.extraInfo as? [HFCabinetExtraInfo]),extraInfos.count > 0{

@@ -21,7 +21,8 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
 
         }
         self.rentStatusButton.isHidden = !(element?.rentReturnBattery.boolValue ?? true)
-        self.depositStatusButton.isHidden = !(element?.rentReturnBattery.boolValue ?? true)
+//        self.depositStatusButton.isHidden = !(element?.rentReturnBattery.boolValue ?? true)
+        self.depositStatusButton.isHidden = true
     }
     var navigateAction:ButtonActionBlock?
     var detailAction:ButtonActionBlock?
@@ -104,7 +105,7 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         button.layer.masksToBounds = true
         button.backgroundColor = UIColor(hex:0xFFF7E8FF)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

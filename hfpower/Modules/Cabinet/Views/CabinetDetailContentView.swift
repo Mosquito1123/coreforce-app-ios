@@ -83,7 +83,7 @@ class CabinetDetailContentView: UIView {
         button.layer.masksToBounds = true
         button.backgroundColor = UIColor(hex:0xFFF7E8FF)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-
+        button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

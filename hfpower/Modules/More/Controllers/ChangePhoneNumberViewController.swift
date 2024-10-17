@@ -196,7 +196,7 @@ private extension ChangePhoneNumberViewController {
                     UIViewController.ex_keyWindow()?.rootViewController = UINavigationController(rootViewController: homePageVC)
                     HFKeyedArchiverTool.removeData()
                     AccountManager.shared.clearAccount()
-                    self.showWindowSuccess(withStatus: "手机号绑定成功，请重新登录")
+                    self.showWindowSuccess(withStatus: "绑定成功，用户在下次登录时，需使用新的手机号进行登录")
                 }, error: { error in
                     self.showError(withStatus: error.localizedDescription)
                 })
