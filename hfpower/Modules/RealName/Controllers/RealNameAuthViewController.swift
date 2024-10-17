@@ -7,22 +7,29 @@
 
 import UIKit
 import AliyunFaceAuthFacade
-class RealNameAuthViewController: UIViewController,UIGestureRecognizerDelegate {
+class RealNameAuthViewController: UIViewController,UIGestureRecognizerDelegate,UITextViewDelegate {
     
     // MARK: - Accessor
     
     // MARK: - Subviews
+    lazy var loginBackgroundView:UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "login_background")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        // 其他配置...
+        return imageView
+    }()
     private(set) lazy var startCertification: UIButton = {
         let button = UIButton(type: .custom)
-        button.layer.cornerRadius = 4
+        button.layer.cornerRadius = 25
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("下一步，人脸认证", for: .disabled)
+        button.setTitle("验证信息", for: .disabled)
         button.setTitleColor(UIColor(red: 155/255, green: 155/255, blue: 155/255, alpha: 1), for: .disabled)
         button.setBackgroundImage(UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1).toImage(), for: .disabled)
-        button.setTitle("下一步，人脸认证", for: .normal)
+        button.setTitle("验证信息", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setBackgroundImage(UIColor(red: 57/255, green: 77/255, blue: 191/255, alpha: 1).toImage(), for: .normal)
+        button.setBackgroundImage(UIColor(hex: 0x447AFEFF).toImage(), for: .normal)
         button.isEnabled = false
         button.addTarget(self, action: #selector(startCerticationClick(_:)), for: .touchUpInside)
         return button
@@ -30,18 +37,18 @@ class RealNameAuthViewController: UIViewController,UIGestureRecognizerDelegate {
     
     private(set) lazy var summaryLabel: UILabel = {
         let label = UILabel()
-        label.text = "完成认证即可换电"
-        label.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        label.text = "实名认证"
+        label.textColor = UIColor(hex: 0x333333FF)
+        label.font = UIFont.systemFont(ofSize: 26, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private(set) lazy var tipsLabel: UILabel = {
         let label = UILabel()
-        label.text = "实名认证需要验证您本人信息，一旦确认后将不可更改。为了保障账户安全，需要您授权或填写相关身份信息用于账户实名认证"
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)
+        label.text = "根据《反恐怖法》、《移动互联网应用程序信息服务管理规定》等法律法规要求，请提供真实的身份信息，认证后无需再次采集"
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = UIColor(hex: 0x4D4D4DFF)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -96,7 +103,29 @@ class RealNameAuthViewController: UIViewController,UIGestureRecognizerDelegate {
         }
         return view
     }()
-    
+    lazy var toggleButton:UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "unselected"), for: .normal)
+        button.setImage(UIImage(named: "selected"), for: .selected)
+        button.addTarget(self, action: #selector(toggle(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+        
+    }()
+    // 懒加载 UITextView
+    lazy var privacyPolicyAndUserAgreementTextView: UITextView = {
+        let textView = UITextView()
+        textView.delegate = self
+        textView.isEditable = false
+        textView.backgroundColor = UIColor.clear
+        textView.textAlignment = .center
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        textView.textContainer.lineFragmentPadding = 0
+        // 其他配置...
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return textView
+    }()
     private var certifyId: String?
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -104,12 +133,15 @@ class RealNameAuthViewController: UIViewController,UIGestureRecognizerDelegate {
         // 低优先级后台任务
         // 后台任务，例如数据处理、网络请求
         AliyunFaceAuthFacade.initSDK()
-        self.view.backgroundColor = .white
         setupNavbar()
         setupSubviews()
         setupLayout()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        toggleButton.isSelected = LoginModel.shared.agreement
+        
+    }
 }
 
 // MARK: - Setup
@@ -130,8 +162,7 @@ private extension RealNameAuthViewController {
         let appearance = UINavigationBarAppearance()
         
         // 设置背景色为白色
-        appearance.backgroundImage = UIColor.white.toImage()
-        appearance.shadowImage = UIColor.white.toImage()
+        appearance.configureWithTransparentBackground()
         
         // 设置标题文本属性为白色
         appearance.titleTextAttributes = [.foregroundColor: UIColor(hex:0x333333FF),.font:UIFont.systemFont(ofSize: 18, weight: .medium)]
@@ -147,15 +178,51 @@ private extension RealNameAuthViewController {
     }
     // MARK: - Setup
     private func setupSubviews() {
+        self.view.backgroundColor = .white
+        view.addSubview(loginBackgroundView)
         view.addSubview(summaryLabel)
         view.addSubview(tipsLabel)
         view.addSubview(IDCardIdentifyView)
         view.addSubview(nameView)
         view.addSubview(IDNumberView)
         view.addSubview(startCertification)
+        view.addSubview(toggleButton)
+        
+        // 设置 textView 的 attributedText 在第一次访问时
+        let attributedString = createAttributedString()
+        privacyPolicyAndUserAgreementTextView.attributedText = attributedString
+        
+        // 添加textView到视图
+        view.addSubview(privacyPolicyAndUserAgreementTextView)
+        // 关闭按钮
+        
+    }
+    // 创建并返回NSMutableAttributedString
+    func createAttributedString() -> NSMutableAttributedString {
+        
+        let attributedString = NSMutableAttributedString(string: "阅读并同意《核蜂换电隐私政策》和《租赁协议》", attributes: [
+            .font: UIFont.systemFont(ofSize: 12),
+            .foregroundColor: UIColor(hex:0x666666FF)
+        ])
+        
+        let privacyPolicyRange = (attributedString.string as NSString).range(of: "《核蜂换电隐私政策》")
+        attributedString.addAttribute(.link, value: "http://www.coreforce.cn/privacy/index.html", range: privacyPolicyRange)
+        attributedString.addAttribute(.foregroundColor, value: UIColor(hex:0x3171EFFF) , range: privacyPolicyRange)
+        
+        let rentalAgreementRange = (attributedString.string as NSString).range(of: "《租赁协议》")
+        attributedString.addAttribute(.link, value: "http://www.coreforce.cn/privacy/member.html", range: rentalAgreementRange)
+        attributedString.addAttribute(.foregroundColor, value: UIColor(hex:0x3171EFFF) , range: rentalAgreementRange)
+        
+        return attributedString
     }
     
     private func setupLayout() {
+        NSLayoutConstraint.activate([
+            loginBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            loginBackgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            loginBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loginBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
         NSLayoutConstraint.activate([
             summaryLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             summaryLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
@@ -170,7 +237,7 @@ private extension RealNameAuthViewController {
             IDCardIdentifyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14),
             IDCardIdentifyView.heightAnchor.constraint(equalToConstant: 50),
             
-            nameView.topAnchor.constraint(equalTo: IDCardIdentifyView.bottomAnchor, constant: 14),
+            nameView.topAnchor.constraint(equalTo: tipsLabel.bottomAnchor, constant: 34),
             nameView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
             nameView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14),
             nameView.heightAnchor.constraint(equalToConstant: 50),
@@ -180,10 +247,20 @@ private extension RealNameAuthViewController {
             IDNumberView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14),
             IDNumberView.heightAnchor.constraint(equalToConstant: 50),
             
-            startCertification.topAnchor.constraint(equalTo: IDNumberView.bottomAnchor, constant: 14),
+            startCertification.topAnchor.constraint(equalTo: IDNumberView.bottomAnchor, constant: 139),
             startCertification.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14),
             startCertification.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14),
-            startCertification.heightAnchor.constraint(equalToConstant: 50)
+            startCertification.heightAnchor.constraint(equalToConstant: 50),
+            // 隐私政策标签约束
+            privacyPolicyAndUserAgreementTextView.heightAnchor.constraint(equalToConstant: 18),
+            privacyPolicyAndUserAgreementTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 51),
+            privacyPolicyAndUserAgreementTextView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor, multiplier: 0.75),
+            privacyPolicyAndUserAgreementTextView.bottomAnchor.constraint(equalTo: startCertification.topAnchor,constant: -17),
+            
+            toggleButton.trailingAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.leadingAnchor,constant: -4),
+            toggleButton.centerYAnchor.constraint(equalTo: privacyPolicyAndUserAgreementTextView.centerYAnchor),
+            toggleButton.heightAnchor.constraint(equalToConstant: 25),
+            toggleButton.widthAnchor.constraint(equalToConstant: 25),
         ])
     }
 }
@@ -200,20 +277,25 @@ private extension RealNameAuthViewController {
 
 // MARK: - Action
 @objc private extension RealNameAuthViewController {
+    @objc func toggle(_ sender:UIButton){
+        sender.isSelected = !sender.isSelected
+        LoginModel.shared.agreement = sender.isSelected
+        
+    }
     // MARK: - Helper Methods
-        private func convertToJsonData(_ dict: [AnyHashable: Any]?) -> String? {
-            guard let dict = dict else { return nil }
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
-                var jsonString = String(data: jsonData, encoding: .utf8) ?? ""
-                jsonString = jsonString.replacingOccurrences(of: " ", with: "")
-                jsonString = jsonString.replacingOccurrences(of: "\n", with: "")
-                return jsonString
-            } catch {
-                return nil
-            }
+    private func convertToJsonData(_ dict: [AnyHashable: Any]?) -> String? {
+        guard let dict = dict else { return nil }
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
+            var jsonString = String(data: jsonData, encoding: .utf8) ?? ""
+            jsonString = jsonString.replacingOccurrences(of: " ", with: "")
+            jsonString = jsonString.replacingOccurrences(of: "\n", with: "")
+            return jsonString
+        } catch {
+            return nil
         }
-    @objc private func startCerticationClick(_ sender:UIButton) {
+    }
+    func startCertificationBehavior() {
         let identificationNumberPattern = "\\d{17}[[0-9],0-9xX]"
         let identificationNumberPredicate = NSPredicate(format: "SELF MATCHES %@", identificationNumberPattern)
         guard identificationNumberPredicate.evaluate(with: IDNumberView.numberTextField.text) else {
@@ -251,11 +333,11 @@ private extension RealNameAuthViewController {
                             }
                         } error: { error in
                             self.showError(withStatus: error.localizedDescription)
-
+                            
                         }
-
                         
-
+                        
+                        
                     case .ZIMInternalError:
                         self.showError(withStatus: "初始化失败")
                     case .ZIMInterrupt:
@@ -274,9 +356,25 @@ private extension RealNameAuthViewController {
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
-
+            
         }
-
+        
+    }
+    @objc private func startCerticationClick(_ sender:UIButton) {
+        if LoginModel.shared.agreement == true {
+            
+            startCertificationBehavior()
+        }else{
+            self.showPrivacyAlertController { alertAction in
+                
+            } sureBlock: { alertAction in
+                LoginModel.shared.agreement = true
+                self.toggleButton.isSelected = true
+                self.startCertificationBehavior()
+            }
+            
+        }
+        
     }
     
 }

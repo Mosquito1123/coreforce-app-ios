@@ -112,7 +112,6 @@ class LoginViewController:UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.white
         setupNavbar()
         setupSubviews()
         setupLayout()
@@ -145,7 +144,8 @@ private extension LoginViewController {
    
     private func setupSubviews() {
         
-        
+        self.view.backgroundColor = UIColor.white
+
         // 将视图添加到视图控制器的视图
         view.addSubview(loginBackgroundView)
         view.sendSubviewToBack(loginBackgroundView)

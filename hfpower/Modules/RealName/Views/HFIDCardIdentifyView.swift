@@ -44,7 +44,7 @@ class HFIDCardIdentifyView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
-        self.layer.cornerRadius = 4
+        self.layer.cornerRadius = 25
         self.layer.masksToBounds = true
         setupSubviews()
         setupLayout()
