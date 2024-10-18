@@ -63,7 +63,9 @@ class SummaryTableView: UIView {
         let label = UILabel()
         label.text = items[row][column]
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 12)
+        let baseFont = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
         if column == 1{
             label.textColor = UIColor(hex:0x26B01EFF)
         }else{
@@ -193,7 +195,9 @@ class GradientHeaderView: UIView {
                 }
                 for i in 0..<items.count {
                     let label = UILabel()
-                    label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+                    let baseFont = UIFont.preferredFont(forTextStyle: .headline)
+                    label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+                    label.adjustsFontForContentSizeCategory = true
                     label.textColor = UIColor(hex:0x1D2129FF)
                     label.text = items[i]
                     label.textAlignment = .center
@@ -236,7 +240,9 @@ class GradientHeaderView: UIView {
         headerStackView.tag = 99
         for i in 1...3 {
             let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+            let baseFont = UIFont.preferredFont(forTextStyle: .headline)
+            label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+            label.adjustsFontForContentSizeCategory = true
             label.textColor = UIColor(hex:0x1D2129FF)
             label.text = "Header \(i)"
             label.textAlignment = .center

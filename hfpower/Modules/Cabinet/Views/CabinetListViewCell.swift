@@ -36,7 +36,9 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         let label = UILabel()
         label.numberOfLines = 1
         label.text = "金海牛能源环境产业园A座"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        let baseFont = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = UIColor(hex:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,8 +48,8 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         button.setImage(UIImage(named: "icon_arrow_right"), for: .normal)
         button.setTitle("详情", for: .normal)
         button.setTitleColor(UIColor(hex:0x447AFEFF), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.addTarget(self, action: #selector(detailButtonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -56,21 +58,25 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         let label = UILabel()
         label.text = "营业时间：24h"
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(hex:0x999999FF)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    lazy var rideLabel: UILabel = {
-        let label = UILabel()
+        let baseFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-        label.text = "100m · 骑行1分钟"
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor(hex:0x333333FF)
-        label.isHidden = true
+        label.textColor = UIColor(hex:0x666666FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+//    lazy var rideLabel: UILabel = {
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        label.text = "100m · 骑行1分钟"
+//        label.adjustsFontForContentSizeCategory = true
+//        label.font = UIFont.preferredFont(forTextStyle: .title3)
+//        label.textColor = UIColor(hex:0x333333FF)
+//        label.isHidden = true
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
     lazy var locationImageView: UIImageView = {
         let locationImageView = UIImageView()
         locationImageView.image = UIImage(named: "search_list_icon_location")
@@ -80,8 +86,11 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
     lazy var locationLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "李沧区青山路700号"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.text = "--"
+        let baseFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
         label.textColor = UIColor(hex:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -93,7 +102,9 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         button.setTitle("可租赁", for: .normal)
         button.setTitleColor(UIColor(hex:0x165DFFFF), for: .normal)
         button.backgroundColor = UIColor(hex:0x165DFFFF).withAlphaComponent(0.1)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        let baseFont = UIFont.preferredFont(forTextStyle: .caption1)
+        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -104,7 +115,9 @@ class CabinetListViewCell: BaseTableViewCell<HFCabinet> {
         button.layer.cornerRadius = 4
         button.layer.masksToBounds = true
         button.backgroundColor = UIColor(hex:0xFFF7E8FF)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        let baseFont = UIFont.preferredFont(forTextStyle: .caption1)
+        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -178,7 +191,7 @@ private extension CabinetListViewCell {
         contentView.addSubview(businessTimeLabel)
         contentView.addSubview(depositStatusButton)
         contentView.addSubview(rentStatusButton)
-        contentView.addSubview(rideLabel)
+//        contentView.addSubview(rideLabel)
         contentView.addSubview(locationImageView)
         contentView.addSubview(locationLabel)
         contentView.addSubview(statisticView)
@@ -206,9 +219,9 @@ private extension CabinetListViewCell {
             rentStatusButton.trailingAnchor.constraint(equalTo: depositStatusButton.leadingAnchor,constant: -6),
             
             
-            rideLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            rideLabel.topAnchor.constraint(equalTo: businessTimeLabel.bottomAnchor, constant: 8),
-            rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
+//            rideLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            locationLabel.topAnchor.constraint(equalTo: businessTimeLabel.bottomAnchor, constant: 8),
+//            rideLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: -4),
             locationImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             locationImageView.bottomAnchor.constraint(equalTo: statisticView.topAnchor, constant: -14),
             locationImageView.widthAnchor.constraint(equalToConstant: 14),

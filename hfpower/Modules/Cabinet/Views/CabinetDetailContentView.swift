@@ -21,8 +21,9 @@ class CabinetDetailContentView: UIView {
         let label = UILabel()
         label.numberOfLines = 1
         label.text = ""
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-//        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        let baseFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = UIColor(hex:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -32,20 +33,22 @@ class CabinetDetailContentView: UIView {
     lazy var businessTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "营业时间：24h"
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        let baseFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
-//        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = UIColor(hex:0x999999FF)
+        label.textColor = UIColor(hex:0x666666FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     lazy var rideLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "100m · 骑行1分钟"
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-//        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor(hex:0x333333FF)
+        label.text = "--m · 骑行--分钟"
+        let baseFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = UIColor(hex:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -59,7 +62,10 @@ class CabinetDetailContentView: UIView {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = ""
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        let baseFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
         label.textColor = UIColor(hex:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

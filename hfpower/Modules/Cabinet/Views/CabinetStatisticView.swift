@@ -37,7 +37,9 @@ class CabinetStatisticView: UIView {
     lazy var titleLabel:UILabel = {
         let label = UILabel()
         label.text = "电池"
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        let baseFont = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = UIColor(hex:0x1D2129FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true
@@ -61,7 +63,8 @@ class CabinetStatisticView: UIView {
         button.setImage(UIImage(named: "gift_right_icon"), for: .highlighted)
         button.setTitleColor(UIColor(hex:0xC96518FF), for: .normal)
         button.setTitleColor(UIColor(hex:0xC96518FF), for: .highlighted)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 12,weight: .medium)
+        button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
         button.addTarget(self, action: #selector(giftButtonAction(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isHidden = true

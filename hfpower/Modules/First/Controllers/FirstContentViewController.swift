@@ -209,13 +209,11 @@ class FirstContentViewController: UIViewController {
         ])
         memberItems.append(headerContent)
 
-        if !cabinetItems.isEmpty {
-            let cabinetList = cabinetItems.enumerated().map { (index, value) in
-                FirstContentItem(id: index, identifier: CabinetListViewCell.cellIdentifier(), title: "", extra: value.mj_JSONString())
-            }
-            let cabinetContent = FirstContent(id: 1, identifier: FirstContentCabinetListHeaderView.viewIdentifier(), title: "电柜列表", items: cabinetList)
-            memberItems.append(cabinetContent)
+        let cabinetList = cabinetItems.enumerated().map { (index, value) in
+            FirstContentItem(id: index, identifier: CabinetListViewCell.cellIdentifier(), title: "", extra: value.mj_JSONString())
         }
+        let cabinetContent = FirstContent(id: 1, identifier: FirstContentCabinetListHeaderView.viewIdentifier(), title: "电柜列表", items: cabinetList)
+        memberItems.append(cabinetContent)
         
         return memberItems
     }

@@ -23,8 +23,9 @@ class CabinetPanelView: UIView {
         let label = UILabel()
         label.numberOfLines = 1
         label.text = ""
+        let baseFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
         label.adjustsFontForContentSizeCategory = true
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.textColor = UIColor(hex:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -53,17 +54,22 @@ class CabinetPanelView: UIView {
         let label = UILabel()
         label.text = "营业时间：24h"
         label.numberOfLines = 0
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = UIColor(hex:0x999999FF)
+        let baseFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        label.textColor = UIColor(hex:0x666666FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     lazy var rideLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "100m · 骑行1分钟"
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = UIColor(hex:0x333333FF)
+        label.text = "--m · 骑行--分钟"
+        let baseFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = UIColor(hex:0x262626FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -76,8 +82,11 @@ class CabinetPanelView: UIView {
     lazy var locationLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "李沧区青山路700号"
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.text = "--"
+        let baseFont = UIFont.systemFont(ofSize: 12, weight: .regular)
+        label.font = UIFontMetrics.default.scaledFont(for: baseFont)
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
         label.textColor = UIColor(hex:0x999999FF)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
