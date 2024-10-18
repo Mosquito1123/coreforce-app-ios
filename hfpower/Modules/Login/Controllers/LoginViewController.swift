@@ -324,8 +324,7 @@ private extension LoginViewController {
         print("打开用户服务协议")
     }
     @objc func goToPhoneLogin(_ sender:UIButton){
-        let vc = LoginPhoneViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

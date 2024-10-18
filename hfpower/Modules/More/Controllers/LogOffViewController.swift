@@ -77,7 +77,7 @@ private extension LogOffViewController {
             self.showAlertController(titleText: "提示", messageText: "确定要注销吗？",okAction: {
                 
                 self.postData(logoutUrl, param: [:], isLoading: true) { responseObject in
-                    let loginVC = LoginViewController()
+                    let loginVC = LoginPhoneViewController()
                     let nav = UINavigationController(rootViewController: loginVC)
                     nav.modalPresentationStyle = .fullScreen
                     nav.modalTransitionStyle = .coverVertical

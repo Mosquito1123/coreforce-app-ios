@@ -220,7 +220,7 @@ extension SettingsViewController:UITableViewDelegate,UITableViewDataSource {
 private extension SettingsViewController {
     func logoutBehavior(){
             self.postData(logoutUrl, param: [:], isLoading: true) { responseObject in
-                let loginVC = LoginViewController()
+                let loginVC = LoginPhoneViewController()
                 let nav = UINavigationController(rootViewController: loginVC)
                 nav.modalPresentationStyle = .fullScreen
                 nav.modalTransitionStyle = .coverVertical

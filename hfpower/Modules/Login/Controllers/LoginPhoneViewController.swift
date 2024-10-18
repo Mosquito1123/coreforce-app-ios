@@ -326,7 +326,8 @@ private extension LoginPhoneViewController {
         LoginModel.shared.agreement = sender.isSelected
     }
     @objc func goBackToCommonLogin(_ sender:UIButton){
-        self.navigationController?.popViewController(animated: true)
+        let vc = LoginViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
       
     }
     @objc func phoneLogin(_ sender:UIButton){

@@ -160,7 +160,7 @@ private extension GuideViewController {
             mainController.modalPresentationStyle = .fullScreen
 
         }else{
-            let loginVC = LoginViewController()
+            let loginVC = LoginPhoneViewController()
             let nav = UINavigationController(rootViewController: loginVC)
             nav.modalPresentationStyle = .fullScreen
             nav.modalTransitionStyle = .coverVertical

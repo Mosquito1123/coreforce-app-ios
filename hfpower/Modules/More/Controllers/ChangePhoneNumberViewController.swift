@@ -192,8 +192,8 @@ private extension ChangePhoneNumberViewController {
         postData(memberBindUrl, param: ["pinCode": vCode], isLoading: true, success: { responseObject in
             if let body = (responseObject as? [String: Any])?["body"] as? [String: Any], body["reLogin"] as? Int == 1 {
                 self.postData(logoutUrl, param: [:], isLoading: true, success: { responseObject in
-                    let homePageVC = LoginViewController()
-                    UIViewController.ex_keyWindow()?.rootViewController = UINavigationController(rootViewController: homePageVC)
+                    let loginPhoneVC = LoginPhoneViewController()
+                    UIViewController.ex_keyWindow()?.rootViewController = UINavigationController(rootViewController: loginPhoneVC)
                     HFKeyedArchiverTool.removeData()
                     AccountManager.shared.clearAccount()
                     self.showWindowSuccess(withStatus: "绑定成功，用户在下次登录时，需使用新的手机号进行登录")

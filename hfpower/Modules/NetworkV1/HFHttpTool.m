@@ -172,7 +172,7 @@
     [SVProgressHUD showInfoWithStatus:@"登录信息已过期，请重新登陆"];
     [HFKeyedArchiverTool removeData];
     
-    LoginViewController *loginVC = [[LoginViewController alloc]init];
+    LoginPhoneViewController *loginVC = [[LoginPhoneViewController alloc]init];
     UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:loginVC];
     // 获取当前活跃的 UIWindowScene
     UIWindow *window = [HFHttpTool getCurrentWindow];

@@ -22,8 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         // 设置窗口的根视图控制器，这里假设你有一个名为MainViewController的视图控制器
-//        let mainViewController = LoginViewController() // 确保你有这个视图控制器
-//        navigationController = UINavigationController(rootViewController: mainViewController)
         // 程序主界面
         var mainController:UIViewController
         if (!(UserDefaults.standard.bool(forKey: "everLaunched") )) {
@@ -36,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 mainController = UINavigationController(rootViewController: mainTabBarController)
                 mainController.modalPresentationStyle = .fullScreen
             }else{
-                let loginVC = LoginViewController()
+                let loginVC = LoginPhoneViewController()
                 let nav = UINavigationController(rootViewController: loginVC)
                 nav.modalPresentationStyle = .fullScreen
                 nav.modalTransitionStyle = .coverVertical
