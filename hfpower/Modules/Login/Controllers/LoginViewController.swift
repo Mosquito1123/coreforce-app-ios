@@ -11,6 +11,16 @@ class LoginViewController:UIViewController, UITextViewDelegate {
     // MARK: - Accessor
     
     // MARK: - Subviews
+    // 懒加载微信登录按钮
+    lazy var wechatLoginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setBackgroundImage(UIImage(named: "wechat"), for: .normal)
+        button.setBackgroundImage(UIImage(named: "wechat"), for: .highlighted)
+        button.tintAdjustmentMode = .automatic
+        button.addTarget(self, action: #selector(wechatLoginButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     lazy var loginBackgroundView:UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "login_background")
@@ -155,6 +165,7 @@ private extension LoginViewController {
         view.addSubview(passwordInputView)
         view.addSubview(loginButton)
         view.addSubview(verificationCodeButton)
+        view.addSubview(wechatLoginButton)
         view.addSubview(toggleButton)
         // 设置 textView 的 attributedText 在第一次访问时
         let attributedString = createAttributedString()
@@ -244,6 +255,13 @@ private extension LoginViewController {
             // 用户服务协议标签约束
             
         ])
+        NSLayoutConstraint.activate([
+            wechatLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            wechatLoginButton.bottomAnchor.constraint(greaterThanOrEqualTo: privacyPolicyAndUserAgreementTextView.topAnchor, constant: -40),
+            wechatLoginButton.bottomAnchor.constraint(lessThanOrEqualTo: privacyPolicyAndUserAgreementTextView.topAnchor, constant: -20),
+            wechatLoginButton.widthAnchor.constraint(equalToConstant: 40),
+            wechatLoginButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
     }
 }
 
@@ -259,6 +277,42 @@ private extension LoginViewController {
 
 // MARK: - Action
 @objc private extension LoginViewController {
+    // 点击微信登录按钮的事件处理
+    func wechatLoginBehavior(){
+        if WXApi.isWXAppInstalled(){
+            let req = SendAuthReq()
+            req.scope = "snsapi_userinfo"   // 请求用户信息的权限
+            req.state = "核蜂动力"          // 自定义的状态标识符，用于识别请求
+            
+            WXApi.send(req) { success in
+                if success {
+                    print("微信请求发送成功")
+                } else {
+                    print("微信请求发送失败")
+                }
+            }
+        }else{
+            self.showInfo(withStatus: "没有安装微信")
+        }
+    }
+    @objc func wechatLoginButtonTapped() {
+        if LoginModel.shared.agreement == true {
+            wechatLoginBehavior()
+            
+        }else{
+            self.showPrivacyAlertController { alertAction in
+                
+            } sureBlock: { alertAction in
+                self.toggleButton.isSelected = true
+                LoginModel.shared.agreement = true
+                self.wechatLoginBehavior()
+            }
+
+        }
+        // 调用微信登录逻辑，比如使用微信SDK进行授权登录
+        // 这里添加你的微信登录处理逻辑
+        
+    }
     private func loginBehavior(){
         let passwordMD5 = self.passwordInputView.passwordTextField.text?.md5 ?? ""
 

@@ -65,6 +65,7 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
     // Function to generate HTML string with dynamic parameters
     func generateBatteryDetailsHTML(_ batteryType:HFBatteryTypeList?) -> String {
         let accessToken = HFKeyedArchiverTool.account().accessToken
+        let batteryTypeName = batteryType?.name.isEmpty == false ? batteryType?.name:batteryType?.largeTypeName
         var photoHTML = """
 
                         """
@@ -108,40 +109,47 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                 /* 样式：设置轮播容器 */
                 .carousel {
                     width: 100%; /* 设置轮播图的宽度 */
-                    max-width: 100%;
-                    height: 180px; /* 高度 */
+                    height: 225px; /* 高度 */
                     overflow: hidden;
                     position: relative;
                     margin: 0 auto;
                     border-radius: 20px; /* 为整个轮播容器添加圆角 */
                     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 可选：为容器添加阴影 */
                 }
+                /* 设置图片轨道 */
+                .carousel-track {
+                    display: flex;
+                    transition: transform 0.5s ease-in-out;
+                }
 
-                        
-                                /* 设置图片轨道 */
-                                .carousel-track {
-                                    display: flex;
-                                    transition: transform 0.5s ease-in-out;
-                                }
+                /* 设置每张图片的样式 */
+                .carousel .carousel-track img {
+                    width: 100%; /* 让图片宽度填满容器 */
+                    height: auto; /* 高度自动，保持比例 */
+                    object-fit: cover; /* 保持比例，裁剪部分内容以填满容器 */
+                    flex: 0 0 auto; /* 确保图片不会被压缩 */
+                }
 
-                                /* 设置每张图片的样式 */
-                                .carousel img {
-                                    width: 100%;
-                                    height: 100%; /* 图片高度 */
-                                    object-fit: cover;
-                                }
-
-                                /* 右下角标签的样式 */
-                                .carousel-index {
-                                    position: absolute;
-                                    bottom: 10px;
-                                    right: 10px;
-                                    background-color: rgba(0, 0, 0, 0.5); /* 半透明的黑色背景 */
-                                    color: white;
-                                    padding: 5px 10px;
-                                    border-radius: 10px; /* 标签边角圆滑 */
-                                    font-size: 14px; /* 字体大小 */
-                                }
+                /* 右下角标签的样式 */
+                .carousel-index {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    background-color: rgba(0, 0, 0, 0.5); /* 半透明的黑色背景 */
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 10px; /* 标签边角圆滑 */
+                    font-size: 14px; /* 字体大小 */
+                }
+                @media (max-width: 768px) {
+                    .carousel {
+                        height: 225px; /* 调整高度以适应较小屏幕 */
+                    }
+                    
+                    .carousel .carousel-track img {
+                        height: auto; /* 让高度自动调整 */
+                    }
+                }
                 .battery-details {
                     background-color: #fff;
                     padding: 10px;
@@ -217,7 +225,7 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                 <div class="battery-details">
                     <div>
                         <span>电池型号</span>
-                        <span class="highlight">\(batteryType?.name ?? "")</span>
+                        <span class="highlight">\(batteryTypeName ?? "")</span>
                     </div>
                 </div>
                 <div class="battery-details">
@@ -226,7 +234,7 @@ class BatteryTypeDetailViewController: UIViewController,UIGestureRecognizerDeleg
                         <span></span>
                     </div>
                     <p class="battery-description">
-                        \(batteryType?.memo ?? "")
+                        \(batteryType?.batteryMemo ?? "")
                     </p>
                 </div>
                 <div class="battery-details">

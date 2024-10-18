@@ -37,7 +37,7 @@ class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCe
                     self.items = [
                         PersonalInfo(id: 0, title:  "用户姓名",content: memberData.realName,isNext: false),
                         PersonalInfo(id: 1, title: "性别",content: self.gender(from: memberData.idCard),isNext: false),
-                        PersonalInfo(id: 2, title: "手机号",content: memberData.phoneNum.maskPhoneNumber(),isNext: true),
+                        PersonalInfo(id: 2, title: "手机号",content: memberData.phoneNum.maskPhoneNumber(),isNext: false),
                         PersonalInfo(id: 3, title: "实名认证",content: memberData.isAuth == 1 ? "已实名认证":"未实名，前往认证",isEditable: memberData.isAuth != 1, isNext: true),
                        
 
@@ -78,9 +78,6 @@ class PersonalInfoViewController: BaseTableViewController<PersonalInfoListViewCe
         if item.title == "实名认证" && item.isEditable == true{
             let realNameAuthVC = RealNameAuthViewController()
             self.navigationController?.pushViewController(realNameAuthVC, animated: true)
-        } else if item.title == "手机号"{
-            let changePhoneNumberController = ChangePhoneNumberViewController()
-            self.navigationController?.pushViewController(changePhoneNumberController, animated: true)
         }
     }
     

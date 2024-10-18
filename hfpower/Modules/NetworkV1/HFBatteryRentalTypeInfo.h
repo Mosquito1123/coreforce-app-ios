@@ -63,6 +63,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *statusUpdaterName;
 @property (nonatomic, strong) NSNumber *temperature;
 @property (nonatomic, copy) NSString *updateAt;
+@property (nonatomic, strong) NSString *typeName;
+@property (nonatomic, strong) NSNumber *parentId;
+@property (nonatomic, strong) NSString *photo;
+@property (nonatomic, strong) NSString *batteryIcon;
+@property (nonatomic, strong) NSString *enduranceMemo;
+@property (nonatomic, strong) NSNumber *level;
+@property (nonatomic, strong) NSNumber *minMileage;
+@property (nonatomic, strong) NSString *batteryMemo;
+@property (nonatomic, strong) NSNumber *maxMileage;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *parentName;
 
 @end
 

@@ -12,9 +12,15 @@ class PersonalHeaderViewCell: UITableViewCell {
     var element:PersonalList?{
         didSet{
             if let member = element?.extra as? HFMember{
-                let lastFour = String(member.phoneNum.suffix(4)).padding(toLength: 4, withPad: "*", startingAt: 0)
-                titleLabel.text = member.realName != "" ? "\(member.realName)":"\("用户")_\(lastFour)"
-                subTitleLabel.text = member.phoneNum.maskPhoneNumber()
+                if member.phoneNum.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
+                    titleLabel.text = "未认证用户"
+                    subTitleLabel.text = ""
+                }else{
+                    let lastFour = String(member.phoneNum.suffix(4)).padding(toLength: 4, withPad: "*", startingAt: 0)
+                    titleLabel.text = member.realName != "" ? "\(member.realName)":"\("用户")_\(lastFour)"
+                    subTitleLabel.text = member.phoneNum.maskPhoneNumber()
+                }
+                
                 authorityButton.isVerified = member.isAuth == 1
                 headerImageView.setHeaderImage(placeholder: UIImage(named: "setup-head-default"))
             }

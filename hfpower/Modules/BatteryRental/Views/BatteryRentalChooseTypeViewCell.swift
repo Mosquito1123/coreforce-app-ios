@@ -12,8 +12,9 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
     // MARK: - Accessor
     override func configure() {
         if let batteryType = self.element{
-            self.titleLabel.text = batteryType.batteryTypeName
-            self.contentLabel.text = batteryType.batteryPlanName
+            self.titleLabel.text = batteryType.largeTypeName
+            self.contentLabel.text = batteryType.batteryMemo
+            self.iconImageView.setImage(photoName: batteryType.batteryIcon, placeholder: UIImage(named: "battery_type_default"))
         }
     }
     var sureAction:ButtonActionBlock?
@@ -34,7 +35,7 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "60V36AH"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 16,weight: .medium)
         label.textColor = UIColor(hex:0x333333FF)
         label.numberOfLines = 0
@@ -43,10 +44,11 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
     }()
     lazy var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "续航60-80公里，适合全职及众包骑手"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor(hex:0x666666FF)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
+        label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

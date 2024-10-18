@@ -86,6 +86,7 @@
 #define memberInviteCodeUrl @"/app/api/member/inviteCode"//获取邀请码接口
 #define batteryTimeChangeCardPlanListUrl @"/app/api/batteryTimeChangeCardPlan/list"//换点卡列表接口
 #define loginUrl @"/app/api/login"//登录接口"
+#define wxLoginUrl @"/app/api/wxLogin"//微信第三方登录
 #define regUrl @"/app/api/reg"//注册接口
 #define returnCheckUrl @"/app/api/battery/return/check"//运营商扫码退租状态
 #define buyPackageCardUrl @"/app/api/payVoucher/main/order"//套餐卡下单

@@ -30,12 +30,7 @@ class BatteryRentalChooseTypeViewController: BaseTableViewController<BatteryRent
             }
             cellx.detailAction = { sender in
                 let batteryTypeDetailVC = BatteryTypeDetailViewController()
-                let batteryType = HFBatteryTypeList()
-                let smallBatteryType = self.items[indexPath.row]
-                batteryType.name = smallBatteryType.batteryTypeName
-                batteryType.enduranceMemo = smallBatteryType.batteryVoltage
-                batteryType.id = smallBatteryType.largeTypeId
-                batteryTypeDetailVC.batteryType = batteryType
+                batteryTypeDetailVC.batteryType = HFBatteryTypeList.mj_object(withKeyValues: self.items[indexPath.row].mj_keyValues())
                 self.navigationController?.pushViewController(batteryTypeDetailVC, animated: true)
             }
         }

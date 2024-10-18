@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        WXApi.registerApp("wxfbe855af004db917", universalLink: "https://www.coreforce.cn/admin/")
+        WXApi.registerApp("wxfbe855af004db917", universalLink: "https://www.coreforce.cn/app/")
         return true
     }
     
@@ -185,6 +185,18 @@ class WXPayTools: NSObject, WXApiDelegate {
     }
     
     private func doWXLogin(code: String) {
+        UIViewController.ex_presentController()?.postData(wxLoginUrl, param: ["code":code], isLoading: true) { responseObject in
+            guard let body = (responseObject as? [String:Any])?["body"] as? [String: Any] else {return }
+            if let account = HFAccount.mj_object(withKeyValues: body){
+                HFKeyedArchiverTool.saveAccount(account)
+            }
+            // Set the root view controller to the main tab bar
+            let baseNav = UINavigationController(rootViewController: MainTabBarController())
+            UIViewController.ex_keyWindow()?.rootViewController = baseNav
+        } error: { error in
+            UIViewController.ex_presentController()?.showWindowError(withStatus: error.localizedDescription)
+        }
+
         /*NetworkService<AuthAPI,TokenResponse>().request(.wxLogin(code: code)) { result in
             switch result{
             case .success(let response):
