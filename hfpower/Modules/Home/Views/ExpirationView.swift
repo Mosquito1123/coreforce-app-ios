@@ -11,6 +11,46 @@ class ExpirationView: UIView {
 
     // MARK: - Accessor
     var actionBlock:ButtonActionBlock?
+    var deviceType = "电池"{
+        didSet{
+            let fullText = "您的\(deviceType)租期剩余\(remainingDays)，为了不影响您正常使用，请尽快续租。"
+            let attributedString = NSMutableAttributedString(string: fullText,attributes: [.font:UIFont.systemFont(ofSize: 12)])
+
+            // 定义颜色
+            let defaultColor = UIColor(hex:0x333333FF)
+            let specialColor = UIColor(hex:0xFF4D4FFF)
+
+            // 设置默认颜色
+            attributedString.addAttribute(.foregroundColor, value: defaultColor, range: NSRange(location: 0, length: fullText.count))
+
+            // 设置特殊文本的颜色
+            let nsRange = (fullText as NSString).range(of: remainingDays)
+            attributedString.addAttribute(.foregroundColor, value: specialColor, range: nsRange)
+
+            // 使用 attributedString，例如设置到一个 UILabel 上
+            titleLabel.attributedText = attributedString
+        }
+    }
+    var remainingDays = "1天17小时"{
+        didSet{
+            let fullText = "您的\(deviceType)租期剩余\(remainingDays)，为了不影响您正常使用，请尽快续租。"
+            let attributedString = NSMutableAttributedString(string: fullText,attributes: [.font:UIFont.systemFont(ofSize: 12)])
+
+            // 定义颜色
+            let defaultColor = UIColor(hex:0x333333FF)
+            let specialColor = UIColor(hex:0xFF4D4FFF)
+
+            // 设置默认颜色
+            attributedString.addAttribute(.foregroundColor, value: defaultColor, range: NSRange(location: 0, length: fullText.count))
+
+            // 设置特殊文本的颜色
+            let nsRange = (fullText as NSString).range(of: remainingDays)
+            attributedString.addAttribute(.foregroundColor, value: specialColor, range: nsRange)
+
+            // 使用 attributedString，例如设置到一个 UILabel 上
+            titleLabel.attributedText = attributedString
+        }
+    }
     var attributedText:NSAttributedString?{
         didSet{
             titleLabel.attributedText = attributedText

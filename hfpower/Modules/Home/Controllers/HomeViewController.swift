@@ -53,6 +53,11 @@ class HomeViewController: MapViewController{
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    lazy var batteryExpirationView: ExpirationView = {
+        let view = ExpirationView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     lazy var batteryOfflineView: BatteryOfflineView = {
         let view = BatteryOfflineView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -213,6 +218,19 @@ class HomeViewController: MapViewController{
 //                        // Handle battery storage day conditions
 //                    }
                 } else if batteryDataArray.count > 0 {
+                    if HFKeyedArchiverTool.pleaseStarTimes(HFKeyedArchiverTool.getCurrentTimes(), andEndTime: batteryDataArray.first?.batteryEndDate ?? "", isDay: true) < 3{
+                        self.headerStackView.addArrangedSubview(self.batteryExpirationView)
+                        self.batteryExpirationView.remainingDays = HFKeyedArchiverTool.pleaseEndTime(batteryDataArray.first?.batteryEndDate ?? "")
+                        self.batteryExpirationView.actionBlock = { sender in
+                            //电池续租
+                            let batteryRenewViewController = BatteryRenewViewController()
+                            batteryRenewViewController.batteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number  ?? ""
+                            batteryRenewViewController.batteryDetail = HFKeyedArchiverTool.batteryDataList().first
+                            self.navigationController?.pushViewController(batteryRenewViewController, animated: true)
+                        }
+                    }else{
+                        
+                    }
                     self.headerStackBatteryView.addArrangedSubview(self.batteryView)
                     self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0) / 100
                     
@@ -244,6 +262,19 @@ class HomeViewController: MapViewController{
 //                    // Handle battery storage day conditions
 //                }
             } else if batteryDataArray.count > 0 {
+                if HFKeyedArchiverTool.pleaseStarTimes(HFKeyedArchiverTool.getCurrentTimes(), andEndTime: batteryDataArray.first?.batteryEndDate ?? "", isDay: true) < 3{
+                    self.headerStackView.addArrangedSubview(self.batteryExpirationView)
+                    self.batteryExpirationView.remainingDays = HFKeyedArchiverTool.pleaseEndTime(batteryDataArray.first?.batteryEndDate ?? "")
+                    self.batteryExpirationView.actionBlock = { sender in
+                        //电池续租
+                        let batteryRenewViewController = BatteryRenewViewController()
+                        batteryRenewViewController.batteryNumber = HFKeyedArchiverTool.batteryDataList().first?.number  ?? ""
+                        batteryRenewViewController.batteryDetail = HFKeyedArchiverTool.batteryDataList().first
+                        self.navigationController?.pushViewController(batteryRenewViewController, animated: true)
+                    }
+                }else{
+                    
+                }
                 self.headerStackBatteryView.addArrangedSubview(self.batteryView)
                 self.batteryView.batteryView.batteryLevel = CGFloat(batteryDataArray.first?.mcuCapacityPercent?.doubleValue ?? 0) / 100
                 
