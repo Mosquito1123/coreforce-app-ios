@@ -144,60 +144,108 @@ class MapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         present(alert, animated: true, completion: nil)
     }
     
-    func updateCabinetList(coordinate: CLLocationCoordinate2D?,largeTypeId:String? = nil,powerLevel:String? = nil){
+    func updateCabinetList(coordinate: CLLocationCoordinate2D?, largeTypeId: String? = nil, powerLevel: String? = nil) {
         let code = CityCodeManager.shared.cityCode ?? "370200"
         var params = [String: Any]()
+        
+        // 如果订单信息存在，则添加临时存储开关参数
         let orderInfo = HFKeyedArchiverTool.batteryDepositOrderInfo()
         if orderInfo.id != nil {
-            params = ["tempStorageSw": true]
+            params["tempStorageSw"] = true
         }
+        
+        // 设置城市代码
         params["cityCode"] = code.replacingLastTwoCharactersWithZeroes()
-        if let lat = coordinate?.latitude{
+        
+        // 如果坐标存在，设置经纬度
+        if let lat = coordinate?.latitude {
             params["lat"] = lat
         }
-        if let lon = coordinate?.longitude{
+        if let lon = coordinate?.longitude {
             params["lon"] = lon
         }
+        
+        // 设置类型和电量等级
         if let largeTypeId = largeTypeId {
             params["largeTypeId"] = largeTypeId
         }
         if let powerLevel = powerLevel {
             params["powerLevel"] = powerLevel
         }
+        
+        // 设置分页大小
         params["pageSize"] = 100
+        
+        // 发起网络请求
         self.getData(cabinetListUrl, param: params, isLoading: false) { responseObject in
-            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],let pageResult = body["pageResult"] as? [String: Any],
-               let dataList = pageResult["dataList"] as? [[String: Any]]{
+            if let body = (responseObject as? [String: Any])?["body"] as? [String: Any],
+               let pageResult = body["pageResult"] as? [String: Any],
+               let dataList = pageResult["dataList"] as? [[String: Any]] {
+                
+                // 解析返回数据为柜体数组
                 let cabinetArray = (HFCabinet.mj_objectArray(withKeyValuesArray: dataList) as? [HFCabinet]) ?? []
                 
-                var tempAnnotations =  self.mapView.annotations
-                tempAnnotations.removeAll { annotation in
-                    if annotation is CenterAnnotation{
-                        return true
-                    }else if annotation is MKUserLocation {
-                        return true
-                    }else{
-                        return false
+                // 获取当前地图上的标记，保留用户位置标记
+                let existingAnnotations = self.mapView.annotations.filter { annotation in
+                    !(annotation is MKUserLocation) && !(annotation is CenterAnnotation)
+                }
+                
+                // 使用 cabinet 的 id 来判断重复标记
+                var existingCabinets = [String: CabinetAnnotation]()
+                
+                // 将现有标记存入字典，键为 cabinet id，值为对应的 annotation
+                for existingAnnotation in existingAnnotations {
+                    if let cabinetAnnotation = existingAnnotation as? CabinetAnnotation,
+                       let cabinetId = cabinetAnnotation.cabinet?.id {
+                        existingCabinets[cabinetId.stringValue] = cabinetAnnotation
                     }
                 }
-                let finalAnnotations = tempAnnotations
-                self.mapView.removeAnnotations(finalAnnotations)
                 
-                let annotations =  cabinetArray.map({ cabinet in
+                // 创建新标记数组
+                var newAnnotations = [CabinetAnnotation]()
+                
+                // 更新或添加新标记
+                for cabinet in cabinetArray {
+                    let cabinetId = cabinet.id.stringValue
+                    let newCoord = CLLocationCoordinate2D(
+                        latitude: cabinet.bdLat?.doubleValue ?? 0,
+                        longitude: cabinet.bdLon?.doubleValue ?? 0
+                    )
                     
-                    let a = CabinetAnnotation(coordinate: CLLocationCoordinate2D(latitude: cabinet.bdLat?.doubleValue ?? 0, longitude: cabinet.bdLon?.doubleValue ?? 0), title: nil, subtitle: nil)
-                    a.cabinet = cabinet
-                    return a
-                })
-                self.mapView.addAnnotations(annotations)
+                    if let existingAnnotation = existingCabinets[cabinetId] {
+                        // 更新已有标记的 Cabinet
+                        existingAnnotation.cabinet = cabinet
+                        existingAnnotation.coordinate = newCoord // 更新坐标
+                    } else {
+                        // 创建新标记并添加到数组
+                        let newAnnotation = CabinetAnnotation(coordinate: newCoord, title: nil, subtitle: nil)
+                        newAnnotation.cabinet = cabinet
+                        newAnnotations.append(newAnnotation)
+                    }
+                }
                 
+                // 批量添加新标记
+                if !newAnnotations.isEmpty {
+                    self.mapView.addAnnotations(newAnnotations)
+                }
                 
+                // 移除不再存在的标记
+                let newCabinetIds = Set(cabinetArray.compactMap { $0.id })
+                let annotationsToRemove = existingAnnotations.filter { existingAnnotation in
+                    if let cabinetAnnotation = existingAnnotation as? CabinetAnnotation,
+                       let cabinetId = cabinetAnnotation.cabinet?.id {
+                        return !newCabinetIds.contains(cabinetId)
+                    }
+                    return false
+                }
+                
+                self.mapView.removeAnnotations(annotationsToRemove)
             }
-            
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
         }
     }
+
     func firstLoadData(){
         let userlocation = mapView.userLocation
         self.centerMapOnUserLocation(userLocation: userlocation)
