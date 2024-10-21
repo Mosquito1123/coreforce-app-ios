@@ -107,12 +107,12 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         headerView.locationChooseView.chooseCityAction = { sender in
             // Handle city choose action
             /*
-            let cityChooseVC = CityChooseViewController()
-
-            let nav = UINavigationController(rootViewController: cityChooseVC)
-            nav.modalPresentationStyle = .fullScreen
-            nav.modalTransitionStyle = .coverVertical
-            self.present(nav, animated: true)
+             let cityChooseVC = CityChooseViewController()
+             
+             let nav = UINavigationController(rootViewController: cityChooseVC)
+             nav.modalPresentationStyle = .fullScreen
+             nav.modalTransitionStyle = .coverVertical
+             self.present(nav, animated: true)
              */
             let cityHistoryVC = CityHistoryViewController()
             self.navigationController?.pushViewController(cityHistoryVC, animated: true)
@@ -161,7 +161,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-    
+        
         
         
         setupNavbar()
@@ -174,7 +174,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
     func startObserving(){
         NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .cityChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleCityChanged(_:)), name: .relocated, object: nil)
-
+        
     }
     func isiPhoneXScreen() -> Bool {
         
@@ -198,12 +198,12 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         
         
     }
-        
+    
     func setupTabbar() {
         // 调整 UITabBarItem 的标题位置偏移
         let offset = UIOffset(horizontal: 0, vertical: 10) // X轴和Y轴的偏移量
         UITabBarItem.appearance().titlePositionAdjustment = offset
-
+        
         // Set background color
         if #available(iOS 13.0, *) {
             let appearance = UITabBarAppearance()
@@ -272,7 +272,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
         }
-
+        
     }
     
     // MARK: - Button Action
@@ -282,21 +282,21 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         getData(memberUrl, param: [:], isLoading: false) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
                let member = body["member"] as? [String: Any],
-               let isAuth = member["isAuth"] as? Int{
-                if isAuth == 1{
-                    HFScanTool.shared.showScanController(from: self)
-                    
-                }else{
-                    self.showWindowInfo(withStatus: "请您先完成实名认证")
+               let isAuth = member["isAuth"] as? Int,isAuth == 1{
+                HFScanTool.shared.showScanController(from: self)
+            }else{
+                self.showAlertController(titleText: "", messageText: "您还未实名认证，请先进行实名认证", okText: "实名认证", okAction: {
                     let realNameAuthVC = RealNameAuthViewController()
                     self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+                }, isCancelAlert: true, cancelText: "取消") {
+                    
                 }
                 
             }
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
         }
-
+        
     }
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController is HomeViewController{
@@ -307,7 +307,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
             self.setupNavbarCustomerService()
         }else if viewController is FirstViewController{
             self.setupNavbarHome()
-
+            
         }
     }
     override var selectedIndex: Int{
@@ -323,7 +323,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         self.postData(cabinetScanRentUrl, param: ["cabinetNumber":number ?? ""], isLoading: true) { responseObject in
             if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let list = body["list"]{
                 if let typeList = HFBatteryRentalTypeInfo.mj_objectArray(withKeyValuesArray: list) as? [HFBatteryRentalTypeInfo]{
-                  let batteryRentalChooseTypeViewController = BatteryRentalChooseTypeViewController()
+                    let batteryRentalChooseTypeViewController = BatteryRentalChooseTypeViewController()
                     batteryRentalChooseTypeViewController.items = typeList
                     self.navigationController?.pushViewController(batteryRentalChooseTypeViewController, animated: true)
                 }
@@ -331,14 +331,14 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
         }
-
+        
         
     }
     func rentBattery(number:String?){
         let batteryRentalViewContoller = BatteryRentalViewController()
         batteryRentalViewContoller.batteryNumber = number ?? ""
         self.navigationController?.pushViewController(batteryRentalViewContoller, animated: true)
-
+        
     }
     func batteryReplacement(id:Int?,number:String?){
         self.postData(cabinetScanUrl, param: ["cabinetNumber": number ?? "", "batteryId": id ?? 0], isLoading: false) { responseObject in
@@ -359,7 +359,7 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
                             } error: { error in
                                 self.showError(withStatus: error.localizedDescription)
                             }
-
+                            
                         }
                     }, isCancelAlert: true) {
                         
@@ -369,9 +369,9 @@ class MainTabBarController: UITabBarController,UITabBarControllerDelegate,Rental
         } error: { error in
             self.showError(withStatus: error.localizedDescription)
         }
-
         
-
+        
+        
     }
     func addRoundedCorners() {
         

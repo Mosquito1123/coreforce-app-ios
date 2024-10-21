@@ -198,6 +198,7 @@ class HomeViewController: MapViewController{
                   let member = body["member"] as? [String: Any],
                   let isAuth = member["isAuth"] as? Int else {
                 self.headerStackView.addArrangedSubview(self.authStatusView)
+                self.headerStackView.addArrangedSubview(self.packageCardView)
 
                 return
             }
@@ -231,6 +232,8 @@ class HomeViewController: MapViewController{
                 }
             } else {
                 self.headerStackView.addArrangedSubview(self.authStatusView)
+                self.headerStackView.addArrangedSubview(self.packageCardView)
+
             }
         }, error: { error in
             // Handle error scenario

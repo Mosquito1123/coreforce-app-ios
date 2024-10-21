@@ -108,34 +108,54 @@ private extension BuyPackageCardViewController {
         self.view.addSubview(self.tableView)
         self.view.addSubview(bottomView)
         bottomView.submittedAction = {sender in
-            self.showActionSheet(["wechat","alipay"], ["微信支付","支付宝支付"], "取消") { section, row in
-                self.presentedViewController?.dismiss(animated: true)
-                let id = self.packageCard?.id ?? 0
-                
-                if section == 1,row == 0{//取消
-                }else if section == 0,row == 0{//微信支付
-                    self.postData(buyPackageCardUrl, param: ["payChannel":1,"from":"app","id":id], isLoading: true) { responseObject in
-                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
-                            if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
-                                self.wxPay(payDataModel)
+            self.getData(memberUrl, param: [:], isLoading: false) { responseObject in
+                if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],
+                   let member = body["member"] as? [String: Any],
+                   let isAuth = member["isAuth"] as? Int,isAuth == 1{
+                        self.showActionSheet(["wechat","alipay"], ["微信支付","支付宝支付"], "取消") { section, row in
+                            self.presentedViewController?.dismiss(animated: true)
+                            let id = self.packageCard?.id ?? 0
+                            
+                            if section == 1,row == 0{//取消
+                            }else if section == 0,row == 0{//微信支付
+                                self.postData(buyPackageCardUrl, param: ["payChannel":1,"from":"app","id":id], isLoading: true) { responseObject in
+                                    if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payData = body["payData"] as? [String: Any]{
+                                        if let payDataModel = HFPayData.mj_object(withKeyValues: payData){
+                                            self.wxPay(payDataModel)
+                                        }
+                                    }
+                                } error: { error in
+                                    self.showError(withStatus: error.localizedDescription)
+                                }
+                                
+                            }else if section == 0,row == 1{//支付宝支付
+                                self.postData(buyPackageCardUrl, param: ["payChannel":2,"from":"app","id":id], isLoading: true) { responseObject in
+                                    if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
+                                        self.alipay(payDataString)
+                                        
+                                    }
+                                } error: { error in
+                                    self.showError(withStatus: error.localizedDescription)
+
+                                }
                             }
                         }
-                    } error: { error in
-                        self.showError(withStatus: error.localizedDescription)
+                        
+                    
+                    
+                }else{
+                    self.showAlertController(titleText: "", messageText: "您还未实名认证，请先进行实名认证", okText: "实名认证", okAction: {
+                        let realNameAuthVC = RealNameAuthViewController()
+                        self.navigationController?.pushViewController(realNameAuthVC, animated: true)
+                    }, isCancelAlert: true, cancelText: "取消") {
+                        
                     }
                     
-                }else if section == 0,row == 1{//支付宝支付
-                    self.postData(buyPackageCardUrl, param: ["payChannel":2,"from":"app","id":id], isLoading: true) { responseObject in
-                        if let body = (responseObject as? [String:Any])?["body"] as? [String: Any],let payDataString = body["payData"] as? String{
-                            self.alipay(payDataString)
-                            
-                        }
-                    } error: { error in
-                        self.showError(withStatus: error.localizedDescription)
-
-                    }
                 }
+            } error: { error in
+                self.showError(withStatus: error.localizedDescription)
             }
+            
         }
         
     }

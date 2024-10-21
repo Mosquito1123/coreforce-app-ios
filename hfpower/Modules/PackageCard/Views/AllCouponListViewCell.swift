@@ -157,7 +157,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         }
 
         // 构建有效期字符串
-        let validityPeriod = "有效期：\(formattedStartDate)-\(formattedEndDate)"
+        let validityPeriod = "有效期：\(formattedStartDate)至\(formattedEndDate)"
 
         periodView.titleLabel.text = validityPeriod
         switch couponType {

@@ -364,7 +364,7 @@ extension FirstContentViewController:UITableViewDelegate,UITableViewDataSource {
             }
         case let packageCardCell as PersonalPackageCardViewCell:
             packageCardCell.sureAction = { [weak self] _ in
-                self?.navigateTo(PackageCardChooseServiceViewController())
+                self?.navigateTo(ChooseBatteryTypeViewController())
             }
         case let activityCell as FirstContentActivityViewCell:
             activityCell.didSelectItemBlock = { [weak self] _, _ in

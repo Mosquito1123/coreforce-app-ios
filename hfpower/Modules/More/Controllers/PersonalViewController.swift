@@ -291,7 +291,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
                     let allOrderVC = AllOrderViewController()
                     self.navigationController?.pushViewController(allOrderVC, animated: true)
                 }else if x.title == "购买套餐" {
-                    let vc=PackageCardChooseServiceViewController()
+                    let vc=ChooseBatteryTypeViewController()
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else if x.title == "卡仓取电" {
                     let scanVC = HFScanViewController()
@@ -364,7 +364,7 @@ extension PersonalViewController:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.items[indexPath.row]
         if item.title == "套餐卡"{
-            let vc=PackageCardChooseServiceViewController()
+            let vc=ChooseBatteryTypeViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

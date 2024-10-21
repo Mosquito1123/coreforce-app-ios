@@ -26,7 +26,7 @@ class AuthStatusView: UIView {
     
     private var actionButton: UIButton = {
         let button = UIButton()
-        button.setTitle("立即认证", for: .normal)
+        button.setTitle("立即实名", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
         button.setBackgroundImage(UIColor(hex:0x447AFEFF).toImage(size: CGSize(width: 90, height: 24)), for: .normal)
         button.setTitleColor(.white, for: .normal)
