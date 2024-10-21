@@ -12,7 +12,7 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
         lazy var titleLabel: UILabel = {
             let label = UILabel()
             label.numberOfLines = 0
-            label.text = "有效期至：2023.05.06 12:5"
+            label.text = "有效期至：--"
             label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 12)
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -135,9 +135,30 @@ class AllCouponListViewCell: BaseTableViewCell<HFCouponData> {
 
 
         }
-        let formattedStartDate = element?.startDate ?? ""
-        let formattedEndDate = element?.endDate ?? ""
+        // 创建日期格式化器
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // 假设日期字符串是 ISO 8601 格式
+        dateFormatter.locale = Locale(identifier: "zh_CN") // 根据需要设置区域
+
+        // 输出日期格式，只显示年月日
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yyyy-MM-dd" // 只显示年月日
+        var formattedStartDate = ""
+        var formattedEndDate = ""
+        // 将字符串日期转换为 Date 并格式化为 "yyyy-MM-dd"
+        if let startDateString = element?.startDate,
+           let startDate = dateFormatter.date(from: startDateString) {
+            formattedStartDate = outputFormatter.string(from: startDate)
+        }
+
+        if let endDateString = element?.endDate,
+           let endDate = dateFormatter.date(from: endDateString) {
+            formattedEndDate = outputFormatter.string(from: endDate)
+        }
+
+        // 构建有效期字符串
         let validityPeriod = "有效期：\(formattedStartDate)-\(formattedEndDate)"
+
         periodView.titleLabel.text = validityPeriod
         switch couponType {
         case 1://

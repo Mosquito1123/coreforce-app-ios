@@ -13,7 +13,7 @@ class BatteryRentalChooseTypeViewCell: BaseTableViewCell<HFBatteryRentalTypeInfo
     override func configure() {
         if let batteryType = self.element{
             self.titleLabel.text = batteryType.largeTypeName
-            self.contentLabel.text = batteryType.batteryMemo
+            self.contentLabel.text = batteryType.memo
             self.iconImageView.setImage(photoName: batteryType.batteryIcon, placeholder: UIImage(named: "battery_type_default"))
         }
     }
