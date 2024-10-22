@@ -136,6 +136,7 @@ private extension FeeDetailSecondViewCell {
 class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
     
     // MARK: - Accessor
+    var showCouponAction:(()->())?
     override func configure() {
         self.titleLabel.text = element?.title
         if let bikeDetail = element?.bikeDetail{
@@ -249,19 +250,26 @@ class FeeDetailViewCell: BaseTableViewCell<BuyPackageCard> {
         label.textAlignment = .right
         return label
     }()
+    private let couponView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let couponLabel: UILabel = {
         let label = UILabel()
         label.text = "优惠券"
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor(red: 143/255, green: 143/255, blue: 143/255, alpha: 1)
+        label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let couponDetailLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
+        label.text = "       "
         label.font = UIFont.systemFont(ofSize: 16)
         label.isUserInteractionEnabled = true
         label.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
@@ -316,9 +324,16 @@ private extension FeeDetailViewCell {
         containerView.addSubview(batteryDepositAmountLabel)
         containerView.addSubview(selectedPlanLabel)
         containerView.addSubview(selectedPlanDetailLabel)
-        containerView.addSubview(couponLabel)
-        containerView.addSubview(couponDetailLabel)
-        containerView.addSubview(couponImageView)
+        // 添加 couponView 和它的子视图
+        containerView.addSubview(couponView)
+        couponView.addSubview(couponLabel)
+        couponView.addSubview(couponDetailLabel)
+        couponView.addSubview(couponImageView)
+        
+        // 添加点击手势到 couponView
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        couponView.addGestureRecognizer(tap)
+
     }
     
     private func setupLayout() {
@@ -353,15 +368,20 @@ private extension FeeDetailViewCell {
             selectedPlanDetailLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
             selectedPlanDetailLabel.centerYAnchor.constraint(equalTo: selectedPlanLabel.centerYAnchor),
             
-            couponLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
-            couponLabel.topAnchor.constraint(equalTo: selectedPlanLabel.bottomAnchor, constant: 16),
-            couponLabel.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -18),
+            // 布局 couponView 和其子视图
+            couponView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 14),
+            couponView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
+            couponView.topAnchor.constraint(equalTo: selectedPlanLabel.bottomAnchor, constant: 16),
+            couponView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -18),
+            couponView.heightAnchor.constraint(equalToConstant: 30),
+            couponLabel.leadingAnchor.constraint(equalTo: couponView.leadingAnchor),
+            couponLabel.centerYAnchor.constraint(equalTo: couponView.centerYAnchor),
             
             couponDetailLabel.trailingAnchor.constraint(lessThanOrEqualTo: couponImageView.leadingAnchor, constant: -14),
-            couponDetailLabel.centerYAnchor.constraint(equalTo: couponLabel.centerYAnchor),
+            couponDetailLabel.centerYAnchor.constraint(equalTo: couponView.centerYAnchor),
             
-            couponImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -14),
-            couponImageView.centerYAnchor.constraint(equalTo: couponLabel.centerYAnchor),
+            couponImageView.trailingAnchor.constraint(equalTo: couponView.trailingAnchor),
+            couponImageView.centerYAnchor.constraint(equalTo: couponView.centerYAnchor),
             couponImageView.widthAnchor.constraint(equalToConstant: 6),
             couponImageView.heightAnchor.constraint(equalToConstant: 12),
         ])
@@ -376,7 +396,9 @@ extension FeeDetailViewCell {
 
 // MARK: - Action
 @objc private extension FeeDetailViewCell {
-    
+    @objc func tapAction() {
+        self.showCouponAction?()
+    }
 }
 
 // MARK: - Private

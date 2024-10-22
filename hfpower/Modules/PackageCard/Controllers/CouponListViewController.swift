@@ -13,7 +13,7 @@ class CouponListViewController: BaseTableViewController<CouponListViewCell,HFCou
     var selectedBlock:((_ model:HFCouponData?)->())?
     var couponType:Int = 1
     var deviceNumber:String = ""
-    var amount:String = "0"
+    @objc var amount:NSNumber?
     var pageNum = 1
     var pageCount = 1
     override var title: String?{

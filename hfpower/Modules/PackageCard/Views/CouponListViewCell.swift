@@ -12,7 +12,7 @@ class CouponListViewCell: BaseTableViewCell<HFCouponData> {
         lazy var titleLabel: UILabel = {
             let label = UILabel()
             label.numberOfLines = 0
-            label.text = "有效期至：2023.05.06 12:5"
+            label.text = "有效期至：--"
             label.textColor = UIColor(hex:0x333333FF)
             label.font = UIFont.systemFont(ofSize: 12)
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -103,90 +103,112 @@ class CouponListViewCell: BaseTableViewCell<HFCouponData> {
     }
     // MARK: - Accessor
     override func configure() {
-        guard let item = element else {return}
-        statusImageView.image = item.selected.boolValue ? UIImage(named: "selected"):UIImage(named: "unselected_c")
+        guard let item = element else { return }
+
+        // 更新选择状态图片
+        statusImageView.image = item.selected.boolValue ? UIImage(named: "selected") : UIImage(named: "unselected_c")
+
+        // 数字格式化和标题设置
+        titleLabel.text = "满\(formattedLimitAmount(for: item.limitAmount))可用"
+
+        // 更新状态和类型相关的视图
+        updateMarkViewBasedOnStatusAndType(item)
+
+        // 设置有效期
+        periodView.titleLabel.text = formatValidityPeriod(startDateString: item.startDate, endDateString: item.endDate)
+    }
+
+    // MARK: - Helper Methods
+
+    private func formattedLimitAmount(for limitAmount: Double?) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 2
         numberFormatter.maximumFractionDigits = 2
+        return numberFormatter.string(from: NSNumber(value: limitAmount ?? 0)) ?? ""
+    }
 
-        let formattedString = "满\(numberFormatter.string(from: NSNumber(value: element?.limitAmount ?? 0)) ?? "")可用"
-        self.titleLabel.text = formattedString
-        let couponType = item.couponType
-        
-        let status = item.status
-        if status == 2{
-//            statusButton.isHidden = false
-//            statusButton.setTitle("已使用", for: .normal)
-            markView.updateGradientColors(startColor: UIColor(hex:0xD2D2D2FF), endColor: UIColor(hex:0xD2D2D2FF))
-        }else if status == 1{
-//            statusButton.isHidden = true
-            switch couponType {
-            case 1://押金券
-                markView.updateGradientColors(startColor: UIColor(hex:0xFFBC99FF), endColor: UIColor(hex:0xFF8760FF))
-            case 2://租金券
-                markView.updateGradientColors(startColor: UIColor(hex:0x307CEDFF), endColor: UIColor(hex:0x57B1F0FF))
-            default://其他
-                markView.updateGradientColors(startColor: UIColor(hex:0xFFA5A5FF), endColor: UIColor(hex:0xFF6C6CFF))
-            }
-        }else if status == 3{
-//            statusButton.isHidden = false
-//            statusButton.setTitle("已过期", for: .normal)
-            markView.updateGradientColors(startColor: UIColor(hex:0xD2D2D2FF), endColor: UIColor(hex:0xD2D2D2FF))
+    private func formatValidityPeriod(startDateString: String?, endDateString: String?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.locale = Locale(identifier: "zh_CN")
 
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yyyy-MM-dd"
 
+        let formattedStartDate = formattedDate(from: startDateString, using: dateFormatter, outputFormatter: outputFormatter)
+        let formattedEndDate = formattedDate(from: endDateString, using: dateFormatter, outputFormatter: outputFormatter)
+
+        return "有效期：\(formattedStartDate)至\(formattedEndDate)"
+    }
+
+    private func formattedDate(from dateString: String?, using dateFormatter: DateFormatter, outputFormatter: DateFormatter) -> String {
+        guard let dateString = dateString, let date = dateFormatter.date(from: dateString) else {
+            return ""
         }
-        let formattedStartDate = element?.startDate ?? ""
-        let formattedEndDate = element?.endDate ?? ""
-        let validityPeriod = "有效期：\(formattedStartDate)-\(formattedEndDate)"
-        periodView.titleLabel.text = validityPeriod
-        switch couponType {
-        case 1://
-            markView.titleLabel.text = "\(item.discountAmount)"
-            markView.unitLabel.isHidden = false
-            markView.contentLabel.text = "押金券"
-            contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))押金"
-            titleLabel.isHidden = false
-        case 2://
-            markView.titleLabel.text = "\(item.discountAmount )"
-            markView.unitLabel.isHidden = false
-            markView.contentLabel.text = "租金券"
-            contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))租金"
-            titleLabel.isHidden = false
-        case 3://
-            markView.titleLabel.text = "\(item.discountAmount )"
-            markView.contentLabel.text = "全额券"
-            contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))金额"
-            titleLabel.isHidden = false
-        case 4://
-            markView.titleLabel.text = "免押"
-            markView.unitLabel.isHidden = true
-            markView.contentLabel.text = "免押券"
-            contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))押金"
-            titleLabel.text = (item.freeDepositCount != 0) ? "免押\(item.freeDepositCount)次":"永久免押"
-            titleLabel.isHidden = false
-        
-        case 6://
-            markView.titleLabel.text = "\(item.discountAmount )"
-            markView.contentLabel.text = "满减券"
-            markView.unitLabel.isHidden = false
-            contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))金额"
-            titleLabel.isHidden = false
-        case 7://
-            markView.titleLabel.text = "\(item.discountAmount )"
-            markView.contentLabel.text = "满赠券"
-            markView.unitLabel.isHidden = false
-            contentLabel.text = "可赠与\(deviceTypeText(for: element?.deviceType))换电次数"
-            titleLabel.isHidden = false
-        default://其他
-            markView.titleLabel.text = "\(item.discountAmount )"
-            markView.contentLabel.text = "免押租金券"
-            markView.unitLabel.isHidden = false
-            contentLabel.text = "可抵扣\(deviceTypeText(for: element?.deviceType))租金和押金"
-            titleLabel.isHidden = false
+        return outputFormatter.string(from: date)
+    }
 
+    private func updateMarkViewBasedOnStatusAndType(_ item: HFCouponData) {
+        switch item.status {
+        case 2, 3:
+            markView.updateGradientColors(startColor: UIColor(hex: 0xD2D2D2FF), endColor: UIColor(hex: 0xD2D2D2FF))
+        case 1:
+            updateMarkViewGradientBasedOnCouponType(item)
+        default:
+            break
+        }
+        updateMarkViewBasedOnCouponType(item)
+    }
+
+    private func updateMarkViewGradientBasedOnCouponType(_ item: HFCouponData) {
+        let color: (start: UIColor, end: UIColor)
+        switch item.couponType {
+        case 1:
+            color = (UIColor(hex: 0xFFBC99FF), UIColor(hex: 0xFF8760FF))
+        case 2:
+            color = (UIColor(hex: 0x307CEDFF), UIColor(hex: 0x57B1F0FF))
+        default:
+            color = (UIColor(hex: 0xFFA5A5FF), UIColor(hex: 0xFF6C6CFF))
+        }
+        markView.updateGradientColors(startColor: color.start, endColor: color.end)
+    }
+
+    private func updateMarkViewBasedOnCouponType(_ item: HFCouponData) {
+        let couponInfo = getCouponInfo(for: item)
+        configureMarkView(title: couponInfo.title, content: couponInfo.content, labelText: couponInfo.labelText)
+    }
+
+    private func getCouponInfo(for item: HFCouponData) -> (title: String, content: String, labelText: String) {
+        let discountAmountText = "\(item.discountAmount)"
+        let deviceText = deviceTypeText(for: item.deviceType)
+        
+        switch item.couponType {
+        case 1:
+            return (discountAmountText, "押金券", "可抵扣\(deviceText)押金")
+        case 2:
+            return (discountAmountText, "租金券", "可抵扣\(deviceText)租金")
+        case 3:
+            return (discountAmountText, "全额券", "可抵扣\(deviceText)金额")
+        case 4:
+            return item.freeDepositCount != 0 ? ("免押", "免押券", "免押\(item.freeDepositCount)次") : ("免押", "免押券", "永久免押")
+        case 6:
+            return (discountAmountText, "满减券", "可抵扣\(deviceText)金额")
+        case 7:
+            return (discountAmountText, "满赠券", "可赠与\(deviceText)换电次数")
+        default:
+            return (discountAmountText, "免押租金券", "可抵扣\(deviceText)租金和押金")
         }
     }
+
+    private func configureMarkView(title: String, content: String, labelText: String) {
+        markView.titleLabel.text = title
+        markView.unitLabel.isHidden = false
+        markView.contentLabel.text = content
+        contentLabel.text = labelText
+        titleLabel.isHidden = false
+    }
+
     private func deviceTypeText(for deviceType: Int?) -> String {
         switch deviceType {
         case 1: return "电池"

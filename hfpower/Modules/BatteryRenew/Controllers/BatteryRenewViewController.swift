@@ -596,6 +596,32 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
             return nil
         }
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? FeeDetailViewCell{
+            cell.showCouponAction = {
+                let couponListViewController = CouponListViewController()
+                couponListViewController.couponType = 1
+                couponListViewController.deviceNumber = self.batteryNumber
+                couponListViewController.amount = self.packageCard?.price
+                couponListViewController.selectedBlock = { coupon in
+                    self.coupon = coupon
+                    self.updateDatas()
+                }
+                let nav = UINavigationController(rootViewController: couponListViewController)
+                nav.modalPresentationStyle = .custom
+                let delegate =  CustomTransitioningDelegate()
+                nav.transitioningDelegate = delegate
+                
+                if #available(iOS 13.0, *) {
+                    nav.isModalInPresentation = true
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                self.present(nav, animated: true, completion: nil)
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.items[indexPath.row]
         if item.title  == "已购套餐"{
@@ -617,27 +643,6 @@ extension BatteryRenewViewController:UITableViewDataSource,UITableViewDelegate {
             }
       
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
-            nav.modalPresentationStyle = .custom
-            let delegate =  CustomTransitioningDelegate()
-            nav.transitioningDelegate = delegate
-            
-            if #available(iOS 13.0, *) {
-                nav.isModalInPresentation = true
-            } else {
-                // Fallback on earlier versions
-            }
-            
-            self.present(nav, animated: true, completion: nil)
-        }else if item.title == "费用结算"{
-            let couponListViewController = CouponListViewController()
-            couponListViewController.couponType = 1
-            couponListViewController.deviceNumber = self.batteryNumber
-            couponListViewController.amount = self.packageCard?.price.stringValue ?? "0"
-            couponListViewController.selectedBlock = { coupon in
-                self.coupon = coupon
-                self.updateDatas()
-            }
-            let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()
             nav.transitioningDelegate = delegate

@@ -446,6 +446,33 @@ extension BikeRentalViewController:UITableViewDataSource,UITableViewDelegate {
             return nil
         }
     }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? FeeDetailViewCell{
+            cell.showCouponAction = {
+                let couponListViewController = CouponListViewController()
+                couponListViewController.couponType = 2
+                couponListViewController.deviceNumber = self.bikeNumber
+                couponListViewController.selectedBlock = { coupon in
+                    self.coupon = coupon
+                    self.updateDatas()
+                }
+                couponListViewController.amount = self.packageCard?.price
+                let nav = UINavigationController(rootViewController: couponListViewController)
+                nav.modalPresentationStyle = .custom
+                let delegate =  CustomTransitioningDelegate()
+                nav.transitioningDelegate = delegate
+                
+                if #available(iOS 13.0, *) {
+                    nav.isModalInPresentation = true
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                self.present(nav, animated: true, completion: nil)
+                
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var item = self.items[indexPath.row]
         if item.title  == "已购套餐"{
@@ -469,27 +496,6 @@ extension BikeRentalViewController:UITableViewDataSource,UITableViewDelegate {
             }
       
             let nav = UINavigationController(rootViewController: myPackageCardListViewController)
-            nav.modalPresentationStyle = .custom
-            let delegate =  CustomTransitioningDelegate()
-            nav.transitioningDelegate = delegate
-            
-            if #available(iOS 13.0, *) {
-                nav.isModalInPresentation = true
-            } else {
-                // Fallback on earlier versions
-            }
-            
-            self.present(nav, animated: true, completion: nil)
-        }else if item.title == "费用结算"{
-            let couponListViewController = CouponListViewController()
-            couponListViewController.couponType = 2
-            couponListViewController.deviceNumber = self.bikeNumber
-            couponListViewController.selectedBlock = { coupon in
-                self.coupon = coupon
-                self.updateDatas()
-            }
-            couponListViewController.amount = self.packageCard?.price.stringValue ?? "0"
-            let nav = UINavigationController(rootViewController: couponListViewController)
             nav.modalPresentationStyle = .custom
             let delegate =  CustomTransitioningDelegate()
             nav.transitioningDelegate = delegate
